@@ -9,7 +9,7 @@ const MLogin = () =>{
 
     return (
         <>
-        <Wrappers style={{background:`${theme.color.manager.background2}`, margin:'0',maxWidth:'100%',minHeight:'100vh'}}>
+        <Wrappers style={{background:`${theme.color.background1}18`, margin:'0',maxWidth:'100%',minHeight:'100vh'}}>
             <MLoginCard/>
         </Wrappers>
         </>

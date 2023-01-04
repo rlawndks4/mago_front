@@ -16,6 +16,11 @@ import { addItem, updateItem } from '../../functions/utils';
 import { Card, Title, Input, Select, Row, Col, ImageContainer } from '../../components/elements/ManagerTemplete';
 import { backUrl } from '../../data/Data';
 import theme from '../../styles/theme';
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
+import "react-quill/dist/quill.snow.css";
+import quillEmoji from "react-quill-emoji";
+import "react-quill-emoji/dist/quill-emoji.css";
 
 const MMasterEdit = () => {
     const params = useParams();
@@ -34,8 +39,8 @@ const MMasterEdit = () => {
                 $('.pw').val("")
                 $('.name').val(response.data.name)
                 $('.nickname').val(response.data.nickname)
-                setUrl(response.data.profile_img?(backUrl + response.data.profile_img):"")
-                setChannelUrl(response.data.channel_img?(backUrl + response.data.channel_img):"")
+                setUrl(response.data.profile_img ? (backUrl + response.data.profile_img) : "")
+                setChannelUrl(response.data.channel_img ? (backUrl + response.data.channel_img) : "")
             }
         }
         fetchPost();
@@ -87,87 +92,61 @@ const MMasterEdit = () => {
     };
     return (
         <>
-            <ManagerWrappers>
-                <SideBar />
-                <ManagerContentWrappers>
-                    <Breadcrumb title={params.pk == 0 ? '전문가 추가' : '전문가 수정'} nickname={myNick} />
-                    <Card>
-                        <Row>
-                            <Col>
-                                <Title>아이디</Title>
-                                <Input className='id' />
-                            </Col>
-                            <Col>
-                                <Title>비밀번호</Title>
-                                <Input className='pw' placeholder='****' type={'password'} autoComplete={'new-password'}  />
-                            </Col>
+            <Breadcrumb title={params.pk == 0 ? '전문가 추가' : '전문가 수정'} nickname={myNick} />
+            <Card>
+                <Row>
+                    <Col>
+                        <Title>아이디</Title>
+                        <Input className='id' />
+                    </Col>
+                    <Col>
+                        <Title>비밀번호</Title>
+                        <Input className='pw' placeholder='****' type={'password'} autoComplete={'new-password'} />
+                    </Col>
 
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Title>이름</Title>
-                                <Input className='name' />
-                            </Col>
-                            <Col>
-                                <Title>닉네임(채널명)</Title>
-                                <Input className='nickname' />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Title>프로필 이미지</Title>
-                                <ImageContainer for="file1">
+                </Row>
+                <Row>
+                    <Col>
+                        <Title>이름</Title>
+                        <Input className='name' />
+                    </Col>
+                    <Col>
+                        <Title>닉네임(채널명)</Title>
+                        <Input className='nickname' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title>프로필 이미지</Title>
+                        <ImageContainer for="file1">
 
-                                    {url ?
-                                        <>
-                                            <img src={url} alt="#"
-                                                style={{
-                                                    width: 'auto', height: '150px',
-                                                    margin: '24px'
-                                                }} />
-                                        </>
-                                        :
-                                        <>
-                                            <AiFillFileImage style={{ margin: '4rem', fontSize: '4rem', color: `${theme.color.manager.font3}` }} />
-                                        </>}
-                                </ImageContainer>
-                                <div>
-                                    <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
-                                </div>
-                            </Col>
+                            {url ?
+                                <>
+                                    <img src={url} alt="#"
+                                        style={{
+                                            width: 'auto', height: '150px',
+                                            margin: '24px'
+                                        }} />
+                                </>
+                                :
+                                <>
+                                    <AiFillFileImage style={{ margin: '4rem', fontSize: '4rem', color: `${theme.color.manager.font3}` }} />
+                                </>}
+                        </ImageContainer>
+                        <div>
+                            <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
+                        </div>
+                    </Col>
+                    <Col>
+                        <Title>이력</Title>
+                    </Col>
+                </Row>
 
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Title>채널 이미지</Title>
-                                <ImageContainer for="file2">
-
-                                    {channelUrl ?
-                                        <>
-                                            <img src={channelUrl} alt="#"
-                                                style={{
-                                                    width: 'auto', height: '150px',
-                                                    margin: '24px'
-                                                }} />
-                                        </>
-                                        :
-                                        <>
-                                            <AiFillFileImage style={{ margin: '4rem', fontSize: '4rem', color: `${theme.color.manager.font3}` }} />
-                                        </>}
-                                </ImageContainer>
-                                <div>
-                                    <input type="file" id="file2" onChange={addChannelFile} style={{ display: 'none' }} />
-                                </div>
-                            </Col>
-
-                        </Row>
-                    </Card>
-                    <ButtonContainer>
-                        <CancelButton onClick={() => navigate(-1)}>x 취소</CancelButton>
-                        <AddButton onClick={editMaster}>{params.pk == 0 ? '+ 추가' : '수정'}</AddButton>
-                    </ButtonContainer>
-                </ManagerContentWrappers>
-            </ManagerWrappers>
+            </Card>
+            <ButtonContainer>
+                <CancelButton onClick={() => navigate(-1)}>x 취소</CancelButton>
+                <AddButton onClick={editMaster}>{params.pk == 0 ? '+ 추가' : '수정'}</AddButton>
+            </ButtonContainer>
         </>
     )
 }

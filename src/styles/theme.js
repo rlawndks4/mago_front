@@ -16,7 +16,7 @@ const theme = {
     third: "#cd84f1",
     strong: "#1a1a1a",
     light: "#ababab",
-    background0: "#FFB100",
+    background0: "#FFB100 ",
     background1: "#FECC2F",
     background2: "#FFD990",
     background3: "#F4F4F4",
@@ -24,11 +24,14 @@ const theme = {
     font2: "#707070",
     font3: "#9A9A9A",
     font4: "#D6D6D5",
-    cardColor:[
-      {font:'#fff',background:'#024643'},
-      {font:'#fff',background:'#31125A'},
-      {font:'#fff',background:'#4A02CC'},
-      {font:'#000',background:'#f5f6f8'},
+    font4: "#B5B5B5",
+    red: "#ff0000",
+    blue: "#0058FF",
+    cardColor: [
+      { font: '#fff', background: '#024643' },
+      { font: '#fff', background: '#31125A' },
+      { font: '#fff', background: '#4A02CC' },
+      { font: '#000', background: '#f5f6f8' },
     ],
     manager: {
       background1: "#FECC2F",
@@ -40,11 +43,14 @@ const theme = {
     }
   },
   size: {
-    font1:'27px',
-    font2:'25px',
-    font3:'17px',
-    font4:'14px',
-    font5:'12px',
+    font1: '27px',
+    font2: '25px',
+    font3: '17px',
+    font4: '14px',
+    font5: '12px',
+    font6: '10px',
+    font7: '8px',
+    font8: '6px',
     mobileS: `(max-width: ${size.mobileS})`,
     mobileL: `(max-width: ${size.mobileL})`,
     tabletS: `(max-width: ${size.tabletS})`,
@@ -59,7 +65,8 @@ const theme = {
     medium: "SpoqaHanSansNeo-Medium",
 
   },
-  boxShadow: "0px 3px 6px #00000029"
+  boxShadow: "0px 12px 12px #00000029",
+  borderRadius: "10px"
 }
 
 export default theme

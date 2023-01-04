@@ -4,6 +4,7 @@ import styled from "styled-components";
 import $ from 'jquery'
 import { useState } from "react";
 import { MdNavigateNext } from 'react-icons/md'
+import theme from "../../styles/theme";
 
 export const WrappersStyle = styled.div`
 position:relative;
@@ -47,28 +48,36 @@ margin-bottom:8px;
 justify-content:space-between;
 `
 export const TitleStyle = styled.div`
-font-size:${props => props.theme.size.font2};
+font-size:${props => props.theme.size.font3};
 font-weight:bold;
 margin-right:16px;
 cursor:pointer;
 `
 export const Title = (props) =>{
+    let {not_line,line,text} = props;
     const navigate = useNavigate();
+    const [containerStyle, setContainerStyle] = useState({});
+    const [content, setContent] = useState(undefined);
+    useEffect(()=>{
+        if(not_line){
+            setContainerStyle();
+            setContent();
+        }
+        if(line){
+            setContainerStyle({justifyContent:'unset'});
+            setContent(<div style={{background:theme.color.font1,height:'1px',width:'200px'}}/>);
+        }
+        if(text){
+            setContent(<div style={{fontSize:theme.size.font5,color:theme.color.blue,fontWeight:'bold'}}>{text}</div>);
+        }
+    },[props]);
     return (
         <>
-        <TitleContainer className="title" onClick={()=>{navigate(props.link)}}>
+        <TitleContainer className="title" style={containerStyle} onClick={()=>{navigate(props.link)}}>
         <TitleStyle>
             {props?.children??""}
         </TitleStyle>
-        {props.not_arrow?
-        <>
-        </>
-        :
-        <>
-        <MdNavigateNext style={{fontSize:`25px`}} />
-        </>
-        }
-
+        {content}
         {/* <hr className="bar"/> */}
 
         </TitleContainer>
@@ -134,4 +143,34 @@ width:100%;
 z-index:5;
 background:#fff;
 margin:16px 0;
+`
+export const ShadowContainer = styled.div`
+background:#FAFAFA;
+border-radius:${props=>props.theme.borderRadius};
+padding:6px;
+box-shadow:${props=>props.theme.boxShadow};
+`
+export const RowContent = styled.div`
+display:flex;
+width:100%;
+`
+export const TextButton = styled.button`
+width:84px;
+height:24px;
+border-radius:12px;
+border:1px solid ${props=>props.theme.color.font2};
+color:${props=>props.theme.color.font2};
+background:#fff;
+font-size:${props=>props.theme.size.font5};
+cursor:pointer;
+`
+export const TextFillButton = styled.button`
+width:84px;
+height:24px;
+border-radius:12px;
+border:1px solid ${props=>props.theme.color.font2};
+color:#fff;
+background:${props=>props.theme.color.font2};
+font-size:${props=>props.theme.size.font5};
+cursor:pointer;
 `

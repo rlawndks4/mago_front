@@ -15,7 +15,8 @@ import { BiCommentDetail } from 'react-icons/bi'
 import axios from 'axios';
 import $ from 'jquery'
 import { GoRepoPush } from 'react-icons/go'
-import { zSidebar } from '../../data/Manager/ManagerContentData';
+import { zSidebar, zSidebarSubMenu } from '../../data/Manager/ManagerContentData';
+import theme from '../../styles/theme';
 const Wrappers = styled.div`
 display:flex;
 flex-direction:column;
@@ -92,8 +93,8 @@ const SideBar = () => {
     const [zFeatureCategory, setZFeatureCategory] = useState([])
     const [featureCategoryDisplay, setFeatureCategoryDisplay] = useState(false);
     const [zInnerSideBar, setZInnerSideBar] = useState({});
-   
     const [display, setDisplay] = useState('none');
+    const [subMenuDisplayObj, setSubMenuDisplayObj] = useState({});
     useEffect(() => {
         if (localStorage.getItem('auth')) {
             let obj = JSON.parse(localStorage.getItem('auth'))
@@ -101,30 +102,20 @@ const SideBar = () => {
         }
     }, [location]);
     useEffect(() => {
-        async function fetchPost() {
-            const { data: response } = await axios.get('/api/items?table=issue_category');
-            setZIssueCategory(response?.data);
-            const { data: response2 } = await axios.get('/api/items?table=feature_category');
-            setZFeatureCategory(response2?.data);
+        let sub_menu_display_obj = {};
+        for (var i = 0; i < Object.keys(zSidebarSubMenu).length; i++) {
+            sub_menu_display_obj[Object.keys(zSidebarSubMenu)[i]] = false;
         }
-        if (location.pathname.includes('/manager')) {
-            //fetchPost();
-        }
+        setSubMenuDisplayObj(sub_menu_display_obj);
     }, [])
-    const onClickMenu = (link) => {
-        if (link == '/manager/list/issue') {
-            changeIssueCategoryDisplay();
-        } else if (link == '/manager/list/feature') {
-            changeFeatureCategoryDisplay();
+    const onClickMenu = (item) => {
+        if (zSidebarSubMenu[item?.schema]) {
+            let sub_menu_display_obj = { ...subMenuDisplayObj };
+            sub_menu_display_obj[item?.schema] = !sub_menu_display_obj[item?.schema];
+            setSubMenuDisplayObj(sub_menu_display_obj);
         } else {
-            navigate(link);
+            navigate(item?.link);
         }
-    }
-    const changeIssueCategoryDisplay = () => {
-        setIssueCategoryDisplay(!issueCategoryDisplay);
-    }
-    const changeFeatureCategoryDisplay = () => {
-        setFeatureCategoryDisplay(!featureCategoryDisplay);
     }
     const onChangeMenuDisplay = async () => {
         if (display == 'flex') {
@@ -140,9 +131,7 @@ const SideBar = () => {
                 $('.header-menu-list').css("display", "flex");
             }
         }
-
         setDisplay(display == 'flex' ? 'none' : 'flex');
-
     }
     return (
         <>
@@ -163,14 +152,14 @@ const SideBar = () => {
                                 <>
                                     {item.allow_list.includes(location.pathname) ?
                                         <>
-                                            <SelectMenuContent key={index} onClick={() => { onClickMenu(`${item.link}`) }}>
+                                            <SelectMenuContent key={index} onClick={() => { onClickMenu(item) }}>
                                                 {item.icon}
                                                 <MenuText>{item.name}</MenuText>
                                             </SelectMenuContent>
                                         </>
                                         :
                                         <>
-                                            <MenuContent key={index} onClick={() => { onClickMenu(`${item.link}`) }}>
+                                            <MenuContent key={index} onClick={() => { onClickMenu(item) }}>
                                                 {item.icon}
                                                 <MenuText>{item.name}</MenuText>
                                             </MenuContent>
@@ -180,7 +169,19 @@ const SideBar = () => {
                                 <>
                                 </>
                             }
-
+                            {zSidebarSubMenu[item.schema] && subMenuDisplayObj[item.schema] ?
+                                <>
+                                    {zSidebarSubMenu[item.schema].map((itm, idx) => (
+                                        <>
+                                            <MenuContent key={idx} style={{color:`${itm.link==location.pathname?theme.color.font1:''}`}} onClick={() => { navigate(`${itm.link}`) }}>
+                                                <MenuText>{itm.name}</MenuText>
+                                            </MenuContent>
+                                        </>
+                                    ))}
+                                </>
+                                :
+                                <>
+                                </>}
 
                         </>
                     ))}

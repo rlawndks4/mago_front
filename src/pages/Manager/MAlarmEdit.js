@@ -116,107 +116,100 @@ const MAlarmEdit = () => {
     }
     return (
         <>
-            <ManagerWrappers>
-                <SideBar />
-                <ManagerContentWrappers>
-                    <Breadcrumb title={objManagerListContent[`alarm`].breadcrumb} nickname={myNick} />
-                    <Card>
+            <Breadcrumb title={objManagerListContent[`alarm`].breadcrumb} nickname={myNick} />
+            <Card>
+                <Row>
+                    <Col>
+                        <Title>제목</Title>
+                        <Input className='title' placeholder='제목을 입력해 주세요.' />
+                    </Col>
+                    <Col>
+                        <Title>url</Title>
+                        <Input className='url' placeholder='ex) /masterlist' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title>내용</Title>
+                        <Textarea className='note' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title>알람타입</Title>
+                        <Row style={{ margin: '12px auto 6px 24px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
+                                <input type={'radio'} name='alarm-type' id='alarm-0' value={0} checked={typeNum == 0} onChange={handleClickType} />
+                                <label for='alarm-0'>바로실행</label>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
+                                <input type={'radio'} name='alarm-type' id='alarm-1' value={1} checked={typeNum == 1} onChange={handleClickType} />
+                                <label for='alarm-1'>스케줄링</label>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
+                                <input type={'radio'} name='alarm-type' id='alarm-2' value={2} checked={typeNum == 2} onChange={handleClickType} />
+                                <label for='alarm-2'>예약발송</label>
+                            </div>
+                        </Row>
+                    </Col>
+                </Row>
+                {typeNum == 1 ?
+                    <>
                         <Row>
                             <Col>
-                                <Title>제목</Title>
-                                <Input className='title' placeholder='제목을 입력해 주세요.' />
-                            </Col>
-                            <Col>
-                                <Title>url</Title>
-                                <Input className='url' placeholder='ex) /masterlist' />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Title>내용</Title>
-                                <Textarea className='note' />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Title>알람타입</Title>
-                                <Row style={{ margin: '12px auto 6px 24px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
-                                        <input type={'radio'} name='alarm-type' id='alarm-0' value={0} checked={typeNum == 0} onChange={handleClickType} />
-                                        <label for='alarm-0'>바로실행</label>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
-                                        <input type={'radio'} name='alarm-type' id='alarm-1' value={1} checked={typeNum == 1} onChange={handleClickType} />
-                                        <label for='alarm-1'>스케줄링</label>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', margin: '0 8px 8px 0' }}>
-                                        <input type={'radio'} name='alarm-type' id='alarm-2' value={2} checked={typeNum == 2} onChange={handleClickType} />
-                                        <label for='alarm-2'>예약발송</label>
-                                    </div>
-                                </Row>
-                            </Col>
-                        </Row>
-                        {typeNum == 1 ?
-                            <>
-                                <Row>
-                                    <Col>
-                                        <Title>스케줄링 타입</Title>
-                                        <Title>시작할 날짜</Title>
-                                        <Input type={'date'} className='start-date' />
-                                        <Title>실행할 요일</Title>
-                                        <div style={{ margin: '12px auto 6px 24px', display: 'flex' }}>
-                                            {zDays.map((item, idx) => (
-                                                <>
-                                                    <div style={{
-                                                        background: `${selectDaysList.includes(idx) ? theme.color.background1 : theme.color.font3}`,
-                                                        color: `${selectDaysList.includes(idx) ? '#fff' : theme.color.font1}`, fontSize: theme.size.font4, padding: '8px',
-                                                        borderRadius: '4px', marginRight: '4px', cursor: 'pointer'
-                                                    }}
-                                                        onClick={() => {
-                                                            let list = [...selectDaysList];
-                                                            for (var i = 0; i < list.length; i++) {
-                                                                if (list[i] == idx) {
-                                                                    break;
-                                                                }
-                                                            }
-                                                            if (i == list.length) {
-                                                                list.push(idx);
-                                                            } else {
-                                                                list.splice(i, 1);
-                                                            }
-                                                            setSelectDaysList(list);
-                                                        }}>{item.name}</div>
-                                                </>
-                                            ))}
-                                        </div>
-                                        <Title>실행할 시간 (5분 단위 추천)</Title>
-                                        <Input type={'time'} className='time' />
-                                    </Col>
-                                </Row>
-                            </>
-                            :
-                            <>
-                            </>
-                        }
-                        {typeNum == 2 ?
-                            <>
-                                <Title>발송할 날짜</Title>
+                                <Title>스케줄링 타입</Title>
+                                <Title>시작할 날짜</Title>
                                 <Input type={'date'} className='start-date' />
-                                <Title>발송할 시간 (5분 단위 추천)</Title>
+                                <Title>실행할 요일</Title>
+                                <div style={{ margin: '12px auto 6px 24px', display: 'flex' }}>
+                                    {zDays.map((item, idx) => (
+                                        <>
+                                            <div style={{
+                                                background: `${selectDaysList.includes(idx) ? theme.color.background1 : theme.color.font3}`,
+                                                color: `${selectDaysList.includes(idx) ? '#fff' : theme.color.font1}`, fontSize: theme.size.font4, padding: '8px',
+                                                borderRadius: '4px', marginRight: '4px', cursor: 'pointer'
+                                            }}
+                                                onClick={() => {
+                                                    let list = [...selectDaysList];
+                                                    for (var i = 0; i < list.length; i++) {
+                                                        if (list[i] == idx) {
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (i == list.length) {
+                                                        list.push(idx);
+                                                    } else {
+                                                        list.splice(i, 1);
+                                                    }
+                                                    setSelectDaysList(list);
+                                                }}>{item.name}</div>
+                                        </>
+                                    ))}
+                                </div>
+                                <Title>실행할 시간 (5분 단위 추천)</Title>
                                 <Input type={'time'} className='time' />
-                            </>
-                            :
-                            <>
-                            </>
-                        }
-                    </Card>
-                    <ButtonContainer>
-                        <AddButton onClick={editItem}>{'저장'}</AddButton>
-                    </ButtonContainer>
-
-
-                </ManagerContentWrappers>
-            </ManagerWrappers>
+                            </Col>
+                        </Row>
+                    </>
+                    :
+                    <>
+                    </>
+                }
+                {typeNum == 2 ?
+                    <>
+                        <Title>발송할 날짜</Title>
+                        <Input type={'date'} className='start-date' />
+                        <Title>발송할 시간 (5분 단위 추천)</Title>
+                        <Input type={'time'} className='time' />
+                    </>
+                    :
+                    <>
+                    </>
+                }
+            </Card>
+            <ButtonContainer>
+                <AddButton onClick={editItem}>{'저장'}</AddButton>
+            </ButtonContainer>
         </>
     )
 }

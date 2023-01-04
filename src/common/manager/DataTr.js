@@ -5,6 +5,7 @@ import { backUrl } from '../../data/Data'
 import { BiEditAlt } from 'react-icons/bi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { CgToggleOn, CgToggleOff } from 'react-icons/cg'
+import { AiFillPlusCircle, AiOutlineUnorderedList } from 'react-icons/ai'
 import theme from '../../styles/theme'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -27,7 +28,7 @@ margin-bottom:6px;
 `
 const ItemTypes = { CARD: 'card' }
 
-const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTopItem, changeItemSequence, deleteItem }) => {
+const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTopItem, changeItemSequence, deleteItem, changeStatus }) => {
     const notUseCard = ['all', 'user_statistics'];
     const navigate = useNavigate();
     const ref = useRef(null)
@@ -98,14 +99,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
     const opacity = isDragging ? 0 : 1
     drag(drop(ref))
 
-    const changeStatus = async (num, pk) => {
-        setStatus(num);
-        const { data: response } = await axios.post('/api/updatestatus', {
-            table: schema,
-            pk: pk,
-            num: num
-        })
-    }
+   
     const getLoginTypeByNumber = (num) => {
         if (num == 0) {
             return "일반";
@@ -219,12 +213,12 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                             :
                             <>
                             </>}
-                        {col.type == 'status' ?
+                            {col.type == 'status' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '28px' }}>
-                                    {status > 0 ?
-                                        <CgToggleOn style={{ color: `${theme.color.background1}`, cursor: 'pointer' }} onClick={() => { changeStatus(0, data.pk) }} /> :
-                                        <CgToggleOff style={{ color: '#aaaaaa', cursor: 'pointer' }} onClick={() => { changeStatus(1, data.pk) }} />}
+                                    {data[`${col.column}`] > 0 ?
+                                        <CgToggleOn style={{ color: `${theme.color.background1}`, cursor: 'pointer' }} onClick={() => { changeStatus(0, data.pk, col.column) }} /> :
+                                        <CgToggleOff style={{ color: '#aaaaaa', cursor: 'pointer' }} onClick={() => { changeStatus(1, data.pk, col.column) }} />}
                                 </Td>
                             </>
                             :
@@ -265,6 +259,24 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                             :
                             <>
                             </>}
+                        {col.type == 'add_academy' ?
+                            <>
+                                <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
+                                    <AiFillPlusCircle style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/academy/0`,{state:{category_pk:data.pk,category_title:data.title,master_pk:data.master_pk}})} />
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                            {col.type == 'academy_list' ?
+                            <>
+                                <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
+                                    <AiOutlineUnorderedList style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/academy/${data.pk}`,{state:{breadcrumb:data.title+' 강의 컨텐츠'}})} />
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
                         {col.type == 'edit' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
@@ -274,7 +286,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                             :
                             <>
                             </>}
-                            {col.type == 'master_edit' ?
+                        {col.type == 'master_edit' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
                                     <BiEditAlt style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/master/${data.pk}`)} />

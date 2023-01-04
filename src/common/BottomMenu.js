@@ -33,8 +33,8 @@ margin: 0 auto;
 const OneMenuContainer = styled.div`
     color: inherit;
     text-decoration: none;
-    width: 20%;
-    min-width: 20%;
+    width: 16%;
+    min-width: 16%;
     height: 100%;
     display: flex;
     flex-direction:column;
@@ -43,10 +43,11 @@ const OneMenuContainer = styled.div`
     text-align: center;
     cursor:pointer;
     align-items:center;
+    margin: 0 auto;
 `
 const OneMenuName = styled.span`
 color: #ababab;
-font-size:0.8rem;
+font-size:0.7rem;
 font-weight:400;
 @media screen and (max-width:400px) { 
     font-size:0.7rem;

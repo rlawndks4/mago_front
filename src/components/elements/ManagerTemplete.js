@@ -76,3 +76,8 @@ text-align:center;
     width:90%;
 }
 `
+export const Explain = styled.div`
+font-size: ${props=>props.theme.size.font5};
+margin:0px auto 0px 24px;
+color: ${props=>props.theme.color.font2};
+`

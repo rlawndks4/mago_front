@@ -7,7 +7,7 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { CgToggleOn, CgToggleOff } from 'react-icons/cg'
 import axios from 'axios';
 import theme from '../../styles/theme';
-import { backUrl, objManagerListContent } from '../../data/Data';
+import { objManagerListContent } from '../../data/Manager/ManagerContentData';
 import $ from 'jquery'
 import { DndProvider, useDrag, useDrop } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -31,7 +31,7 @@ padding:14px 0;
 margin-bottom:6px;
 `
 const DataTable = (props) => {
-    const { column, data, schema, opTheTopItem, changeItemSequence, deleteItem } = props;
+    const { column, data, schema, opTheTopItem, changeItemSequence, deleteItem, changeStatus } = props;
     const navigate = useNavigate();
     const [zStatus, setZStatus] = useState([]);
     const [posts, setPosts] = useState([]);
@@ -74,6 +74,7 @@ const DataTable = (props) => {
                 opTheTopItem={opTheTopItem}
                 deleteItem={deleteItem}
                 changeItemSequence={changeItemSequence}
+                changeStatus={changeStatus}
             />
         )
     }, [])

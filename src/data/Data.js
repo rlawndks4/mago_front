@@ -14,6 +14,9 @@ import talkActiveImg from '../assets/images/icon/talk-active.svg';
 import thumbImg from '../assets/images/icon/thumb.svg';
 import thumbWhiteImg from '../assets/images/icon/thumb-white.svg';
 import thumbActiveImg from '../assets/images/icon/thumb-active.svg';
+import menu5Icon from '../assets/images/icon/speaker.svg';
+import menu5IconWhite from '../assets/images/icon/speaker-white.svg';
+import menu5IconActive from '../assets/images/icon/speaker-active.svg';
 import logo from '../assets/images/test/logo.svg'
 import { EditorState } from "draft-js"
 import theme from '../styles/theme';
@@ -35,12 +38,12 @@ export const localization = {
     locale: 'ko',
 }
 export const zBottomMenu = [
-    { name: '핵심이슈', link: '/selectissuecategory', icon: <img src={localStorage.getItem('dark_mode') ? bulbWhiteImg : bulbImg} className='menu-icon' alt="#" />, activeIcon: <img src={bulbActiveImg} className='menu-icon' alt="#" />, allowList: ['/selectissuecategory'] },
-    // { name: '핵심비디오', link: '/videolist', icon: <img src={playImg} className='menu-icon' alt="#" />, activeIcon: <img src={playActiveImg} className='menu-icon' alt="#" />, allowList: ['/videolist'] },
-    { name: '특징주', link: '/selectfeaturecategory', icon: <img src={localStorage.getItem('dark_mode') ? featureWhiteImg : featureImg} className='menu-icon' alt="#" />, activeIcon: <img src={featureActiveImg} className='menu-icon' alt="#" />, allowList: ['/selectfeaturecategory'] },
-    { name: '핵심테마', link: '/themelist', icon: <img src={localStorage.getItem('dark_mode') ? albumWhiteImg : albumImg} className='menu-icon' alt="#" />, activeIcon: <img src={albumActiveImg} className='menu-icon' alt="#" />, allowList: ['/themelist'] },
-    { name: '전문가칼럼', link: '/masterlist', icon: <img src={localStorage.getItem('dark_mode') ? thumbWhiteImg : thumbImg} className='menu-icon' alt="#" />, activeIcon: <img src={thumbActiveImg} className='menu-icon' alt="#" />, allowList: ['/masterlist'] },
-    { name: '공지사항', link: '/noticelist', icon: <img src={localStorage.getItem('dark_mode') ? talkWhiteImg : talkImg} className='menu-icon' alt="#" />, activeIcon: <img src={talkActiveImg} className='menu-icon' alt="#" />, allowList: ['/noticelist'] }
+    { name: '퍼스트강사', link: '/masterlist', icon: <img src={localStorage.getItem('dark_mode') ? bulbWhiteImg : bulbImg} className='menu-icon' alt="#" />, activeIcon: <img src={bulbActiveImg} className='menu-icon' alt="#" />, allowList: ['/masterlist'] },
+    { name: '강의실', link: '/academylist', icon: <img src={localStorage.getItem('dark_mode') ? featureWhiteImg : featureImg} className='menu-icon' alt="#" />, activeIcon: <img src={featureActiveImg} className='menu-icon' alt="#" />, allowList: ['/academylist'] },
+    { name: '수강신청', link: '/enrolmentlist', icon: <img src={localStorage.getItem('dark_mode') ? albumWhiteImg : albumImg} className='menu-icon' alt="#" />, activeIcon: <img src={albumActiveImg} className='menu-icon' alt="#" />, allowList: ['/enrolmentlist'] },
+    { name: '수강후기', link: '/reviewlist', icon: <img src={localStorage.getItem('dark_mode') ? thumbWhiteImg : thumbImg} className='menu-icon' alt="#" />, activeIcon: <img src={thumbActiveImg} className='menu-icon' alt="#" />, allowList: ['/reviewlist'] },
+    { name: '고객센터', link: '/servicecenter', icon: <img src={localStorage.getItem('dark_mode') ? talkWhiteImg : talkImg} className='menu-icon' alt="#" />, activeIcon: <img src={talkActiveImg} className='menu-icon' alt="#" />, allowList: ['/servicecenter'] },
+    { name: '이벤트', link: '/eventlist', icon: <img src={localStorage.getItem('dark_mode') ? menu5IconWhite : menu5Icon} className='menu-icon' alt="#" />, activeIcon: <img src={menu5IconActive} className='menu-icon' alt="#" />, allowList: ['/eventlist'] }
 ];
 
 export const axiosInstance = axios.create({

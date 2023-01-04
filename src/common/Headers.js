@@ -342,7 +342,7 @@ const Headers = () => {
                         <img src={backUrl + item?.img_src} style={{ width: '100%', height: 'auto' }} onClick={() => { navigate(item?.link) }} />
                         <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: '8px', bottom: '8px' }}>
                           <IoCloseCircleOutline style={{ color: theme.color.background1, fontSize: theme.size.font3, marginRight: '4px', cursor: 'pointer' }} onClick={() => { onClosePopup(item?.pk, true) }} />
-                          <div style={{ fontSize: theme.size.font5 }}>오늘 하루 보지않기</div>
+                          <div style={{ fontSize: theme.size.font5, cursor: 'pointer' }} onClick={() => { onClosePopup(item?.pk, true) }}>오늘 하루 보지않기</div>
                         </div>
                       </PopupContent>
                     </>
@@ -405,7 +405,7 @@ const Headers = () => {
               </>
             ))}
           </div>
-          <div style={{ position: 'absolute', right: '48%', top: '0.5rem' }}>
+          <div style={{ position: 'absolute', right: '42%', top: '0.5rem' }}>
             <img src={logo} alt="홈으로" style={{ height: '5rem' }} onClick={() => { navigate('/') }} />
           </div>
           <div style={{ display: 'flex', fontSize: '1.2rem', width: '7rem', justifyContent: 'space-between', position: 'relative' }}>

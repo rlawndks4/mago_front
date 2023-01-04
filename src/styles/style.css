@@ -46,7 +46,13 @@ body::-webkit-scrollbar-thumb {
     right: 36px;
     display: none !important;
 }
-
+.ql-editor{
+    min-height: 300px !important;
+    max-height: 300px !important;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
 .scroll-css {}
 
 .scroll-css::-webkit-scrollbar {
@@ -60,13 +66,16 @@ body::-webkit-scrollbar-thumb {
 .scroll-css::-webkit-scrollbar-track {
     background-color: #ffffff;
 }
-
+.banner-img{
+    width: 500px;
+    height: 150px;
+}
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before {}
 
 .menu-icon {
-    width: 2rem;
-    height: 1.5rem;
+    width: 1.5rem;
+    height: 1.3rem;
     background: 50% no-repeat;
     background-size: contain;
     margin: 0 auto;
@@ -182,6 +191,10 @@ margin: 18px auto;
 @media screen and (max-width:700px) {
     .theme-img {
         width: 30vw;
+    }
+    .banner-img{
+        width: 100vw;
+        height: 30vw;
     }
 }
 

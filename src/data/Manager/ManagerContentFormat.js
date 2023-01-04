@@ -24,7 +24,7 @@ export const sidebarObjListFormat = (name, link, level, allow_list) => {
         allow_list: allow_list,
     }
 }
-export const sidebarObjFormat = (breadcrumb, schema, zColumn, queries, is_edit, is_move, width, api_str) => {
+export const sidebarObjFormat = (breadcrumb, schema, zColumn, queries, is_edit, is_move, width, if_use_pk) => {
     return {
         breadcrumb: breadcrumb,
         schema: schema,
@@ -33,7 +33,7 @@ export const sidebarObjFormat = (breadcrumb, schema, zColumn, queries, is_edit, 
         is_edit: is_edit,
         is_move: is_move,
         width: width,
-        api_str:api_str
+        if_use_pk:if_use_pk
     }
 }
 export const editContentFormat = (columns) => {
@@ -41,17 +41,14 @@ export const editContentFormat = (columns) => {
         columns: columns
     }
 }
-export const editColumnObjFormat = (title, type, name, column, is_add_essential, is_update_essential, explain, input_option, select_option) => {
+export const editColumnObjFormat = (title, type, type_option, class_name, is_only_add, is_only_update) => {
     return {
         title: title,//제목
         type: type,//타입 -> input, select, editor, img
-        name: name,//클래스네임
-        column: column,//컬럼이름
-        is_add_essential: is_add_essential,//추가에서 필수인지
-        is_update_essential: is_update_essential,//수정에서 필수인지
-        explain: explain,// 설명여부
-        input_option: input_option, //type이 input일때
-        select_option: select_option, //type이 option일때
+        type_option: type_option,
+        class_name: class_name,
+        is_only_add:is_only_add,//추가할때만 사용할때
+        is_only_update:is_only_update,//수정할때만 사용할때
     }
 }
 export const inputOption = () => {

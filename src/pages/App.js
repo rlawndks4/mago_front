@@ -8,6 +8,7 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 import MetaTag from '../components/MetaTag';
 import { useState } from 'react';
 import { zManagerRoute, zUserRoute } from '../routes/route';
+import ManagerLayout from '../components/layouts/ManagerLayout';
 const App = () => {
     return (
         <>
@@ -31,14 +32,7 @@ const App = () => {
 
             </Router>
             <Router>
-                <Routes>
-                    {zManagerRoute.map((route, idx) => (
-                        <>
-                            <Route exact key={idx} path={route.link} element={route.element} />
-                        </>
-                    ))}
-
-                </Routes>
+                <ManagerLayout/>
             </Router>
         </>
     );

@@ -31,33 +31,29 @@ import Policy from '../pages/User/Policy/Policy';
 
 import MLogin from '../pages/Manager/MLogin';
 import MUserEdit from '../pages/Manager/MUserEdit';
-import MMasterEdit from '../pages/Manager/MMasterEdit';
 import MIssueCategoryEdit from '../pages/Manager/MIssueCategoryEdit';
 import MFeatureCategoryEdit from '../pages/Manager/MFeatureCategoryEdit';
 import MVideoEdit from '../pages/Manager/MVideoEdit';
-import MNoticeEdit from '../pages/Manager/MNoticeEdit';
 import MSettingEdit from '../pages/Manager/MSettingEdit';
 
 import MItemEdit from '../pages/Manager/MItemEdit';
 import MItemList from '../pages/Manager/MItemList';
-import MChannelEdit from '../pages/Manager/MChannelEdit';
 import Notice from '../pages/User/Notice/Notice';
 import MAlarmEdit from '../pages/Manager/MAlarmEdit';
-import MPopupEdit from '../pages/Manager/MPopupEdit';
+import MAcademyEdit from '../pages/Manager/MAcademyEdit';
+import EnrolmentList from '../pages/User/EnrolmentList';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/login', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/edit/user/:pk', element: <MUserEdit />, title: "회원관리" },
-    { link: '/manager/edit/master/:pk', element: <MMasterEdit />, title: "대가관리" },
-    { link: '/manager/edit/channel/:pk', element: <MChannelEdit />, title: "채널관리" },
     { link: '/manager/edit/video/:pk', element: <MVideoEdit />, title: "핵심비디오관리" },
-    { link: '/manager/edit/notice/:pk', element: <MNoticeEdit />, title: "공지사항관리" },
     { link: '/manager/edit/alarm/:pk', element: <MAlarmEdit />, title: "알람관리" },
-    { link: '/manager/edit/popup/:pk', element: <MPopupEdit />, title: "팝업관리" },
+    { link: '/manager/edit/academy/:pk', element: <MAcademyEdit />, title: "강의관리" },
     { link: '/manager/edit/issue_category/:pk', element: <MIssueCategoryEdit />, title: "핵심이슈카테고리관리" },
     { link: '/manager/edit/feature_category/:pk', element: <MFeatureCategoryEdit />, title: "특징주카테고리관리" },
     { link: '/manager/edit/setting', element: <MSettingEdit />, title: "환경설정" },
+
     { link: '/manager/edit/:table/:pk', element: <MItemEdit />, title: "" },
     { link: '/manager/list/:table/:pk', element: <MItemList />, title: "" },
     { link: '/manager/list/:table', element: <MItemList />, title: "" },
@@ -66,6 +62,7 @@ const zUserRoute = [
     { link: '/', element: <Home />, title: "홈" },
     { link: '/home', element: <Home />, title: "홈" },
     { link: '/search', element: <Search />, title: "검색" },
+    { link: '/enrolmentlist', element: <EnrolmentList />, title: "검색" },
     
     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 

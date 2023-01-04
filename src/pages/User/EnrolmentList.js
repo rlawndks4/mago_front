@@ -35,7 +35,7 @@ border-radius:${props=>props.theme.borderRadius};
 }
 `
 
-const Home = () => {
+const EnrolmentList = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [bestContents, setBestContents] = useState([]);
@@ -195,4 +195,4 @@ const Home = () => {
         </>
     )
 }
-export default Home;
+export default EnrolmentList;
