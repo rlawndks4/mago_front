@@ -455,6 +455,9 @@ export const objManagerEditContent = {
             [
                 editColumnObjFormat('슬라이드 이미지 5', 'img', { field_name: 'content5' }, 'enrolment_banner_img_5')
             ],
+            [
+                editColumnObjFormat('하단 배너', 'img', { field_name: 'content' }, 'enrolment_bottom_banner')
+            ],
         ],
     },
     event: {
@@ -467,7 +470,6 @@ export const objManagerEditContent = {
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
-                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'link'),
             ],
             [
                 editColumnObjFormat('시작일', 'input', { type: 'date' }, 'start_date'),

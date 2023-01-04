@@ -42,6 +42,11 @@ import Notice from '../pages/User/Notice/Notice';
 import MAlarmEdit from '../pages/Manager/MAlarmEdit';
 import MAcademyEdit from '../pages/Manager/MAcademyEdit';
 import EnrolmentList from '../pages/User/EnrolmentList';
+import AcademyList from '../pages/User/AcademyList';
+import Academy from '../pages/User/Academy/Academy';
+import ReviewList from '../pages/User/ReviewList';
+import ServiceCenter from '../pages/User/ServiceCenter';
+import EventList from '../pages/User/EventList';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -62,33 +67,38 @@ const zUserRoute = [
     { link: '/', element: <Home />, title: "홈" },
     { link: '/home', element: <Home />, title: "홈" },
     { link: '/search', element: <Search />, title: "검색" },
-    { link: '/enrolmentlist', element: <EnrolmentList />, title: "검색" },
+    { link: '/enrolmentlist', element: <EnrolmentList />, title: "수강신청" },
+    { link: '/academylist', element: <AcademyList />, title: "강의실" },
+    { link: '/academy/:pk', element: <Academy />, title: "강의실" },
+    { link: '/reviewlist', element: <ReviewList />, title: "수강후기" },
+    { link: '/servicecenter', element: <ServiceCenter />, title: "상담문의" },
+    { link: '/eventlist', element: <EventList />, title: "이벤트" },
+    { link: '/masterlist', element: <MasterList />, title: "전문가" },
+    { link: '/master/:pk', element: <Master />, title: "전문가" },
     
-    { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
+    // { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 
-    { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
-    { link: '/selectfeaturecategory', element: <SelectFeatureCategory />, title: "특징주" },
-    { link: '/masterlist', element: <MasterList />, title: "전문가칼럼" },
-    { link: '/themelist', element: <ThemeList />, title: "핵심테마" },
-    { link: '/videolist', element: <VideoList />, title: "핵심비디오" },
-    { link: '/issuelist/:pk', element: <IssueList />, title: "핵심이슈" },
-    { link: '/featurelist/:pk', element: <FeatureList />, title: "특징주" },
-    { link: '/onewordlist', element: <OneWordList />, title: "하루1단어" },
-    { link: '/oneeventlist', element: <OneEventList />, title: "하루1종목" },
-    { link: '/noticelist', element: <NoticeList />, title: "공지사항" },
-    { link: '/master/:pk', element: <Master />, title: "전문가칼럼" },
+    // { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
+    // { link: '/selectfeaturecategory', element: <SelectFeatureCategory />, title: "특징주" },
+    // { link: '/themelist', element: <ThemeList />, title: "핵심테마" },
+    // { link: '/videolist', element: <VideoList />, title: "핵심비디오" },
+    // { link: '/issuelist/:pk', element: <IssueList />, title: "핵심이슈" },
+    // { link: '/featurelist/:pk', element: <FeatureList />, title: "특징주" },
+    // { link: '/onewordlist', element: <OneWordList />, title: "하루1단어" },
+    // { link: '/oneeventlist', element: <OneEventList />, title: "하루1종목" },
+    // { link: '/noticelist', element: <NoticeList />, title: "공지사항" },
 
-    { link: '/login', element: <Login />, title: "로그인" },
-    { link: '/mypage', element: <MyPage />, title: "마이페이지" },
-    { link: '/editmyinfo', element: <EditMyInfo />, title: "회원수정" },
+     { link: '/login', element: <Login />, title: "로그인" },
+     { link: '/mypage', element: <MyPage />, title: "마이페이지" },
+     { link: '/editmyinfo', element: <EditMyInfo />, title: "회원수정" },
     { link: '/findmyinfo', element: <FindMyInfo />, title: "아이디/비밀번호 찾기" },
-    { link: '/signup', element: <SignUp />, title: "회원가입" },
+ { link: '/signup', element: <SignUp />, title: "회원가입" },
     { link: '/resign', element: <Resign />, title: "회원탈퇴" },
     { link: '/oauth/callback/kakao', element: <KakaoRedirectHandler />, title: "" },
 
-    { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
-    { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
-    { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
+    // { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
+    // { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
+    // { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
 
     { link: '/policy/:pk', element: <Policy />, title: "" },
 ];

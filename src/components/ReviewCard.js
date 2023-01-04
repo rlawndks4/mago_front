@@ -7,4 +7,4 @@ const ReviewCard = (props) => {
         </>
     )
 }
-export default ReviewCard;
+export default ReviewCard; 

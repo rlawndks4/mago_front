@@ -162,6 +162,9 @@ background-blend-mode: multiply;
 margin: 18px auto;
 
 }
+.slick-next{
+    display: none !important;
+}
 @media screen and (max-width:1200px) {
     .video-img{
         height: 28.266666666vw;

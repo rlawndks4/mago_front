@@ -56,7 +56,7 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchPost() {
-            //setLoading(true)
+            setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
             console.log(response)
             let banner_list = [];

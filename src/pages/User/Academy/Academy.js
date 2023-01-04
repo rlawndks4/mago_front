@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Wrappers, Card, Img, SelectType, ViewerContainer, Content, TextButton, TextFillButton } from "../../../components/elements/UserContentTemplete";
 import styled from "styled-components";
@@ -7,12 +8,16 @@ import axios from "axios";
 import ThemeCard from "../../../components/ThemeCard";
 import { commarNumber, getIframeLinkByLink } from "../../../functions/utils";
 import { backUrl } from "../../../data/Data";
-import masterCardIcon from '../../../assets/images/test/master-card.svg'
+import masterCardIcon from '../../../assets/images/test/master-card.svg';
 import { Viewer } from '@toast-ui/react-editor';
 import Loading from "../../../components/Loading";
 import AcademySubCard from "../../../components/AcademySubCard";
 import SelectTypeComponent from "../../../components/SelectTypeComponent";
-
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
+import "react-quill/dist/quill.snow.css";
+import quillEmoji from "react-quill-emoji";
+import "react-quill-emoji/dist/quill-emoji.css";
 const Type = styled.div`
 width:50%;
 text-align:center;
@@ -23,13 +28,6 @@ font-size:1rem;
 `
 
 
-const ReviewCard = (props) => {
-    let { item } = props;
-    return (
-        <>
-        </>
-    )
-}
 const Card2 = styled.div`
 width:100%;
 background:#FAFAFA;
@@ -47,6 +45,7 @@ box-shadow:${props => props.theme.boxShadow};
     min-height:220px;
 }
 `
+
 const SubMasterImg = styled.img`
 position: absolute;
 bottom: 0;
@@ -55,13 +54,13 @@ height: 80%;
 @media screen and (max-width:650px) { 
 }
 `
-const RecordCard = styled.div`
 
-`
-const Master = () => {
+const Academy = () => {
+
     const navigate = useNavigate();
     const params = useParams();
     const { state } = useLocation();
+
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
     const [subTypeNum, setSubTypeNum] = useState(0);
@@ -72,75 +71,72 @@ const Master = () => {
     useEffect(() => {
         async function fetchPosts() {
             setLoading(true);
-            const { data: master_response } = await axios.get(`/api/item?table=master&pk=${params.pk}`);
-            console.log(master_response)
-            setMaster(master_response?.data);
+            const { data: response } = await axios.get(`/api/item?table=academy_category&pk=${params.pk}`);
+            console.log(response)
+            setPosts(response?.data);
             setLoading(false);
         }
         fetchPosts();
     }, [])
 
     const selectTypeNum = async (num) => {
+        setLoading(true);
         setTypeNum(num);
-        let str = "";
-        if (num == 1) {
-            str = `/api/items?table=academy_category&master_pk=${params.pk}`
-            const { data: response } = await axios.get(str);
-            console.log(response)
-            setAcademyList(response?.data);
-        } else if (num == 2) {
-
-        }
+        setLoading(false);
     }
     return (
         <>
             <Wrappers>
-                <Card2>
-                    <img src={masterCardIcon} style={{ height: '100%', borderRadius: theme.borderRadius }} />
-                    <SubMasterImg alt="#" src={backUrl + master?.sub_profile_img} />
-                    <div style={{ position: 'absolute', top: '10%', right: '0%', display: 'flex', flexDirection: 'column', width: '30%', minWidth: '120px' }}>
-                        <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font4' : 'font5'}`], color: theme.color.background1 }}>{master?.nickname}</div>
-                        <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font4' : 'font5'}`], margin: '4px 0 8px 0', color: `${theme.color.font2}` }}>{master?.name} 전문가</div>
-                        <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font5' : 'font6'}`], maxWidth: '120px', whiteSpace: 'pre-line', color: theme.color.font2 }}>{master?.record_note}</div>
-                    </div>
-                </Card2>
-                <RecordCard>
 
-                </RecordCard>
-                <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
-                    posts={[
-                        { title: '소개' },
-                        { title: '강의' },
-                        { title: '이용후기' }
-                    ]} />
                 {loading ?
                     <>
                         <Loading />
                     </>
                     :
                     <>
+                        <div style={{padding:'8px 24px',borderBottom:`1px solid ${theme.color.font2}`,width:'150px',textAlign:'center',margin:'0 auto',fontSize:theme.size.font4,fontWeight:'bold'}}>{posts?.title}</div>
+                        <AcademySubCard item={posts} is_detail={true} />
+                        <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
+                            posts={[
+                                { title: '소개' },
+                                { title: '혜택' },
+                                { title: '리더' },
+                                { title: '커리큘럼' },
+                                { title: '이용후기' },
+                            ]} />
                         {typeNum == 0 ?
                             <>
                                 <ViewerContainer className="viewer">
-                                    <Viewer initialValue={master?.introduce_note ?? `<body></body>`} />
+                                    <Viewer initialValue={posts?.introduce_note ?? `<body></body>`} />
                                 </ViewerContainer>
                             </>
                             :
                             <></>}
                         {typeNum == 1 ?
                             <>
-                                <Content>
-                                    {academyList.map((item, idx) => (
-                                        <>
-                                            <AcademySubCard item={item} />
-                                        </>
-                                    ))}
-                                </Content>
+                                <ViewerContainer className="viewer">
+                                    <Viewer initialValue={posts?.benefit_note ?? `<body></body>`} />
+                                </ViewerContainer>
                             </>
                             :
                             <></>}
                         {typeNum == 2 ?
                             <>
+                                <ViewerContainer className="viewer">
+                                    <Viewer initialValue={posts?.leader_note ?? `<body></body>`} />
+                                </ViewerContainer>
+                            </>
+                            :
+                            <></>}
+                        {typeNum == 3 ?
+                            <>
+                                <Viewer initialValue={posts?.curriculum_note ?? `<body></body>`} />
+                            </>
+                            :
+                            <></>}
+                        {typeNum == 4 ?
+                            <>
+
                             </>
                             :
                             <></>}
@@ -150,4 +146,4 @@ const Master = () => {
         </>
     )
 }
-export default Master;
+export default Academy;

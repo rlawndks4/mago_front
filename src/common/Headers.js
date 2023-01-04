@@ -272,7 +272,7 @@ const Headers = () => {
       localStorage.setItem('alarm_and_notice_count', JSON.stringify({ notice_last_pk: lastNoticePk }));
       setIsAlarm(false);
     }
-    navigate('/noticelist', { state: 'alarm' });
+    navigate('/servicecenter', { state: 'alarm' });
   }
 
   const myAuth = async () => {

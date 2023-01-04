@@ -136,6 +136,7 @@ display:none;
 `
 export const ViewerContainer = styled.div`
 margin:0 auto;
+width:100%;
 `
 export const SelectType = styled.div`
 display:flex;
