@@ -52,21 +52,21 @@ const Post = (props) => {
     const [loadingText, setLoadingText] = useState("")
     const returnTitle = (ttl) => {
         if (postTable == 'notice') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 공지사항 / " + ttl;
+            return "first-academy - 공지사항 / " + ttl;
         } else if (postTable == 'issue') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 핵심이슈 / " + ttl;
+            return "first-academy - 핵심이슈 / " + ttl;
         } else if (postTable == 'theme') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 핵심테마 / " + ttl;
+            return "first-academy - 핵심테마 / " + ttl;
         } else if (postTable == 'feature') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 특징주 / " + ttl;
+            return "first-academy - 특징주 / " + ttl;
         } else if (postTable == 'oneevent') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 하루1종목 / " + ttl;
+            return "first-academy - 하루1종목 / " + ttl;
         } else if (postTable == 'oneword') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 하루1단어 / " + ttl;
+            return "first-academy - 하루1단어 / " + ttl;
         } else if (postTable == 'strategy') {
-            return "weare-first - 위아 : 퍼스트 파트너스 - 전문가칼럼 / " + ttl;
+            return "first-academy - 전문가칼럼 / " + ttl;
         } else {
-            return "weare-first - 위아 : 퍼스트 파트너스";
+            return "first-academy";
         }
     }
     useEffect(() => {
@@ -256,7 +256,13 @@ const Post = (props) => {
                                 <BsFillShareFill style={{ cursor: 'pointer' }} onClick={handleShare} />
                             </div>
                         </div>
-                        <img src={backUrl + post.main_img} style={{ width: '100%', margin: '16px 0' }} alt="#" />
+                        {post?.main_img?
+                        <>
+                        <img src={backUrl + post?.main_img} style={{ width: '100%', margin: '16px 0' }} alt="#" />
+                        </>
+                        :
+                        <>
+                        </>}
                         <Title not_arrow={true}>{post.title}</Title>
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
                         <ViewerContainer className="viewer" style={{ margin: `${getViewerMarginByNumber(post?.note_align)}` }}>

@@ -20,7 +20,7 @@ margin:8px auto;
     padding: 1.25vw;
 }
 @media screen and (max-width:500px) {
-    padding: 0 2.5vw;
+    padding: 0 1.25vw;
 }
 `
 const SubType = styled.div`
@@ -92,7 +92,7 @@ const SelectTypeComponent = (props) => {
                             {item.title}
                         </SubType>
                     </>
-                ))}
+                ))} 
             </SelectSubType>
         </>
     )

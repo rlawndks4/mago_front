@@ -2,7 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate, Link, useParams, useLocation } from 'react-router-dom';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,6 +24,7 @@ import { Viewer } from '@toast-ui/react-editor';
 const ServiceCenter = () => {
     const navigate = useNavigate();
     const params = useParams();
+    const {state} = useLocation();
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -31,10 +32,11 @@ const ServiceCenter = () => {
     const [page, setPage] = useState(1);
     useEffect(() => {
         async function fetchPost() {
-            const { data: response } = await axios.get('/api/items?table=notice&page=1&page_cut=10');
-            console.log(response);
-            setPosts(response?.data?.data);
-            setPageList(range(1, response?.data?.maxPage));
+            let num = 0;
+            if(state){
+                num = state?.type_num??0;
+            }
+            selectTypeNum(num);
         }
         fetchPost();
 
@@ -58,6 +60,7 @@ const ServiceCenter = () => {
             api_str = '/api/items';
         }
         const { data: response } = await axios.post(api_str, obj);
+        console.log(response)
         setPosts(response?.data?.data);
         setPageList(range(1, response?.data?.maxPage));
     }
@@ -107,9 +110,10 @@ const ServiceCenter = () => {
                                     </div>
                                     {posts.length > 0 && posts.map((item, idx) => (
                                         <>
-                                            <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}>
-                                                <div style={{ width: '30%', textAlign: 'center' }}>{item?.title}</div>
-                                                <div style={{ width: '40%', textAlign: 'center' }}>{item?.nickname}</div>
+                                            <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}
+                                            onClick={()=>navigate(`/post/notice/${item?.pk}`)}>
+                                            <div style={{ width: '30%', textAlign: 'center' }}>{item?.nickname}</div>
+                                                <div style={{ width: '40%', textAlign: 'center' }}>{item?.title}</div>
                                                 <div style={{ width: '30%', textAlign: 'center' }}>{item?.date.substring(0, 10)}</div>
                                             </div>
                                         </>
@@ -129,15 +133,16 @@ const ServiceCenter = () => {
                                     </div>
                                     {posts.length > 0 && posts.map((item, idx) => (
                                         <>
-                                            <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}>
+                                            <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}
+                                            onClick={()=>navigate(`/request/${item?.pk}`)}>
                                                 <div style={{ width: '30%', textAlign: 'center' }}>{item?.date.substring(0, 10)}</div>
                                                 <div style={{ width: '40%', textAlign: 'center' }}>{item?.title}</div>
-                                                <div style={{ width: '30%', textAlign: 'center' }}>{'확인대기'}</div>
+                                                <div style={{ width: '30%', textAlign: 'center' }}>{item?.status==1?'답변완료':'확인대기'}</div>
                                             </div>
                                         </>
                                     ))}
                                     <div style={{ width: '100%', display: 'flex', margin: '16px 0' }}>
-                                        <TextButton style={{ margin: '0 4px 0 auto' }}>글쓰기</TextButton>
+                                        <TextButton style={{ margin: '0 4px 0 auto' }} onClick={()=>{navigate('/request')}}>글쓰기</TextButton>
                                     </div>
                                 </Content>
                             </>

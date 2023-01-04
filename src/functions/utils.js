@@ -100,42 +100,22 @@ export const getIframeLinkByLink = (str) => {
     return ans;
 }
 export const categoryToNumber = (str) => {
-    if (str == 'oneword') {
+    if (str == 'event') {
         return 0;
-    } else if (str == 'oneevent') {
+    } else if (str == 'academy') {
         return 1;
-    } else if (str == 'theme') {
-        return 2;
-    } else if (str == 'strategy') {
-        return 3;
-    } else if (str == 'issue') {
-        return 4;
-    } else if (str == 'feature') {
-        return 5;
-    } else if (str == 'video') {
-        return 6;
     } else if (str == 'notice') {
-        return 7;
+        return 2;
     } else {
         return -1;
     }
 }
 export const numberToCategory = (num) => {
     if (num == 0) {
-        return { schema: 'oneword', name: '하루1단어' };
+        return { schema: 'event', name: '이벤트' };
     } else if (num == 1) {
-        return { schema: 'oneevent', name: '하루1종목' };
+        return { schema: 'academy', name: '강의' };
     } else if (num == 2) {
-        return { schema: 'theme', name: '핵심테마' };
-    } else if (num == 3) {
-        return { schema: 'strategy', name: '전문가칼럼' };
-    } else if (num == 4) {
-        return { schema: 'issue', name: '핵심이슈' };
-    } else if (num == 5) {
-        return { schema: 'feature', name: '특징주' };
-    } else if (num == 6) {
-        return { schema: 'video', name: '핵심비디오' };
-    } else if (num == 7) {
         return { schema: 'notice', name: '공지사항' };
     } else {
         return { schema: '---', name: '---' };
@@ -157,26 +137,26 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     }
     return reg.test(str)
 }
-export const getViewerMarginByNumber = (num) =>{
-    if(num==0){
+export const getViewerMarginByNumber = (num) => {
+    if (num == 0) {
         return " 0 auto ";
-    }else if(num==1){
+    } else if (num == 1) {
         return " 0 auto 0 0 ";
-    }else if(num==2){
+    } else if (num == 2) {
         return " 0 0 0 auto ";
-    }else{
+    } else {
         return " 0 auto ";
     }
 }
-export const getViewerAlignByNumber = (num) =>{
-    if(num==0){
+export const getViewerAlignByNumber = (num) => {
+    if (num == 0) {
         return "center";
-    }else if(num==1){
+    } else if (num == 1) {
         return "left";
 
-    }else if(num==2){
+    } else if (num == 2) {
         return "end";
-    }else{
+    } else {
         return "center";
     }
 }

@@ -47,6 +47,7 @@ import Academy from '../pages/User/Academy/Academy';
 import ReviewList from '../pages/User/ReviewList';
 import ServiceCenter from '../pages/User/ServiceCenter';
 import EventList from '../pages/User/EventList';
+import Request from '../pages/User/Auth/Request';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -75,7 +76,8 @@ const zUserRoute = [
     { link: '/eventlist', element: <EventList />, title: "이벤트" },
     { link: '/masterlist', element: <MasterList />, title: "전문가" },
     { link: '/master/:pk', element: <Master />, title: "전문가" },
-    
+    { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
+
     // { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 
     // { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
@@ -88,16 +90,17 @@ const zUserRoute = [
     // { link: '/oneeventlist', element: <OneEventList />, title: "하루1종목" },
     // { link: '/noticelist', element: <NoticeList />, title: "공지사항" },
 
-     { link: '/login', element: <Login />, title: "로그인" },
-     { link: '/mypage', element: <MyPage />, title: "마이페이지" },
-     { link: '/editmyinfo', element: <EditMyInfo />, title: "회원수정" },
+    { link: '/login', element: <Login />, title: "로그인" },
+    { link: '/mypage', element: <MyPage />, title: "마이페이지" },
+    { link: '/editmyinfo', element: <EditMyInfo />, title: "회원수정" },
     { link: '/findmyinfo', element: <FindMyInfo />, title: "아이디/비밀번호 찾기" },
- { link: '/signup', element: <SignUp />, title: "회원가입" },
+    { link: '/signup', element: <SignUp />, title: "회원가입" },
     { link: '/resign', element: <Resign />, title: "회원탈퇴" },
+    { link: '/request', element: <Request />, title: "문의하기" },
+    { link: '/request/:pk', element: <Request />, title: "문의하기" },
     { link: '/oauth/callback/kakao', element: <KakaoRedirectHandler />, title: "" },
 
     // { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
-    // { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
     // { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
 
     { link: '/policy/:pk', element: <Policy />, title: "" },

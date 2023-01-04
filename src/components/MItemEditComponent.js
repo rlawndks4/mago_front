@@ -121,20 +121,20 @@ const MItemEditComponent = (props) => {
                     if (content.type == 'select') {
                         setTimeout(function () {
                             $(`.${content.class_name}`).val(item[`${content.class_name}`]);
-                        }, 1000);
+                        }, 500);
                     }
                     if (content.type == 'input') {
                         if (content?.type_option?.type == 'password') {
                         } else {
                             setTimeout(function () {
                                 $(`.${content.class_name}`).val(item[`${content.class_name}`]);
-                            }, 1000);
+                            }, 500);
                         }
                     }
                     if (content.type == 'textarea') {
                         setTimeout(function () {
                             $(`.${content.class_name}`).val(item[`${content.class_name}`]);
-                        }, 1000);
+                        }, 500);
                     }
                     if (content.type == 'editor') {
                         editor_list_obj[`${content.class_name}`] = item[`${content.class_name}`];
@@ -216,6 +216,11 @@ const MItemEditComponent = (props) => {
                         obj[objManagerEditContent[schema]?.add_list[i]?.key] = objManagerEditContent[schema]?.add_list[i]?.value;
                     }
                 }
+                if (objManagerEditContent[schema]?.update_list && objManagerEditContent[schema]?.update_list?.length > 0 && params_pk > 0) {
+                    for (var i = 0; i < objManagerEditContent[schema]?.update_list.length; i++) {
+                        obj[objManagerEditContent[schema]?.update_list[i]?.key] = objManagerEditContent[schema]?.update_list[i]?.value;
+                    }
+                }
                 if (params_pk == 0) {
                     api_str = "/api/additem";
                 } else {
@@ -283,7 +288,7 @@ const MItemEditComponent = (props) => {
                                                 <Title>{item.title}</Title>
                                                 {item.type == 'input' ?
                                                     <>
-                                                        <Input className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} type={`${item.type_option?.type ?? ""}`} autoComplete={item.type_option?.type == 'password' ? 'new-password' : ''} />
+                                                        <Input className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} type={`${item.type_option?.type ?? ""}`} autoComplete={item.type_option?.type == 'password' ? 'new-password' : ''} disabled={item.type_option?.disabled??""} />
                                                     </>
                                                     :
                                                     <>
@@ -369,7 +374,7 @@ const MItemEditComponent = (props) => {
                                                     </>}
                                                 {item.type == 'textarea' ?
                                                     <>
-                                                        <Textarea className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} />
+                                                        <Textarea className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} disabled={item.type_option?.disabled??""} />
                                                     </>
                                                     :
                                                     <>

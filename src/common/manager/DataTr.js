@@ -28,7 +28,7 @@ margin-bottom:6px;
 `
 const ItemTypes = { CARD: 'card' }
 
-const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTopItem, changeItemSequence, deleteItem, changeStatus }) => {
+const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opTheTopItem, changeItemSequence, deleteItem, changeStatus }) => {
     const notUseCard = ['all', 'user_statistics'];
     const navigate = useNavigate();
     const ref = useRef(null)
@@ -99,7 +99,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
     const opacity = isDragging ? 0 : 1
     drag(drop(ref))
 
-   
+
     const getLoginTypeByNumber = (num) => {
         if (num == 0) {
             return "일반";
@@ -149,7 +149,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
     }
     return (
         <>
-            <Tr ref={ref} data-handler-id={handlerId} className='manager-data-tr'>
+            <Tr ref={obj.is_move ? ref : null} data-handler-id={handlerId} className='manager-data-tr'>
                 {column.map((col, index) => (
                     <>
 
@@ -213,7 +213,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                             :
                             <>
                             </>}
-                            {col.type == 'status' ?
+                        {col.type == 'status' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '28px' }}>
                                     {data[`${col.column}`] > 0 ?
@@ -262,16 +262,16 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                         {col.type == 'add_academy' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
-                                    <AiFillPlusCircle style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/academy/0`,{state:{category_pk:data.pk,category_title:data.title,master_pk:data.master_pk}})} />
+                                    <AiFillPlusCircle style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/academy/0`, { state: { category_pk: data.pk, category_title: data.title, master_pk: data.master_pk } })} />
                                 </Td>
                             </>
                             :
                             <>
                             </>}
-                            {col.type == 'academy_list' ?
+                        {col.type == 'academy_list' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
-                                    <AiOutlineUnorderedList style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/academy/${data.pk}`,{state:{breadcrumb:data.title+' 강의 컨텐츠'}})} />
+                                    <AiOutlineUnorderedList style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/academy/${data.pk}`, { state: { breadcrumb: data.title + ' 강의 컨텐츠' } })} />
                                 </Td>
                             </>
                             :
@@ -290,6 +290,20 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, opTheTo
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
                                     <BiEditAlt style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/master/${data.pk}`)} />
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                        {col.type == 'request_status' ?
+                            <>
+                                <Td style={{ width: `${col.width}%` }}>
+                                    {data[`status`] == 0 ?
+                                        '확인대기' :
+                                        ''}
+                                    {data[`status`] == 1 ?
+                                        '답변완료' :
+                                        ''}
                                 </Td>
                             </>
                             :

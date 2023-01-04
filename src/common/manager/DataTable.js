@@ -75,6 +75,7 @@ const DataTable = (props) => {
                 deleteItem={deleteItem}
                 changeItemSequence={changeItemSequence}
                 changeStatus={changeStatus}
+                obj={objManagerListContent[`${schema}`]}
             />
         )
     }, [])

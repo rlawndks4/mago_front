@@ -86,7 +86,7 @@ const EventList = () => {
                                 <>
                                 {ingList.map((item, idx)=>(
                                     <>
-                                    <div style={{width:'45%',margin:`${idx%2==0?'0 auto 8px 0':'0 0 8px auto'}`,display:'flex',flexDirection:'column'}}>
+                                    <div style={{width:'45%',margin:`${idx%2==0?'0 auto 8px 0':'0 0 8px auto'}`,display:'flex',flexDirection:'column'}} onClick={()=>{navigate(`/post/event/${item?.pk}`)}}>
                                         <img src={backUrl+item?.main_img} style={{width:'100%',height:`${window.innerWidth>=1000?'304px':'30.375vw'}`}} />
                                         <div style={{marginTop:'16px',fontWeight:'bold',fontSize:`${window.innerWidth>=600?theme.size.font4:theme.size.font5}`}}>{item?.title}</div>
                                         <div style={{margin:'16px 0',fontSize:`${window.innerWidth>=600?theme.size.font5:theme.size.font6}`}}>{item?.start_date.replaceAll('-','.')} ~ {item?.end_date.replaceAll('-','.')}</div>
@@ -100,7 +100,7 @@ const EventList = () => {
                                 <>
                                 {endList.map((item, idx)=>(
                                     <>
-                                    <div style={{width:'45%',margin:`${idx%2==0?'0 auto 8px 0':'0 0 8px auto'}`,display:'flex',flexDirection:'column'}}>
+                                    <div style={{width:'45%',margin:`${idx%2==0?'0 auto 8px 0':'0 0 8px auto'}`,display:'flex',flexDirection:'column'}} onClick={()=>{navigate(`/post/event/${item?.pk}`)}}>
                                         <img src={backUrl+item?.main_img} style={{width:'100%',height:`${window.innerWidth>=1000?'304px':'30.375vw'}`}} />
                                         <div style={{marginTop:'16px',fontWeight:'bold',fontSize:`${window.innerWidth>=600?theme.size.font4:theme.size.font5}`}}>{item?.title}</div>
                                         <div style={{margin:'16px 0',fontSize:`${window.innerWidth>=600?theme.size.font5:theme.size.font6}`}}>{item?.start_date.replaceAll('-','.')} ~ {item?.end_date.replaceAll('-','.')}</div>
