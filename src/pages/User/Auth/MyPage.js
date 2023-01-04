@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Title, Wrappers } from "../../../components/elements/UserContentTemplete";
+import { ShadowContainer, Title, Wrappers } from "../../../components/elements/UserContentTemplete";
 import { backUrl } from "../../../data/Data";
 import defaultImg from '../../../assets/images/icon/default-profile.png'
 import axios from "axios";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { MdEdit } from 'react-icons/md';
 import theme from "../../../styles/theme";
 import { CgToggleOn, CgToggleOff } from 'react-icons/cg'
+import ContentTable from "../../../components/ContentTable";
 
 const MyCard = styled.div`
 display:flex;
@@ -70,11 +71,12 @@ const MyPage = () => {
     const navigate = useNavigate();
     const [auth, setAuth] = useState({})
     const [isWebView, setIsWebView] = useState(false);
-
+    const [bagList, setBagList] = useState();
+    const [calssList, setClassList] = useState();
     useEffect(() => {
         async function isAdmin() {
-            const { data: response } = await axios('/api/auth')
-            if (response.pk > 0) {
+            const { data: response } = await axios.get('/api/auth');
+            if (response?.pk > 0) {
                 await localStorage.setItem('auth', JSON.stringify(response))
                 let obj = response;
                 setAuth(obj);
@@ -84,10 +86,31 @@ const MyPage = () => {
             }
         }
         isAdmin();
+        getMyContent();
         if (window && window.flutter_inappwebview) {
             setIsWebView(true)
         }
     }, [])
+    async function getMyContent() {
+        const { data: response } = await axios.post('/api/myitems',{table:'subscribe'});
+        console.log(response)
+        let list = [...response?.data?.data];
+        let bag_list = [];
+        let class_list = [];
+        for(var i = 0;i<list.length;i++){
+            if(list[i]?.status==1){
+                class_list.push(list[i]);
+            }else{
+                bag_list.push(list[i]);
+            }
+        }
+        setBagList(bag_list);
+        setClassList(class_list);
+        console.log(response)
+    }
+    const pageSetting = async  () =>{
+        await getMyContent();
+    }
     const onLogout = async () => {
             if (window && window.flutter_inappwebview) {
                 var params = { 'login_type': JSON.parse(localStorage.getItem('auth'))?.type };
@@ -143,6 +166,39 @@ const MyPage = () => {
 
                     </Container>
                 </MyCard>
+                <Title>장바구니</Title>
+                <ShadowContainer>
+                <ContentTable columns={[
+                    { name: "수강상품", column: "title", width: 30, type: 'text' },
+                    { name: "강사", column: "master_name", width: 30, type: 'text' },
+                    { name: "수강상태", column: "", width: 30, type: "" },
+                    { name: "삭제", column: "", width: 30, type: 'delete' },
+                ]}
+                    data={bagList}
+                    schema={'subscribe'}
+                    pageSetting={pageSetting} />
+                </ShadowContainer>
+                <Title>내 강의실</Title>
+                <ShadowContainer>
+                <ContentTable columns={[
+                    { name: "수강상품", column: "title", width: 30, type: 'text' },
+                    { name: "강사", column: "master_name", width: 40, type: 'text' },
+                    { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
+                ]}
+                    data={calssList}
+                    schema={'subscribe'} />
+                </ShadowContainer>
+                <Title>결제 내역</Title>
+                <ShadowContainer>
+                <ContentTable columns={[
+                    { name: "수강상품", column: "title", width: 40, type: 'text' },
+                    { name: "강사", column: "master_name", width: 30, type: 'text' },
+                    { name: "결제금액", column: "price", width: 30, type: 'number' },
+                ]}
+                    data={calssList}
+                    schema={'subscribe'} />
+                </ShadowContainer> 
+               
                 <LogoutButton onClick={onLogout}>
                     로그아웃
                 </LogoutButton>
