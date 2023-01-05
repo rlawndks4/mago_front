@@ -19,16 +19,16 @@ display:flex;
 flex-direction:column;
 width:100%;
 max-width:1000px;
-margin-top:8rem;
+margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
 @media screen and (max-width:1050px) { 
-    margin-top:4rem;
+    margin-top:6rem;
 }
 `
 const BestContentImg = styled.img`
 margin: 0 auto 0 8px;
-border-radius:${props=>props.theme.borderRadius};
+border-radius:${props => props.theme.borderRadius};
 @media screen and (max-width:450px) { 
     width:45vw;
     height:auto;
@@ -155,7 +155,7 @@ const Home = () => {
                         <ShadowContainer>
 
                         </ShadowContainer>
-                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '16px', marginTop: '32px' }}>
+                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '16px', marginTop: '32px', cursor: 'pointer' }}>
                             <RowContent>
                                 <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center' }}>
                                     <div style={{ fontSize: theme.size.font4, fontWeight: 'bold' }}>{mainContent?.home_main_title}</div>
@@ -169,7 +169,7 @@ const Home = () => {
                         <Content>
                             {notices.length > 0 && notices.map((item, idx) => (
                                 <>
-                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px' }}>
+                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
                                         <div>{item?.title}</div>
                                         <div>{item?.nickname}</div>
                                         <div>{item?.date.substring(0, 10)}</div>

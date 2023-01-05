@@ -16,16 +16,18 @@ import reactReferer from 'react-referer';
 import { returnMoment } from '../functions/utils';
 import { Viewer } from '@toast-ui/react-editor';
 import { IoMdClose } from 'react-icons/io'
-import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5'
+import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
+import redSpeakerIcon from '../assets/images/icon/red-speaket.png'
 const Header = styled.header`
 position:fixed;
 height:6rem;
 width:100%;
-top:0;
+top:2rem;
 z-index:10;
 background:#fff;
 box-shadow: 5px 10px 10px rgb(0 0 0 / 3%);
 @media screen and (max-width:1050px) { 
+  top:0;
   box-shadow:none;
   height:3.5rem;
 }
@@ -156,6 +158,20 @@ z-index:10;
 width:78vw;
 }
 `
+const TopBannerContainer = styled.div`
+position:absolute;
+top:-2rem;
+width:100%;
+height:2rem;
+background:#EBFDFF;
+display:flex;
+font-size:${props=>props.theme.size.font4};
+align-items:center;
+font-weight:bold;
+@media screen and (max-width:1050px) { 
+  top:3.5rem;
+}
+`
 const Headers = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -168,10 +184,9 @@ const Headers = () => {
   const [isAlarm, setIsAlarm] = useState(false);
   const [lastNoticePk, setLastNoticePk] = useState(0);
   const [lastAlarmePk, setLastAlarmPk] = useState(0);
-  const [popupList, setPopupList] = useState([])
+  const [popupList, setPopupList] = useState([]);
+  const [topBanner, setTopBanner] = useState({});
   useEffect(() => {
-
-
     if (location.pathname.substring(0, 6) == '/post/' || location.pathname.substring(0, 7) == '/video/' || location.pathname == '/appsetting') {
       setIsPost(true);
     } else {
@@ -200,12 +215,18 @@ const Headers = () => {
       fetchPopup();
     }
   }, [location])
+
   async function fetchPopup() {
     const { data: response } = await axios.get('/api/items?table=popup&status=1')
     setPopupList(response?.data ?? []);
   }
 
   useEffect(() => {
+    async function getSetting(){
+      const {data:response} = await axios.get(`/api/item?table=setting&pk=1`);
+      setTopBanner(response?.data);
+    }
+    getSetting();
     async function getNoticeAndAlarmCount() {
       const { data: response } = await axios.get('/api/getnoticeandalarmlastpk');
       let response_obj = response?.data ?? { alarm_last_pk: 0, notice_last_pk: 0 };
@@ -233,7 +254,7 @@ const Headers = () => {
       }
     }
     getNoticeAndAlarmCount();
-
+    
   }, [])
   const onClosePopup = async (pk, is_not_see) => {
     if (is_not_see) {
@@ -325,6 +346,11 @@ const Headers = () => {
     <>
 
       <Header style={{ display: `${display}` }} className='header'>
+        <TopBannerContainer>
+          <img src={redSpeakerIcon} style={{height:'1.5rem',margin:'0 4px 0 auto'}} />
+          <div style={{margin:'0 4px',color:theme.color.red}}>{topBanner?.top_banner_manager_name}</div>
+          <div style={{margin:'0 auto 0 4px'}}>{topBanner?.top_banner_note}</div>
+        </TopBannerContainer>
         {popupList.length > 0 ?
           <>
             <PopupContainer>

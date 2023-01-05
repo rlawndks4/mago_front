@@ -56,7 +56,7 @@ const AcademyList = () => {
 
     }, [])
 
-    const selectTypeNum = (num) => {
+    const selectTypeNum = async (num) => {
         let num_list = [...numList];
         let is_add = true;
         for(var i = 0;i<num_list.length;i++){
@@ -69,6 +69,12 @@ const AcademyList = () => {
         if(is_add){
             num_list.push(num);
         }
+        const {data:response} = await axios.post('/api/myacademyclasses',{
+            list:num_list.map((item)=>{
+                return masterList[item]?.pk
+            })
+        })
+        setBestContents(response?.data);
         setNumList([...num_list])
     }
     return (

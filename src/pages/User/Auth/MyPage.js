@@ -171,7 +171,7 @@ const MyPage = () => {
                 <ContentTable columns={[
                     { name: "수강상품", column: "title", width: 30, type: 'text' },
                     { name: "강사", column: "master_name", width: 30, type: 'text' },
-                    { name: "수강상태", column: "", width: 30, type: "" },
+                    { name: "수강상태", column: "", width: 30, type: "class_status" },
                     { name: "삭제", column: "", width: 30, type: 'delete' },
                 ]}
                     data={bagList}

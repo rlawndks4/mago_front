@@ -7,6 +7,7 @@ import AddButton from "./elements/button/AddButton";
 import theme from "../styles/theme";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { TextButton } from "./elements/UserContentTemplete";
 
 const Table = styled.table`
 font-size:${props => props.theme.size.font4};
@@ -22,6 +23,7 @@ border-bottom:1px solid ${props => props.theme.color.font4};
 `
 const Td = styled.td`
 border-bottom:1px solid ${props => props.theme.color.font4};
+font-size:${props => props.theme.size.font5};
 `
 const ContentTable = (props) => {
     const navigate = useNavigate();
@@ -56,6 +58,19 @@ const ContentTable = (props) => {
             str += '★';
         }
         return str;
+    }
+    const onSubscribe = async (num) => {
+        if (window.confirm("수강신청 하시겠습니까?")) {
+            const { data: response } = await axios.post('/api/onsubscribe', {
+                bag_pk: num,
+            })
+            if(response?.result>0){
+                alert("성공적으로 등록 되었습니다.");
+                pageSetting();
+            }else{
+                alert(response?.message);
+            }
+        }
     }
     const getExistingPossessionByNumber = (num) => {
         if (num == 0) {
@@ -99,6 +114,10 @@ const ContentTable = (props) => {
                                             item[column.column] ?? "---"
                                             :
                                             null}
+                                           {column.type == 'class_status' ?
+                                           <TextButton style={{height:'22px'}} onClick={()=>{onSubscribe(item?.pk)}}>수강신청</TextButton>
+                                            :
+                                            null} 
                                         {column.type == 'star' ?
                                             getStarBynum(parseInt(item[column.column])) ?? "---"
                                             :
@@ -132,7 +151,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                         {column.type == 'delete' ?
-                                            <RiDeleteBinLine style={{ cursor: 'pointer' }} onClick={() => deleteItem(item.pk, schema, column.name)} />
+                                            <RiDeleteBinLine style={{ cursor: 'pointer',fontSize:theme.size.font4 }} onClick={() => deleteItem(item.pk, schema, column.name)} />
                                             :
                                             null}
                                     </Td>

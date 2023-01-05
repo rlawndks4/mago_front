@@ -12,13 +12,13 @@ display:flex;
 flex-direction:column;
 width:90%;
 max-width:1000px;
-margin-top:8rem;
+margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
 margin-bottom:6rem;
 min-height:58vh;
 @media screen and (max-width:1050px) { 
-    margin-top:4rem;
+    margin-top:6rem;
 }
 
 `
