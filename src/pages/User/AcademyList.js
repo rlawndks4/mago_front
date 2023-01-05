@@ -47,6 +47,10 @@ const AcademyList = () => {
         async function fetchPost() {
             setLoading(true);
             const { data: response } = await axios.get('/api/getacademylist');
+            if(response?.result<0){
+                alert("로그인이 필요합니다.");
+                navigate(-1);
+            }
             setMasterList(response?.data?.master);
             setBestContents(response?.data?.academy);
             $('span.lazy-load-image-background').addClass('width-100');
@@ -92,7 +96,7 @@ const AcademyList = () => {
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
                                 <>
-                                    <AcademyCard item={item} idx={idx} />
+                                    <AcademyCard item={item} idx={idx} link={`/myacademy/${item?.pk}`} />
                                 </>
                             ))}
                         </RowContent>

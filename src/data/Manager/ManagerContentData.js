@@ -141,6 +141,7 @@ export const objManagerListContent = {
         '강의 컨텐츠 관리',
         'academy',
         [
+            columnObjFormat('메인이미지', '', 'img', 'main_img'),
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('추가일', '', 'text', 'date'),
             columnObjFormat('수정', '', 'edit', 'edit'),
@@ -159,7 +160,7 @@ export const objManagerListContent = {
             columnObjFormat('제목', '', 'text', 'item_title'),
             columnObjFormat('닉네임', '', 'text', 'nickname'),
             columnObjFormat('생성일', '', 'text', 'date'),
-            columnObjFormat('댓글', '', 'level', 'user_level'),
+            columnObjFormat('댓글', '', 'text', 'note'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
         [],
@@ -348,7 +349,7 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('메인이미지', ' img', { field_name: 'content' }, 'main_img')
+                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img')
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),

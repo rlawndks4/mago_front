@@ -40,7 +40,7 @@ height:120px;
 }
 `
 const AcademySubCard = (props) => {
-    let { item, is_detail } = props;
+    let { item, is_detail, not_price } = props;
 
     const navigate = useNavigate();
     const getPeriodByNumber = (num) => {
@@ -79,8 +79,8 @@ const AcademySubCard = (props) => {
     }
     return (
         <>
-            <Container>
-                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }}>
+            <Container style={{paddingBottom:`${not_price?'16px':''}`}}>
+                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }} style={{borderBottom:`${not_price?'none':''}`,borderRight:`${not_price?'none':''}`}}>
                     {is_detail ?
                         <>
                             <img src={backUrl + item?.main_img} style={{ height: '120px', width: '160px' }} />
@@ -107,6 +107,11 @@ const AcademySubCard = (props) => {
 
                     </div>
                 </ContentContainer>
+                {not_price?
+                <>
+                </>
+                :
+                <>
                 <PriceContainer>
                     <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
                     <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
@@ -116,6 +121,8 @@ const AcademySubCard = (props) => {
                         <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={()=>onSubscribe(1)}>수강신청</TextFillButton>
                     </div>
                 </PriceContainer>
+                </>}
+                
             </Container>
         </>
     )

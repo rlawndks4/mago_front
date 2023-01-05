@@ -48,6 +48,7 @@ import ReviewList from '../pages/User/ReviewList';
 import ServiceCenter from '../pages/User/ServiceCenter';
 import EventList from '../pages/User/EventList';
 import Request from '../pages/User/Auth/Request';
+import MyAcademy from '../pages/User/Academy/MyAcademy';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -71,6 +72,7 @@ const zUserRoute = [
     { link: '/enrolmentlist', element: <EnrolmentList />, title: "수강신청" },
     { link: '/academylist', element: <AcademyList />, title: "강의실" },
     { link: '/academy/:pk', element: <Academy />, title: "강의실" },
+    { link: '/myacademy/:pk', element: <MyAcademy />, title: "강의실" },
     { link: '/reviewlist', element: <ReviewList />, title: "수강후기" },
     { link: '/servicecenter', element: <ServiceCenter />, title: "상담문의" },
     { link: '/eventlist', element: <EventList />, title: "이벤트" },

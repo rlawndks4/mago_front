@@ -47,11 +47,11 @@ height:45%;
 }
 `
 const AcademyCard = (props) => {
-    let { item, idx } = props;
+    let { item, idx, link } = props;
     const navigate = useNavigate();
     return (
         <>
-            <AcademyContainer style={{ margin: `${idx % 2 == 0 ? '0 auto 16px 0' : '0 0 16px auto'}` }} onClick={() => { navigate(`/academy/${item?.pk}`) }}>
+            <AcademyContainer style={{ margin: `${idx % 2 == 0 ? '0 auto 16px 0' : '0 0 16px auto'}` }} onClick={() => { navigate(link ? link : `/academy/${item?.pk}`) }}>
                 <AcademyImg src={backUrl + item?.main_img} />
                 <AcademyTextContainer>
                     <div style={{ margin: '0 0 auto 0', color: theme.color.blue, fontSize: theme.size.font4, fontWeight: 'bold' }}>{item.user_nickname}</div>
