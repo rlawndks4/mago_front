@@ -165,7 +165,7 @@ const Home = () => {
                                 <BestContentImg src={backUrl + mainContent?.home_main_img} />
                             </RowContent>
                         </ShadowContainer>
-                        <Title className='pointer' link={'/noticelist '} text={'더보기'}>공지사항</Title>
+                        <Title className='pointer' link={'/servicecenter'} text={'더보기'}>공지사항</Title>
                         <Content>
                             {notices.length > 0 && notices.map((item, idx) => (
                                 <>
