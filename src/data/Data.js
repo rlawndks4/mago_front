@@ -23,8 +23,8 @@ import theme from '../styles/theme';
 import axios from 'axios';
 
 
-export const frontUrl = "https://1st-academy.co.kr";
-export const backUrl = "https://1st-academy.co.kr:8443";
+export const frontUrl = "https://1st-academy.kr";
+export const backUrl = "https://1st-academy.kr:8443";
 export const logoSrc = logo;
 //http://weare-first.com:8001
 export const editorState = {
