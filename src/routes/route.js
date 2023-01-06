@@ -80,7 +80,7 @@ const zUserRoute = [
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
 
-    // { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
+     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 
     // { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
     // { link: '/selectfeaturecategory', element: <SelectFeatureCategory />, title: "특징주" },

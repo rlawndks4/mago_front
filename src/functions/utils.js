@@ -120,6 +120,7 @@ export const numberToCategory = (num) => {
     } else {
         return { schema: '---', name: '---' };
     }
+    
 }
 
 export const regExp = (type, str) => {//id,pw,nickname,name
