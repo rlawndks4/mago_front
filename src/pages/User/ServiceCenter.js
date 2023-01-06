@@ -131,7 +131,7 @@ const ServiceCenter = () => {
                                         <div style={{ width: '40%', textAlign: 'center' }}>제목</div>
                                         <div style={{ width: '30%', textAlign: 'center' }}>비고</div>
                                     </div>
-                                    {posts.length > 0 && posts.map((item, idx) => (
+                                    {posts && posts.length > 0 && posts.map((item, idx) => (
                                         <>
                                             <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}
                                             onClick={()=>navigate(`/request/${item?.pk}`)}>
