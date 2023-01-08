@@ -62,7 +62,7 @@ justify-content: space-between;
 const HeaderMenu = styled.div`
 text-align:center;
 font-size:${props => props.theme.size.font3};
-padding:0.3rem;
+padding:2.5rem 0.3rem;
 margin-right:1rem;
 font-weight:bold;
 cursor:pointer;
@@ -222,9 +222,20 @@ const Headers = () => {
     } else {
 
     }
-    
-  }, [location])
 
+  }, [location])
+  useEffect(()=>{
+    $('.master-dropdown-btn').hover(function(){
+      $('.master-dropdown-content').attr('style','display: flex !important');
+    },function(){
+      $('.master-dropdown-content').attr('style','display: none !important');
+    })
+    $('.master-dropdown-content').hover(function(){
+      $('.master-dropdown-content').attr('style','display: flex !important');
+    },function(){
+      $('.master-dropdown-content').attr('style','display: none !important');
+    })
+  },[])//hover 관련
   async function getHeaderContent() {
     const { data: response } = await axios.get('/api/getheadercontent')
     console.log(response)
@@ -459,12 +470,21 @@ const Headers = () => {
           <div>
             <img src={logoSrc} alt="홈으로" style={{ height: '3rem' }} onClick={() => { navigate('/') }} />
           </div>
-          <div style={{ display: 'flex', margin: '2rem 0', height: '2rem' }}>
+          <div style={{ display: 'flex', position:'relative' }}>
             {zBottomMenu.map((item, idx) => (
               <>
-                <HeaderMenu key={idx} onClick={() => { navigate(item.link) }} style={{ color: `${item.allowList.includes(location.pathname) ? theme.color.background1 : ''}` }}>{item.name}</HeaderMenu>
+                <HeaderMenu key={idx} className={item?.className} onClick={() => { navigate(item.link) }} style={{ color: `${item.allowList.includes(location.pathname) ? theme.color.background1 : ''}` }}>{item.name}</HeaderMenu>
               </>
             ))}
+            <div className="master-dropdown-content">
+              <div style={{display:'flex',maxWidth:'1000px',width:'100%',margin:'0 auto'}}>
+              {masterList.map((item, idx)=>(
+                <>
+                <TextButton style={{marginLeft:`${idx!=0?'8px':'0'}`}} onClick={()=>navigate(`/master/${item?.pk}`)}>{item?.name} 전문가</TextButton>
+                </>
+              ))}
+              </div>
+            </div>
           </div>
 
           <div style={{ display: 'flex', width: '180px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
@@ -509,7 +529,9 @@ const Headers = () => {
           </div>
         </HeaderMenuContainer>
       </Header>
-
+      <div className='dropdown-content'>
+        s
+      </div>
       {/* <ModalContainer modal={modal}>
           <ModalOverlay onClick={handleModal} />
           <ModalContent>

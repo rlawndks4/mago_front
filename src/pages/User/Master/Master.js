@@ -68,7 +68,7 @@ width:100%;
 const Master = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const { state } = useLocation();
+    const location = useLocation();
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
     const [subTypeNum, setSubTypeNum] = useState(0);
@@ -80,7 +80,7 @@ const Master = () => {
     const [reviewList, setReviewList] = useState([]);
     useEffect(() => {
         changePage(1, true)
-    }, [])
+    }, [location])
     const changePage = async (num, is_load) => {
         if (is_load) {
             setLoading(true);
