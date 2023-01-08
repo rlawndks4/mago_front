@@ -23,6 +23,9 @@ z-index:3;
         opacity: 1;
     }
 }
+@media screen and (max-width:1000px) {
+    bottom:8rem;
+}
 `
 const ScrollToTopButton = () => {
     const { pathname } = useLocation();
@@ -59,7 +62,7 @@ const ScrollToTopButton = () => {
     }
     return (
         <>
-            <Button onClick={scrollToTop} style={{bottom:`${isPost?'4rem':'6rem'}`, display:`${display}`}}>
+            <Button onClick={scrollToTop} style={{bottom:`${isPost?'6rem':'8rem'}`, display:`${display}`}}>
                 <AiOutlineUp />
             </Button>
         </>

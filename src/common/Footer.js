@@ -35,7 +35,7 @@ transition: 0.3s;
 }
 `
 const Img = styled.img`
-width: 80px;
+width: 120px;
 @media screen and (max-width:400px) {
 width:14vw;
 }
@@ -66,7 +66,7 @@ const Footer = () => {
                             <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/2')}>저작권정책</div>
                         </div>
                     </div>
-                    <Wrappers className="footer" style={{ background: `#23242f` }}>
+                    <Wrappers className="footer" style={{ background: `#23242f`,fontSize:theme.size.font5 }}>
                         <Img src={logo} alt="footer" />
                         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>

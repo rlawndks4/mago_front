@@ -118,7 +118,7 @@ const ServiceCenter = () => {
                                                 onClick={() => navigate(`/post/notice/${item?.pk}`)}>
                                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                                     <TextButton style={{ width: '48px', border: `1px solid ${theme.color.font5}`, marginRight: '8px' }}>공지</TextButton>
-                                                    <div style={{ fontWeight: 'bold' }}>{item?.title}</div>
+                                                    <div style={{ fontWeight: 'bold', color: theme.color.font1 }}>{item?.title}</div>
                                                 </div>
                                                 <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font5, marginTop: '8px' }}>
                                                     <div style={{ marginRight: '6px' }}>{item?.nickname}</div>
@@ -148,7 +148,7 @@ const ServiceCenter = () => {
                                                 onClick={() => navigate(`/request/${item?.pk}`)}>
                                                 <div style={{ width: '50%', textAlign: 'left' }}>{item?.title}</div>
                                                 <div style={{ width: '25%', textAlign: 'end', }}>{item?.date.substring(0, 10)}</div>
-                                                <div style={{ width: '25%', textAlign: 'end'}}>{item?.status == 1 ? '답변완료' : '확인대기'}</div>
+                                                <div style={{ width: '25%', textAlign: 'end' }}>{item?.status == 1 ? '답변완료' : '확인대기'}</div>
                                             </div>
                                         </>
                                     ))}

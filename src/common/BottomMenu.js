@@ -17,7 +17,7 @@ const Container = styled.aside`
     width:100%;
     max-width:1000px;
     margin: 0 auto;
-    @media screen and (max-width:1050px) { 
+    @media screen and (max-width:1000px) { 
         display:flex;
     }
 `

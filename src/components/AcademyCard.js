@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { backUrl } from "../data/Data";
 import { commarNumber } from "../functions/utils";
 import theme from "../styles/theme";
-
+import instArrIcon from '../assets/images/icon/inst_arr.png'
 const AcademyContainer = styled.div`
 box-shadow: ${props => props.theme.boxShadow};
 border-radius: ${props => props.theme.borderRadius};
@@ -47,7 +47,7 @@ height:45%;
 }
 `
 const AcademyCard = (props) => {
-    let { item, idx, link } = props;
+    let { item, idx, link, inst_arr } = props;
     const navigate = useNavigate();
     const getMarginByIndex = (idx) => {
         let margin = "";
@@ -80,6 +80,13 @@ const AcademyCard = (props) => {
                     <div style={{ margin: 'auto 0 auto 0', color: theme.color.font1, fontSize: theme.size.font5, fontWeight: 'bold' }}>{item.sub_title}</div>
                     <div style={{ margin: 'auto 0 auto 0', color: theme.color.font4, fontSize: theme.size.font5 }}>{item.hash}</div>
                     {/* <div style={{ margin: 'auto 0 0 0', color: theme.color.blue, fontSize: theme.size.font5, fontWeight: 'bold' }}>{commarNumber(item.price * ((100 - item?.discount_percent ?? 0) / 100))}원 (VAT 별도)</div> */}
+                    {inst_arr?
+                    <>
+                    <img src={instArrIcon}  style={{margin: 'auto 4px 0 auto',width:'28px',height:'auto'}} />
+                    </>
+                    :
+                    <>
+                    </>}
                 </AcademyTextContainer>
             </AcademyContainer>
         </>

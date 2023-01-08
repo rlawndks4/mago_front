@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
@@ -13,7 +13,7 @@ import Loading from '../../components/Loading';
 import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
-import { onClickExternalLink } from '../../functions/utils';
+import { getIframeLinkByLink, onClickExternalLink } from '../../functions/utils';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -26,20 +26,11 @@ margin-right:auto;
     margin-top:6rem;
 }
 `
-const BestContentImg = styled.img`
-margin: 0 auto 0 8px;
-border-radius:${props => props.theme.borderRadius};
-@media screen and (max-width:450px) { 
-    width:45vw;
-    height:auto;
-}
-`
 const RowLastColumnContent = styled.div`
 display:flex;
 justify-content:space-between;
 @media screen and (max-width:1000px) { 
 flex-direction:column;
-    
 }
 `
 const HalfContent = styled.div`
@@ -52,6 +43,33 @@ font-weight:normal;
     width:100%;
 }
 `
+const Iframe = styled.iframe`
+margin: 0 auto 0 8px;
+border-radius:${props => props.theme.borderRadius};
+@media screen and (max-width:450px) { 
+    width:45vw;
+    height:auto;
+}
+`
+const ReviewCard = (props) => {
+    let { item, onClick } = props;
+    return (
+        <>
+            <div style={{ display: 'flex', flexDirection: 'column', border: `1px solid ${theme.color.font5}`, width: '95%', margin: '0 auto' }} onClick={onClick}>
+                <div style={{ display: 'flex', alignItems: 'center', padding: '16px' }}>
+                    <div style={{ backgroundImage: `url(${backUrl + item?.main_img})`, width: '100px', height: '100px', borderRadius: '50%' }} />
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '100px' }}>
+                        <div style={{ margin: '8px 0 auto 6px', color: '#b48d4c' }}>REVIEW</div>
+                        <div style={{ fontWeight: 'bold', margin: '14px 0 auto 6px' }}> {(item?.title ?? "").substring(0, 15)}{item?.title.length > 15 ? '...' : ''}</div>
+                    </div>
+                </div>
+                <div style={{ padding: '16px', background: theme.color.font6, fontSize: theme.size.font5, height: '25px' }}>
+                    {(item?.note ?? "").substring(0, 30)}{item?.note.length > 30 ? '...' : ''}
+                </div>
+            </div>
+        </>
+    )
+}
 const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -62,7 +80,8 @@ const Home = () => {
     const [banners, setBanners] = useState([]);
     const [bannerLinks, setBannerLinks] = useState({});
     const [mainContent, setMainContent] = useState([]);
-
+    const [mainVideos, setMainVideos] = useState([])
+    const reviewRef = useRef();
     const settings = {
         infinite: true,
         speed: 500,
@@ -71,10 +90,26 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
     };
-
+    const videoSettings = {
+        infinite: true,
+        speed: 500,
+        autoplay: false,
+        autoplaySpeed: 2500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots:true
+    };
+    const reviewSettings = {
+        infinite: true,
+        speed: 500,
+        autoplay: false,
+        autoplaySpeed: 2500,
+        slidesToShow: (window.innerWidth >= 1000 ? 3 : (window.innerWidth >= 550 ? 2 : 1)),
+        slidesToScroll: 1,
+    };
     useEffect(() => {
         async function fetchPost() {
-            //setLoading(true)
+            setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
             let banner_list = [];
             let banner_link_obj = {};
@@ -88,13 +123,20 @@ const Home = () => {
                     banner_link_obj[`home_banner_link_${i}`] = response?.data?.banner[`home_banner_link_${i}`];
                 }
             }
+            console.log(response)
             setMainContent(response?.data?.main_content);
             setBanners(banner_list);
             setBannerLinks(banner_link_obj);
             setBestContents(response?.data?.best_academy);
-            setBestReviews(response?.data?.best_comment);
+            setBestReviews(response?.data?.best_review);
             setNotices(response?.data?.notice);
             setApps(response?.data?.app);
+            let video_list = [...response?.data?.main_video];
+            for(var i = 0;i<video_list.length;i++){
+                video_list[i]['video_link'] = await getIframeLinkByLink(video_list[i]?.video_link);
+            }
+            setMainVideos(video_list)
+            setMainVideos(response?.data?.main_video);
             setTimeout(() => setLoading(false), 1000);
             $('span.lazy-load-image-background').addClass('width-100');
         }
@@ -137,6 +179,12 @@ const Home = () => {
             //alert(response.message);
         }
     }
+    const onPrevious = () => {
+        reviewRef.current.slickPrev();
+    }
+    const onNext = () => {
+        reviewRef.current.slickNext();
+    }
     return (
         <>
             <WrappersStyle>
@@ -175,20 +223,34 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
-                        <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true}>BEST 후기</Title>
-                        <ShadowContainer>
+                        <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true} onPrevious={onPrevious} onNext={onNext}>BEST 후기</Title>
+                        <Slider {...reviewSettings} className='board-container pointer slider1' ref={reviewRef}>
+                            {bestReviews.length > 0 && bestReviews.map((item, idx) => (
+                                <>
+                                    <ReviewCard item={item} onClick={() => { navigate(`/post/review/${item?.pk}`) }} />
+                                </>
+                            ))}
+                        </Slider>
+
+                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer' }}>
+                            <Slider {...videoSettings} className='board-container pointer slider1' ref={reviewRef}>
+                                {mainVideos.length > 0 && mainVideos.map((item, idx) => (
+                                    <>
+                                        <RowContent>
+                                            <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center' }}>
+                                                <div style={{ fontSize: theme.size.font4, fontWeight: 'bold' }}>{item?.title}</div>
+                                                <div style={{ fontSize: theme.size.font5, marginTop: '16px' }}>{item?.sub_title}</div>
+                                                <div style={{ fontSize: theme.size.font6, marginTop: 'auto', color: theme.color.blue,cursor:'pointer' }} onClick={()=>onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
+                                            </div>
+                                            <Iframe src={`https://www.youtube.com/embed/${item.video_link}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></Iframe>
+                                        </RowContent>
+                                    </>
+                                ))}
+
+                            </Slider>
 
                         </ShadowContainer>
-                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '16px', marginTop: '32px', cursor: 'pointer' }}>
-                            <RowContent>
-                                <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center' }}>
-                                    <div style={{ fontSize: theme.size.font4, fontWeight: 'bold' }}>{mainContent?.home_main_title}</div>
-                                    <div style={{ fontSize: theme.size.font5, marginTop: '16px' }}>{mainContent?.home_main_sub_title}</div>
-                                    <div style={{ fontSize: theme.size.font6, marginTop: 'auto', color: theme.color.blue }}>자세히보기{'>'}</div>
-                                </div>
-                                <BestContentImg src={backUrl + mainContent?.home_main_img} />
-                            </RowContent>
-                        </ShadowContainer>
+
                         <RowLastColumnContent>
                             <HalfContent>
                                 <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
@@ -197,7 +259,7 @@ const Home = () => {
                                         <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer', border: `1px solid ${theme.color.font5}`, padding: '4px 8px' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
                                             <img style={{ height: '100px', width: '150px' }} src={backUrl + item?.main_img} />
                                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '0 auto 0 8px' }}>
-                                                <div style={{ display: 'flex', fontWeight: 'bold',fontSize:theme.size.font3 }}>
+                                                <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
                                                     <div>{item?.title}</div>
                                                 </div>

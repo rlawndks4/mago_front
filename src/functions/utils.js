@@ -109,7 +109,9 @@ export const categoryToNumber = (str) => {
         return 1;
     } else if (str == 'notice') {
         return 2;
-    } else {
+    } else if (str == 'review') {
+        return 3;
+    }else {
         return -1;
     }
 }
@@ -120,7 +122,9 @@ export const numberToCategory = (num) => {
         return { schema: 'academy', name: '강의' };
     } else if (num == 2) {
         return { schema: 'notice', name: '공지사항' };
-    } else {
+    }  else if (num == 3) {
+        return { schema: 'review', name: '이용후기' };
+    }else {
         return { schema: '---', name: '---' };
     }
     

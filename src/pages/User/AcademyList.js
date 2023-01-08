@@ -49,7 +49,7 @@ const AcademyList = () => {
             const { data: response } = await axios.get('/api/getacademylist');
             if(response?.result<0){
                 alert("회원전용 메뉴입니다.");
-                navigate(-1);
+                navigate('/login');
             }
             setMasterList([...[{title:'전체'}],...response?.data?.master]);
             setBestContents(response?.data?.academy);
@@ -86,7 +86,7 @@ const AcademyList = () => {
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents && bestContents.map((item, idx) => (
                                 <>
-                                    <AcademyCard item={item} idx={idx} link={`/myacademy/${item?.pk}`} />
+                                    <AcademyCard item={item} idx={idx} inst_arr={true} link={`/myacademy/${item?.pk}`} />
                                 </>
                             ))}
                         </RowContent>

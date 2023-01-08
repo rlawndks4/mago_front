@@ -14,6 +14,11 @@ import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
 import SelectTypeComponent from '../../components/SelectTypeComponent';
+import ReviewCard from '../../components/ReviewCard';
+import { range } from '../../functions/utils';
+import MBottomContent from '../../components/elements/MBottomContent';
+import PageContainer from '../../components/elements/pagination/PageContainer';
+import PageButton from '../../components/elements/pagination/PageButton';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -46,22 +51,34 @@ const ReviewList = () => {
     const [academyList, setAcademyList] = useState([]);
     const [loading, setLoading] = useState(false);
     const [masterList, setMasterList] = useState([]);
+    const [page, setPage] = useState(1);
+    const [pageList, setPageList] = useState([]);
+    const [reviewList, setReviewList] = useState([]);
     useEffect(() => {
         async function fetchPost() {
             const { data: response } = await axios.get('/api/items?table=user&level=30');
             let master_list = [...response?.data];
-            for(var i=0;i<master_list.length;i++){
+            for (var i = 0; i < master_list.length; i++) {
                 master_list[i]['title'] = master_list[i]['nickname'];
             }
-            setMasterList([...[{title:'전체'}],...master_list]);
+            setMasterList([...[{ title: '전체' }], ...master_list]);
             $('span.lazy-load-image-background').addClass('width-100');
         }
         fetchPost();
-
+        selectTypeNum(0, 1);
     }, [])
 
-    const selectTypeNum = async (num) => {
+    const selectTypeNum = async (num, page) => {
         setTypeNum(num);
+        setPage(page??1);
+        let api_str = `/api/getreviewbymasterpk?page=${page ?? 1}`;
+        if (num) {
+            api_str += `&pk=${masterList[num]?.pk}`;
+        }
+        const { data: response } = await axios.get(api_str);
+        setReviewList(response?.data?.data);
+        setPageList(range(1, response?.data?.maxPage));
+        console.log(response);
     }
     return (
         <>
@@ -74,7 +91,32 @@ const ReviewList = () => {
                         <Title className='pointer' link={'/academylist'} line={true}>수강후기</Title>
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
                             posts={masterList} />
-                      
+                        <Content>
+                            {reviewList && reviewList.map((item, idx) => (
+                                <>
+                                    <ReviewCard item={item} />
+                                </>
+                            ))}
+                            <MBottomContent>
+                                <div />
+                                <PageContainer>
+                                    <PageButton onClick={() => selectTypeNum(typeNum, 1)}>
+                                        처음
+                                    </PageButton>
+                                    {pageList.map((item, index) => (
+                                        <>
+                                            <PageButton onClick={() => selectTypeNum(typeNum, item)} style={{ color: `${page == item ? '#fff' : ''}`, background: `${page == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - page) > 4 ? 'none' : ''}` }}>
+                                                {item}
+                                            </PageButton>
+                                        </>
+                                    ))}
+                                    <PageButton onClick={() => selectTypeNum(typeNum, pageList.length ?? 1)}>
+                                        마지막
+                                    </PageButton>
+                                </PageContainer>
+                                <div />
+                            </MBottomContent>
+                        </Content>
                     </>}
 
 

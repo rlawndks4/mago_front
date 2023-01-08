@@ -149,10 +149,9 @@ const LoginCard = () => {
                             </div>
                         </FlexBox>
                         <Button onClick={onLogin}>로그인</Button>
-                        <CategoryName style={{ marginTop: '36px' }}>SNS 간편 로그인</CategoryName>
+                        {/* <CategoryName style={{ marginTop: '36px' }}>SNS 간편 로그인</CategoryName>
                         <FlexBox>
                             <SnsLogo src={kakao} onClick={() => snsLogin(1)} />
-                            {/* <NaverLogin snsLogin={snsLogin} onLoginBySns={onLoginBySns}/> */}
                             {localStorage.getItem('is_ios') ?
                                 <>
                                     {isWebView ?
@@ -178,8 +177,8 @@ const LoginCard = () => {
                             }
 
 
-                        </FlexBox>
-                        <CategoryName style={{ marginTop: '0', fontSize: '11px' }}>
+                        </FlexBox> */}
+                        <CategoryName style={{ marginTop: '12px', fontSize: '11px' }}>
                             아직 first academy 회원이 아니라면?<strong style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '12px' }} onClick={() => { navigate('/signup') }}>회원가입</strong>
                         </CategoryName>
                         <Button style={{ marginTop: '36px' }} onClick={() => navigate('/appsetting')}>설정</Button>

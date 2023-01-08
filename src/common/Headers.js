@@ -224,6 +224,7 @@ const Headers = () => {
     }
     
   }, [location])
+
   async function getHeaderContent() {
     const { data: response } = await axios.get('/api/getheadercontent')
     console.log(response)
@@ -428,7 +429,7 @@ const Headers = () => {
                     <img src={logoSrc} alt="홈으로" style={{ height: '2rem', marginTop: '0.25rem' }} onClick={() => { navigate('/') }} />
                   </>}
               </div>
-              <div style={{ display: 'flex', width: '160px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
+              <div style={{ display: 'flex', width: '180px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
                 {/* <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
                 <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} /> */}
                 {auth?.pk > 0 ?
@@ -466,7 +467,7 @@ const Headers = () => {
             ))}
           </div>
 
-          <div style={{ display: 'flex', width: '160px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
+          <div style={{ display: 'flex', width: '180px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
             {/* <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
             <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} /> */}
             {auth?.pk > 0 ?

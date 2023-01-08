@@ -28,11 +28,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .slick-dots {
-    bottom: -15px !important;
+    bottom: -28px !important;
 }
 
 .slick-dots li.slick-active button:before {
-    color: #4CDAD8 !important;
+    color: #FECC2F !important;
 }
 
 #editor {
@@ -71,10 +71,8 @@ body::-webkit-scrollbar-thumb {
     height: 25vw;
 }
 .enrolment-banner-img{
-    width: 100%;
-    max-width: 1000px;
-    height: 25vw;
-
+    width: 1000px;
+    height: 250px;
 }
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before {}
@@ -186,6 +184,10 @@ margin: 18px auto;
     .theme-img{
         width:15vw;
 
+    }
+    .enrolment-banner-img{
+        width: 100vw;
+        height: 25vw;
     }
 }
 @media screen and (max-width:1150px) {}

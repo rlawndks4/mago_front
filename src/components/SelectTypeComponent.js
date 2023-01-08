@@ -14,7 +14,7 @@ background:#FAFAFA;
 flex-wrap:wrap;
 border-radius:${props => props.theme.borderRadius};
 box-shadow:${props => props.theme.boxShadow};
-margin:8px auto;
+margin:36px auto;
 @media screen and (max-width:1000px) {
     width: 87.5vw;
     padding: 1.25vw;

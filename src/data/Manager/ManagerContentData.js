@@ -28,6 +28,7 @@ export const zSidebar = [
     sidebarContentFormat('기본설정', [
         sidebarObjListFormat('상단띠배너', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
         sidebarObjListFormat('메인배너', '/manager/edit/home_setting/1', 40, ['/manager/edit/home_setting/1']),//list
+        sidebarObjListFormat('메인동영상', '/manager/list/main_video', 40, ['/manager/list/main_video']),//list
         sidebarObjListFormat('수강신청배너', '/manager/edit/enrolment_setting/1', 40, ['/manager/edit/enrolment_setting/1']),//list
         sidebarObjListFormat('앱등록관리', '/manager/list/app', 40, ['/manager/list/app']),//list
         sidebarObjListFormat('팝업관리', '/manager/list/popup', 40, ['/manager/list/popup']),//list
@@ -37,6 +38,7 @@ export const zSidebar = [
         sidebarObjListFormat('FAQ관리', '/manager/list/faq', 40, ['/manager/list/faq']),//list
         sidebarObjListFormat('이벤트관리', '/manager/list/event', 40, ['/manager/list/event']),//list
         sidebarObjListFormat('공지사항', '/manager/list/notice', 40, ['/manager/list/notice']),//list
+        sidebarObjListFormat('후기관리', '/manager/list/review', 40, ['/manager/list/review']),//list
     ], <AiOutlineUnorderedList />),
     sidebarContentFormat('푸시알림', [
         sidebarObjListFormat('푸시알림', '/manager/list/alarm', 40, ['/manager/list/alarm']),//list
@@ -119,7 +121,6 @@ export const objManagerListContent = {
             columnObjFormat('강사', '', 'text', 'master_nickname'),
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('난이도', '', 'text', 'difficulty'),
-            columnObjFormat('수강기간', '', 'text', 'period'),
             columnObjFormat('정가', '', 'number', 'price'),
             columnObjFormat('할인율', '', 'text', 'discount_percent'),
             columnObjFormat('등록일', '', 'text', 'date'),
@@ -134,6 +135,21 @@ export const objManagerListContent = {
         [],
         true,
         true),
+        main_video: sidebarObjFormat(
+            '메인비디오 관리',
+            'main_video',
+            [
+                columnObjFormat('제목', '', 'text', 'title'),
+                columnObjFormat('유튜브링크', '', 'text', 'video_link'),
+                columnObjFormat('추가일', '', 'text', 'date'),
+                columnObjFormat('맨위로', '', 'top', 'top'),
+                columnObjFormat('노출여부', '', 'status', 'status'),
+                columnObjFormat('수정', '', 'edit', 'edit'),
+                columnObjFormat('삭제', '', 'delete', 'delete'),
+            ],
+            [],
+            true,
+            true),
     academy: sidebarObjFormat(
         '강의 컨텐츠 관리',
         'academy',
@@ -241,6 +257,21 @@ export const objManagerListContent = {
         [],
         true,
         true),
+        review: sidebarObjFormat(
+            '후기 관리',
+            'review',
+            [
+                columnObjFormat('강의제목', '', 'text', 'item_title'),
+                columnObjFormat('제목', '', 'text', 'title'),
+                columnObjFormat('닉네임', '', 'text', 'nickname'),
+                columnObjFormat('생성일', '', 'text', 'date'),
+                columnObjFormat('BEST', '', 'status', 'is_best'),
+                columnObjFormat('자세히보기', '', 'edit', 'edit'),
+                columnObjFormat('삭제', '', 'delete', 'delete'),
+            ],
+            [],
+            false,
+            false),
     alarm: sidebarObjFormat(
         '푸시알림 관리',
         'alarm',
@@ -309,25 +340,23 @@ export const objManagerEditContent = {
             ],
             [
                 editColumnObjFormat('수강대상', 'input', { placeholder: '수강대상을 입력해 주세요.' }, 'target'),
-                editColumnObjFormat('수강기간', 'select', {
-                    api_url: false, option_list: [
-                        { name: '1일', val: 1 },
-                        { name: '3일', val: 3 },
-                        { name: '1주일', val: 7 },
-                        { name: '2주일', val: 14 },
-                        { name: '3주일', val: 21 },
-                        { name: '1개월', val: 30 },
-                        { name: '2개월', val: 60 },
-                        { name: '3개월', val: 90 },
-                        { name: '6개월', val: 180 },
-                        { name: '1년', val: 365 },
-                    ]
-                }, 'period'),
                 editColumnObjFormat('강의구성', 'input', { placeholder: '강의구성을 입력해 주세요.' }, 'composition'),
+            ],
+            [
+                editColumnObjFormat('시작일', 'input', { type:'date' }, 'start_date'),
+                editColumnObjFormat('종료일', 'input', { type:'date' }, 'end_date'),
             ],
             [
                 editColumnObjFormat('정가', 'input', { type: 'number', placeholder: '숫자를 입력해 주세요.' }, 'price'),
                 editColumnObjFormat('할인율', 'input', { type: 'number', placeholder: '0 ~ 100' }, 'discount_percent'),
+            ],
+            [
+                editColumnObjFormat('마감여부', 'select', {
+                    api_url: false, option_list: [
+                        { name: '마감안함', val: 0 },
+                        { name: '마감', val: 1 },
+                    ]
+                }, 'is_deadline'),
             ],
             [
                 editColumnObjFormat('소개', 'editor', {}, 'introduce_note'),
@@ -357,6 +386,21 @@ export const objManagerEditContent = {
             ],
             [
                 editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    main_video: {
+        schema: 'main_video',
+        breadcrumb: '메인비디오',
+        add_list: [],
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+                editColumnObjFormat('부제목', 'input', { placeholder: '부제목을 입력해 주세요.' }, 'sub_title'),
+            ],
+            [
+                editColumnObjFormat('자세히보기링크', 'input', { placeholder: '' }, 'link'),
+                editColumnObjFormat('유튜브링크', 'input', { placeholder: 'https://www.youtube.com/watch?v=9kaCAbIXuyg&list=RDVWbYRiF44Dc&index=2' }, 'video_link'),
             ],
         ],
     },
@@ -451,14 +495,6 @@ export const objManagerEditContent = {
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_5'),
             ],
-            [
-                editColumnObjFormat('메인콘텐츠 제목', 'input', {}, 'home_main_title'),
-                editColumnObjFormat('메인콘텐츠 부제목', 'input', {}, 'home_main_sub_title'),
-                editColumnObjFormat('메인콘텐츠 링크', 'input', { placeholder: '/home' }, 'home_main_link'),
-            ],
-            [
-                editColumnObjFormat('메인콘텐츠 이미지', 'img', { field_name: 'content' }, 'home_main_img')
-            ],
         ],
     },
     enrolment_setting: {
@@ -531,6 +567,18 @@ export const objManagerEditContent = {
             ],
             [
                 editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    review: {
+        schema: 'review',
+        breadcrumb: '후기',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'textarea', {}, 'note'),
             ],
         ],
     },

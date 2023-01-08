@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { backUrl } from "../data/Data";
 import { commarNumber } from "../functions/utils";
 import theme from "../styles/theme";
+import AddButton from "./elements/button/AddButton";
 import { TextButton, TextFillButton } from "./elements/UserContentTemplete";
 
 const Container = styled.div`
@@ -23,6 +24,7 @@ width:60%;
 cursor:pointer;
 border-right: 1px solid ${theme.color.font4};
 @media screen and (max-width:550px) { 
+    flex-direction:column;
     width:100%;
     border-right:none;
     border-bottom: 1px solid ${theme.color.font4};
@@ -35,7 +37,7 @@ flex-direction: column;
 width:40%;
 height:120px;
 @media screen and (max-width:550px) {  
-    width:60%;
+    width:100%;
     margin-left:auto;
 }
 `
@@ -100,7 +102,8 @@ const AcademySubCard = (props) => {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '12px', width: 'auto' }}>
                         {is_detail ?
                             <>
-                                <div style={{ fontSize: theme.size.font5, margin: 'auto auto 16px 12px' }}>수강대상: {item?.target}</div>
+                                <div style={{ fontSize: theme.size.font3, margin: '4px auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
+                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강대상: {item?.target}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {getPeriodByNumber(item?.period)}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                             </>
@@ -124,10 +127,19 @@ const AcademySubCard = (props) => {
                             <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
                             <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
                             <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                            {item?.is_deadline==1?
+                            <>
+                            <AddButton style={{background:theme.color.red,margin: '0 4px 0 12px',cursor:'default',color:'#fff',padding:'8px',fontSize:theme.size.font4,width:'200px'}}>
+                             현재 강의는 마감되었습니다
+                            </AddButton>
+                            </>
+                            :
+                            <>
                             <div style={{ display: "flex" }}>
                                 <TextButton style={{ margin: '0 4px 0 12px' }} onClick={() => onSubscribe(0)}>장바구니</TextButton>
                                 <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={() => onSubscribe(1)}>수강신청</TextFillButton>
                             </div>
+                            </>}
                         </PriceContainer>
                     </>}
 

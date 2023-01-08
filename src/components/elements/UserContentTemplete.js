@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MdNavigateNext } from 'react-icons/md'
 import theme from "../../styles/theme";
 import umziIcon from '../../assets/images/icon/umzi.svg'
+import {GrFormPrevious, GrFormNext} from 'react-icons/gr'
 export const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -56,7 +57,7 @@ display:flex;
 align-items:center;
 `
 export const Title = (props) => {
-    let { not_line, line, text, text_link, is_thumb } = props;
+    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id } = props;
     const navigate = useNavigate();
     const [containerStyle, setContainerStyle] = useState({});
     const [titleStyle, setTitleStyle] = useState({});
@@ -68,7 +69,7 @@ export const Title = (props) => {
         }
         if (line) {
             setContainerStyle({ justifyContent: 'unset' });
-            setTitleStyle({ position: 'absolute', background: '#fff', paddingRight: '8px' });
+            setTitleStyle({ position: 'absolute', background: '#fff', paddingRight: `${is_thumb?'8px':'24px'}` });
             setContent(<div style={{ background: '#203864', height: '4px', width: '100%' }} />);
         }
         if (text) {
@@ -77,7 +78,7 @@ export const Title = (props) => {
     }, [props]);
     return (
         <>
-            <TitleContainer className="title" style={containerStyle}>
+            <TitleContainer className="title" style={containerStyle} id={id}>
                 <TitleStyle style={titleStyle}>
                     <div>{props?.children ?? ""}</div>
                     {is_thumb ?
@@ -88,6 +89,19 @@ export const Title = (props) => {
                         <></>}
                 </TitleStyle>
                 {content}
+                {onPrevious?
+                <>
+                <div style={{display:'flex'}}>
+                    <div style={{padding:'8px 9px 7px 8px',background:theme.color.font6,borderRadius:'50%',cursor:'pointer',marginRight:'6px',marginLeft:'6px'}}>
+                    <GrFormPrevious onClick={onPrevious}/>
+                    </div>
+                    <div style={{padding:'8px 8px 7px 9px',background:theme.color.font6,borderRadius:'50%',cursor:'pointer'}}>
+                    <GrFormNext onClick={onNext}/>
+                    </div>
+                </div>
+                </>
+                :
+                <></>}
                 {/* <hr className="bar"/> */}
 
             </TitleContainer>
@@ -166,22 +180,22 @@ display:flex;
 width:100%;
 `
 export const TextButton = styled.button`
-width:84px;
-height:24px;
+width:124px;
+height:28px;
 border-radius:12px;
 border:1px solid ${props => props.theme.color.font2};
 color:${props => props.theme.color.font2};
 background:#fff;
-font-size:${props => props.theme.size.font5};
+font-size:${props => props.theme.size.font4};
 cursor:pointer;
 `
 export const TextFillButton = styled.button`
-width:84px;
-height:24px;
+width:124px;
+height:28px;
 border-radius:12px;
 border:1px solid ${props => props.theme.color.font2};
 color:#fff;
 background:${props => props.theme.color.font2};
-font-size:${props => props.theme.size.font5};
+font-size:${props => props.theme.size.font4};
 cursor:pointer;
 `
