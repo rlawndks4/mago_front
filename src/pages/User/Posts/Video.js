@@ -296,7 +296,7 @@ const Video = () => {
     return (
         <>
             <Wrappers className="post-container">
-                <MetaTag title={'weare-first - 위아 : 퍼스트 파트너스 | 주식 | 특징주 | 핵심이슈 | 핵심비디오 - 핵심비디오 / ' + post?.title ?? ""} />
+                <MetaTag title={'weare-first - 퍼스트아카데미 : 퍼스트 파트너스 | 주식 | 특징주 | 핵심이슈 | 핵심비디오 - 핵심비디오 / ' + post?.title ?? ""} />
 
                 {loading ?
                     <>

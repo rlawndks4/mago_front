@@ -65,22 +65,30 @@ const AcademySubCard = (props) => {
         return result;
     }
     const onSubscribe = async (num) => {
-        if (window.confirm(num==1?"수강신청 하시겠습니까?":"장바구니 등록 하시겠습니까?")) {
-            const { data: response } = await axios.post('/api/onsubscribe', {
-                item_pk: item?.pk,
-                type_num:num
-            })
-            if(response?.result>0){
-                alert("성공적으로 등록 되었습니다.");
-            }else{
-                alert(response?.message);
+        if (window.confirm(num == 1 ? "수강신청 하시겠습니까?" : "장바구니 등록 하시겠습니까?")) {
+            if (num == 1) {
+                navigate('/authpay', { state: { item_pk: item?.pk } })
+            } else {
+                const { data: response } = await axios.post('/api/onsubscribe', {
+                    item_pk: item?.pk,
+                    type_num: num
+                })
+                if (response?.result > 0) {
+                    alert("성공적으로 등록 되었습니다.");
+                } else {
+                    alert(response?.message);
+                    if(response?.result==-150){
+                        navigate('/login');
+                    }
+                }
             }
+
         }
     }
     return (
         <>
-            <Container style={{paddingBottom:`${not_price?'16px':''}`}}>
-                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }} style={{borderBottom:`${not_price?'none':''}`,borderRight:`${not_price?'none':''}`}}>
+            <Container style={{ paddingBottom: `${not_price ? '16px' : ''}` }}>
+                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }} style={{ borderBottom: `${not_price ? 'none' : ''}`, borderRight: `${not_price ? 'none' : ''}` }}>
                     {is_detail ?
                         <>
                             <img src={backUrl + item?.main_img} style={{ height: '120px', width: '160px' }} />
@@ -107,22 +115,22 @@ const AcademySubCard = (props) => {
 
                     </div>
                 </ContentContainer>
-                {not_price?
-                <>
-                </>
-                :
-                <>
-                <PriceContainer>
-                    <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
-                    <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
-                    <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
-                    <div style={{ display: "flex" }}>
-                        <TextButton style={{ margin: '0 4px 0 12px' }} onClick={()=>onSubscribe(0)}>장바구니</TextButton>
-                        <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={()=>onSubscribe(1)}>수강신청</TextFillButton>
-                    </div>
-                </PriceContainer>
-                </>}
-                
+                {not_price ?
+                    <>
+                    </>
+                    :
+                    <>
+                        <PriceContainer>
+                            <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
+                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
+                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                            <div style={{ display: "flex" }}>
+                                <TextButton style={{ margin: '0 4px 0 12px' }} onClick={() => onSubscribe(0)}>장바구니</TextButton>
+                                <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={() => onSubscribe(1)}>수강신청</TextFillButton>
+                            </div>
+                        </PriceContainer>
+                    </>}
+
             </Container>
         </>
     )

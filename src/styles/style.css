@@ -70,6 +70,12 @@ body::-webkit-scrollbar-thumb {
     width: 100vw;
     height: 25vw;
 }
+.enrolment-banner-img{
+    width: 100%;
+    max-width: 1000px;
+    height: 25vw;
+
+}
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before {}
 

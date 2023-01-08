@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input, Textarea } from "../../../components/elements/ManagerTemplete";
-import { Content, TextButton, TextFillButton, Wrappers } from "../../../components/elements/UserContentTemplete"
+import { Content, TextButton, TextFillButton, Title, Wrappers } from "../../../components/elements/UserContentTemplete"
 import theme from "../../../styles/theme";
 import $ from 'jquery';
 import { useEffect, useState } from "react";
@@ -10,6 +10,17 @@ const Request = () => {
     const params = useParams();
     const [post, setPost] = useState({});
     useEffect(() => {
+        async function myAuth() {
+            const { data: response } = await axios.get(`/api/auth`);
+            console.log(response)
+            if (response?.pk > 0) {
+
+            } else {
+                alert("로그인이 필요합니다.");
+                navigate('/login')
+            }
+        }
+        myAuth();
         async function fetchPost() {
             const { data: response } = await axios.post('/api/myitem', {
                 table: 'request',
@@ -43,13 +54,14 @@ const Request = () => {
     return (
         <Wrappers>
             <Content>
+                <Title>문의하기</Title>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div style={{ width: '48px', fontSize: theme.size.font4, fontWeight: 'bold' }}>제목</div>
-                    <Input style={{ margin: '0 0 0 8px', width: '80%', maxWidth: '400px' }} className='title' disabled={params?.pk > 0 ? true : false} />
+                    <div style={{ maxWidth: '48px', fontSize: theme.size.font4, fontWeight: 'bold', width: '10%' }}>제목</div>
+                    <Input style={{ margin: '0 0 0 8px', width: '80%',padding:'16px 8px' }} className='title' disabled={params?.pk > 0 ? true : false} />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-start', marginTop: '16px' }}>
-                    <div style={{ width: '48px', fontSize: theme.size.font4, fontWeight: 'bold' }}>내용</div>
-                    <Textarea style={{ margin: '0 0 0 8px', width: '80%', maxWidth: '400px', height: '360px' }} className='note' disabled={params?.pk > 0 ? true : false} />
+                    <div style={{ maxWidth: '48px', fontSize: theme.size.font4, fontWeight: 'bold', width: '10%' }}>내용</div>
+                    <Textarea style={{ margin: '0 0 0 8px', width: '80%', height: '360px' }} className='note' disabled={params?.pk > 0 ? true : false} />
                 </div>
                 {post?.status == 1 ?
                     <>

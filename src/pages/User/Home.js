@@ -34,7 +34,24 @@ border-radius:${props => props.theme.borderRadius};
     height:auto;
 }
 `
-
+const RowLastColumnContent = styled.div`
+display:flex;
+justify-content:space-between;
+@media screen and (max-width:1000px) { 
+flex-direction:column;
+    
+}
+`
+const HalfContent = styled.div`
+width:48%;
+font-size:${props => props.theme.size.font3};
+display:flex;
+flex-direction:column;
+font-weight:normal;
+@media screen and (max-width:1000px) { 
+    width:100%;
+}
+`
 const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -57,7 +74,7 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchPost() {
-            setLoading(true)
+            //setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
             let banner_list = [];
             let banner_link_obj = {};
@@ -137,7 +154,7 @@ const Home = () => {
                                         effect="blur"
                                         src={item}
                                         className="banner-img"
-                                        onClick={()=>{onClickExternalLink(bannerLinks[`home_banner_link_${idx+1}`])}}
+                                        onClick={() => { onClickExternalLink(bannerLinks[`home_banner_link_${idx + 1}`]) }}
                                     />
                                 </>
                             ))}
@@ -150,7 +167,7 @@ const Home = () => {
                     </>
                     :
                     <>
-                        <Title className='pointer' link={'/academylist'} line={true}>BEST</Title>
+                        <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
                                 <>
@@ -158,7 +175,7 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
-                        <Title className='pointer' link={'/reviewlist'} line={true}>BEST 후기</Title>
+                        <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true}>BEST 후기</Title>
                         <ShadowContainer>
 
                         </ShadowContainer>
@@ -172,29 +189,39 @@ const Home = () => {
                                 <BestContentImg src={backUrl + mainContent?.home_main_img} />
                             </RowContent>
                         </ShadowContainer>
-                        <Title className='pointer' link={'/servicecenter'} text={'더보기'}>공지사항</Title>
-                        <Content>
-                            {notices.length > 0 && notices.map((item, idx) => (
-                                <>
-                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
-                                        <div>{item?.title}</div>
-                                        <div>{item?.nickname}</div>
-                                        <div>{item?.date.substring(0, 10)}</div>
-                                    </div>
-                                </>
-                            ))}
-                        </Content>
-                        <Title className='pointer'>퍼스트앱</Title>
-                        <RowContent style={{ overflowX: 'auto' }}>
-                            {apps.length > 0 && apps.map((item, idx) => (
-                                <>
-                                    <div style={{ display: 'flex', flexDirection: 'column', marginRight: '16px', width: '52px', alignItems: 'center' }} onClick={()=>onClickExternalLink(item?.link)}>
-                                        <img src={backUrl + item?.main_img} style={{ width: '48px', height: '48px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
-                                        <div>{item?.name}</div>
-                                    </div>
-                                </>
-                            ))}
-                        </RowContent>
+                        <RowLastColumnContent>
+                            <HalfContent>
+                                <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
+                                {notices.length > 0 && notices.map((item, idx) => (
+                                    <>
+                                        <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer', border: `1px solid ${theme.color.font5}`, padding: '4px 8px' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
+                                            <img style={{ height: '100px', width: '150px' }} src={backUrl + item?.main_img} />
+                                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '0 auto 0 8px' }}>
+                                                <div style={{ display: 'flex', fontWeight: 'bold',fontSize:theme.size.font3 }}>
+                                                    <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
+                                                    <div>{item?.title}</div>
+                                                </div>
+                                                <div>{item?.date.substring(0, 10)}</div>
+                                            </div>
+                                        </div>
+                                    </>
+                                ))}
+                            </HalfContent>
+                            <HalfContent>
+                                <Title className='pointer'>퍼스트앱</Title>
+                                <RowContent style={{ flexWrap: 'wrap' }}>
+                                    {apps.length > 0 && apps.map((item, idx) => (
+                                        <>
+                                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '24px', width: '124px', alignItems: 'center', cursor: 'pointer', marginBottom: '16px' }} onClick={() => onClickExternalLink(item?.link)}>
+                                                <img src={backUrl + item?.main_img} style={{ width: '104px', height: '104px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
+                                                <div>{item?.name}</div>
+                                            </div>
+                                        </>
+                                    ))}
+                                </RowContent>
+                            </HalfContent>
+                        </RowLastColumnContent>
+
                     </>}
 
 

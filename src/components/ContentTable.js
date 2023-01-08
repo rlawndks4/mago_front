@@ -61,6 +61,8 @@ const ContentTable = (props) => {
     }
     const onSubscribe = async (num) => {
         if (window.confirm("수강신청 하시겠습니까?")) {
+            navigate('/authpay', { state: { item_pk: num } });
+            return;
             const { data: response } = await axios.post('/api/onsubscribe', {
                 bag_pk: num,
             })
@@ -143,7 +145,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                             {column.type == 'end_date' ?
-                                            `~${item[column.column].substring(0,10)}`
+                                            `${item['date'].substring(0,10)} ~ ${item[column.column].substring(0,10)}`
                                             :
                                             null}
                                         {column.type == 'percent' ?

@@ -53,7 +53,7 @@ const ReviewList = () => {
             for(var i=0;i<master_list.length;i++){
                 master_list[i]['title'] = master_list[i]['nickname'];
             }
-            setMasterList(master_list);
+            setMasterList([...[{title:'전체'}],...master_list]);
             $('span.lazy-load-image-background').addClass('width-100');
         }
         fetchPost();

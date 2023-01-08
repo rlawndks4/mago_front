@@ -63,7 +63,7 @@ const HeaderMenu = styled.div`
 text-align:center;
 font-size:${props => props.theme.size.font3};
 padding:0.3rem;
-margin-right:0.5rem;
+margin-right:1rem;
 font-weight:bold;
 cursor:pointer;
 &:hover{  
@@ -169,12 +169,14 @@ width:100%;
 height:4rem;
 background:#EBFDFF;
 display:flex;
-font-size:${props => props.theme.size.font4};
+font-size:${props => props.theme.size.font2};
 align-items:center;
 font-weight:bold;
+cursor:pointer;
 @media screen and (max-width:1050px) { 
   top:3.5rem;
   height:2rem;
+  font-size:${props => props.theme.size.font4};
 }
 `
 const Headers = () => {
@@ -189,8 +191,11 @@ const Headers = () => {
   const [isAlarm, setIsAlarm] = useState(false);
   const [lastNoticePk, setLastNoticePk] = useState(0);
   const [lastAlarmePk, setLastAlarmPk] = useState(0);
+
   const [popupList, setPopupList] = useState([]);
   const [topBanner, setTopBanner] = useState({});
+  const [masterList, setMasterList] = useState([]);
+
   const [auth, setAuth] = useState({});
   useEffect(() => {
     if (location.pathname.substring(0, 6) == '/post/' || location.pathname.substring(0, 7) == '/video/' || location.pathname == '/appsetting') {
@@ -217,22 +222,18 @@ const Headers = () => {
     } else {
 
     }
-    if (location.pathname == '/' || location.pathname == '/home') {
-      fetchPopup();
-    }
+    
   }, [location])
-
-  async function fetchPopup() {
-    const { data: response } = await axios.get('/api/items?table=popup&status=1')
-    setPopupList(response?.data ?? []);
+  async function getHeaderContent() {
+    const { data: response } = await axios.get('/api/getheadercontent')
+    console.log(response)
+    setPopupList(response?.data?.popup ?? []);
+    setTopBanner(response?.data?.top_banner);
+    setMasterList(response?.data?.master);
   }
 
   useEffect(() => {
-    async function getSetting() {
-      const { data: response } = await axios.get(`/api/item?table=setting&pk=1`);
-      setTopBanner(response?.data);
-    }
-    getSetting();
+    getHeaderContent();
     async function myAuth() {
       const { data: response } = await axios.get(`/api/auth`);
       setAuth(response);
@@ -346,7 +347,7 @@ const Headers = () => {
     }
   }
   const onLogout = async () => {
-    if(window.confirm("정말 로그아웃 하시겠습니까?")){
+    if (window.confirm("정말 로그아웃 하시겠습니까?")) {
       if (window && window.flutter_inappwebview) {
         var params = { 'login_type': JSON.parse(localStorage.getItem('auth'))?.type };
         window.flutter_inappwebview.callHandler('native_app_logout', JSON.stringify(params)).then(async function (result) {
@@ -366,12 +367,12 @@ const Headers = () => {
     <>
 
       <Header style={{ display: `${display}` }} className='header'>
-        <TopBannerContainer onClick={()=>{onClickExternalLink(topBanner?.top_banner_link)}}>
+        <TopBannerContainer onClick={() => { onClickExternalLink(topBanner?.top_banner_link) }}>
           <img src={redSpeakerIcon} style={{ height: '1.5rem', margin: '0 4px 0 auto' }} />
           <div style={{ margin: '0 4px', color: theme.color.red }}>{topBanner?.top_banner_manager_name}</div>
           <div style={{ margin: '0 auto 0 4px' }}>{topBanner?.top_banner_note}</div>
         </TopBannerContainer>
-        {popupList.length > 0 ?
+        {popupList.length > 0 && (location.pathname == '/' || location.pathname == '/home') ?
           <>
             <PopupContainer>
 

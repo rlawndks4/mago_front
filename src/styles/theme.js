@@ -25,6 +25,7 @@ const theme = {
     font3: "#9A9A9A",
     font4: "#D6D6D5",
     font4: "#B5B5B5",
+    font5: "#ddd",
     red: "#ff0000",
     blue: "#0058FF",
     cardColor: [

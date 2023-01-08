@@ -18,13 +18,13 @@ import SelectTypeComponent from '../../components/SelectTypeComponent';
 import MBottomContent from '../../components/elements/MBottomContent';
 import PageContainer from '../../components/elements/pagination/PageContainer';
 import PageButton from '../../components/elements/pagination/PageButton';
-import { range } from '../../functions/utils';
+import { commarNumber, range } from '../../functions/utils';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { Viewer } from '@toast-ui/react-editor';
 const ServiceCenter = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const {state} = useLocation();
+    const { state } = useLocation();
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -33,8 +33,8 @@ const ServiceCenter = () => {
     useEffect(() => {
         async function fetchPost() {
             let num = 0;
-            if(state){
-                num = state?.type_num??0;
+            if (state) {
+                num = state?.type_num ?? 0;
             }
             selectTypeNum(num);
         }
@@ -103,18 +103,29 @@ const ServiceCenter = () => {
                         {typeNum == 0 ?
                             <>
                                 <Content style={{ marginTop: '16px' }}>
-                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, borderBottom: `1px solid ${theme.color.font4}`, padding: '6px 0' }}>
+                                    {/* <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, borderBottom: `1px solid ${theme.color.font4}`, padding: '6px 0' }}>
                                         <div style={{ width: '30%', textAlign: 'center' }}>작성자</div>
                                         <div style={{ width: '40%', textAlign: 'center' }}>제목</div>
                                         <div style={{ width: '30%', textAlign: 'center' }}>작성일</div>
-                                    </div>
+                                    </div> */}
+                                    <div style={{ borderBottom: `1px solid ${theme.color.font4}` }} />
                                     {posts && posts.length > 0 && posts.map((item, idx) => (
                                         <>
-                                            <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}
-                                            onClick={()=>navigate(`/post/notice/${item?.pk}`)}>
-                                            <div style={{ width: '30%', textAlign: 'center' }}>{item?.nickname}</div>
-                                                <div style={{ width: '40%', textAlign: 'center' }}>{item?.title}</div>
-                                                <div style={{ width: '30%', textAlign: 'center' }}>{item?.date.substring(0, 10)}</div>
+                                            <div style={{
+                                                color: theme.color.font2, display: 'flex', flexDirection: 'column', fontSize: theme.size.font3,
+                                                padding: '6px 0', cursor: 'pointer', borderBottom: `1px solid ${theme.color.font4}`
+                                            }}
+                                                onClick={() => navigate(`/post/notice/${item?.pk}`)}>
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <TextButton style={{ width: '48px', border: `1px solid ${theme.color.font5}`, marginRight: '8px' }}>공지</TextButton>
+                                                    <div style={{ fontWeight: 'bold' }}>{item?.title}</div>
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font5, marginTop: '8px' }}>
+                                                    <div style={{ marginRight: '6px' }}>{item?.nickname}</div>
+                                                    <div style={{ marginRight: '6px', color: theme.color.font3 }}>{item?.date.substring(0, 10)}</div>
+                                                    <div style={{ marginRight: '6px' }}>조회수</div>
+                                                    <div style={{ color: theme.color.font3 }}>{commarNumber(item?.views)}</div>
+                                                </div>
                                             </div>
                                         </>
                                     ))}
@@ -127,22 +138,22 @@ const ServiceCenter = () => {
                             <>
                                 <Content style={{ marginTop: '16px' }}>
                                     <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, borderBottom: `1px solid ${theme.color.font4}`, padding: '6px 0' }}>
-                                        <div style={{ width: '30%', textAlign: 'center' }}>작성일</div>
-                                        <div style={{ width: '40%', textAlign: 'center' }}>제목</div>
-                                        <div style={{ width: '30%', textAlign: 'center' }}>비고</div>
+                                        <div style={{ width: '50%', textAlign: 'left' }}>제목</div>
+                                        <div style={{ width: '25%', textAlign: 'end' }}>작성일</div>
+                                        <div style={{ width: '25%', textAlign: 'end' }}>비고</div>
                                     </div>
                                     {posts && posts.length > 0 && posts.map((item, idx) => (
                                         <>
                                             <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer' }}
-                                            onClick={()=>navigate(`/request/${item?.pk}`)}>
-                                                <div style={{ width: '30%', textAlign: 'center' }}>{item?.date.substring(0, 10)}</div>
-                                                <div style={{ width: '40%', textAlign: 'center' }}>{item?.title}</div>
-                                                <div style={{ width: '30%', textAlign: 'center' }}>{item?.status==1?'답변완료':'확인대기'}</div>
+                                                onClick={() => navigate(`/request/${item?.pk}`)}>
+                                                <div style={{ width: '50%', textAlign: 'left' }}>{item?.title}</div>
+                                                <div style={{ width: '25%', textAlign: 'end', }}>{item?.date.substring(0, 10)}</div>
+                                                <div style={{ width: '25%', textAlign: 'end'}}>{item?.status == 1 ? '답변완료' : '확인대기'}</div>
                                             </div>
                                         </>
                                     ))}
                                     <div style={{ width: '100%', display: 'flex', margin: '16px 0' }}>
-                                        <TextButton style={{ margin: '0 4px 0 auto' }} onClick={()=>{navigate('/request')}}>글쓰기</TextButton>
+                                        <TextButton style={{ margin: '0 4px 0 auto' }} onClick={() => { navigate('/request') }}>글쓰기</TextButton>
                                     </div>
                                 </Content>
                             </>
@@ -165,7 +176,7 @@ const ServiceCenter = () => {
                                                 setPosts(list)
                                             }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <div>Q. {item?.title}</div>
+                                                <div style={{ fontSize: theme.size.font3, fontWeight: 'bold', color: theme.color.font1 }}>Q. {item?.title}</div>
                                                 {posts[idx]?.is_see ?
                                                     <>
                                                         <AiFillCaretUp />
@@ -177,8 +188,8 @@ const ServiceCenter = () => {
                                             </div>
                                             {posts[idx]?.is_see ?
                                                 <>
-                                                    <div style={{width:'100%',display:'flex'}}>
-                                                        <ViewerContainer className="viewer" style={{margin:'0'}}>
+                                                    <div style={{ width: '100%', display: 'flex' }}>
+                                                        <ViewerContainer className="viewer" style={{ margin: '0' }}>
                                                             <Viewer initialValue={item?.note ?? `<body></body>`} />
                                                         </ViewerContainer>
                                                     </div>

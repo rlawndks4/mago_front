@@ -79,7 +79,7 @@ const AcademyCard = (props) => {
                     <div style={{ margin: '4px 0 auto 0', color: theme.color.font1, fontSize: theme.size.font4 }}>{item.title}</div>
                     <div style={{ margin: 'auto 0 auto 0', color: theme.color.font1, fontSize: theme.size.font5, fontWeight: 'bold' }}>{item.sub_title}</div>
                     <div style={{ margin: 'auto 0 auto 0', color: theme.color.font4, fontSize: theme.size.font5 }}>{item.hash}</div>
-                    <div style={{ margin: 'auto 0 0 0', color: theme.color.blue, fontSize: theme.size.font5, fontWeight: 'bold' }}>{commarNumber(item.price * ((100 - item?.discount_percent ?? 0) / 100))}원 (VAT 별도)</div>
+                    {/* <div style={{ margin: 'auto 0 0 0', color: theme.color.blue, fontSize: theme.size.font5, fontWeight: 'bold' }}>{commarNumber(item.price * ((100 - item?.discount_percent ?? 0) / 100))}원 (VAT 별도)</div> */}
                 </AcademyTextContainer>
             </AcademyContainer>
         </>

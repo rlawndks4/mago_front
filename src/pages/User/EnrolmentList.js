@@ -69,7 +69,8 @@ const EnrolmentList = () => {
             }
             setBanners(banner_list)
             setBestContents(response?.data?.best_academy);
-            setMasterList(response?.data?.master)
+            setMasterList([...[{title:'전체'}],...response?.data?.master]);
+            setSelectContents(response?.data?.contents);
             setTimeout(() => setLoading(false), 1000);
             $('span.lazy-load-image-background').addClass('width-100');
         }
@@ -79,8 +80,10 @@ const EnrolmentList = () => {
     const selectTypeNum = async (num) => {
         setTypeNum(num);
         setDifficultyNum(0);
-        let str = "";
-        str = `/api/items?table=academy_category&master_pk=${masterList[num]?.pk}`
+        let str = `/api/items?table=academy_category`;
+        if(num!=0){
+            str += `&master_pk=${masterList[num]?.pk}`
+        }
         const { data: response } = await axios.get(str);
         setSelectContents(response?.data);
     }
@@ -100,19 +103,7 @@ const EnrolmentList = () => {
                     </>
                     :
                     <>
-                        <Slider {...settings} className='board-container pointer slider1'>
-                            {banners.length > 0 && banners.map((item, idx) => (
-                                <>
-                                    <LazyLoadImage
-                                        alt={"#"}
-                                        effect="blur"
-                                        src={item}
-                                        className="banner-img"
-                                    />
-
-                                </>
-                            ))}
-                        </Slider>
+                        
                     </>}
             </WrappersStyle>
             <Wrappers className='wrappers' style={{ marginTop: '16px' }}>
@@ -121,7 +112,20 @@ const EnrolmentList = () => {
                     </>
                     :
                     <>
-                        <Title className='pointer' link={'/academylist'} line={true}>오늘의 BEST 강의</Title>
+                        <Slider {...settings} className='board-container pointer slider1'>
+                            {banners.length > 0 && banners.map((item, idx) => (
+                                <>
+                                    <LazyLoadImage
+                                        alt={"#"}
+                                        effect="blur"
+                                        src={item}
+                                        className="enrolment-banner-img"
+                                    />
+
+                                </>
+                            ))}
+                        </Slider>
+                        <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>오늘의 BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
                                 <>
@@ -130,7 +134,7 @@ const EnrolmentList = () => {
                             ))}
 
                         </RowContent>
-                        <RowContent style={{justifyContent:'space-between',margin:'8px 0'}}>
+                        {/* <RowContent style={{justifyContent:'space-between',margin:'8px 0'}}>
                             {difficulty_list.map((item, idx)=>(
                                 <>
                                 <TextFillButton style={{color:`${difficultyNum==item?.val?theme.color.font1:theme.color.font2}`,background:theme.color.background1,border:`1px solid ${theme.color.background1}`,width:'18%',minWidth:'48px',height:'32px'}}
@@ -139,7 +143,7 @@ const EnrolmentList = () => {
                                 </TextFillButton>
                                 </>
                             ))}
-                        </RowContent>
+                        </RowContent> */}
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
                             posts={masterList} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
@@ -151,11 +155,11 @@ const EnrolmentList = () => {
 
                         </RowContent>
                         <Content>
-                            <LazyLoadImage
+                            <img
                                 alt={"#"}
                                 effect="blur"
                                 src={bottomBanners}
-                                style={{ width: '100%', height: 'auto' }}
+                                style={{ width: '100%', height: 'auto',maxWidth:'550px',margin:'16px auto' }}
                             />
                         </Content>
                     </>}

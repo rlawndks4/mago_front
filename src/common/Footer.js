@@ -58,11 +58,13 @@ const Footer = () => {
                 </>
                 :
                 <>
-                    <div style={{ display: 'flex', padding: '16px 0', fontSize: theme.size.font4, background: `#191828`, cursor: 'pointer', color: '#FFF' }}>
-                        <div style={{ width: '25%', textAlign: 'center' }}>회사소개</div>
-                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/0')}>이용약관</div>
-                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/1')}>개인정보처리방침</div>
-                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/2')}>저작권정책</div>
+                    <div style={{ width: '100%', background: `#191828` }}>
+                        <div style={{ display: 'flex', padding: '16px 0', fontSize: theme.size.font4, background: `#191828`, cursor: 'pointer', color: '#FFF', width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
+                            <div style={{ width: '25%', textAlign: 'center' }}>회사소개</div>
+                            <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/0')}>이용약관</div>
+                            <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/1')}>개인정보처리방침</div>
+                            <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/2')}>저작권정책</div>
+                        </div>
                     </div>
                     <Wrappers className="footer" style={{ background: `#23242f` }}>
                         <Img src={logo} alt="footer" />

@@ -48,7 +48,7 @@ const AcademyList = () => {
             setLoading(true);
             const { data: response } = await axios.get('/api/getacademylist');
             if(response?.result<0){
-                alert("로그인이 필요합니다.");
+                alert("회원전용 메뉴입니다.");
                 navigate(-1);
             }
             setMasterList(response?.data?.master);

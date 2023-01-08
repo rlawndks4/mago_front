@@ -1,11 +1,7 @@
 import Home from '../pages/User/Home';
 
 import Search from '../pages/User/Search';
-import SelectIssueCategory from '../pages/User/SelectIssueCategory';
-import SelectFeatureCategory from '../pages/User/SelectFeatureCategory';
 import MasterList from '../pages/User/MasterList';
-import ThemeList from '../pages/User/ThemeList';
-import VideoList from '../pages/User/VideoList';
 
 import AppSetting from '../pages/User/AppSetting';
 
@@ -17,15 +13,10 @@ import SignUp from '../pages/User/Auth/SignUp';
 import Resign from '../pages/User/Auth/Resign';
 import KakaoRedirectHandler from '../pages/User/Auth/KakaoRedirectHandler';
 
-import OneEventList from '../pages/User/OneEvent/OneEventList';
-import OneWordList from '../pages/User/OneWord/OneWordList';
 import NoticeList from '../pages/User/Notice/NoticeList';
-import IssueList from '../pages/User/Issues/IssueList';
-import FeatureList from '../pages/User/Feature/FeatureList';
 import Master from '../pages/User/Master/Master';
 
 import Post from '../pages/User/Posts/Post';
-import Video from '../pages/User/Posts/Video';
 
 import Policy from '../pages/User/Policy/Policy';
 
@@ -49,6 +40,7 @@ import ServiceCenter from '../pages/User/ServiceCenter';
 import EventList from '../pages/User/EventList';
 import Request from '../pages/User/Auth/Request';
 import MyAcademy from '../pages/User/Academy/MyAcademy';
+import AuthPay from '../pages/User/Pay/AuthPay';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -79,6 +71,7 @@ const zUserRoute = [
     { link: '/masterlist', element: <MasterList />, title: "전문가" },
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
+    { link: '/authpay', element: <AuthPay />, title: "결제" },
 
      { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 

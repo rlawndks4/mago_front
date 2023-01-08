@@ -5,83 +5,93 @@ import $ from 'jquery'
 import { useState } from "react";
 import { MdNavigateNext } from 'react-icons/md'
 import theme from "../../styles/theme";
-
+import umziIcon from '../../assets/images/icon/umzi.svg'
 export const WrappersStyle = styled.div`
 position:relative;
 display:flex;
 flex-direction:column;
 width:90%;
 max-width:1000px;
-margin-top:10rem;
+margin-top:12rem;
 margin-left:auto;
 margin-right:auto;
 margin-bottom:6rem;
 min-height:58vh;
 @media screen and (max-width:1050px) { 
-    margin-top:6rem;
+    margin-top:7rem;
 }
 
 `
 
-export const Wrappers = (props) =>{
-    let {className, style} = props;
-    const {pathname} = useLocation();
-    useEffect(()=>{
-        $('.wrappers').css('min-height',`${$(window).height()-372}px`);
-    },[pathname])
-    useEffect(()=>{
+export const Wrappers = (props) => {
+    let { className, style } = props;
+    const { pathname } = useLocation();
+    useEffect(() => {
+        $('.wrappers').css('min-height', `${$(window).height() - 372}px`);
+    }, [pathname])
+    useEffect(() => {
 
-    },[])
+    }, [])
     return (
         <>
-        <WrappersStyle className={`wrappers ${className}`} style={style}>
-            {props.children??""}
-        </WrappersStyle>
+            <WrappersStyle className={`wrappers ${className}`} style={style}>
+                {props.children ?? ""}
+            </WrappersStyle>
         </>
     )
 }
 export const TitleContainer = styled.div`
 display:flex;
 align-items:center;
-margin-top:24px;
-margin-bottom:8px;
+margin-top:36px;
+margin-bottom:24px;
 justify-content:space-between;
+position:relative;
 `
 export const TitleStyle = styled.div`
 font-size:${props => props.theme.size.font2};
 font-weight:bold;
 margin-right:16px;
-cursor:pointer;
+display:flex;
+align-items:center;
 `
-export const Title = (props) =>{
-    let {not_line,line,text} = props;
+export const Title = (props) => {
+    let { not_line, line, text, text_link, is_thumb } = props;
     const navigate = useNavigate();
     const [containerStyle, setContainerStyle] = useState({});
+    const [titleStyle, setTitleStyle] = useState({});
     const [content, setContent] = useState(undefined);
-    useEffect(()=>{
-        if(not_line){
+    useEffect(() => {
+        if (not_line) {
             setContainerStyle();
             setContent();
         }
-        if(line){
-            setContainerStyle({justifyContent:'unset'});
-            setContent(<div style={{background:'#203864',height:'4px',maxWidth:'50vw',width:'40%'}}/>);
+        if (line) {
+            setContainerStyle({ justifyContent: 'unset' });
+            setTitleStyle({ position: 'absolute', background: '#fff', paddingRight: '8px' });
+            setContent(<div style={{ background: '#203864', height: '4px', width: '100%' }} />);
         }
-        if(text){
-            setContent(<div style={{fontSize:theme.size.font5,color:theme.color.blue,fontWeight:'bold'}}>{text}</div>);
+        if (text) {
+            setContent(<div style={{ fontSize: theme.size.font5, color: theme.color.blue, fontWeight: 'bold', cursor: 'pointer' }} onClick={() => navigate(text_link)}>{text}</div>);
         }
-    },[props]);
+    }, [props]);
     return (
         <>
-        <TitleContainer className="title" style={containerStyle} onClick={()=>{navigate(props.link)}}>
-        <TitleStyle>
-            {props?.children??""}
-        </TitleStyle>
-        {content}
-        {/* <hr className="bar"/> */}
+            <TitleContainer className="title" style={containerStyle}>
+                <TitleStyle style={titleStyle}>
+                    <div>{props?.children ?? ""}</div>
+                    {is_thumb ?
+                        <>
+                            <img src={umziIcon} style={{ height: '32px', width: 'auto', paddingLeft: '8px' }} />
+                        </>
+                        :
+                        <></>}
+                </TitleStyle>
+                {content}
+                {/* <hr className="bar"/> */}
 
-        </TitleContainer>
-        
+            </TitleContainer>
+
         </>
     )
 }
@@ -147,9 +157,9 @@ margin:16px 0;
 `
 export const ShadowContainer = styled.div`
 background:#FAFAFA;
-border-radius:${props=>props.theme.borderRadius};
+border-radius:${props => props.theme.borderRadius};
 padding:6px;
-box-shadow:${props=>props.theme.boxShadow};
+box-shadow:${props => props.theme.boxShadow};
 `
 export const RowContent = styled.div`
 display:flex;
@@ -159,19 +169,19 @@ export const TextButton = styled.button`
 width:84px;
 height:24px;
 border-radius:12px;
-border:1px solid ${props=>props.theme.color.font2};
-color:${props=>props.theme.color.font2};
+border:1px solid ${props => props.theme.color.font2};
+color:${props => props.theme.color.font2};
 background:#fff;
-font-size:${props=>props.theme.size.font5};
+font-size:${props => props.theme.size.font5};
 cursor:pointer;
 `
 export const TextFillButton = styled.button`
 width:84px;
 height:24px;
 border-radius:12px;
-border:1px solid ${props=>props.theme.color.font2};
+border:1px solid ${props => props.theme.color.font2};
 color:#fff;
-background:${props=>props.theme.color.font2};
-font-size:${props=>props.theme.size.font5};
+background:${props => props.theme.color.font2};
+font-size:${props => props.theme.size.font5};
 cursor:pointer;
 `

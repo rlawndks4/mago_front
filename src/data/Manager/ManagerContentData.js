@@ -18,29 +18,29 @@ export const zSidebar = [
         sidebarObjListFormat('회원관리', '/manager/list/user', 40, ['/manager/list/user']),//edit
         sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
-    ],<BsPerson/>),
+    ], <BsPerson />),
     sidebarContentFormat('강의관리', [
         sidebarObjListFormat('전문가관리', '/manager/list/master', 40, ['/manager/list/master']),//list
         sidebarObjListFormat('강의관리', '/manager/list/academy_category', 40, ['/manager/list/academy_category']),//list
         sidebarObjListFormat('강의컨텐츠관리', '/manager/list/academy', 40, ['/manager/list/academy']),//list
         sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
-    ],<BsCameraVideo/>),
+    ], <BsCameraVideo />),
     sidebarContentFormat('기본설정', [
-        sidebarObjListFormat('공통', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
-        sidebarObjListFormat('홈', '/manager/edit/home_setting/1', 40, ['/manager/edit/home_setting/1']),//list
-        sidebarObjListFormat('수강신청', '/manager/edit/enrolment_setting/1', 40, ['/manager/edit/enrolment_setting/1']),//list
-        sidebarObjListFormat('퍼스트앱관리', '/manager/list/app', 40, ['/manager/list/app']),//list
+        sidebarObjListFormat('상단띠배너', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
+        sidebarObjListFormat('메인배너', '/manager/edit/home_setting/1', 40, ['/manager/edit/home_setting/1']),//list
+        sidebarObjListFormat('수강신청배너', '/manager/edit/enrolment_setting/1', 40, ['/manager/edit/enrolment_setting/1']),//list
+        sidebarObjListFormat('앱등록관리', '/manager/list/app', 40, ['/manager/list/app']),//list
         sidebarObjListFormat('팝업관리', '/manager/list/popup', 40, ['/manager/list/popup']),//list
-    ],<AiTwotoneSetting/>),
+    ], <AiTwotoneSetting />),
     sidebarContentFormat('게시판관리', [
         sidebarObjListFormat('문의관리', '/manager/list/request', 40, ['/manager/list/request']),//list
         sidebarObjListFormat('FAQ관리', '/manager/list/faq', 40, ['/manager/list/faq']),//list
         sidebarObjListFormat('이벤트관리', '/manager/list/event', 40, ['/manager/list/event']),//list
         sidebarObjListFormat('공지사항', '/manager/list/notice', 40, ['/manager/list/notice']),//list
-    ],<AiOutlineUnorderedList/>),
+    ], <AiOutlineUnorderedList />),
     sidebarContentFormat('푸시알림', [
         sidebarObjListFormat('푸시알림', '/manager/list/alarm', 40, ['/manager/list/alarm']),//list
-    ],<BsAlarm/>),
+    ], <BsAlarm />),
 ];
 
 export const objManagerListContent = {
@@ -62,7 +62,7 @@ export const objManagerListContent = {
         true,
         false),
     app: sidebarObjFormat(
-        '퍼스트앱 리스트',
+        '앱등록관리',
         'app',
         [
             columnObjFormat('앱아이콘', '', 'img', 'main_img'),
@@ -229,6 +229,7 @@ export const objManagerListContent = {
         '공지 관리',
         'notice',
         [
+            columnObjFormat('메인이미지', '', 'img', 'main_img'),
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('등록일', '', 'text', 'date'),
             columnObjFormat('맨위로', '', 'top', 'top'),
@@ -362,13 +363,13 @@ export const objManagerEditContent = {
         schema: 'request',
         breadcrumb: '문의',
         add_list: [],
-        update_list: [{key:'status',value:'1'}],
+        update_list: [{ key: 'status', value: '1' }],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('제목', 'input', {disabled:true }, 'title'),
+                editColumnObjFormat('제목', 'input', { disabled: true }, 'title'),
             ],
             [
-                editColumnObjFormat('내용', 'textarea', {disabled:true}, 'note'),
+                editColumnObjFormat('내용', 'textarea', { disabled: true }, 'note'),
             ],
             [
                 editColumnObjFormat('답변', 'textarea', {}, 'reply_note'),
@@ -404,7 +405,7 @@ export const objManagerEditContent = {
     },
     common_setting: {
         schema: 'setting',
-        breadcrumb: '공통 기본설정',
+        breadcrumb: '상단띠배너',
         add_list: [],
         columns: [//img, select, input, 
             [
@@ -416,7 +417,7 @@ export const objManagerEditContent = {
     },
     home_setting: {
         schema: 'setting',
-        breadcrumb: '홈 기본설정',
+        breadcrumb: '메인배너',
         add_list: [],
         columns: [//img, select, input, 
             [
@@ -461,7 +462,7 @@ export const objManagerEditContent = {
     },
     enrolment_setting: {
         schema: 'setting',
-        breadcrumb: '수강신청 기본설정',
+        breadcrumb: '수강신청배너',
         add_list: [],
         columns: [//img, select, input, 
             [
@@ -521,6 +522,9 @@ export const objManagerEditContent = {
         schema: 'notice',
         breadcrumb: '공지사항',
         columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img')
+            ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
             ],
