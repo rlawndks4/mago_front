@@ -90,7 +90,7 @@ const MyAcademy = () => {
         // fetchPosts();
         // if(state?.type_num){
         // }
-        selectTypeNum(1,1);
+        selectTypeNum(1, 1);
     }, [])
 
     const selectTypeNum = async (num, page) => {
@@ -99,7 +99,7 @@ const MyAcademy = () => {
         if (num == 1) {
             const { data: response } = await axios.post('/api/myacademylist', {
                 pk: params?.pk,
-                page:page
+                page: page
             })
             console.log(response)
             if (response?.result > 0) {
@@ -111,7 +111,7 @@ const MyAcademy = () => {
             }
         }
     }
-    const onChangePage = (num) =>{
+    const onChangePage = (num) => {
         selectTypeNum(1, num);
     }
     return (
@@ -132,7 +132,7 @@ const MyAcademy = () => {
                                 { title: '강의' },
                                 { title: '이용후기' },
                             ]} /> */}
-                            <Title line={true}>My 강의실</Title>
+                        <Title line={true}>My 강의실</Title>
                         {typeNum == 0 ?
                             <>
                                 <ViewerContainer className="viewer">
@@ -149,27 +149,27 @@ const MyAcademy = () => {
                                             <ItemCard item={item} link={`/post/academy/${item?.pk}`} />
                                         </>
                                     ))}
-                                    <TextButton style={{ margin: '16px 0 0 auto' }} onClick={()=>navigate('/addreview',{state:{item_pk:params?.pk}})}>후기작성</TextButton>
+                                    <TextButton style={{ margin: '16px 0 0 auto' }} onClick={() => navigate('/addreview', { state: { item_pk: params?.pk } })}>후기작성</TextButton>
                                 </Content>
                                 <MBottomContent>
-                            <div />
-                            <PageContainer>
-                                <PageButton onClick={() => onChangePage(1)}>
-                                    처음
-                                </PageButton>
-                                {pageList.map((item, index) => (
-                                    <>
-                                        <PageButton onClick={() => onChangePage(item)} style={{ color: `${page == item ? '#fff' : ''}`, background: `${page == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - page) > 4 ? 'none' : ''}` }}>
-                                            {item}
+                                    <div />
+                                    <PageContainer>
+                                        <PageButton onClick={() => onChangePage(1)}>
+                                            처음
                                         </PageButton>
-                                    </>
-                                ))}
-                                <PageButton onClick={() => onChangePage(pageList.length ?? 1)}>
-                                    마지막
-                                </PageButton>
-                            </PageContainer>
-                            <div />
-                        </MBottomContent>
+                                        {pageList.map((item, index) => (
+                                            <>
+                                                <PageButton onClick={() => onChangePage(item)} style={{ color: `${page == item ? '#fff' : ''}`, background: `${page == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - page) > 4 ? 'none' : ''}` }}>
+                                                    {item}
+                                                </PageButton>
+                                            </>
+                                        ))}
+                                        <PageButton onClick={() => onChangePage(pageList.length ?? 1)}>
+                                            마지막
+                                        </PageButton>
+                                    </PageContainer>
+                                    <div />
+                                </MBottomContent>
                             </>
                             :
                             <></>}
