@@ -121,7 +121,7 @@ const MyPage = () => {
             const { data: response } = await axios.post('/api/logout');
             if (response.result > 0) {
                 localStorage.removeItem('auth');
-                navigate('/login');
+                window.location.href = '/login';
             } else {
                 alert('error');
             }

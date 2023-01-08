@@ -1,16 +1,8 @@
 import { logoSrc, backUrl } from "../Data";
 import { EditorState } from "draft-js"
 import { columnObjFormat, editColumnObjFormat, editContentFormat, sidebarContentFormat, sidebarObjFormat, sidebarObjListFormat } from "./ManagerContentFormat";
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { BsPerson, BsCameraVideo, BsAlarm, BsGraphUp } from 'react-icons/bs'
-import { MdOutlineAccessTime, MdNotificationImportant, MdOutlineFeaturedPlayList, MdOutlineStickyNote2 } from 'react-icons/md'
-import { IoStatsChartSharp, IoLogoReact } from 'react-icons/io5'
-import { FaChalkboardTeacher } from 'react-icons/fa'
-import { AiOutlineQuestionCircle, AiOutlineRotateLeft, AiOutlineComment } from 'react-icons/ai'
-import { WiDayHaze } from 'react-icons/wi'
-import { SiMicrostrategy } from 'react-icons/si'
-import { BiCommentDetail } from 'react-icons/bi'
-import { GoRepoPush } from 'react-icons/go'
+import { BsPerson, BsCameraVideo, BsAlarm } from 'react-icons/bs'
+import { AiTwotoneSetting, AiOutlineUnorderedList } from 'react-icons/ai'
 export const editorState = {
     editorState: EditorState.createEmpty()
 }
@@ -21,31 +13,36 @@ export const cardDefaultColor = {
 }
 export const needTwoImage = ['issue', 'theme', 'feature'];
 
-
 export const zSidebar = [
-    { name: '회원관리', link: '/manager/list/user', icon: <BsPerson />, level: 40, allow_list: ['/manager/list/user'], schema: 'user' },
-    { name: '회원통계', link: '/manager/list/user_statistics', icon: <BsGraphUp />, level: 40, allow_list: ['/manager/list/user_statistics'], schema: 'user_statistics' },
-    { name: '전문가관리', link: '/manager/list/master', icon: <FaChalkboardTeacher />, level: 40, allow_list: ['/manager/list/master'], schema: 'master' },
-    { name: '기본설정', link: '/manager/edit/setting', icon: <AiOutlineRotateLeft />, level: 40, allow_list: ['/manager/edit/setting'], schema: 'setting' },
-    { name: '퍼스트앱관리', link: '/manager/list/app', icon: <MdOutlineStickyNote2 />, level: 40, allow_list: ['/manager/list/app'], schema: 'app' },
-    { name: '강의관리', link: '/manager/list/academy_category', icon: <MdOutlineStickyNote2 />, level: 40, allow_list: ['/manager/list/academy_category'], schema: 'academy_category' },
-    { name: '강의컨텐츠관리', link: '/manager/list/academy', icon: <MdOutlineStickyNote2 />, level: 40, allow_list: ['/manager/list/academy'], schema: 'academy' },
-    { name: '댓글관리', link: '/manager/list/comment', icon: <BiCommentDetail />, level: 40, allow_list: ['/manager/list/comment'], schema: 'comment' },
-    { name: '결제내역관리', link: '/manager/list/subscribe', icon: <BiCommentDetail />, level: 40, allow_list: ['/manager/list/subscribe'], schema: 'subscribe' },
-    { name: '문의관리', link: '/manager/list/request', icon: <BiCommentDetail />, level: 40, allow_list: ['/manager/list/request'], schema: 'request' },
-    { name: 'FAQ관리', link: '/manager/list/faq', icon: <BiCommentDetail />, level: 40, allow_list: ['/manager/list/faq'], schema: '' },
-    { name: '이벤트관리', link: '/manager/list/event', icon: <IoLogoReact />, level: 30, allow_list: ['/manager/list/event'], schema: '' },
-    { name: '공지사항', link: '/manager/list/notice', icon: <AiOutlineQuestionCircle />, level: 30, allow_list: ['/manager/list/notice'], schema: '' },
-    { name: '푸시알림', link: '/manager/list/alarm', icon: <BsAlarm />, level: 30, allow_list: ['/manager/list/alarm'], schema: '' },
-    { name: '팝업관리', link: '/manager/list/popup', icon: <GoRepoPush />, level: 30, allow_list: ['/manager/list/popup'], schema: '' },
+    sidebarContentFormat('회원관리', [
+        sidebarObjListFormat('회원관리', '/manager/list/user', 40, ['/manager/list/user']),//edit
+        sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
+        sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
+    ],<BsPerson/>),
+    sidebarContentFormat('강의관리', [
+        sidebarObjListFormat('전문가관리', '/manager/list/master', 40, ['/manager/list/master']),//list
+        sidebarObjListFormat('강의관리', '/manager/list/academy_category', 40, ['/manager/list/academy_category']),//list
+        sidebarObjListFormat('강의컨텐츠관리', '/manager/list/academy', 40, ['/manager/list/academy']),//list
+        sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
+    ],<BsCameraVideo/>),
+    sidebarContentFormat('기본설정', [
+        sidebarObjListFormat('공통', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
+        sidebarObjListFormat('홈', '/manager/edit/home_setting/1', 40, ['/manager/edit/home_setting/1']),//list
+        sidebarObjListFormat('수강신청', '/manager/edit/enrolment_setting/1', 40, ['/manager/edit/enrolment_setting/1']),//list
+        sidebarObjListFormat('퍼스트앱관리', '/manager/list/app', 40, ['/manager/list/app']),//list
+        sidebarObjListFormat('팝업관리', '/manager/list/popup', 40, ['/manager/list/popup']),//list
+    ],<AiTwotoneSetting/>),
+    sidebarContentFormat('게시판관리', [
+        sidebarObjListFormat('문의관리', '/manager/list/request', 40, ['/manager/list/request']),//list
+        sidebarObjListFormat('FAQ관리', '/manager/list/faq', 40, ['/manager/list/faq']),//list
+        sidebarObjListFormat('이벤트관리', '/manager/list/event', 40, ['/manager/list/event']),//list
+        sidebarObjListFormat('공지사항', '/manager/list/notice', 40, ['/manager/list/notice']),//list
+    ],<AiOutlineUnorderedList/>),
+    sidebarContentFormat('푸시알림', [
+        sidebarObjListFormat('푸시알림', '/manager/list/alarm', 40, ['/manager/list/alarm']),//list
+    ],<BsAlarm/>),
 ];
-export const zSidebarSubMenu = {
-    setting: [
-        { name: '공통', link: '/manager/edit/common_setting/1' },
-        { name: '홈', link: '/manager/edit/home_setting/1' },
-        { name: '수강신청', link: '/manager/edit/enrolment_setting/1' },
-    ]
-}
+
 export const objManagerListContent = {
     user: sidebarObjFormat(
         '회원 리스트',
@@ -144,6 +141,7 @@ export const objManagerListContent = {
             columnObjFormat('메인이미지', '', 'img', 'main_img'),
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('추가일', '', 'text', 'date'),
+            columnObjFormat('맨위로', '', 'top', 'top'),
             columnObjFormat('수정', '', 'edit', 'edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
@@ -170,8 +168,8 @@ export const objManagerListContent = {
         '결제 내역 관리',
         'subscribe',
         [
-            columnObjFormat('유저아이디', '', 'text', 'id'),
-            columnObjFormat('유저닉네임', '', 'text', 'nickname'),
+            columnObjFormat('신청번호', '', 'number', 'pk'),
+            columnObjFormat('아이디', '', 'text', 'id'),
             columnObjFormat('수강강의', '', 'text', 'title'),
             columnObjFormat('강사', '', 'text', 'master_nickname'),
             columnObjFormat('결제금액', '', 'number', 'price'),
@@ -422,19 +420,34 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('슬라이드 이미지 1', 'img', { field_name: 'content1' }, 'home_banner_img_1')
+                editColumnObjFormat('슬라이드 이미지 1', 'img', { field_name: 'content1' }, 'home_banner_img_1'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 2', 'img', { field_name: 'content2' }, 'home_banner_img_2')
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_1'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 3', 'img', { field_name: 'content3' }, 'home_banner_img_3')
+                editColumnObjFormat('슬라이드 이미지 2', 'img', { field_name: 'content2' }, 'home_banner_img_2'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 4', 'img', { field_name: 'content4' }, 'home_banner_img_4')
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_2'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 5', 'img', { field_name: 'content5' }, 'home_banner_img_5')
+                editColumnObjFormat('슬라이드 이미지 3', 'img', { field_name: 'content3' }, 'home_banner_img_3'),
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_3'),
+            ],
+            [
+                editColumnObjFormat('슬라이드 이미지 4', 'img', { field_name: 'content4' }, 'home_banner_img_4'),
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_4'),
+            ],
+            [
+                editColumnObjFormat('슬라이드 이미지 5', 'img', { field_name: 'content5' }, 'home_banner_img_5'),
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_5'),
             ],
             [
                 editColumnObjFormat('메인콘텐츠 제목', 'input', {}, 'home_main_title'),

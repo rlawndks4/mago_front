@@ -29,7 +29,7 @@ const LoginCard = () => {
                 { withCredentials: true });
             if (response.pk > 0) {
                 localStorage.setItem('auth', JSON.stringify(response))
-                navigate('/mypage');
+                window.location.href = '/mypage';
             } else {
                 localStorage.removeItem('auth')
             }
@@ -57,10 +57,9 @@ const LoginCard = () => {
                     let obj = JSON.parse(result);
                 });
             }
-
             await localStorage.setItem('auth', JSON.stringify(response.data));
+            window.location.href = '/mypage';
 
-            navigate('/mypage');
         }
     }
     const onKeyPressId = (e) => {
@@ -98,7 +97,7 @@ const LoginCard = () => {
             } else {
                 
                 await localStorage.setItem('auth', JSON.stringify(response.data));
-                navigate('/mypage');
+                window.location.href = '/mypage';
             }
         } else {
             //alert(response.message);

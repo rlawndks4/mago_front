@@ -138,6 +138,17 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     }
     return reg.test(str)
 }
+export const onClickExternalLink = (link_) =>{
+    let link = link_??"";
+    if(!link){
+        return;
+    }
+    if(link.includes('http')){
+        window.location.href = link;
+    }else{
+        window.location.href = 'https://'+link;
+    }
+}
 export const getViewerMarginByNumber = (num) => {
     if (num == 0) {
         return " 0 auto ";

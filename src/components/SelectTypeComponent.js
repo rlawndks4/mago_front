@@ -86,7 +86,7 @@ const SelectTypeComponent = (props) => {
     return (
         <>
             <SelectSubType className='subtype-container' style={{justifyContent:`${is_space_between?'space-between':''}`,display:`${is_space_between?'flex':''}`}}>
-                {posts.map((item, index) => (
+                {posts && posts.map((item, index) => (
                     <>
                         <SubType style={{ color:getFontColor(is_list, index), fontWeight: getFontWeight(is_list, index),borderBottom:getBorderBottomByLength(posts.length, index),width:`${is_space_between?'30%':''}`}} onClick={() => { selectTypeNum(index) }}>
                             {item.title}

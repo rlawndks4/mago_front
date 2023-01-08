@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from '../assets/images/test/logo.svg';
+import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
+import theme from "../styles/theme";
 const Wrappers = styled.footer`
     display:flex;
     flex-direction:column;
     background:${props => props.theme.color.background3};
-    color:${props => props.theme.color.font1};
+    color:#fff;
     font-weight:500;
     padding:32px 120px;
     font-size:${props => props.theme.size.font3};
@@ -57,14 +58,20 @@ const Footer = () => {
                 </>
                 :
                 <>
-                    <Wrappers className="footer">
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Img src={logo} alt="footer" />
+                    <div style={{ display: 'flex', padding: '16px 0', fontSize: theme.size.font4, background: `#191828`, cursor: 'pointer', color: '#FFF' }}>
+                        <div style={{ width: '25%', textAlign: 'center' }}>회사소개</div>
+                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/0')}>이용약관</div>
+                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/1')}>개인정보처리방침</div>
+                        <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/2')}>저작권정책</div>
+                    </div>
+                    <Wrappers className="footer" style={{ background: `#23242f` }}>
+                        <Img src={logo} alt="footer" />
+                        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
                             <Post onClick={() => navigate('/policy/1')}>개인정보처리방침</Post>
                             <Post style={{ borderRight: 'none' }} onClick={() => navigate('/policy/2')}>저작권정책</Post>
-                        </div>
-                        {/* <div style={{ marginTop: '8px' }}>서울시 마포구 양화로 127 7층(첨단빌딩)</div> */}
+                        </div> */}
+                        <div style={{ marginTop: '8px' }}>서울시 마포구 양화로 127 7층(첨단빌딩)</div>
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
                             <Flex>
 

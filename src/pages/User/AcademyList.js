@@ -94,7 +94,7 @@ const AcademyList = () => {
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={numList} is_list={true}
                             posts={masterList} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
-                            {bestContents.map((item, idx) => (
+                            {bestContents && bestContents.map((item, idx) => (
                                 <>
                                     <AcademyCard item={item} idx={idx} link={`/myacademy/${item?.pk}`} />
                                 </>

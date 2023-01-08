@@ -48,7 +48,7 @@ margin-bottom:8px;
 justify-content:space-between;
 `
 export const TitleStyle = styled.div`
-font-size:${props => props.theme.size.font3};
+font-size:${props => props.theme.size.font2};
 font-weight:bold;
 margin-right:16px;
 cursor:pointer;
@@ -65,7 +65,7 @@ export const Title = (props) =>{
         }
         if(line){
             setContainerStyle({justifyContent:'unset'});
-            setContent(<div style={{background:theme.color.font1,height:'1px',width:'200px'}}/>);
+            setContent(<div style={{background:'#203864',height:'4px',maxWidth:'50vw',width:'40%'}}/>);
         }
         if(text){
             setContent(<div style={{fontSize:theme.size.font5,color:theme.color.blue,fontWeight:'bold'}}>{text}</div>);

@@ -13,12 +13,12 @@ import Loading from '../../components/Loading';
 import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
+import { onClickExternalLink } from '../../functions/utils';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
 flex-direction:column;
 width:100%;
-max-width:1000px;
 margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
@@ -43,6 +43,7 @@ const Home = () => {
     const [notices, setNotices] = useState([]);
     const [apps, setApps] = useState({});
     const [banners, setBanners] = useState([]);
+    const [bannerLinks, setBannerLinks] = useState({});
     const [mainContent, setMainContent] = useState([]);
 
     const settings = {
@@ -50,7 +51,7 @@ const Home = () => {
         speed: 500,
         autoplay: true,
         autoplaySpeed: 2500,
-        slidesToShow: (window.innerWidth >= 700 ? 2 : 1),
+        slidesToShow: 1,
         slidesToScroll: 1,
     };
 
@@ -58,15 +59,21 @@ const Home = () => {
         async function fetchPost() {
             setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
-            console.log(response)
             let banner_list = [];
+            let banner_link_obj = {};
             for (var i = 1; i <= 5; i++) {
                 if (response?.data?.banner[`home_banner_img_${i}`]) {
                     await banner_list.push(`${backUrl + response?.data?.banner[`home_banner_img_${i}`]}`);
                 }
             }
+            for (var i = 1; i <= 5; i++) {
+                if (response?.data?.banner[`home_banner_link_${i}`]) {
+                    banner_link_obj[`home_banner_link_${i}`] = response?.data?.banner[`home_banner_link_${i}`];
+                }
+            }
             setMainContent(response?.data?.main_content);
-            setBanners(banner_list)
+            setBanners(banner_list);
+            setBannerLinks(banner_link_obj);
             setBestContents(response?.data?.best_academy);
             setBestReviews(response?.data?.best_comment);
             setNotices(response?.data?.notice);
@@ -130,8 +137,8 @@ const Home = () => {
                                         effect="blur"
                                         src={item}
                                         className="banner-img"
+                                        onClick={()=>{onClickExternalLink(bannerLinks[`home_banner_link_${idx+1}`])}}
                                     />
-
                                 </>
                             ))}
                         </Slider>
@@ -181,7 +188,7 @@ const Home = () => {
                         <RowContent style={{ overflowX: 'auto' }}>
                             {apps.length > 0 && apps.map((item, idx) => (
                                 <>
-                                    <div style={{ display: 'flex', flexDirection: 'column', marginRight: '16px', width: '52px', alignItems: 'center' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', marginRight: '16px', width: '52px', alignItems: 'center' }} onClick={()=>onClickExternalLink(item?.link)}>
                                         <img src={backUrl + item?.main_img} style={{ width: '48px', height: '48px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
                                         <div>{item?.name}</div>
                                     </div>

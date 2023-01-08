@@ -19,12 +19,11 @@ position:relative;
 display:flex;
 flex-direction:column;
 width:100%;
-max-width:1000px;
-margin-top:8rem;
+margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
 @media screen and (max-width:1050px) { 
-    margin-top:4rem;
+    margin-top:6rem;
 }
 `
 const EnrolmentList = () => {
@@ -50,7 +49,7 @@ const EnrolmentList = () => {
         speed: 500,
         autoplay: true,
         autoplaySpeed: 2500,
-        slidesToShow: (window.innerWidth >= 700 ? 2 : 1),
+        slidesToShow: 1,
         slidesToScroll: 1,
     };
 
@@ -94,17 +93,13 @@ const EnrolmentList = () => {
     }
     return (
         <>
-            <WrappersStyle>
+           <WrappersStyle>
                 {loading ?
                     <>
                         <Loading />
                     </>
                     :
                     <>
-                        <div style={{ margin: '0 auto', width: '90%' }}>
-                            <Title className='pointer' link={'/academylist'} line={true}>수강신청</Title>
-                        </div>
-
                         <Slider {...settings} className='board-container pointer slider1'>
                             {banners.length > 0 && banners.map((item, idx) => (
                                 <>

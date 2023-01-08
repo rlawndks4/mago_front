@@ -1,4 +1,3 @@
-import { AiTwotoneSetting } from 'react-icons/ai'
 
 export const columnObjFormat = (name, width, type, column) => {
     return {
@@ -9,11 +8,11 @@ export const columnObjFormat = (name, width, type, column) => {
     }
 }
 
-export const sidebarContentFormat = (main_title, list) => {
+export const sidebarContentFormat = (main_title, list, main_icon) => {
     return {
         main_title: main_title,
-        main_icon: <AiTwotoneSetting />,
-        list: list
+        list: list,
+        main_icon: main_icon
     }
 }
 export const sidebarObjListFormat = (name, link, level, allow_list) => {

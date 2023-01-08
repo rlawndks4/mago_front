@@ -15,7 +15,7 @@ import { BiCommentDetail } from 'react-icons/bi'
 import axios from 'axios';
 import $ from 'jquery'
 import { GoRepoPush } from 'react-icons/go'
-import { zSidebar, zSidebarSubMenu } from '../../data/Manager/ManagerContentData';
+import { zSidebar } from '../../data/Manager/ManagerContentData';
 import theme from '../../styles/theme';
 const Wrappers = styled.div`
 display:flex;
@@ -28,9 +28,18 @@ position:fixed;
 background:#fff;
 overflow-y:auto;
 padding-bottom:16px;
-@media screen and (max-width:1000px) {
-    display:none;
+@media screen and (max-width:900px) {
     position:fixed;
+    display:${(props => props.display)};
+    transition:1s;
+    @keyframes fadein {
+        from {
+            left:-500px;
+        }
+        to {
+            left:0;
+        }
+      }
 }
 `
 const LogoWrappers = styled.div`
@@ -43,8 +52,8 @@ color:${(props) => props.theme.color.background1};
 `
 const SelectMenuContent = styled.div`
 width:192px;
-padding:16px 12px 16px 16px;
-background:${(props) => props.theme.color.manager.background1}18;
+padding:8px;
+background:${(props) => props.theme.color.background1}29;
 margin:0.3rem auto;
 border-radius:3px;
 font-size:15px;
@@ -55,7 +64,7 @@ cursor:pointer;
 `
 const MenuContent = styled.div`
 width:192px;
-padding:16px 12px 16px 16px;
+padding:8px;
 background:#fff;
 margin:0.3rem auto;
 border-radius:12px;
@@ -72,6 +81,10 @@ transition: 0.4s;
 const MenuText = styled.p`
 margin:0 0 0 8px;
 `
+const SubMenuText = styled.p`
+margin:0 0 0 23px;
+font-size: 13px;
+`
 const HambergurContainer = styled.div`
 display:none;
 position:fixed;
@@ -79,7 +92,7 @@ top:0;
 left:0;
 z-index:5;
 padding:12px;
-@media screen and (max-width:1000px) {
+@media screen and (max-width:900px) {
     display:flex;
 }
 `
@@ -93,8 +106,8 @@ const SideBar = () => {
     const [zFeatureCategory, setZFeatureCategory] = useState([])
     const [featureCategoryDisplay, setFeatureCategoryDisplay] = useState(false);
     const [zInnerSideBar, setZInnerSideBar] = useState({});
+    const [sideBarDisplayList, setSideBarDisplayList] = useState([]);
     const [display, setDisplay] = useState('none');
-    const [subMenuDisplayObj, setSubMenuDisplayObj] = useState({});
     useEffect(() => {
         if (localStorage.getItem('auth')) {
             let obj = JSON.parse(localStorage.getItem('auth'))
@@ -102,21 +115,17 @@ const SideBar = () => {
         }
     }, [location]);
     useEffect(() => {
-        let sub_menu_display_obj = {};
-        for (var i = 0; i < Object.keys(zSidebarSubMenu).length; i++) {
-            sub_menu_display_obj[Object.keys(zSidebarSubMenu)[i]] = false;
+        let side_bar_display_list = [];
+        for (var i = 0; i < zSidebar.length; i++) {
+            side_bar_display_list.push(false);
         }
-        setSubMenuDisplayObj(sub_menu_display_obj);
+        setSideBarDisplayList(side_bar_display_list);
+        async function fetchPost() {
+
+        }
+        fetchPost()
+
     }, [])
-    const onClickMenu = (item) => {
-        if (zSidebarSubMenu[item?.schema]) {
-            let sub_menu_display_obj = { ...subMenuDisplayObj };
-            sub_menu_display_obj[item?.schema] = !sub_menu_display_obj[item?.schema];
-            setSubMenuDisplayObj(sub_menu_display_obj);
-        } else {
-            navigate(item?.link);
-        }
-    }
     const onChangeMenuDisplay = async () => {
         if (display == 'flex') {
             $('.header-menu-list').animate({ left: '-500px', opacity: '0' }, 700);
@@ -133,6 +142,14 @@ const SideBar = () => {
         }
         setDisplay(display == 'flex' ? 'none' : 'flex');
     }
+    const onClickMenu = (idx) => {
+        let side_bar_display_list = [...sideBarDisplayList];
+        side_bar_display_list[idx] = !side_bar_display_list[idx];
+        setSideBarDisplayList(side_bar_display_list);
+    }
+    const onClickSubMenu = (obj) => {
+        navigate(obj.link);
+    }
     return (
         <>
             <HambergurContainer onClick={onChangeMenuDisplay}>
@@ -146,42 +163,36 @@ const SideBar = () => {
                     <img src={logo} alt="first-academy" style={{ height: '40px', width: 'auto' }} />
                 </LogoWrappers>
                 <div style={{ maxHeight: '80vh', paddingBottom: '32px' }}>
-                    {zSidebar.map((item, index) => (
+                    {zSidebar.map((list, index) => (
                         <>
-                            {JSON.parse(localStorage.getItem('auth'))?.user_level >= item.level ?
+                            <MenuContent key={index} onClick={() => { onClickMenu(index) }}>
+                                {list.main_icon}
+                                <MenuText>{list.main_title}</MenuText>
+                            </MenuContent>
+                            {sideBarDisplayList[index] ?
                                 <>
-                                    {item.allow_list.includes(location.pathname) ?
+                                    {list.list.map((item, index) => (
                                         <>
-                                            <SelectMenuContent key={index} onClick={() => { onClickMenu(item) }}>
-                                                {item.icon}
-                                                <MenuText>{item.name}</MenuText>
-                                            </SelectMenuContent>
-                                        </>
-                                        :
-                                        <>
-                                            <MenuContent key={index} onClick={() => { onClickMenu(item) }}>
-                                                {item.icon}
-                                                <MenuText>{item.name}</MenuText>
-                                            </MenuContent>
-                                        </>}
-                                </>
-                                :
-                                <>
-                                </>
-                            }
-                            {zSidebarSubMenu[item.schema] && subMenuDisplayObj[item.schema] ?
-                                <>
-                                    {zSidebarSubMenu[item.schema].map((itm, idx) => (
-                                        <>
-                                            <MenuContent key={idx} style={{color:`${itm.link==location.pathname?theme.color.font1:''}`}} onClick={() => { navigate(`${itm.link}`) }}>
-                                                <MenuText>{itm.name}</MenuText>
-                                            </MenuContent>
+                                            {item.allow_list.includes(location.pathname) ?
+                                                <>
+                                                    <SelectMenuContent key={index} onClick={() => { onClickSubMenu(item) }}>
+                                                        <SubMenuText>{item.name}</SubMenuText>
+                                                    </SelectMenuContent>
+                                                </>
+                                                :
+                                                <>
+                                                    <MenuContent key={index} onClick={() => { onClickSubMenu(item) }}>
+                                                        <SubMenuText>{item.name}</SubMenuText>
+                                                    </MenuContent>
+                                                </>
+                                            }
                                         </>
                                     ))}
                                 </>
                                 :
                                 <>
-                                </>}
+                                </>
+                            }
 
                         </>
                     ))}

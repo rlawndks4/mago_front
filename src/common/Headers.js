@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams, useLocation } from 'react-router-dom';
 import '../styles/style.css'
-import logo from '../assets/images/test/logo.svg'
+import { logoSrc } from '../data/Data';
 import { AiOutlineBell, AiOutlineSearch, AiOutlineSetting } from 'react-icons/ai'
 import Modal from '../components/Modal';
 import axios from 'axios'
@@ -13,16 +13,18 @@ import theme from '../styles/theme';
 import { IoMdArrowBack } from 'react-icons/io';
 import $ from 'jquery';
 import reactReferer from 'react-referer';
-import { returnMoment } from '../functions/utils';
+import { onClickExternalLink, returnMoment } from '../functions/utils';
 import { Viewer } from '@toast-ui/react-editor';
 import { IoMdClose } from 'react-icons/io'
 import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
 import redSpeakerIcon from '../assets/images/icon/red-speaket.png'
+import { TextButton } from '../components/elements/UserContentTemplete';
+import { getLocalStorage, LSO } from '../functions/LocalStorage';
 const Header = styled.header`
 position:fixed;
 height:6rem;
 width:100%;
-top:2rem;
+top:4rem;
 z-index:10;
 background:#fff;
 box-shadow: 5px 10px 10px rgb(0 0 0 / 3%);
@@ -46,11 +48,13 @@ justify-content: space-between;
 `
 const HeaderMenuContainer = styled.div`
 width:90%;
+max-width:1000px;
 position:relative;
 margin:0 auto;
 display:flex;
 align-items:center;
 justify-content: space-between;
+
 @media screen and (max-width:1050px) { 
   display:none;
 }
@@ -160,16 +164,17 @@ width:78vw;
 `
 const TopBannerContainer = styled.div`
 position:absolute;
-top:-2rem;
+top:-4rem;
 width:100%;
-height:2rem;
+height:4rem;
 background:#EBFDFF;
 display:flex;
-font-size:${props=>props.theme.size.font4};
+font-size:${props => props.theme.size.font4};
 align-items:center;
 font-weight:bold;
 @media screen and (max-width:1050px) { 
   top:3.5rem;
+  height:2rem;
 }
 `
 const Headers = () => {
@@ -186,6 +191,7 @@ const Headers = () => {
   const [lastAlarmePk, setLastAlarmPk] = useState(0);
   const [popupList, setPopupList] = useState([]);
   const [topBanner, setTopBanner] = useState({});
+  const [auth, setAuth] = useState({});
   useEffect(() => {
     if (location.pathname.substring(0, 6) == '/post/' || location.pathname.substring(0, 7) == '/video/' || location.pathname == '/appsetting') {
       setIsPost(true);
@@ -222,11 +228,16 @@ const Headers = () => {
   }
 
   useEffect(() => {
-    async function getSetting(){
-      const {data:response} = await axios.get(`/api/item?table=setting&pk=1`);
+    async function getSetting() {
+      const { data: response } = await axios.get(`/api/item?table=setting&pk=1`);
       setTopBanner(response?.data);
     }
     getSetting();
+    async function myAuth() {
+      const { data: response } = await axios.get(`/api/auth`);
+      setAuth(response);
+    }
+    myAuth();
     async function getNoticeAndAlarmCount() {
       const { data: response } = await axios.get('/api/getnoticeandalarmlastpk');
       let response_obj = response?.data ?? { alarm_last_pk: 0, notice_last_pk: 0 };
@@ -254,7 +265,7 @@ const Headers = () => {
       }
     }
     getNoticeAndAlarmCount();
-    
+
   }, [])
   const onClosePopup = async (pk, is_not_see) => {
     if (is_not_see) {
@@ -296,14 +307,6 @@ const Headers = () => {
     navigate('/servicecenter', { state: 'alarm' });
   }
 
-  const myAuth = async () => {
-    const { data: response } = await axios('/api/auth')
-    if (response.pk > 0) {
-      navigate('/mypage');
-    } else {
-      navigate('/login');
-    }
-  }
   const changeSearchModal = async () => {
     if (window.innerWidth <= 1050) {//모바일
       setIsSearch(true)
@@ -342,14 +345,31 @@ const Headers = () => {
       navigate('/home');
     }
   }
+  const onLogout = async () => {
+    if(window.confirm("정말 로그아웃 하시겠습니까?")){
+      if (window && window.flutter_inappwebview) {
+        var params = { 'login_type': JSON.parse(localStorage.getItem('auth'))?.type };
+        window.flutter_inappwebview.callHandler('native_app_logout', JSON.stringify(params)).then(async function (result) {
+          //result = "{'code':100, 'message':'success', 'data':{'login_type':1, 'id': 1000000}}"
+        });
+      }
+      const { data: response } = await axios.post('/api/logout');
+      if (response.result > 0) {
+        localStorage.removeItem('auth');
+        window.location.href = '/login';
+      } else {
+        alert('error');
+      }
+    }
+  }
   return (
     <>
 
       <Header style={{ display: `${display}` }} className='header'>
-        <TopBannerContainer>
-          <img src={redSpeakerIcon} style={{height:'1.5rem',margin:'0 4px 0 auto'}} />
-          <div style={{margin:'0 4px',color:theme.color.red}}>{topBanner?.top_banner_manager_name}</div>
-          <div style={{margin:'0 auto 0 4px'}}>{topBanner?.top_banner_note}</div>
+        <TopBannerContainer onClick={()=>{onClickExternalLink(topBanner?.top_banner_link)}}>
+          <img src={redSpeakerIcon} style={{ height: '1.5rem', margin: '0 4px 0 auto' }} />
+          <div style={{ margin: '0 4px', color: theme.color.red }}>{topBanner?.top_banner_manager_name}</div>
+          <div style={{ margin: '0 auto 0 4px' }}>{topBanner?.top_banner_note}</div>
         </TopBannerContainer>
         {popupList.length > 0 ?
           <>
@@ -365,7 +385,7 @@ const Headers = () => {
                     <>
                       <PopupContent>
                         <IoMdClose style={{ color: theme.color.background1, position: 'absolute', right: '8px', top: '8px', fontSize: theme.size.font3, cursor: 'pointer' }} onClick={() => { onClosePopup(item?.pk) }} />
-                        <img src={backUrl + item?.img_src} style={{ width: '100%', height: 'auto' }} onClick={() => { navigate(item?.link) }} />
+                        <img src={backUrl + item?.img_src} style={{ width: '100%', height: 'auto' }} onClick={() => { onClickExternalLink(item?.link) }} />
                         <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', left: '8px', bottom: '8px' }}>
                           <IoCloseCircleOutline style={{ color: theme.color.background1, fontSize: theme.size.font3, marginRight: '4px', cursor: 'pointer' }} onClick={() => { onClosePopup(item?.pk, true) }} />
                           <div style={{ fontSize: theme.size.font5, cursor: 'pointer' }} onClick={() => { onClosePopup(item?.pk, true) }}>오늘 하루 보지않기</div>
@@ -404,26 +424,39 @@ const Headers = () => {
                   </>
                   :
                   <>
-                    <img src={logo} alt="홈으로" style={{ height: '2.5rem', marginTop: '0.25rem' }} onClick={() => { navigate('/') }} />
+                    <img src={logoSrc} alt="홈으로" style={{ height: '2rem', marginTop: '0.25rem' }} onClick={() => { navigate('/') }} />
                   </>}
               </div>
-              <div style={{ display: 'flex', fontSize: '1.2rem', width: '100px', justifyContent: 'space-between', position: 'relative' }}>
-                <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-                <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-                <AiOutlineSetting onClick={myAuth} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-                {isAlarm ?
+              <div style={{ display: 'flex', width: '160px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
+                {/* <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
+                <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} /> */}
+                {auth?.pk > 0 ?
+                  <>
+                    <TextButton onClick={onLogout} style={{ marginRight: '8px' }}>로그아웃</TextButton>
+                    <TextButton onClick={() => navigate('/mypage')}>마이페이지</TextButton>
+                  </>
+                  :
+                  <>
+                    <TextButton onClick={() => navigate('/login')} style={{ marginRight: '8px' }}>로그인</TextButton>
+                    <TextButton onClick={() => navigate('/signup')}>회원가입</TextButton>
+                  </>}
+                {/* <AiOutlineSetting onClick={myAuth} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} /> */}
+                {/* {isAlarm ?
                   <>
                     <div style={{ width: '10px', height: '10px', background: 'red', position: 'absolute', top: '2px', left: '17px', borderRadius: '50%' }} />
                   </>
                   :
                   <>
-                  </>}
+                  </>} */}
               </div>
             </>
           }
 
         </HeaderContainer>
         <HeaderMenuContainer>{/* pc */}
+          <div>
+            <img src={logoSrc} alt="홈으로" style={{ height: '3rem' }} onClick={() => { navigate('/') }} />
+          </div>
           <div style={{ display: 'flex', margin: '2rem 0', height: '2rem' }}>
             {zBottomMenu.map((item, idx) => (
               <>
@@ -431,14 +464,22 @@ const Headers = () => {
               </>
             ))}
           </div>
-          <div style={{ position: 'absolute', right: '42%', top: '0.5rem' }}>
-            <img src={logo} alt="홈으로" style={{ height: '5rem' }} onClick={() => { navigate('/') }} />
-          </div>
-          <div style={{ display: 'flex', fontSize: '1.2rem', width: '7rem', justifyContent: 'space-between', position: 'relative' }}>
-            <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-            <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-            <AiOutlineSetting onClick={myAuth} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
-            {isAlarm ?
+
+          <div style={{ display: 'flex', width: '160px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
+            {/* <AiOutlineBell onClick={onClickBell} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} />
+            <AiOutlineSearch onClick={changeSearchModal} style={{ width: '2rem', height: '1.5rem', cursor: 'pointer' }} /> */}
+            {auth?.pk > 0 ?
+              <>
+                <TextButton onClick={onLogout} style={{ marginRight: '8px' }}>로그아웃</TextButton>
+                <TextButton onClick={() => navigate('/mypage')}>마이페이지</TextButton>
+              </>
+              :
+              <>
+                <TextButton onClick={() => navigate('/login')} style={{ marginRight: '8px' }}>로그인</TextButton>
+                <TextButton onClick={() => navigate('/signup')}>회원가입</TextButton>
+              </>}
+
+            {/* {isAlarm ?
               <>
                 <div style={{ width: '10px', height: '10px', background: 'red', position: 'absolute', top: '2px', left: '17px', borderRadius: '50%' }} />
               </>
@@ -462,12 +503,9 @@ const Headers = () => {
               :
               <>
               </>
-            }
-
+            } */}
           </div>
-
         </HeaderMenuContainer>
-
       </Header>
 
       {/* <ModalContainer modal={modal}>
