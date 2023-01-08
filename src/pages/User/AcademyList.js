@@ -51,7 +51,7 @@ const AcademyList = () => {
                 alert("회원전용 메뉴입니다.");
                 navigate(-1);
             }
-            setMasterList(response?.data?.master);
+            setMasterList([...[{title:'전체'}],...response?.data?.master]);
             setBestContents(response?.data?.academy);
             $('span.lazy-load-image-background').addClass('width-100');
             setLoading(false);
@@ -59,27 +59,17 @@ const AcademyList = () => {
         fetchPost();
 
     }, [])
-
     const selectTypeNum = async (num) => {
-        let num_list = [...numList];
-        let is_add = true;
-        for(var i = 0;i<num_list.length;i++){
-            if(num==num_list[i]){
-                num_list.splice(i,1);
-                is_add = false;
-                break;
-            }
-        }
-        if(is_add){
-            num_list.push(num);
+        setTypeNum(num);
+        let str = `/api/items?table=academy_category`;
+        if(num!=0){
+            str += `&master_pk=${masterList[num]?.pk}`
         }
         const {data:response} = await axios.post('/api/myacademyclasses',{
-            list:num_list.map((item)=>{
-                return masterList[item]?.pk
-            })
+            master_pk:masterList[num]?.pk
         })
+        console.log(response)
         setBestContents(response?.data);
-        setNumList([...num_list])
     }
     return (
         <>
@@ -91,7 +81,7 @@ const AcademyList = () => {
                     :
                     <>
                         <Title className='pointer' link={'/academylist'} line={true}>My 강의실</Title>
-                        <SelectTypeComponent selectTypeNum={selectTypeNum} num={numList} is_list={true}
+                        <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
                             posts={masterList} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents && bestContents.map((item, idx) => (

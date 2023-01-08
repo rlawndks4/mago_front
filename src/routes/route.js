@@ -41,6 +41,7 @@ import EventList from '../pages/User/EventList';
 import Request from '../pages/User/Auth/Request';
 import MyAcademy from '../pages/User/Academy/MyAcademy';
 import AuthPay from '../pages/User/Pay/AuthPay';
+import AddReview from '../pages/User/Auth/AddReview';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -92,6 +93,7 @@ const zUserRoute = [
     { link: '/signup', element: <SignUp />, title: "회원가입" },
     { link: '/resign', element: <Resign />, title: "회원탈퇴" },
     { link: '/request', element: <Request />, title: "문의하기" },
+    { link: '/addreview', element: <AddReview />, title: "후기작성" },
     { link: '/request/:pk', element: <Request />, title: "문의하기" },
     { link: '/oauth/callback/kakao', element: <KakaoRedirectHandler />, title: "" },
 

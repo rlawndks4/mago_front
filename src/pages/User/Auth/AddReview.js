@@ -1,15 +1,19 @@
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Input, Textarea } from "../../../components/elements/ManagerTemplete";
 import { Content, TextButton, TextFillButton, Title, Wrappers } from "../../../components/elements/UserContentTemplete"
 import theme from "../../../styles/theme";
 import $ from 'jquery';
 import { useEffect, useState } from "react";
-const Request = () => {
+const AddReview = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [post, setPost] = useState({});
+    const {state} = useLocation();
     useEffect(() => {
+        if(!state?.item_pk ){
+            alert("잘못된 접근입니다.")
+        }
         async function myAuth() {
             const { data: response } = await axios.get(`/api/auth`);
             console.log(response)
@@ -36,20 +40,21 @@ const Request = () => {
             fetchPost();
         }
     }, [])
-    const onRequest = async () => {
+    const onReview = async () => {
         if(!$('.title_').val() || !$('.note').val()){
             alert("필수 값이 비어있습니다.");
             return;
         }
         if (window.confirm("저장 하시겠습니까?")) {
             const { data: response } = await axios.post('/api/additembyuser', {
-                table: 'request',
+                table: 'review',
                 title: $('.title_').val(),
                 note: $('.note').val(),
+                academy_category_pk:state?.item_pk
             })
             if (response?.result > 0) {
                 alert("성공적으로 저장되었습니다.");
-                navigate('/servicecenter', { state: { type_num: 1 } })
+                navigate(`/myacademy/${state?.item_pk}`, { state: { type_num: 1 } })
             } else {
                 alert(response?.message);
             }
@@ -58,7 +63,7 @@ const Request = () => {
     return (
         <Wrappers>
             <Content>
-                <Title>문의하기</Title>
+                <Title>후기작성</Title>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{ maxWidth: '48px', fontSize: theme.size.font4, fontWeight: 'bold', width: '10%' }}>제목</div>
                     <Input style={{ margin: '0 0 0 8px', width: '80%',padding:'14px 8px' }} className='title_' disabled={params?.pk > 0 ? true : false} />
@@ -86,7 +91,7 @@ const Request = () => {
                             </>
                             :
                             <>
-                            <TextFillButton style={{ margin: '0 0 0 8px' }} onClick={onRequest}>완료</TextFillButton>
+                            <TextFillButton style={{ margin: '0 0 0 8px' }} onClick={onReview}>완료</TextFillButton>
                             </>}
                         </div>
                     </>}
@@ -95,4 +100,4 @@ const Request = () => {
         </Wrappers>
     )
 }
-export default Request;
+export default AddReview;

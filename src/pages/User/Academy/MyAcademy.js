@@ -72,31 +72,34 @@ const MyAcademy = () => {
     useEffect(() => {
         async function fetchPosts() {
             setLoading(true);
-            const { data: response } = await axios.post(`/api/myacademyclass`,{
-                pk:params.pk
+            const { data: response } = await axios.post(`/api/myacademyclass`, {
+                pk: params.pk
             });
-            if(response?.result>0){
+            if (response?.result > 0) {
                 setPosts(response?.data);
                 setLoading(false);
-            }else{
+            } else {
                 alert(response?.message);
                 navigate(-1);
             }
         }
         fetchPosts();
+        if(state?.type_num){
+            selectTypeNum(state?.type_num);
+        }
     }, [])
 
     const selectTypeNum = async (num) => {
         setTypeNum(num);
-        if(num==1){
-            const {data:response} = await axios.post('/api/myacademylist',{
-                pk:params?.pk
+        if (num == 1) {
+            const { data: response } = await axios.post('/api/myacademylist', {
+                pk: params?.pk
             })
             console.log(response)
-            if(response?.result>0){
-                
+            if (response?.result > 0) {
+
                 setAcademyList(response?.data);
-            }else{
+            } else {
                 alert(response?.message);
                 navigate(-1);
             }
@@ -130,13 +133,15 @@ const MyAcademy = () => {
                             <></>}
                         {typeNum == 1 ?
                             <>
-                            <Content>
-                                {academyList.map((item, idx)=>(
-                                    <>
-                                    <ItemCard item={item} link={`/post/academy/${item?.pk}`} />
-                                    </>
-                                ))}
-                            </Content>
+                                <Content>
+                                    {academyList.map((item, idx) => (
+                                        <>
+                                            <ItemCard item={item} link={`/post/academy/${item?.pk}`} />
+                                        </>
+                                    ))}
+                                    <TextButton style={{ margin: '16px 0 0 auto' }} onClick={()=>navigate('/addreview',{state:{item_pk:params?.pk}})}>후기작성</TextButton>
+                                </Content>
+
                             </>
                             :
                             <></>}

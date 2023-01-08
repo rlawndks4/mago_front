@@ -175,6 +175,7 @@ export const objManagerListContent = {
             columnObjFormat('결제금액', '', 'number', 'price'),
             columnObjFormat('등록일', '', 'text', 'date'),
             columnObjFormat('이용종료일', '', 'text', 'end_date'),
+            columnObjFormat('이용가능여부', '', 'status', 'use_status'),
         ],
         ['status=1'],
         false,
