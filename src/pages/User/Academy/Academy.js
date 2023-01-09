@@ -63,6 +63,7 @@ height: 80%;
 const RowContent = styled.div`
 display:flex;
 width:100%;
+margin-top:24px;
 @media screen and (max-width:700px) { 
     flex-direction:column;
 }

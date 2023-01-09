@@ -68,6 +68,7 @@ const zUserRoute = [
     { link: '/myacademy/:pk', element: <MyAcademy />, title: "강의실" },
     { link: '/reviewlist', element: <ReviewList />, title: "수강후기" },
     { link: '/servicecenter', element: <ServiceCenter />, title: "상담문의" },
+    { link: '/servicecenter/:type_num', element: <ServiceCenter />, title: "상담문의" },
     { link: '/eventlist', element: <EventList />, title: "이벤트" },
     { link: '/masterlist', element: <MasterList />, title: "전문가" },
     { link: '/master/:pk', element: <Master />, title: "전문가" },

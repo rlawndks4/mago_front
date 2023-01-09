@@ -34,9 +34,13 @@ const ServiceCenter = () => {
         console.log(location)
         async function fetchPost() {
             let num = 0;
+            if(params?.type_num){
+                num = params?.type_num ?? 0;
+            }
             if (location.state) {
                 num = location.state?.type_num ?? 0;
             }
+            
             selectTypeNum(num);
         }
         fetchPost();

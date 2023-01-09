@@ -112,6 +112,7 @@ const EnrolmentList = () => {
                     </>
                     :
                     <>
+
                         <Slider {...settings} className='board-container pointer slider1'>
                             {banners.length > 0 && banners.map((item, idx) => (
                                 <>
@@ -125,6 +126,7 @@ const EnrolmentList = () => {
                                 </>
                             ))}
                         </Slider>
+                        <div style={{marginTop:'36px'}} />
                         <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>오늘의 BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
@@ -155,6 +157,7 @@ const EnrolmentList = () => {
                             ))}
 
                         </RowContent>
+                        <div style={{marginTop:'36px'}} />
                         <Content>
                             <img
                                 alt={"#"}

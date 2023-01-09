@@ -16,7 +16,7 @@ import "react-quill/dist/quill.snow.css";
 import quillEmoji from "react-quill-emoji";
 import "react-quill-emoji/dist/quill-emoji.css";
 import { useMemo } from 'react';
-
+const Font = ReactQuill.Quill.import('formats/font');
 const MItemEditComponent = (props) => {
     const { editContent, schema, params_pk, add_list, breadcrumb } = props;
 
@@ -38,7 +38,7 @@ const MItemEditComponent = (props) => {
                 ],
                 [{ size: [] }],
                 [{ color: [] }, { background: [] }],
-                ["bold", "italic", "underline", "strike", "blockquote"],
+                ["bold", "italic", "underline", "strike", "blockquote","regular"],
                 [{ align: [] }],
                 [{ list: "ordered" }, { list: "bullet" }],
                 ["link", "image", "video"],

@@ -401,6 +401,7 @@ export const objManagerEditContent = {
             [
                 editColumnObjFormat('자세히보기링크', 'input', { placeholder: '' }, 'link'),
                 editColumnObjFormat('유튜브링크', 'input', { placeholder: 'https://www.youtube.com/watch?v=9kaCAbIXuyg&list=RDVWbYRiF44Dc&index=2' }, 'video_link'),
+                editColumnObjFormat('더많은 영상보기 링크', 'input', { placeholder: '' }, 'more_link'),
             ],
         ],
     },

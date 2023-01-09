@@ -92,15 +92,15 @@ const MyPage = () => {
         }
     }, [])
     async function getMyContent() {
-        const { data: response } = await axios.post('/api/myitems',{table:'subscribe'});
+        const { data: response } = await axios.post('/api/myitems', { table: 'subscribe' });
         console.log(response)
         let list = [...response?.data?.data];
         let bag_list = [];
         let class_list = [];
-        for(var i = 0;i<list.length;i++){
-            if(list[i]?.status==1){
+        for (var i = 0; i < list.length; i++) {
+            if (list[i]?.status == 1) {
                 class_list.push(list[i]);
-            }else{
+            } else {
                 bag_list.push(list[i]);
             }
         }
@@ -108,32 +108,33 @@ const MyPage = () => {
         setClassList(class_list);
         console.log(response)
     }
-    const pageSetting = async  () =>{
+    const pageSetting = async () => {
         await getMyContent();
     }
     const onLogout = async () => {
-            if (window && window.flutter_inappwebview) {
-                var params = { 'login_type': JSON.parse(localStorage.getItem('auth'))?.type };
-                window.flutter_inappwebview.callHandler('native_app_logout', JSON.stringify(params)).then(async function (result) {
-                    //result = "{'code':100, 'message':'success', 'data':{'login_type':1, 'id': 1000000}}"
-                });
-            }
-            const { data: response } = await axios.post('/api/logout');
-            if (response.result > 0) {
-                localStorage.removeItem('auth');
-                window.location.href = '/login';
-            } else {
-                alert('error');
-            }
+        if (window && window.flutter_inappwebview) {
+            var params = { 'login_type': JSON.parse(localStorage.getItem('auth'))?.type };
+            window.flutter_inappwebview.callHandler('native_app_logout', JSON.stringify(params)).then(async function (result) {
+                //result = "{'code':100, 'message':'success', 'data':{'login_type':1, 'id': 1000000}}"
+            });
+        }
+        const { data: response } = await axios.post('/api/logout');
+        if (response.result > 0) {
+            localStorage.removeItem('auth');
+            window.location.href = '/login';
+        } else {
+            alert('error');
+        }
     }
 
     return (
         <>
             <Wrappers className="wrapper" style={{ maxWidth: '800px' }}>
                 <Title>마이페이지</Title>
-                <div style={{ margin: '2rem 0 1rem auto', color: `${theme.color.font2}`, fontSize: theme.size.font3, cursor: 'pointer',fontWeight:'bold',display:'flex',alignItems:'center' }}><div style={{marginRight:'8px'}}
-                onClick={()=>{navigate('/editmyinfo')}}
-                >내정보 수정하기</div> <MdEdit/></div>
+                <div style={{ margin: '2rem 0 1rem auto', color: `${theme.color.font2}`, fontSize: theme.size.font3, cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center' }} onClick={() => { navigate('/editmyinfo') }}>
+                    <div style={{ paddingRight: '8px' }}>내정보 수정하기</div>
+                    <MdEdit />
+                </div>
 
                 <MyCard>
                     <ProfileContainer>
@@ -151,7 +152,7 @@ const MyPage = () => {
                             <Result>
                                 {auth?.type != 0 ? "---" : auth.id}
                             </Result>
-                            
+
                         </Content>
                         <Content>
                             <Category>비밀번호</Category>
@@ -168,39 +169,42 @@ const MyPage = () => {
 
                     </Container>
                 </MyCard>
+                <div style={{ marginTop: '36px' }} />
                 <Title>장바구니</Title>
                 <ShadowContainer>
-                <ContentTable columns={[
-                    { name: "수강상품", column: "title", width: 30, type: 'text' },
-                    { name: "강사", column: "master_name", width: 30, type: 'text' },
-                    { name: "수강상태", column: "", width: 30, type: "class_status" },
-                    { name: "삭제", column: "", width: 30, type: 'delete' },
-                ]}
-                    data={bagList}
-                    schema={'subscribe'}
-                    pageSetting={pageSetting} />
+                    <ContentTable columns={[
+                        { name: "수강상품", column: "title", width: 30, type: 'text' },
+                        { name: "강사", column: "master_name", width: 30, type: 'text' },
+                        { name: "수강상태", column: "", width: 30, type: "class_status" },
+                        { name: "삭제", column: "", width: 30, type: 'delete' },
+                    ]}
+                        data={bagList}
+                        schema={'subscribe'}
+                        pageSetting={pageSetting} />
                 </ShadowContainer>
+                <div style={{ marginTop: '36px' }} />
                 <Title>내 강의실</Title>
                 <ShadowContainer>
-                <ContentTable columns={[
-                    { name: "수강상품", column: "title", width: 30, type: 'text' },
-                    { name: "강사", column: "master_name", width: 40, type: 'text' },
-                    { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
-                ]}
-                    data={calssList}
-                    schema={'subscribe'} />
+                    <ContentTable columns={[
+                        { name: "수강상품", column: "title", width: 30, type: 'text' },
+                        { name: "강사", column: "master_name", width: 40, type: 'text' },
+                        { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
+                    ]}
+                        data={calssList}
+                        schema={'subscribe'} />
                 </ShadowContainer>
+                <div style={{ marginTop: '36px' }} />
                 <Title>결제 내역</Title>
                 <ShadowContainer>
-                <ContentTable columns={[
-                    { name: "수강상품", column: "title", width: 40, type: 'text' },
-                    { name: "강사", column: "master_name", width: 30, type: 'text' },
-                    { name: "결제금액", column: "price", width: 30, type: 'number' },
-                ]}
-                    data={calssList}
-                    schema={'subscribe'} />
-                </ShadowContainer> 
-               
+                    <ContentTable columns={[
+                        { name: "수강상품", column: "title", width: 40, type: 'text' },
+                        { name: "강사", column: "master_name", width: 30, type: 'text' },
+                        { name: "결제금액", column: "price", width: 30, type: 'number' },
+                    ]}
+                        data={calssList}
+                        schema={'subscribe'} />
+                </ShadowContainer>
+                <div style={{ marginTop: '36px' }} />
                 <LogoutButton onClick={onLogout}>
                     로그아웃
                 </LogoutButton>

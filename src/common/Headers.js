@@ -387,7 +387,7 @@ const Headers = () => {
     }
   }
   const onClickServiceCenter = (num) => {
-    navigate(`/servicecenter`,{state:{type_num:num}});
+    navigate(`/servicecenter/${num}`);
   }
   return (
     <>
@@ -510,7 +510,7 @@ const Headers = () => {
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
                 {masterList.map((item, idx) => (
                   <>
-                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}` }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name} 전문가</TextButton>
+                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name} 전문가</TextButton>
                   </>
                 ))}
               </div>

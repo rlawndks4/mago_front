@@ -78,8 +78,11 @@ const Master = () => {
     const [page, setPage] = useState(1);
     const [pageList, setPageList] = useState([]);
     const [reviewList, setReviewList] = useState([]);
+    const [academyPageList, setAcademyPageList] = useState([]);
+    const [academyPage, setAcademyPage] = useState(1);
     useEffect(() => {
-        changePage(1, true)
+        changePage(1, true);
+        getAcademyContent(1);
     }, [location])
     const changePage = async (num, is_load) => {
         if (is_load) {
@@ -91,7 +94,6 @@ const Master = () => {
         if (response?.data?.master_content) {
             setMaster(response?.data?.master_content);
         }
-        setAcademyList(response?.data?.academy);
         setReviewList(response?.data?.review_list);
         setPageList(range(1, response?.data?.maxPage));
         setLoading(false);
@@ -100,6 +102,12 @@ const Master = () => {
         setTypeNum(num);
         let offset = $(`#div-${num}`).offset();
         $('html').animate({ scrollTop: offset.top - 160 }, 400);
+    }
+    const getAcademyContent = async (num) =>{
+        setAcademyPage(num);
+        const {data:response} = await axios.get(`/api/items?table=academy_category&page=${num}&page_cut=3`);
+        setAcademyList(response?.data?.data);
+        setAcademyPageList(range(1, response?.data?.maxPage));
     }
     return (
         <>
@@ -113,10 +121,10 @@ const Master = () => {
                         <Card2>
                             <img src={masterCardIcon} style={{ height: '100%', borderRadius: theme.borderRadius }} />
                             <SubMasterImg alt="#" src={backUrl + master?.sub_profile_img} />
-                            <div style={{ position: 'absolute', top: '10%', right: '0%', display: 'flex', flexDirection: 'column', width: '30%', minWidth: '120px' }}>
-                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font4' : 'font5'}`], color: theme.color.background1 }}>{master?.nickname}</div>
-                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font4' : 'font5'}`], margin: '4px 0 8px 0', color: `${theme.color.font2}` }}>{master?.name} 전문가</div>
-                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font5' : 'font6'}`], maxWidth: '120px', whiteSpace: 'pre-line', color: theme.color.font2 }}>{master?.record_note}</div>
+                            <div style={{ position: 'absolute', top: '10%', right: '0%', display: 'flex', flexDirection: 'column', width: '50%', minWidth: '120px' }}>
+                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font3' : 'font5'}`], color: theme.color.background1 }}>{master?.nickname}</div>
+                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font3' : 'font5'}`], margin: '4px 0 8px 0', color: `${theme.color.font2}` }}>{master?.name} 전문가</div>
+                                <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font5' : 'font6'}`], maxWidth: '250px', whiteSpace: 'pre-line', color: theme.color.font2 }}>{master?.record_note}</div>
                             </div>
                         </Card2>
                         <RowContent style={{marginTop:'32px'}}>
@@ -143,6 +151,25 @@ const Master = () => {
                                             <AcademySubCard item={item} />
                                         </>
                                     ))}
+                                     <MBottomContent>
+                                    <div />
+                                    <PageContainer>
+                                        <PageButton onClick={() => getAcademyContent(1)}>
+                                            처음
+                                        </PageButton>
+                                        {pageList.map((item, index) => (
+                                            <>
+                                                <PageButton onClick={() => getAcademyContent(item)} style={{ color: `${academyPage == item ? '#fff' : ''}`, background: `${academyPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - academyPage) > 4 ? 'none' : ''}` }}>
+                                                    {item}
+                                                </PageButton>
+                                            </>
+                                        ))}
+                                        <PageButton onClick={() => getAcademyContent(academyPageList.length ?? 1)}>
+                                            마지막
+                                        </PageButton>
+                                    </PageContainer>
+                                    <div />
+                                </MBottomContent>
                                 </Content>
                                 <Title id='div-2'>이용후기</Title>
                                 {reviewList && reviewList.map((item, idx) => (

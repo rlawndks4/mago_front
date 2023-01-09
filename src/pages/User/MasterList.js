@@ -69,7 +69,7 @@ const MasterList = () => {
             <Wrappers>
                 <Title line={true}>최고의 전문가를 소개합니다.</Title>
                 <RowContent style={{flexWrap:'wrap',marginTop:'32px'}}>
-                    <Card style={{ background: theme.color.background1, color: theme.color.font1, margin: getReturnMargin(window.innerWidth, 0),display:'flex',flexDirection:'column',textAlign:'left' }}>
+                    <Card style={{ background: theme.color.background1, color: theme.color.font1, margin: getReturnMargin(window.innerWidth, 0),display:'flex',flexDirection:'column',textAlign:'left',cursor:'default' }}>
                         <img src={clipIcon} style={{width:'auto',height:'32px',position:'absolute',right:'10%',top:'-16px'}} />
                         <div style={{margin:'auto auto 4px auto',width:'80%'}}>최고의</div>
                         <div style={{margin:'0 auto 4px auto',width:'80%'}}>전문가를</div>

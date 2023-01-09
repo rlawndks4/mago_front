@@ -104,13 +104,13 @@ const AcademySubCard = (props) => {
                             <>
                                 <div style={{ fontSize: theme.size.font2, margin: '0px auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
                                 <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강대상: {item?.target}</div>
-                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강기간: {getPeriodByNumber(item?.period)}</div>
+                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강기간: {item?.start_date??"---"} ~ {item?.end_date??"---"}</div>
                                 <div style={{ fontSize: theme.size.font4, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                             </>
                             :
                             <>
                                 <div style={{ fontSize: theme.size.font3, margin: '0 auto 16px 12px' }}>{item?.title}</div>
-                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {getPeriodByNumber(item?.period)}</div>
+                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {item?.start_date??"---"} ~ {item?.end_date??"---"}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: 'auto auto 0 12px' }}>{item?.sub_title}</div>
                             </>}

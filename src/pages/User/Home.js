@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import theme from '../../styles/theme';
 import axios from 'axios';
-import { backUrl, slideSetting } from '../../data/Data';
+import { backUrl, defaultImageSrc, slideSetting } from '../../data/Data';
 import { Wrappers, Title, Content, Card, Img, WrapDiv, SliderDiv, ShadowContainer, RowContent } from '../../components/elements/UserContentTemplete';
 import Loading from '../../components/Loading';
 import $ from 'jquery';
@@ -223,6 +223,7 @@ const Home = () => {
                     </>
                     :
                     <>
+                        <div style={{marginTop:'36px'}} />
                         <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
@@ -231,6 +232,7 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
+                        <div style={{marginTop:'36px'}} />
                         <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true} onPrevious={onPrevious} onNext={onNext}>BEST 후기</Title>
                         <Slider {...reviewSettings} className='board-container pointer slider1' ref={reviewRef}>
                             {bestReviews.length > 0 && bestReviews.map((item, idx) => (
@@ -239,7 +241,7 @@ const Home = () => {
                                 </>
                             ))}
                         </Slider>
-
+                        <div style={{marginTop:'36px'}} />
                         <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer' }}>
                             <Slider {...videoSettings} className='board-container pointer slider1'>
                                 {mainVideos.length > 0 && mainVideos.map((item, idx) => (
@@ -247,10 +249,10 @@ const Home = () => {
                                         <RowVideoContent>
                                             <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center', width: '100%',minHeight:'200px' }}>
                                                 <img src={sec3TitIcon} />
-                                                <div style={{ fontSize: theme.size.font4, fontWeight: 'bold', marginTop: 'auto' }}>{item?.title}</div>
+                                                <div style={{ fontSize: theme.size.font3, fontWeight: 'bold', marginTop: 'auto' }}>{item?.title}</div>
                                                 <div style={{ fontSize: theme.size.font5, marginTop: 'auto' }}>{item?.sub_title}</div>
-                                                <div style={{ fontSize: theme.size.font6, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
-                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}}>
+                                                <div style={{ fontSize: theme.size.font5, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
+                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}} onClick={()=>{onClickExternalLink(item?.more_link??"/")}}>
                                                     <img src={youtubeRowIcon} style={{height:'24px'}} />
                                                     <div style={{fontSize:theme.size.font4,marginLeft:'8px'}}>더 많은 영상보기 {'>'}</div>
                                                 </div>
@@ -263,14 +265,14 @@ const Home = () => {
                             </Slider>
 
                         </ShadowContainer>
-
+                        <div style={{marginTop:'36px'}} />
                         <RowLastColumnContent>
                             <HalfContent>
                                 <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
                                 {notices.length > 0 && notices.map((item, idx) => (
                                     <>
                                         <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer', border: `1px solid ${theme.color.font5}`, padding: '4px 8px' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
-                                            <img style={{ height: '100px', width: '150px' }} src={backUrl + item?.main_img} />
+                                            <img style={{ height: '100px', width: '150px' }} src={item?.main_img?(backUrl + item?.main_img):defaultImageSrc} />
                                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '0 auto 0 8px' }}>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
