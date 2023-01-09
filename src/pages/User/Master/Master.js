@@ -141,6 +141,15 @@ const Master = () => {
                             />
                             <Content>
                                 <Title id='div-0'>소개</Title>
+                                {master?.introduce_img?
+                                <>
+                                <Content>
+                                    <img src={master?.introduce_img} />
+                                </Content>
+                                </>
+                                :
+                                <>
+                                </>}
                                 <ViewerContainer className="viewer">
                                     <Viewer initialValue={master?.introduce_note ?? `<body></body>`} />
                                 </ViewerContainer>

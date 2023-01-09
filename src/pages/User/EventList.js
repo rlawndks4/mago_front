@@ -92,6 +92,7 @@ const EventList = () => {
                     :
                     <>
                         <Title className='pointer' link={'/academylist'} line={true}>이벤트</Title>
+                        <div style={{marginTop:'36px'}} />
                         <div style={{ display: 'flex', width: '100%', marginBottom: '16px' }}>
                             <div style={{ width: '50%', textAlign: 'center', cursor: 'pointer', fontSize: theme.size.font4, border: `1px solid ${theme.color.font1}`, background: `${typeNum == 0 ? theme.color.font1 : '#fff'}`, color: `${typeNum == 0 ? '#fff' : theme.color.font1}`, padding: '8px 0' }} onClick={() => { setTypeNum(0) }}>진행중 이벤트</div>
                             <div style={{ width: '50%', textAlign: 'center', cursor: 'pointer', fontSize: theme.size.font4, border: `1px solid ${theme.color.font1}`, background: `${typeNum == 1 ? theme.color.font1 : '#fff'}`, color: `${typeNum == 1 ? '#fff' : theme.color.font1}`, padding: '8px 0' }} onClick={() => { setTypeNum(1) }}>종료 이벤트</div>

@@ -253,7 +253,6 @@ const Post = (props) => {
                                 <div style={{ margin: '0 4px' }}>{post.nickname}</div> /
                                 <div style={{ margin: '0 4px' }}>{post?.date?.substring(0, 10)}</div> /
                                 <div style={{ margin: '0 8px 0 4px' }}>조회수 {commarNumber(post?.views ?? 0)}</div>
-                                <BsFillShareFill style={{ cursor: 'pointer' }} onClick={handleShare} />
                             </div>
                         </div>
                         {/* {post?.main_img?

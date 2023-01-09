@@ -42,6 +42,7 @@ import Request from '../pages/User/Auth/Request';
 import MyAcademy from '../pages/User/Academy/MyAcademy';
 import AuthPay from '../pages/User/Pay/AuthPay';
 import AddReview from '../pages/User/Auth/AddReview';
+import KeyRecieve from '../pages/User/Pay/KeyRecieve';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -73,9 +74,11 @@ const zUserRoute = [
     { link: '/masterlist', element: <MasterList />, title: "전문가" },
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
-    { link: '/authpay', element: <AuthPay />, title: "결제" },
 
-     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
+    //{ link: '/authpay', element: <AuthPay />, title: "결제" },
+    //{ link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
+
+    { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 
     // { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
     // { link: '/selectfeaturecategory', element: <SelectFeatureCategory />, title: "특징주" },

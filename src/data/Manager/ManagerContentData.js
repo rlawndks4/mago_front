@@ -135,21 +135,21 @@ export const objManagerListContent = {
         [],
         true,
         true),
-        main_video: sidebarObjFormat(
-            '메인비디오 관리',
-            'main_video',
-            [
-                columnObjFormat('제목', '', 'text', 'title'),
-                columnObjFormat('유튜브링크', '', 'text', 'video_link'),
-                columnObjFormat('추가일', '', 'text', 'date'),
-                columnObjFormat('맨위로', '', 'top', 'top'),
-                columnObjFormat('노출여부', '', 'status', 'status'),
-                columnObjFormat('수정', '', 'edit', 'edit'),
-                columnObjFormat('삭제', '', 'delete', 'delete'),
-            ],
-            [],
-            true,
-            true),
+    main_video: sidebarObjFormat(
+        '메인비디오 관리',
+        'main_video',
+        [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('유튜브링크', '', 'text', 'video_link'),
+            columnObjFormat('추가일', '', 'text', 'date'),
+            columnObjFormat('맨위로', '', 'top', 'top'),
+            columnObjFormat('노출여부', '', 'status', 'status'),
+            columnObjFormat('수정', '', 'edit', 'edit'),
+            columnObjFormat('삭제', '', 'delete', 'delete'),
+        ],
+        [],
+        true,
+        true),
     academy: sidebarObjFormat(
         '강의 컨텐츠 관리',
         'academy',
@@ -257,21 +257,21 @@ export const objManagerListContent = {
         [],
         true,
         true),
-        review: sidebarObjFormat(
-            '후기 관리',
-            'review',
-            [
-                columnObjFormat('강의제목', '', 'text', 'item_title'),
-                columnObjFormat('제목', '', 'text', 'title'),
-                columnObjFormat('닉네임', '', 'text', 'nickname'),
-                columnObjFormat('생성일', '', 'text', 'date'),
-                columnObjFormat('BEST', '', 'status', 'is_best'),
-                columnObjFormat('자세히보기', '', 'edit', 'edit'),
-                columnObjFormat('삭제', '', 'delete', 'delete'),
-            ],
-            [],
-            false,
-            false),
+    review: sidebarObjFormat(
+        '후기 관리',
+        'review',
+        [
+            columnObjFormat('강의제목', '', 'text', 'item_title'),
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('닉네임', '', 'text', 'nickname'),
+            columnObjFormat('생성일', '', 'text', 'date'),
+            columnObjFormat('BEST', '', 'status', 'is_best'),
+            columnObjFormat('자세히보기', '', 'edit', 'edit'),
+            columnObjFormat('삭제', '', 'delete', 'delete'),
+        ],
+        [],
+        false,
+        false),
     alarm: sidebarObjFormat(
         '푸시알림 관리',
         'alarm',
@@ -314,10 +314,10 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img'),
+                editColumnObjFormat('메인이미지 (240x150)', 'img', { field_name: 'content' }, 'main_img'),
             ],
             [
-                editColumnObjFormat('서브이미지', 'img', { field_name: 'content2' }, 'sub_img')
+                editColumnObjFormat('서브이미지 (90x120)', 'img', { field_name: 'content2' }, 'sub_img')
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
@@ -343,8 +343,8 @@ export const objManagerEditContent = {
                 editColumnObjFormat('강의구성', 'input', { placeholder: '강의구성을 입력해 주세요.' }, 'composition'),
             ],
             [
-                editColumnObjFormat('시작일', 'input', { type:'date' }, 'start_date'),
-                editColumnObjFormat('종료일', 'input', { type:'date' }, 'end_date'),
+                editColumnObjFormat('시작일', 'input', { type: 'date' }, 'start_date'),
+                editColumnObjFormat('종료일', 'input', { type: 'date' }, 'end_date'),
             ],
             [
                 editColumnObjFormat('정가', 'input', { type: 'number', placeholder: '숫자를 입력해 주세요.' }, 'price'),
@@ -378,7 +378,7 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img')
+                editColumnObjFormat('메인이미지 (240x150)', 'img', { field_name: 'content' }, 'main_img')
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
@@ -445,6 +445,9 @@ export const objManagerEditContent = {
                 editColumnObjFormat('이력', 'textarea', {}, 'record_note')
             ],
             [
+                editColumnObjFormat('소개 이미지', 'img', { field_name: 'content3' }, 'introduce_img')
+            ],
+            [
                 editColumnObjFormat('소개', 'editor', {}, 'introduce_note'),
             ],
         ],
@@ -467,31 +470,31 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('슬라이드 이미지 1', 'img', { field_name: 'content1' }, 'home_banner_img_1'),
+                editColumnObjFormat('슬라이드 이미지 1 (500x150)', 'img', { field_name: 'content1' }, 'home_banner_img_1'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_1'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 2', 'img', { field_name: 'content2' }, 'home_banner_img_2'),
+                editColumnObjFormat('슬라이드 이미지 2 (500x150)', 'img', { field_name: 'content2' }, 'home_banner_img_2'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_2'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 3', 'img', { field_name: 'content3' }, 'home_banner_img_3'),
+                editColumnObjFormat('슬라이드 이미지 3 (500x150)', 'img', { field_name: 'content3' }, 'home_banner_img_3'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_3'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 4', 'img', { field_name: 'content4' }, 'home_banner_img_4'),
+                editColumnObjFormat('슬라이드 이미지 4 (500x150)', 'img', { field_name: 'content4' }, 'home_banner_img_4'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_4'),
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 5', 'img', { field_name: 'content5' }, 'home_banner_img_5'),
+                editColumnObjFormat('슬라이드 이미지 5 (500x150)', 'img', { field_name: 'content5' }, 'home_banner_img_5'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'home_banner_link_5'),
@@ -529,7 +532,7 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img')
+                editColumnObjFormat('메인이미지 (300x200)', 'img', { field_name: 'content' }, 'main_img')
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
@@ -561,7 +564,7 @@ export const objManagerEditContent = {
         breadcrumb: '공지사항',
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('메인이미지', 'img', { field_name: 'content' }, 'main_img')
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img')
             ],
             [
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
@@ -589,7 +592,7 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('앱이미지', 'img', { field_name: 'content' }, 'main_img')
+                editColumnObjFormat('앱이미지 (150x150)', 'img', { field_name: 'content' }, 'main_img')
             ],
             [
                 editColumnObjFormat('앱이름', 'input', { placeholder: '' }, 'name'),
@@ -603,7 +606,7 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('이미지', 'img', { field_name: 'content' }, 'img_src')
+                editColumnObjFormat('이미지 (자율)', 'img', { field_name: 'content' }, 'img_src')
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'link'),

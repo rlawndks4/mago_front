@@ -2,8 +2,8 @@ var _allat_tx_url = "tx.allatpay.com";
 
 document.write("<div id='ALLAT_MOBILE_PAY' style='left:0px; top:0px; width:320px; height:600px; position:absolute;  z-index:1000; display:none; background-color:white;'><iframe id='ALLAT_MOBILE_FRAME' name='ALLAT_MOBILE_FRAME' src='https://" + _allat_tx_url + "/common/iframe_blank.jsp' frameborder=0 width=100%px height=100%px scrolling=no></iframe></div>");
 
-function Allat_Mobile_Approval(dfm, x, y) {
-
+export function Allat_Mobile_Approval(dfm, x, y) {
+	console.log(dfm)
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
 		alert("allat_enc_data가 없습니다.");
@@ -141,7 +141,7 @@ function Allat_Mobile_Approval(dfm, x, y) {
 	dfm.submit();
 }
 
-function Allat_Mobile_ApprovalNewPlus(dfm, x, y) {
+export function Allat_Mobile_ApprovalNewPlus(dfm, x, y) {
 
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
@@ -277,12 +277,12 @@ function Allat_Mobile_ApprovalNewPlus(dfm, x, y) {
 	dfm.submit();
 }
 
-function Allat_Mobile_Close() {
+export function Allat_Mobile_Close() {
 	/* div 설정 */
 	document.getElementById("ALLAT_MOBILE_PAY").style.display = "none";
 }
 
-function Allat_Mobile_Cancel(dfm) {
+export function Allat_Mobile_Cancel(dfm) {
 
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
@@ -343,7 +343,7 @@ function Allat_Mobile_Cancel(dfm) {
 	dfm.submit();
 }
 
-function Allat_Mobile_Fix(dfm, x, y) {
+export function Allat_Mobile_Fix(dfm, x, y) {
 
 	// allat_enc_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
@@ -421,7 +421,7 @@ function Allat_Mobile_Fix(dfm, x, y) {
 }
 
 
-function Allat_Mobile_Hp_Fix(dfm, x, y) {
+export function Allat_Mobile_Hp_Fix(dfm, x, y) {
 
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
@@ -549,13 +549,13 @@ function Allat_Mobile_Hp_Fix(dfm, x, y) {
 }
 
 // 문자열의 앞뒤 공백문자 제거
-function f_trim(value) {
+export function f_trim(value) {
 	value = value.replace(/^\s*/, '').replace(/\s*$/, '');
 	return value;
 }
 
 // 문자열의 길이 Check
-function f_textLen(obj, len) {
+export function f_textLen(obj, len) {
 	var t = obj.value;
 	var tmp = 0;
 	var Alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~! @#$%^&*()-_=+|\}{[]:;'<>,.?/";
@@ -576,18 +576,9 @@ function f_textLen(obj, len) {
 }
 
 // 숫자만으로 이루어져 있는지 체크
-function f_checkNumber(input) {
+export function f_checkNumber(input) {
 	if (input == '' || !input.match("^[0-9]")) {
 		return false;
 	}
 	return true;
-}
-
-export default {
-	Allat_Mobile_Approval,
-	Allat_Mobile_ApprovalNewPlus,
-	Allat_Mobile_Close,
-	Allat_Mobile_Cancel,
-	Allat_Mobile_Fix,
-	Allat_Mobile_Hp_Fix
 }
