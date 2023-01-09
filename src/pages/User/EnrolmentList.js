@@ -144,6 +144,7 @@ const EnrolmentList = () => {
                                 </>
                             ))}
                         </RowContent> */}
+                        <div style={{marginTop:'104px'}} />
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
                             posts={masterList} />
                         <RowContent style={{ flexWrap: 'wrap' }}>

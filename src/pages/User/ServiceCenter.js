@@ -24,23 +24,23 @@ import { Viewer } from '@toast-ui/react-editor';
 const ServiceCenter = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const { state } = useLocation();
+    const location = useLocation();
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
     const [loading, setLoading] = useState(false);
     const [pageList, setPageList] = useState([]);
     const [page, setPage] = useState(1);
     useEffect(() => {
+        console.log(location)
         async function fetchPost() {
             let num = 0;
-            if (state) {
-                num = state?.type_num ?? 0;
+            if (location.state) {
+                num = location.state?.type_num ?? 0;
             }
             selectTypeNum(num);
         }
         fetchPost();
-
-    }, [])
+    }, [location.pathname])
 
     const selectTypeNum = async (num) => {
         setTypeNum(num);

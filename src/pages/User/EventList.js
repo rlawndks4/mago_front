@@ -56,7 +56,9 @@ const EventList = () => {
                 if (moment >= list[i]?.start_date && moment <= list[i]?.end_date) {
                     ing_list.push(list[i]);
                 } else {
-                    end_list.push(list[i]);
+                    if(moment > list[i]?.end_date){
+                        end_list.push(list[i]);
+                    }
                 }
             }
             setIngList(ing_list);

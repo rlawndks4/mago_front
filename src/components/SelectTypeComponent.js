@@ -24,7 +24,7 @@ margin:36px auto;
 }
 `
 const SubType = styled.div`
-padding:8px 0;
+padding:${props => props?.subTypePadding};
 cursor:pointer;
 text-align:center;
 font-size:${props => props.theme.size.font3};
@@ -36,63 +36,66 @@ width:20%;
     font-size:${props => props.theme.size.font6};
 }
 `
+SubType.defaultProps = {
+    subTypePadding: '8px 0'
+}
 const SelectTypeComponent = (props) => {
-    const { posts, num, selectTypeNum, is_list, is_space_between } = props;
-    const getBorderBottomByLength = (length, idx)=>{
-        for(var i=5;i>=0;i--){
-            if(length>i*5){
+    const { posts, num, selectTypeNum, is_list, is_space_between, subTypePadding } = props;
+    const getBorderBottomByLength = (length, idx) => {
+        for (var i = 5; i >= 0; i--) {
+            if (length > i * 5) {
                 break;
             }
         }
-        if((i*5)>=(idx+1)){
+        if ((i * 5) >= (idx + 1)) {
             return `1px solid ${theme.color.font3}`;
-        }else{
+        } else {
             return "";
         }
     }
-    const getFontWeight = (is_list, idx) =>{
-        if(is_list){
-            if(num.includes(idx)){
+    const getFontWeight = (is_list, idx) => {
+        if (is_list) {
+            if (num.includes(idx)) {
                 console.log(1)
                 return "bold";
-            }else{
+            } else {
                 return "";
             }
-        }else{
-            if(num==idx){
+        } else {
+            if (num == idx) {
                 return "bold";
-            }else{
+            } else {
                 return "";
             }
         }
     }
-    const getFontColor = (is_list, idx) =>{
-        if(is_list){
-            if(num.includes(idx)){
+    const getFontColor = (is_list, idx) => {
+        if (is_list) {
+            if (num.includes(idx)) {
                 return theme.color.font1;
-            }else{
+            } else {
                 return theme.color.font3;
             }
-        }else{
-            if(num==idx){
+        } else {
+            if (num == idx) {
                 return theme.color.font1;
-            }else{
+            } else {
                 return theme.color.font3;
             }
         }
     }
-    useEffect(()=>{
-    },[])
+    useEffect(() => {
+    }, [])
     return (
         <>
-            <SelectSubType className='subtype-container' style={{justifyContent:`${is_space_between?'space-between':''}`,display:`${is_space_between?'flex':''}`}}>
+            <SelectSubType className='subtype-container' style={{ justifyContent: `${is_space_between ? 'space-between' : ''}`, display: `${is_space_between ? 'flex' : ''}` }}>
                 {posts && posts.map((item, index) => (
                     <>
-                        <SubType style={{ color:getFontColor(is_list, index), fontWeight: getFontWeight(is_list, index),borderBottom:getBorderBottomByLength(posts.length, index),width:`${is_space_between?'30%':''}`}} onClick={() => { selectTypeNum(index) }}>
+                        <SubType subTypePadding={subTypePadding} style={{ color: getFontColor(is_list, index), fontWeight: getFontWeight(is_list, index), borderBottom: getBorderBottomByLength(posts.length, index), width: `${is_space_between ? '30%' : ''}` }} onClick={() => { selectTypeNum(index) }}>
                             {item.title}
                         </SubType>
                     </>
-                ))} 
+                ))}
             </SelectSubType>
         </>
     )

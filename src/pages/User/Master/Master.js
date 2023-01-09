@@ -119,7 +119,7 @@ const Master = () => {
                                 <div style={{ fontSize: theme.size[`${window.innerWidth >= 700 ? 'font5' : 'font6'}`], maxWidth: '120px', whiteSpace: 'pre-line', color: theme.color.font2 }}>{master?.record_note}</div>
                             </div>
                         </Card2>
-                        <RowContent>
+                        <RowContent style={{marginTop:'32px'}}>
                             <SideSelectTypeComponent
                                 data={[
                                     { title: '소개' },
@@ -129,6 +129,7 @@ const Master = () => {
                                 schema={'master'}
                                 typeNum={typeNum}
                                 onClickTypeNum={onClickTypeNum}
+                                setTypeNum={setTypeNum}
                             />
                             <Content>
                                 <Title id='div-0'>소개</Title>

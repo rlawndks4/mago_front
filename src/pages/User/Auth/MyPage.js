@@ -131,7 +131,9 @@ const MyPage = () => {
         <>
             <Wrappers className="wrapper" style={{ maxWidth: '800px' }}>
                 <Title>마이페이지</Title>
-                <div style={{ margin: '2rem 0 1rem auto', color: `${theme.color.font2}`, fontSize: theme.size.font3, cursor: 'pointer',fontWeight:'bold' }}>내정보</div>
+                <div style={{ margin: '2rem 0 1rem auto', color: `${theme.color.font2}`, fontSize: theme.size.font3, cursor: 'pointer',fontWeight:'bold',display:'flex',alignItems:'center' }}><div style={{marginRight:'8px'}}
+                onClick={()=>{navigate('/editmyinfo')}}
+                >내정보 수정하기</div> <MdEdit/></div>
 
                 <MyCard>
                     <ProfileContainer>

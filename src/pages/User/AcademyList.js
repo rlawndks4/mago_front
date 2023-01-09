@@ -82,7 +82,7 @@ const AcademyList = () => {
                     <>
                         <Title className='pointer' link={'/academylist'} line={true}>My 강의실</Title>
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
-                            posts={masterList} />
+                            posts={masterList} subTypePadding={'16px 0'}/>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents && bestContents.map((item, idx) => (
                                 <>

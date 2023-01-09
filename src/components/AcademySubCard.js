@@ -102,10 +102,10 @@ const AcademySubCard = (props) => {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '12px', width: 'auto' }}>
                         {is_detail ?
                             <>
-                                <div style={{ fontSize: theme.size.font3, margin: '4px auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
-                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강대상: {item?.target}</div>
-                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {getPeriodByNumber(item?.period)}</div>
-                                <div style={{ fontSize: theme.size.font5, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
+                                <div style={{ fontSize: theme.size.font2, margin: '0px auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
+                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강대상: {item?.target}</div>
+                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강기간: {getPeriodByNumber(item?.period)}</div>
+                                <div style={{ fontSize: theme.size.font4, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                             </>
                             :
                             <>
@@ -124,9 +124,19 @@ const AcademySubCard = (props) => {
                     :
                     <>
                         <PriceContainer>
-                            <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
+                        {is_detail ?
+                        <>
+                        <div style={{ height: '12px', margin: '0 auto 16px 12px' }} />
+                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
+                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                        </>
+                        :
+                        <>
+                        <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
                             <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
                             <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                        </>}
+                            
                             {item?.is_deadline==1?
                             <>
                             <AddButton style={{background:theme.color.red,margin: '0 4px 0 12px',cursor:'default',color:'#fff',padding:'8px',fontSize:theme.size.font4,width:'200px'}}>

@@ -115,7 +115,7 @@ const Academy = () => {
                     </>
                     :
                     <>
-                        <div style={{ padding: '8px 24px', borderBottom: `1px solid ${theme.color.font2}`, width: '150px', textAlign: 'center', margin: '0 auto', fontSize: theme.size.font4, fontWeight: 'bold' }}>{posts?.title}</div>
+                        {/* <div style={{ padding: '8px 24px', borderBottom: `1px solid ${theme.color.font2}`, width: '150px', textAlign: 'center', margin: '0 auto', fontSize: theme.size.font4, fontWeight: 'bold' }}>{posts?.title}</div> */}
                         <AcademySubCard item={posts} is_detail={true} />
                         <RowContent>
                             <SideSelectTypeComponent
@@ -129,6 +129,7 @@ const Academy = () => {
                                 schema={'academy'}
                                 typeNum={typeNum}
                                 onClickTypeNum={onClickTypeNum}
+                                setTypeNum={setTypeNum}
                             />
                             <Content>
                                 <Title id='div-0'>소개</Title>

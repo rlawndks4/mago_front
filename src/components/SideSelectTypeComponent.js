@@ -44,21 +44,32 @@ const makeGuideHeightByWidth = (schema) => {
             700: 240,
             550: 240,
             0: 500,
+            marginTop: 220,
         }
     } else if (schema == 'master') {
         return {
-            1000: 300,
-            700: 300,
+            1000: 400,
+            700: 400,
             550: 300,
             0: 300,
+            marginTop: 370,
         }
     }
 }
 const SideSelectTypeComponent = (props) => {
-    const { data, typeNum, guide_height, onClickTypeNum, schema } = props;
+    const { data, typeNum, guide_height, onClickTypeNum, schema, setTypeNum } = props;
     const [containerStyle, setContainerStyle] = useState({});
     useEffect(() => {
         window.addEventListener('scroll', function (el) {
+            for (var i = data.length - 1; i >= 0; i--) {
+                let offset = $(`#div-${i}`).offset();
+                if(offset.top-160<=$(window).scrollTop()+50 && $(window).scrollTop()>100){
+                    setTypeNum(i);
+                    break;
+                }
+            }
+            //let offset = $(`#div-${3}`).offset()
+            //console.log(offset.top)
             let flag = false;
             if (window.innerWidth >= 1000) {
                 if ($(window).scrollTop() >= makeGuideHeightByWidth(schema)[1000]) {
@@ -77,13 +88,13 @@ const SideSelectTypeComponent = (props) => {
                     flag = true;
                 }
             }
-            if(flag){
-                if(window.innerWidth >= 700){
-                    setContainerStyle({marginTop:`${$(window).scrollTop()-240}px`})
-                }else{
-                    setContainerStyle({position:'fixed',top:'5.5rem',background:'#fff',borderBottom:''})
+            if (flag) {
+                if (window.innerWidth >= 700) {
+                    setContainerStyle({ marginTop: `${$(window).scrollTop() - makeGuideHeightByWidth(schema)['marginTop']}px` })
+                } else {
+                    setContainerStyle({ position: 'fixed', top: '5.5rem', background: '#fff', borderBottom: '' })
                 }
-            }else{
+            } else {
                 setContainerStyle({});
             }
         })
@@ -95,7 +106,7 @@ const SideSelectTypeComponent = (props) => {
                     <>
                         <Content onClick={() => { onClickTypeNum(idx) }} style={{ fontWeight: `${typeNum == idx ? 'bold' : ''}`, borderBottom: `${typeNum == idx ? `2px solid ${theme.color.font1}` : ''}` }}>
                             <div>{item?.title}</div>
-                            {}
+                            { }
                             <ArrowImg src={vArrIcon} />
                         </Content>
                     </>

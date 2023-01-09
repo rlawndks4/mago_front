@@ -224,6 +224,15 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
                             :
                             <>
                             </>}
+                            {col.type == 'period' ?
+                            <>
+                                <Td style={{ width: `${col.width}%` }}>
+                                {data?.date} ~ {data?.end_date} 
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
                         {col.type == 'alarm_type' ?
                             <>
                                 <Td style={{ width: `${col.width}%` }}>

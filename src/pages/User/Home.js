@@ -14,6 +14,8 @@ import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
 import { getIframeLinkByLink, onClickExternalLink } from '../../functions/utils';
+import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
+import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -44,11 +46,16 @@ font-weight:normal;
 }
 `
 const Iframe = styled.iframe`
-margin: 0 auto 0 8px;
-border-radius:${props => props.theme.borderRadius};
+width:100%;
+height:300px;
 @media screen and (max-width:450px) { 
-    width:45vw;
-    height:auto;
+}
+`
+const RowVideoContent = styled.div`
+display:flex;
+width:100%;
+@media screen and (max-width:700px) { 
+    flex-direction:column;
 }
 `
 const ReviewCard = (props) => {
@@ -97,7 +104,7 @@ const Home = () => {
         autoplaySpeed: 2500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        dots:true
+        dots: true
     };
     const reviewSettings = {
         infinite: true,
@@ -123,7 +130,6 @@ const Home = () => {
                     banner_link_obj[`home_banner_link_${i}`] = response?.data?.banner[`home_banner_link_${i}`];
                 }
             }
-            console.log(response)
             setMainContent(response?.data?.main_content);
             setBanners(banner_list);
             setBannerLinks(banner_link_obj);
@@ -132,9 +138,11 @@ const Home = () => {
             setNotices(response?.data?.notice);
             setApps(response?.data?.app);
             let video_list = [...response?.data?.main_video];
-            for(var i = 0;i<video_list.length;i++){
+            console.log(response?.data?.main_video)
+            for (var i = 0; i < video_list.length; i++) {
                 video_list[i]['video_link'] = await getIframeLinkByLink(video_list[i]?.video_link);
             }
+            console.log(video_list)
             setMainVideos(video_list)
             setMainVideos(response?.data?.main_video);
             setTimeout(() => setLoading(false), 1000);
@@ -233,17 +241,22 @@ const Home = () => {
                         </Slider>
 
                         <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer' }}>
-                            <Slider {...videoSettings} className='board-container pointer slider1' ref={reviewRef}>
+                            <Slider {...videoSettings} className='board-container pointer slider1'>
                                 {mainVideos.length > 0 && mainVideos.map((item, idx) => (
                                     <>
-                                        <RowContent>
-                                            <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center' }}>
-                                                <div style={{ fontSize: theme.size.font4, fontWeight: 'bold' }}>{item?.title}</div>
-                                                <div style={{ fontSize: theme.size.font5, marginTop: '16px' }}>{item?.sub_title}</div>
-                                                <div style={{ fontSize: theme.size.font6, marginTop: 'auto', color: theme.color.blue,cursor:'pointer' }} onClick={()=>onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
+                                        <RowVideoContent>
+                                            <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center', width: '100%',minHeight:'200px' }}>
+                                                <img src={sec3TitIcon} />
+                                                <div style={{ fontSize: theme.size.font4, fontWeight: 'bold', marginTop: 'auto' }}>{item?.title}</div>
+                                                <div style={{ fontSize: theme.size.font5, marginTop: 'auto' }}>{item?.sub_title}</div>
+                                                <div style={{ fontSize: theme.size.font6, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
+                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}}>
+                                                    <img src={youtubeRowIcon} style={{height:'24px'}} />
+                                                    <div style={{fontSize:theme.size.font4,marginLeft:'8px'}}>더 많은 영상보기 {'>'}</div>
+                                                </div>
                                             </div>
                                             <Iframe src={`https://www.youtube.com/embed/${item.video_link}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></Iframe>
-                                        </RowContent>
+                                        </RowVideoContent>
                                     </>
                                 ))}
 
