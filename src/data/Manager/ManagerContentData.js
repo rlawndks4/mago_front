@@ -507,22 +507,22 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
-                editColumnObjFormat('슬라이드 이미지 1', 'img', { field_name: 'content1' }, 'enrolment_banner_img_1')
+                editColumnObjFormat('슬라이드 이미지 1 (500x125)', 'img', { field_name: 'content1' }, 'enrolment_banner_img_1')
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 2', 'img', { field_name: 'content2' }, 'enrolment_banner_img_2')
+                editColumnObjFormat('슬라이드 이미지 2 (500x125)', 'img', { field_name: 'content2' }, 'enrolment_banner_img_2')
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 3', 'img', { field_name: 'content3' }, 'enrolment_banner_img_3')
+                editColumnObjFormat('슬라이드 이미지 3 (500x125)', 'img', { field_name: 'content3' }, 'enrolment_banner_img_3')
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 4', 'img', { field_name: 'content4' }, 'enrolment_banner_img_4')
+                editColumnObjFormat('슬라이드 이미지 4 (500x125)', 'img', { field_name: 'content4' }, 'enrolment_banner_img_4')
             ],
             [
-                editColumnObjFormat('슬라이드 이미지 5', 'img', { field_name: 'content5' }, 'enrolment_banner_img_5')
+                editColumnObjFormat('슬라이드 이미지 5 (500x125)', 'img', { field_name: 'content5' }, 'enrolment_banner_img_5')
             ],
             [
-                editColumnObjFormat('하단 배너', 'img', { field_name: 'content' }, 'enrolment_bottom_banner')
+                editColumnObjFormat('하단 배너 (400x150)', 'img', { field_name: 'content' }, 'enrolment_bottom_banner')
             ],
         ],
     },
