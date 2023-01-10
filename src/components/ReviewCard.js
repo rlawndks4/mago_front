@@ -68,7 +68,7 @@ const ReviewCard = (props) => {
                     <Img src={backUrl + item?.main_img}/>
                     <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '12px', width: 'auto' }}>
                     <div style={{ fontSize: theme.size.font3, margin: '0 auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
-                    <div style={{ fontSize: theme.size.font4, margin: '0 auto 16px 12px', }}>{item?.note.substring(0, 30)+`${item?.note.length>30?'...':''}`}</div>
+                    <div style={{ fontSize: theme.size.font4, margin: '0 auto 16px 12px', }}>{item?.note.replace(/(<([^>]+)>)/ig,"").substring(0, 30)+`${item?.note.replace(/(<([^>]+)>)/ig,"").length>30?'...':''}`}</div>
                         <div style={{ fontSize: theme.size.font5, margin: 'auto auto 0 12px' }}>{(item?.date ?? "0000-00-00").substring(0, 10)} / {item?.nickname}</div>
                     </div>
                 </ContentContainer>

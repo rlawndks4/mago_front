@@ -14,6 +14,15 @@ body::-webkit-scrollbar-thumb {
     /* Chrome, Safari, Opera*/
     background: #eef1fd;
 }
+.ql-editor{
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    max-height: auto !important;
+}
+.ql-editor::-webkit-scrollbar{
+    display: none;
+}
 
 .show-scrollbar ::-webkit-scrollbar {
     display: block !important;
@@ -45,13 +54,7 @@ body::-webkit-scrollbar-thumb {
     right: 36px;
     display: none !important;
 }
-.ql-editor{
-    min-height: 300px !important;
-    max-height: 300px !important;
-    overflow: auto;
-    overflow-y: scroll;
-    overflow-x: scroll;
-  }
+
 .scroll-css {}
 
 .scroll-css::-webkit-scrollbar {

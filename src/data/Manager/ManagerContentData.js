@@ -193,7 +193,7 @@ export const objManagerListContent = {
             columnObjFormat('이용기간', '', 'period', 'period'),
             columnObjFormat('이용가능여부', '', 'status', 'use_status'),
         ],
-        ['status=1'],
+        ['status=1','master_pk=','academy_category_pk='],
         false,
         false),
     request: sidebarObjFormat(
@@ -325,15 +325,15 @@ export const objManagerEditContent = {
                 editColumnObjFormat('해시태그', 'input', { placeholder: '#주식' }, 'hash'),
             ],
             [
-                editColumnObjFormat('난이도', 'select', {
-                    api_url: false, option_list: [
-                        { name: '왕초보', val: 1 },
-                        { name: '검색기', val: 2 },
-                        { name: '단타', val: 3 },
-                        { name: '종목발굴', val: 4 },
-                        { name: '기억분석', val: 5 },
-                    ]
-                }, 'difficulty'),
+                // editColumnObjFormat('난이도', 'select', {
+                //     api_url: false, option_list: [
+                //         { name: '왕초보', val: 1 },
+                //         { name: '검색기', val: 2 },
+                //         { name: '단타', val: 3 },
+                //         { name: '종목발굴', val: 4 },
+                //         { name: '기억분석', val: 5 },
+                //     ]
+                // }, 'difficulty'),
                 editColumnObjFormat('강사', 'select', {
                     api_url: '/api/items?table=user&level=30', option_list: [], use_name_column: 'nickname', use_val_column: 'pk'
                 }, 'master_pk'),
@@ -510,19 +510,37 @@ export const objManagerEditContent = {
                 editColumnObjFormat('슬라이드 이미지 1 (500x125)', 'img', { field_name: 'content1' }, 'enrolment_banner_img_1')
             ],
             [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_1'),
+            ],
+            [
                 editColumnObjFormat('슬라이드 이미지 2 (500x125)', 'img', { field_name: 'content2' }, 'enrolment_banner_img_2')
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_2'),
             ],
             [
                 editColumnObjFormat('슬라이드 이미지 3 (500x125)', 'img', { field_name: 'content3' }, 'enrolment_banner_img_3')
             ],
             [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_3'),
+            ],
+            [
                 editColumnObjFormat('슬라이드 이미지 4 (500x125)', 'img', { field_name: 'content4' }, 'enrolment_banner_img_4')
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_4'),
             ],
             [
                 editColumnObjFormat('슬라이드 이미지 5 (500x125)', 'img', { field_name: 'content5' }, 'enrolment_banner_img_5')
             ],
             [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_5'),
+            ],
+            [
                 editColumnObjFormat('하단 배너 (400x150)', 'img', { field_name: 'content' }, 'enrolment_bottom_banner')
+            ],
+            [
+                editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_bottom_banner_link'),
             ],
         ],
     },
@@ -582,7 +600,7 @@ export const objManagerEditContent = {
                 editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
             ],
             [
-                editColumnObjFormat('내용', 'textarea', {}, 'note'),
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
             ],
         ],
     },

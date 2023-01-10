@@ -1,4 +1,5 @@
 
+import './fonts.css'
 
 const size = {
   mobileS: "480px",
@@ -65,7 +66,7 @@ const theme = {
     light: "SpoqaHanSansNeo-Light",
     regular: "SpoqaHanSansNeo-Regular",
     medium: "SpoqaHanSansNeo-Medium",
-
+    normal: "NanumSquareNeo-cBd"
   },
   boxShadow: "0px 12px 12px #00000029",
   borderRadius: "10px"

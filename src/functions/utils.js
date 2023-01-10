@@ -145,7 +145,7 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     }
     return reg.test(str)
 }
-export const onClickExternalLink = (link_) =>{
+export const onClickExternalLink = (link_) =>{//외부링크이동
     let link = link_??"";
     if(!link){
         return;
@@ -155,6 +155,30 @@ export const onClickExternalLink = (link_) =>{
     }else{
         window.location.href = 'https://'+link;
     }
+}
+export const onClickWindowOpen = (link_)=>{
+    let link = link_??"";
+    if(!link){
+        return;
+    }
+    if(link.includes('http')){
+        window.open(link);
+    }else{
+        window.open('https://'+link);
+    }
+}
+export function base64toFile(base_data, filename) {
+    var arr = base_data.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
 }
 export const getViewerMarginByNumber = (num) => {
     if (num == 0) {

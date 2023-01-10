@@ -135,20 +135,37 @@ const Academy = () => {
                             <Content>
                                 <Title id='div-0'>소개</Title>
                                 <ViewerContainer className="viewer">
-                                    <Viewer initialValue={posts?.introduce_note ?? `<body></body>`} />
+                                    <ReactQuill
+                                        value={posts?.introduce_note ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                    />
                                 </ViewerContainer>
                                 <Title id='div-1'>혜택</Title>
-
                                 <ViewerContainer className="viewer">
-                                    <Viewer initialValue={posts?.benefit_note ?? `<body></body>`} />
+                                <ReactQuill
+                                        value={posts?.benefit_note ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                    />
                                 </ViewerContainer>
                                 <Title id='div-2'>리더</Title>
                                 <ViewerContainer className="viewer">
-                                    <Viewer initialValue={posts?.leader_note ?? `<body></body>`} />
+                                <ReactQuill
+                                        value={posts?.leader_note ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                        bounds={'.app'}
+                                    />
                                 </ViewerContainer >
                                 <Title id='div-3'>커리큘럼</Title>
                                 <ViewerContainer className="viewer">
-                                    <Viewer initialValue={posts?.curriculum_note ?? `<body></body>`} />
+                                <ReactQuill
+                                        value={posts?.curriculum_note ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                        bounds={'.app'}
+                                    />
                                 </ViewerContainer>
                                 <Title id='div-4'>이용후기</Title>
                                 {reviewList && reviewList.map((item, idx) => (
@@ -156,7 +173,7 @@ const Academy = () => {
                                         <ReviewCard item={item} />
                                     </>
                                 ))}
-                                 <MBottomContent>
+                                <MBottomContent>
                                     <div />
                                     <PageContainer>
                                         <PageButton onClick={() => changePage(1)}>

@@ -24,7 +24,16 @@ import SideBar from '../../common/manager/SideBar';
 import ManagerWrappers from '../../components/elements/ManagerWrappers';
 import ManagerContentWrappers from '../../components/elements/ManagerContentWrappers';
 import OptionBox from './OptionBox';
-
+const OptionCardWrappers = styled.div`
+width:95%;
+margin:0.5rem auto;
+border-spacing: 0 10px;
+min-width:700px;
+box-shadow:1px 1px 1px #00000029;
+font-size:14px;
+background:#fff;
+color:${props => props.theme.color.manager.font2};
+`
 
 const MItemList = () => {
 
@@ -40,6 +49,7 @@ const MItemList = () => {
     const [loadingText, setLoadingText] = useState("")
     const [apiStr, setApiStr] = useState("/api/items");
     const [breadcrumbText, setBreadcrumbText] = useState("");
+    const [optionObj, setOptionObj] = useState({});
     const notAddList = [
         'comment'
     ]
@@ -78,7 +88,8 @@ const MItemList = () => {
             }
             const { data: response } = await axios.post(api_str, obj);
             console.log(response)
-            setPosts(response.data.data)
+            setPosts(response.data.data);
+            setOptionObj(response?.data?.option_obj);
             setPageList(range(1, response.data.maxPage));
             setLoading(false)
         }
@@ -108,7 +119,8 @@ const MItemList = () => {
             obj[objManagerListContent[`${params.table}`]?.if_use_pk] = params?.pk;
         }
         const { data: response } = await axios.post(apiStr, obj);
-        setPosts(response.data.data)
+        setPosts(response.data.data);
+        setOptionObj(response?.data?.option_obj);
         setPageList(range(1, response.data.maxPage));
         setLoading(false)
     }
@@ -179,6 +191,22 @@ const MItemList = () => {
         <>
             <Breadcrumb title={breadcrumbText} nickname={``} />
             <OptionBox schema={params.table} onChangeType={onChangeType} changePage={changePage} onchangeSelectPageCut={onchangeSelectPageCut} apiStr={apiStr} />
+            {Object.keys(optionObj).length>0?
+            <>
+            <OptionCardWrappers>
+                <Row>
+                {Object.keys(optionObj).map((item)=>(
+                    <>
+                    <div style={{ padding: '12px 24px' }}>{optionObj[item]?.title}: {optionObj[item]?.content}</div>
+                    </>
+                ))}
+                </Row>
+            </OptionCardWrappers>
+            </>
+            :
+            <>
+            </>}
+           
             {loading ?
                 <>
                     <Loading text={loadingText} />

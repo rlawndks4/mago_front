@@ -34,13 +34,13 @@ const ServiceCenter = () => {
         console.log(location)
         async function fetchPost() {
             let num = 0;
-            if(params?.type_num){
+            if (params?.type_num) {
                 num = params?.type_num ?? 0;
             }
             if (location.state) {
                 num = location.state?.type_num ?? 0;
             }
-            
+
             selectTypeNum(num);
         }
         fetchPost();
@@ -141,7 +141,7 @@ const ServiceCenter = () => {
                         {typeNum == 1 ?
                             <>
                                 <Content style={{ marginTop: '16px' }}>
-                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, borderBottom: `1px solid ${theme.color.font4}`, padding: '6px 0' }}>
+                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font3, borderBottom: `1px solid ${theme.color.font4}`, padding: '6px 0' }}>
                                         <div style={{ width: '50%', textAlign: 'left' }}>제목</div>
                                         <div style={{ width: '25%', textAlign: 'end' }}>작성일</div>
                                         <div style={{ width: '25%', textAlign: 'end' }}>비고</div>
@@ -169,7 +169,7 @@ const ServiceCenter = () => {
                                 <div style={{ marginTop: '16px', borderBottom: `1px solid ${theme.color.font4}` }} />
                                 {posts && posts.length > 0 && posts.map((item, idx) => (
                                     <>
-                                        <div style={{ color: theme.color.font2, display: 'flex', flexDirection: 'column', fontSize: theme.size.font4, padding: '6px 0', cursor: 'pointer', borderBottom: `1px solid ${theme.color.font4}` }}
+                                        <div style={{ color: theme.color.font2, display: 'flex', flexDirection: 'column', fontSize: theme.size.font4, padding: '0', cursor: 'pointer', borderBottom: `1px solid ${theme.color.font4}` }}
                                             onClick={() => {
                                                 let list = [...posts];
                                                 if (list[idx]?.is_see) {
@@ -179,8 +179,11 @@ const ServiceCenter = () => {
                                                 }
                                                 setPosts(list)
                                             }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                <div style={{ fontSize: theme.size.font3, fontWeight: 'bold', color: theme.color.font1 }}>Q. {item?.title}</div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',background:`${posts[idx]?.is_see?theme.color.font5:''}`,padding:'12px 0' }}>
+                                                <div style={{ fontSize: theme.size.font4, fontWeight: 'bold', color: theme.color.font1, display: 'flex', alignItems: 'center' }}>
+                                                    <div style={{ background: theme.color.font3, padding: '4px', color: '#FFF', margin: '0 4px' }}>Q</div>
+                                                    <div>{item?.title}</div>
+                                                </div>
                                                 {posts[idx]?.is_see ?
                                                     <>
                                                         <AiFillCaretUp />
@@ -193,7 +196,8 @@ const ServiceCenter = () => {
                                             {posts[idx]?.is_see ?
                                                 <>
                                                     <div style={{ width: '100%', display: 'flex' }}>
-                                                        <ViewerContainer className="viewer" style={{ margin: '0' }}>
+                                                        <div style={{ background: theme.color.background0, padding: '4px', color: '#FFF', margin: '16px 4px auto 4px' }}>A</div>
+                                                        <ViewerContainer className="viewer viever-faq" style={{ margin: '0',paddingBottom:'12px' }}>
                                                             <Viewer initialValue={item?.note ?? `<body></body>`} />
                                                         </ViewerContainer>
                                                     </div>

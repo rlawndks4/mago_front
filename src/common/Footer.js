@@ -4,6 +4,7 @@ import styled from "styled-components";
 import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
+import { onClickWindowOpen } from "../functions/utils";
 const Wrappers = styled.footer`
     display:flex;
     flex-direction:column;
@@ -60,7 +61,7 @@ const Footer = () => {
                 <>
                     <div style={{ width: '100%', background: `#191828` }}>
                         <div style={{ display: 'flex', padding: '16px 0', fontSize: theme.size.font4, background: `#191828`, cursor: 'pointer', color: '#FFF', width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
-                            <div style={{ width: '25%', textAlign: 'center' }} onClick={()=>window.location.href='http://first-partners.co.kr'}>회사소개</div>
+                            <div style={{ width: '25%', textAlign: 'center' }} onClick={()=>onClickWindowOpen('http://first-partners.co.kr')}>회사소개</div>
                             <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/0')}>이용약관</div>
                             <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/1')}>개인정보처리방침</div>
                             <div style={{ width: '25%', textAlign: 'center' }} onClick={() => navigate('/policy/2')}>저작권정책</div>

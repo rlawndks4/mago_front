@@ -8,6 +8,8 @@ import { excelDownload } from "../../functions/utils";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { SiMicrosoftexcel } from "react-icons/si";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const OptionCardWrappers = styled.div`
 width:95%;
@@ -27,11 +29,62 @@ margin-left: auto;
     margin-left: 0;
 }
 `
-const returnOptionContentBySchema = (schema, onChangeType) => {
+const ReturnOptionContentBySchema = (props) => {
+    const { schema, onChangeType } = props;
+    const [list, setList] = useState({});
+    useEffect(() => {
+        fetchPost();
+    }, [schema])
+    async function fetchPost() {
+        let list_ = { ...list };
+        if (schema == 'subscribe') {
+            list_ = {
+                master: [],
+                academy_category: []
+            }
+            const { data: response } = await axios.get(`/api/items?table=user&level=30`);
+            list_['master'] = response?.data.map((item) => {
+                return {
+                    title: item?.nickname,
+                    val: item?.pk
+                }
+            });
+            const { data: response2 } = await axios.get(`/api/items?table=academy_category`);
+            list_['academy_category'] = response2?.data.map((item) => {
+                return {
+                    title: item?.title.substring(0, 10),
+                    val: item?.pk
+                }
+            });
+            setList(list_);
+        }
+    }
     if (schema == 'user') {
         return (
             <>
-              
+            </>
+        )
+    }
+    if (schema == 'subscribe') {
+
+        return (
+            <>
+                <Select className='master_pk' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                    <option value={'all'}>전체강사</option>
+                    {list?.master && list?.master.map((item) => (
+                        <>
+                            <option value={item?.val}>{item?.title}</option>
+                        </>
+                    ))}
+                </Select>
+                <Select className='academy_category_pk' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                    <option value={'all'}>전체강의</option>
+                    {list?.academy_category && list?.academy_category.map((item) => (
+                        <>
+                            <option value={item?.val}>{item?.title}</option>
+                        </>
+                    ))}
+                </Select>
             </>
         )
     }
@@ -66,7 +119,7 @@ const OptionBox = (props) => {
             <div style={{ overflowX: 'auto' }}>
                 <OptionCardWrappers>
                     <Row>
-                        {returnOptionContentBySchema(schema, onChangeType)}
+                        <ReturnOptionContentBySchema schema={schema} onChangeType={onChangeType} />
                         <SearchContainer>
                             <Input style={{ margin: '12px 0 12px 24px', border: 'none' }} className='search' placeholder='두 글자 이상 입력해주세요.' onKeyPress={(e) => { e.key == 'Enter' ? changePage(1) : console.log("") }} />
                             <AiOutlineSearch className='search-button' style={{ padding: '14px', cursor: 'pointer' }} onClick={() => changePage(1)} />

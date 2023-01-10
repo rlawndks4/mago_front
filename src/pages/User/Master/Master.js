@@ -144,7 +144,7 @@ const Master = () => {
                                 {master?.introduce_img?
                                 <>
                                 <Content>
-                                    <img src={master?.introduce_img} />
+                                    <img src={backUrl+master?.introduce_img} />
                                 </Content>
                                 </>
                                 :

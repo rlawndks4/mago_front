@@ -13,7 +13,7 @@ import Loading from '../../components/Loading';
 import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
-import { getIframeLinkByLink, onClickExternalLink } from '../../functions/utils';
+import { getIframeLinkByLink, onClickExternalLink, onClickWindowOpen } from '../../functions/utils';
 import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
 import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
 const WrappersStyle = styled.div`
@@ -24,6 +24,7 @@ width:100%;
 margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
+font-family:${props=>props.theme.font.normal};
 @media screen and (max-width:1050px) { 
     margin-top:6rem;
 }
@@ -60,6 +61,10 @@ width:100%;
 `
 const ReviewCard = (props) => {
     let { item, onClick } = props;
+    const [note, setNote] = useState([]);
+    useEffect(()=>{
+
+    },[props])
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', border: `1px solid ${theme.color.font5}`, width: '95%', margin: '0 auto' }} onClick={onClick}>
@@ -71,7 +76,7 @@ const ReviewCard = (props) => {
                     </div>
                 </div>
                 <div style={{ padding: '16px', background: theme.color.font6, fontSize: theme.size.font5, height: '25px' }}>
-                    {(item?.note ?? "").substring(0, 30)}{item?.note.length > 30 ? '...' : ''}
+                    {(item?.note.replace(/(<([^>]+)>)/ig,"") ?? "").substring(0, 30)}{item?.note.replace(/(<([^>]+)>)/ig,"").length > 30 ? '...' : ''}
                 </div>
             </div>
         </>
@@ -251,8 +256,8 @@ const Home = () => {
                                                 <img src={sec3TitIcon} />
                                                 <div style={{ fontSize: theme.size.font3, fontWeight: 'bold', marginTop: 'auto' }}>{item?.title}</div>
                                                 <div style={{ fontSize: theme.size.font5, marginTop: 'auto' }}>{item?.sub_title}</div>
-                                                <div style={{ fontSize: theme.size.font5, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickExternalLink(item?.link)}>자세히보기{'>'}</div>
-                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}} onClick={()=>{onClickExternalLink(item?.more_link??"/")}}>
+                                                <div style={{ fontSize: theme.size.font5, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickWindowOpen(item?.link)}>자세히보기{'>'}</div>
+                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}} onClick={()=>{onClickWindowOpen(item?.more_link??"/")}}>
                                                     <img src={youtubeRowIcon} style={{height:'24px'}} />
                                                     <div style={{fontSize:theme.size.font4,marginLeft:'8px'}}>더 많은 영상보기 {'>'}</div>
                                                 </div>
@@ -289,7 +294,7 @@ const Home = () => {
                                 <RowContent style={{ flexWrap: 'wrap' }}>
                                     {apps.length > 0 && apps.map((item, idx) => (
                                         <>
-                                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '24px', width: '124px', alignItems: 'center', cursor: 'pointer', marginBottom: '16px' }} onClick={() => onClickExternalLink(item?.link)}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '24px', width: '124px', alignItems: 'center', cursor: 'pointer', marginBottom: '16px' }} onClick={() => onClickWindowOpen(item?.link)}>
                                                 <img src={backUrl + item?.main_img} style={{ width: '104px', height: '104px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
                                                 <div>{item?.name}</div>
                                             </div>

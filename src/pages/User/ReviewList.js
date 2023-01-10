@@ -19,27 +19,7 @@ import { range } from '../../functions/utils';
 import MBottomContent from '../../components/elements/MBottomContent';
 import PageContainer from '../../components/elements/pagination/PageContainer';
 import PageButton from '../../components/elements/pagination/PageButton';
-const WrappersStyle = styled.div`
-position:relative;
-display:flex;
-flex-direction:column;
-width:100%;
-max-width:1000px;
-margin-top:8rem;
-margin-left:auto;
-margin-right:auto;
-@media screen and (max-width:1050px) { 
-    margin-top:4rem;
-}
-`
-const BestContentImg = styled.img`
-margin: 0 auto 0 8px;
-border-radius:${props => props.theme.borderRadius};
-@media screen and (max-width:450px) { 
-    width:45vw;
-    height:auto;
-}
-`
+
 
 const ReviewList = () => {
     const navigate = useNavigate();

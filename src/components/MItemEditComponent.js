@@ -163,10 +163,16 @@ const MItemEditComponent = (props) => {
                 navigate(-1);
             }
             setLoading(false);
+            await new Promise((r) => setTimeout(r, 500));
+            await settingJquery();
         }
         fetchPost();
     }, [pathname]);
+    const settingJquery= () =>{
 
+        $('.ql-editor').attr('style','max-height:300px !important');
+        $('.ql-editor').attr('style','min-height:300px !important');
+    }
 
     const editItem = async () => {
         try {

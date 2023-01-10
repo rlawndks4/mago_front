@@ -14,6 +14,7 @@ import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
 import SelectTypeComponent from '../../components/SelectTypeComponent';
+import { onClickExternalLink } from '../../functions/utils';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -61,7 +62,7 @@ const EnrolmentList = () => {
             let banner_list = [];
             for (var i = 1; i <= 5; i++) {
                 if (response?.data?.banner[`enrolment_banner_img_${i}`]) {
-                    await banner_list.push(`${backUrl + response?.data?.banner[`enrolment_banner_img_${i}`]}`);
+                    await banner_list.push({img:`${backUrl + response?.data?.banner[`enrolment_banner_img_${i}`]}`,link:`${response?.data?.banner[`enrolment_banner_link_${i}`]}`});
                 }
             }
             if (response?.data?.banner[`enrolment_bottom_banner`]) {
@@ -116,11 +117,12 @@ const EnrolmentList = () => {
                         <Slider {...settings} className='board-container pointer slider1'>
                             {banners.length > 0 && banners.map((item, idx) => (
                                 <>
-                                    <LazyLoadImage
+                                    <img
                                         alt={"#"}
                                         effect="blur"
-                                        src={item}
+                                        src={item?.img}
                                         className="enrolment-banner-img"
+                                        onClick={()=>{onClickExternalLink(item?.link)}}
                                     />
 
                                 </>

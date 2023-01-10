@@ -18,6 +18,7 @@ margin-left:auto;
 margin-right:auto;
 margin-bottom:6rem;
 min-height:58vh;
+font-family:${props=>props.theme.font.normal};
 @media screen and (max-width:1050px) { 
     margin-top:7rem;
 }
