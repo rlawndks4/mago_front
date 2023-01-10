@@ -51,6 +51,9 @@ const MUserEdit = () => {
                 $('.nickname').val(response.data.nickname)
                 $('.phone').val(response.data.phone)
                 $('.level').val(response.data.user_level)
+                $('.address').val(response.data.address)
+                $('.address_detail').val(response.data.address_detail)
+                $('.zip_code').val(response.data.zip_code)
             }
         }
         fetchPost();
@@ -99,7 +102,7 @@ const MUserEdit = () => {
                     </Col>
                     <Col>
                         <Title style={{ margintop: '32px' }}>비밀번호</Title>
-                        <Input className='pw' type={'password'} placeholder='****' />
+                        <Input className='pw' type={'password'} placeholder='****' autoComplete={'new-password'} />
                     </Col>
                     <Col>
                         <Title style={{ margintop: '32px' }}>이름</Title>

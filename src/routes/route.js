@@ -75,8 +75,8 @@ const zUserRoute = [
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
 
-    //{ link: '/authpay', element: <AuthPay />, title: "결제" },
-    //{ link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
+    { link: '/authpay', element: <AuthPay />, title: "결제" },
+    { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 
     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
 

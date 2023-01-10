@@ -10,7 +10,23 @@ import { formatPhoneNumber, regExp } from "../functions/utils";
 import defaultImg from '../assets/images/icon/default-profile.png';
 import { backUrl } from "../data/Data";
 import imageCompression from 'browser-image-compression';
-
+const Table = styled.table`
+font-size:12px;
+width:95%;
+margin:0 auto;
+text-align:center;
+border-collapse: collapse;
+color:${props => props.theme.color.font1};
+background:#fff;
+`
+const Tr = styled.tr`
+width:100%;
+height:26px;
+border-bottom:1px solid ${props => props.theme.color.font4};
+`
+const Td = styled.td`
+border-bottom:1px solid ${props => props.theme.color.font4};
+`
 const Type = styled.div`
 width:50%;
 text-align:center;
@@ -38,20 +54,21 @@ const EditMyInfoCard = () => {
     const [isCheckIdAndPhone, setIsCheckIdAndPhone] = useState(false)
     const [url, setUrl] = useState('')
     const [content, setContent] = useState(undefined)
-    const [formData] = useState(new FormData())
     const [randNum, setRandNum] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [num, setNum] = useState("");
     const [isCoinside, setIsCoinside] = useState(false);
     const [isSendSms, setIsSendSms] = useState(false)
     const [fixPhoneNumber, setFixPhoneNumber] = useState("")
-    const [zType, setZType] = useState([ { title: "닉네임 변경", type:1 }, { title: "비밀번호 변경", type:2 }, { title: "전화번호 변경", type:3 }])
+    const [zType, setZType] = useState([{ title: "닉네임 변경", type: 1 }, { title: "비밀번호 변경", type: 2 }, { title: "전화번호 변경", type: 3 }])
+    const [addressList, setAddressList] = useState([])
+    const [isSelectAddress, setIsSelectAddress] = useState(false);
     useEffect(() => {
-        if(localStorage.getItem('is_ios')){
-            setTypeNum(1)
-        }else{
-            setZType([...[{ title: "프로필 변경", type:0 }],...zType])
-            setTypeNum(0);
+        if (localStorage.getItem('is_ios')) {
+            onChangeTypeNum(1)
+        } else {
+            setZType([...[{ title: "프로필 변경", type: 0 }], ...zType])
+            onChangeTypeNum(0);
         }
         let auth = JSON.parse(localStorage.getItem('auth'))
         if (auth.profile_img) {
@@ -61,11 +78,11 @@ const EditMyInfoCard = () => {
     }, [])
     const sendSms = async () => {
         if (typeNum == 2 && !$('.id').val()) {
-            alert("아이디를 입력해 주세요.")
+            alert("아이디를 입력해 주세요.");
             return;
         }
         if (!$('.phone').val()) {
-            alert("핸드폰 번호를 입력해주세요.")
+            alert("핸드폰 번호를 입력해주세요.");
             return;
         }
         setIsCheckPhoneNumber(false);
@@ -97,7 +114,7 @@ const EditMyInfoCard = () => {
     const refresh = () => {
 
     }
-    const onChangeTypeNum = (num) => {
+    const onChangeTypeNum = async (num) => {
         if (num != typeNum) {
             $('.id').val('');
             $('.phone').val('');
@@ -107,47 +124,54 @@ const EditMyInfoCard = () => {
             $('.new-pw-check').val('');
             setTypeNum(num);
         }
+        console.log(num)
+        if(num==0){
+            const {data:response} = await axios.get('/api/getmyinfo');
+            console.log(response)
+            $('.address').val(response?.data?.address);
+            $('.address_detail').val(response?.data?.address_detail);
+            $('.zip_code').val(response?.data?.zip_code);
+        }
     }
     const addFile = async (e) => {
         if (e.target.files[0]) {
-            const options = { 
-                maxSizeMB: 2, 
+            const options = {
+                maxSizeMB: 2,
                 maxWidthOrHeight: 64
             }
-            try{
+            try {
                 const compressedFile = await imageCompression(e.target.files[0], options);
                 const promise = imageCompression.getDataUrlFromFile(compressedFile);
                 promise.then(result => {
                     setUrl(result);
                 })
                 setContent(compressedFile);
-            }catch(err){
+            } catch (err) {
                 console.log(err);
             }
-            
+
         }
     };
     const onSave = async (num) => {
+        let formData = new FormData();
         if (num == 0) {
             formData.append('id', myId);
             formData.append('profile', content);
             const { data: response } = await axios.post('/api/uploadprofile', formData);
-            if (response.result > 0) {
-                alert("성공적으로 저장되었습니다.\n다시 로그인 해주세요.");
-                const { data: response } = await axios.post('/api/logout');
-                navigate('/login');
-            } else {
-                alert(response.message);
-            }
-            return;
         }
         let str = '/api/editmyinfo';
-        if (!$('.pw').val()) {
-            alert("비밀번호를 입력해주세요.");
-            return;
+        
+        let obj = { id: myId, pw: $('.pw').val(),typeNum:num };
+        if(num==0){
+            obj.address = $('.address').val();
+            obj.address_detail = $('.address_detail').val();
+            obj.zip_code = $('.zip_code').val();
+        }else{
+            if (!$('.pw').val()) {
+                alert("비밀번호를 입력해주세요.");
+                return;
+            }
         }
-        let obj = { id: myId, pw: $('.pw').val() };
-
         if (num == 1) {
             if (!$('.nickname').val()) {
                 alert("닉네임을 입력해주세요.");
@@ -185,12 +209,25 @@ const EditMyInfoCard = () => {
         }
         const { data: response } = await axios.post(str, obj);
         if (response.result > 0) {
-            alert("성공적으로 저장되었습니다.\n다시 로그인 해주세요.");
-            const { data: response } = await axios.post('/api/logout');
-            navigate('/login');
+            alert("성공적으로 저장되었습니다.");
         } else {
             alert(response.message);
         }
+    }
+    const onSelectAddress = (idx) => {
+        setIsSelectAddress(true);
+        let address_obj = addressList[idx];
+        $('.address').val(address_obj?.address);
+        $('.zip_code').val(address_obj?.zip_code);
+        $('.address_detail').val("");
+        $('.address_detail').focus();
+    }
+    const getAddressByText = async () => {
+        const { data: response } = await axios.post('/api/getaddressbytext', {
+            text: $('.address').val()
+        })
+        setIsSelectAddress(false);
+        setAddressList(response?.data);
     }
     return (
         <>
@@ -233,6 +270,34 @@ const EditMyInfoCard = () => {
                                 <div>
                                     <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                 </div>
+                                <CategoryName>우편번호</CategoryName>
+                                <Input className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                                <CategoryName>주소</CategoryName>
+                                <Input className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null}  />
+                                <Button onClick={getAddressByText}>주소검색</Button>
+                                {addressList.length > 0 && !isSelectAddress ?
+                    <>
+                        <Table style={{ maxWidth: '700px', margin: '12px auto 12px 24px', width: '90%' }}>
+                            <Tr>
+                                <Td style={{ width: '30%' }}>우편번호</Td>
+                                <Td style={{ width: '70%' }}>주소</Td>
+                            </Tr>
+                            {addressList.map((item, idx) => (
+                                <>
+                                    <Tr style={{ cursor: 'pointer' }} onClick={() => { onSelectAddress(idx) }}>
+                                        <Td style={{ width: '30%', padding: '8px 0' }}>{item.zip_code ?? "---"}</Td>
+                                        <Td style={{ width: '70%', padding: '8px 0' }}>{item.address ?? "---"}</Td>
+                                    </Tr>
+                                </>
+                            ))}
+                        </Table>
+                    </>
+                    :
+                    <>
+                    </>
+                }
+                                <CategoryName>상세주소</CategoryName>
+                                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.bank-name').focus() : null} />
                             </>
                             :
                             <>

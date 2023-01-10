@@ -35,14 +35,14 @@ const AuthPay = () => {
     const [loading, setLoading] = useState(false);
     const [itemPk, setItemPk] = useState(0);
     useEffect(() => {
-        if(!location?.state){
+        if (!location?.state) {
             alert("잘못된 접근 입니다.");
             navigate(-1);
-        }else{
+        } else {
             setItemPk(location?.state?.item_pk)
         }
+        authSetting();
         isAuth();
-        onPay();
     }, []);
     async function isAuth() {
         setLoading(true);
@@ -54,6 +54,11 @@ const AuthPay = () => {
             navigate('/login')
         }
         setLoading(false);
+    }
+    
+    const authSetting = async() =>{
+        await isAuth();
+
     }
     const onPay = async () => {
 
@@ -67,12 +72,12 @@ const AuthPay = () => {
                     </>
                     :
                     <>
-                        <form className="login-form" method='post' id="sendFm" accept-charset="EUC-KR">
-                            <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
-                            </object>
-                            <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
-                            <div className='auth-font tm-clr intro-small-text'>입금 정보를 입력해주세요.</div>
-                            <input type='hidden' name='mkey' value='$m_key' />
+                        <form className="login-form" method='post' id="sendFm" accept-charset="EUC-KR" style={{display:'none'}}>
+                            {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
+                            </object> */}
+                            {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
+                            <div className='auth-font tm-clr intro-small-text'>입금 정보를 입력해주세요.</div> */}
+                            <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
                             <input type='hidden' name='allat_pmember_id' value='TMN054815' />
                             <input type='hidden' name='allat_shop_id' value='anipg5' />
                             <input type='hidden' name='allat_order_no' value={itemPk} />
@@ -80,7 +85,7 @@ const AuthPay = () => {
                             <input type='hidden' name='allat_recp_addr' value='test' />
                             <input type='hidden' name='allat_product_cd' value='TMN054815' />
                             <input type='hidden' name='allat_enc_data' />
-                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+'/keyrecieve'}`} />
+                            <input type='hidden' name='shop_receive_url' value={`${frontUrl + '/keyrecieve'}`} />
                             <input type='hidden' name='allat_autoscreen_yn' value='y' />
                             <table className="table tc ofax" >
                                 <tbody>
@@ -89,7 +94,7 @@ const AuthPay = () => {
                                             <span>상품선택</span>
                                         </th>
                                         <td id='item-nm-wrap'>
-                                            <input type='text' name='allat_product_nm' />
+                                            <input type='text' name='allat_product_nm' value={''} />
                                         </td>
                                     </tr>
                                     <tr>
