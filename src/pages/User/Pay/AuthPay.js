@@ -47,12 +47,12 @@ const AuthPay = () => {
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
         authSetting();
-        window.onmessage = function(e){
-            if(e.origin === backUrl){
+        window.onmessage = function (e) {
+            if (e.origin === backUrl) {
                 console.log(e);
             }
         }
-        
+
     }, []);
 
     async function isAuth() {
@@ -85,28 +85,28 @@ const AuthPay = () => {
     return (
         <>
             <Wrappers>
-                        <form method='post' id="sendFm" accept-charset="utf-8" style={{ display: 'none' }}>
-                            {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
+                <form method='post' id="sendFm" accept-charset="utf-8" style={{ display: 'none' }}>
+                    {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
                             </object> */}
-                            {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
+                    {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
                             <div className='auth-font tm-clr intro-small-text'>입금 정보를 입력해주세요.</div> */}
-                            <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
-                            <input type='hidden' name='allat_pmember_id' value='TMN054815' />
-                            <input type='hidden' name='allat_shop_id' value='anipg5' />
-                            <input type='hidden' name='allat_order_no' value={`${params?.pk??0}${(new Date()).getTime()}${auth?.pk??0}`} />
-                            <input type='hidden' name='allat_recp_nm' value='test' />
-                            <input type='hidden' name='allat_recp_addr' value='test' />
-                            <input type='hidden' name='allat_product_cd' value='TMN054815' />
-                            <input type='hidden' name='allat_enc_data' value='' />
-                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+`/api/keyrecieve/${params?.pk}`}`} />
-                            <input type='hidden' name='allat_autoscreen_yn' value='y' />
-                            <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
-                            <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
-                            <input type='text' className="buyer" name='allat_buyer_nm' placeholder='구매자명 입력' value={auth?.name} ref={e => (itemRef.current[2] = e)} />
-                        </form>
+                    <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
+                    <input type='hidden' name='allat_pmember_id' value='TMN054815' />
+                    <input type='hidden' name='allat_shop_id' value='anipg5' />
+                    <input type='hidden' name='allat_order_no' value={`${params?.pk ?? 0}${(new Date()).getTime()}${auth?.pk ?? 0}`} />
+                    <input type='hidden' name='allat_recp_nm' value={auth?.name} />
+                    <input type='hidden' name='allat_recp_addr' value={auth?.address + ' ' + auth?.address_detail} />
+                    <input type='hidden' name='allat_product_cd' value='TMN054815' />
+                    <input type='hidden' name='allat_enc_data' value='' />
+                    <input type='hidden' name='shop_receive_url' value={`${frontUrl + `/api/keyrecieve/${params?.pk}`}`} />
+                    <input type='hidden' name='allat_autoscreen_yn' value='y' />
+                    <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
+                    <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
+                    <input type='text' className="buyer" name='allat_buyer_nm' placeholder='구매자명 입력' value={auth?.name} ref={e => (itemRef.current[2] = e)} />
+                </form>
             </Wrappers>
         </>
-      
+
     )
 }
 $(document.body).append(`
