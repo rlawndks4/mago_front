@@ -26,6 +26,7 @@ import { useRef } from "react"
 const AuthPay = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const params = useParams();
     const [loading, setLoading] = useState(false);
     const [itemPk, setItemPk] = useState(0);
     const [item, setItem] = useState({});
@@ -68,7 +69,6 @@ const AuthPay = () => {
             alert("잘못된 접근 입니다.");
             navigate(-1);
         } else {
-            await setItemPk(location?.state?.item_pk);
         }
         await isAuth();
         await getItem();
@@ -98,7 +98,7 @@ const AuthPay = () => {
                             <input type='hidden' name='allat_recp_addr' value='test' />
                             <input type='hidden' name='allat_product_cd' value='TMN054815' />
                             <input type='hidden' name='allat_enc_data' value='' />
-                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+`/api/keyrecieve?item_pk=${itemPk}`}`} />
+                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+`/api/keyrecieve/${params?.pk}`}`} />
                             <input type='hidden' name='allat_autoscreen_yn' value='y' />
                             <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
                             <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
@@ -122,6 +122,11 @@ function approval_submit(result_cd,result_msg,enc_data)
     } 
     else 
     {
+        let params = {
+            'enc_data': enc_data,
+            'item_pk':
+        }
+        await $.post('api/approval', parmas)
         $('#loading-container').css('display','block');
         sendFm.allat_enc_data.value = enc_data;
         sendFm.action = "/api/allat_approval";

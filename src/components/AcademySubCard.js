@@ -69,7 +69,7 @@ const AcademySubCard = (props) => {
     const onSubscribe = async (num) => {
         if (window.confirm(num == 1 ? "수강신청 하시겠습니까?" : "장바구니 등록 하시겠습니까?")) {
             if (num == 1) {
-                navigate('/authpay', { state: { item_pk: item?.pk } })
+                navigate(`/authpay/${item?.pk}`, { state: { item_pk: item?.pk } })
             } else {
                 const { data: response } = await axios.post('/api/onsubscribe', {
                     item_pk: item?.pk,
