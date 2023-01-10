@@ -199,6 +199,7 @@ const Headers = () => {
 
   const [auth, setAuth] = useState({});
   useEffect(() => {
+    
     if (location.pathname.substring(0, 6) == '/post/' || location.pathname.substring(0, 7) == '/video/' || location.pathname == '/appsetting') {
       setIsPost(true);
     } else {

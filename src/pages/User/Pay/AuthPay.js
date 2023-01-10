@@ -20,14 +20,6 @@ import quillEmoji from "react-quill-emoji"
 import "react-quill-emoji/dist/quill-emoji.css"
 import useScript from "../../../functions/useScript"
 import $ from 'jquery'
-import {
-    Allat_Mobile_Approval,
-    Allat_Mobile_ApprovalNewPlus,
-    Allat_Mobile_Close,
-    Allat_Mobile_Cancel,
-    Allat_Mobile_Fix,
-    Allat_Mobile_Hp_Fix
-} from '../../../js/AllatPayM.js'
 import { Suspense } from "react"
 import { useRef } from "react"
 
@@ -49,11 +41,17 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
-            Allat_Mobile_Approval($('#sendFm')[0], 0, 0);
+            $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
         }
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
         authSetting();
+        window.onmessage = function(e){
+            if(e.origin === backUrl){
+                console.log(e);
+            }
+        }
+        
     }, []);
 
     async function isAuth() {
@@ -62,10 +60,9 @@ const AuthPay = () => {
             setAuth(response?.data)
         } else {
             alert("회원전용 메뉴입니다.");
-            navigate('/login')
+            navigate('/login');
         }
     }
-
     const authSetting = async () => {
         if (!location?.state) {
             alert("잘못된 접근 입니다.");
@@ -88,58 +85,51 @@ const AuthPay = () => {
     return (
         <>
             <Wrappers>
-                <Suspense fallback={<Loading />}>
-                    <form method='post' id="sendFm" accept-charset="utf-8" style={{ display: 'none' }}>
-                        {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
+                        <form method='post' id="sendFm" accept-charset="utf-8" style={{ display: 'none' }}>
+                            {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
                             </object> */}
-                        {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
+                            {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
                             <div className='auth-font tm-clr intro-small-text'>입금 정보를 입력해주세요.</div> */}
-                        <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
-                        <input type='hidden' name='allat_pmember_id' value='TMN054815' />
-                        <input type='hidden' name='allat_shop_id' value='anipg5' />
-                        <input type='hidden' name='allat_order_no' value={location?.state?.item_pk} />
-                        <input type='hidden' name='allat_recp_nm' value='test' />
-                        <input type='hidden' name='allat_recp_addr' value='test' />
-                        <input type='hidden' name='allat_product_cd' value='TMN054815' />
-                        <input type='hidden' name='allat_enc_data' value='' />
-                        <input type='hidden' name='shop_receive_url' value={`${backUrl + '/api/keyrecieve'}`} />
-                        <input type='hidden' name='allat_autoscreen_yn' value='y' />
-                        <table className="table tc ofax" >
-                            <tbody>
-                                <tr>
-                                    <th className='tm-clr'>
-                                        <span>상품선택</span>
-                                    </th>
-                                    <td id='item-nm-wrap'>
-                                        <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className='tm-clr'>
-                                        <span>상품가격</span>
-                                    </th>
-                                    <td>
-                                        <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th className='tm-clr'>
-                                        <span>구매자명</span>
-                                    </th>
-                                    <td>
-                                        <input type='text' className="buyer" name='allat_buyer_nm' placeholder='구매자명 입력' value={auth?.name} ref={e => (itemRef.current[2] = e)} />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                    <div id="ALLAT_MOBILE_PAY">
-                        <iframe id="ALLAT_MOBILE_FRAME" name="ALLAT_MOBILE_FRAME" src="https://tx.allatpay.com/common/iframe_blank.jsp" frameborder="0" width="100%px" height="100%px" scrolling="no" />
-                    </div>
-                </Suspense>
-
+                            <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
+                            <input type='hidden' name='allat_pmember_id' value='TMN054815' />
+                            <input type='hidden' name='allat_shop_id' value='anipg5' />
+                            <input type='hidden' name='allat_order_no' value={location?.state?.item_pk} />
+                            <input type='hidden' name='allat_recp_nm' value='test' />
+                            <input type='hidden' name='allat_recp_addr' value='test' />
+                            <input type='hidden' name='allat_product_cd' value='TMN054815' />
+                            <input type='hidden' name='allat_enc_data' value='' />
+                            <input type='hidden' name='shop_receive_url' value={`${backUrl + '/api/keyrecieve'}`} />
+                            <input type='hidden' name='allat_autoscreen_yn' value='y' />
+                            <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
+                            <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
+                            <input type='text' className="buyer" name='allat_buyer_nm' placeholder='구매자명 입력' value={auth?.name} ref={e => (itemRef.current[2] = e)} />
+                        </form>
             </Wrappers>
         </>
+      
     )
 }
+$(document.body).append(`
+<script>
+function approval_submit(result_cd,result_msg,enc_data) 
+{
+    console.log('잘 실행됨');
+    Allat_Mobile_Close();
+    if(result_cd != '0000')
+    {
+        result_msg.CharsSet = "euc-kr";
+        alert(result_cd + " : " + result_msg);
+    } 
+    else 
+    {
+        $('#loading-container').css('display','block');
+        sendFm.allat_enc_data.value = enc_data;
+        sendFm.action = "allat_approval.php";
+        sendFm.method = "post";
+        sendFm.target = "_self";
+        sendFm.submit();
+    }
+}
+</script>
+`);
 export default AuthPay;

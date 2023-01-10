@@ -3,8 +3,6 @@ var _allat_tx_url = "tx.allatpay.com";
 document.write("<div id='ALLAT_MOBILE_PAY' style='left:0px; top:0px; width:320px; height:600px; position:absolute;  z-index:1000; display:none; background-color:white;'><iframe id='ALLAT_MOBILE_FRAME' name='ALLAT_MOBILE_FRAME' src='https://" + _allat_tx_url + "/common/iframe_blank.jsp' frameborder=0 width=100%px height=100%px scrolling=no></iframe></div>");
 
 export function Allat_Mobile_Approval(dfm, x, y) {
-	console.log(dfm)
-	console.log(dfm.allat_enc_data)
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
 		alert("allat_enc_data가 없습니다.");
@@ -31,7 +29,6 @@ export function Allat_Mobile_Approval(dfm, x, y) {
 		alert("allat_order_no는 1~70Byte 입니다.");
 		return;
 	}
-	console.log(dfm.allat_amt.value);
 	// allat_amt 필드 체크
 	if (dfm.allat_amt == undefined) {
 		alert("allat_amt가 없습니다.");

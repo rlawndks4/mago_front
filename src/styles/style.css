@@ -68,6 +68,9 @@ body::-webkit-scrollbar-thumb {
 .scroll-css::-webkit-scrollbar-track {
     background-color: #ffffff;
 }
+#ALLAT_MOBILE_PAY{
+    height: 100vh !important;
+}
 .banner-img{
     width: 100vw;
     height: 30vw;
