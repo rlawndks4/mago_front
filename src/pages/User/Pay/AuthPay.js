@@ -98,7 +98,7 @@ const AuthPay = () => {
                             <input type='hidden' name='allat_recp_addr' value='test' />
                             <input type='hidden' name='allat_product_cd' value='TMN054815' />
                             <input type='hidden' name='allat_enc_data' value='' />
-                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+'/api/keyrecieve'}`} />
+                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+`/api/keyrecieve?item_pk=${location?.state?.item_pk}`}`} />
                             <input type='hidden' name='allat_autoscreen_yn' value='y' />
                             <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
                             <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
@@ -124,7 +124,7 @@ function approval_submit(result_cd,result_msg,enc_data)
     {
         $('#loading-container').css('display','block');
         sendFm.allat_enc_data.value = enc_data;
-        sendFm.action = "allat_approval.php";
+        sendFm.action = "/api/allat_approval";
         sendFm.method = "post";
         sendFm.target = "_self";
         sendFm.submit();
