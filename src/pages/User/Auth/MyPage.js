@@ -75,10 +75,10 @@ const MyPage = () => {
     const [calssList, setClassList] = useState();
     useEffect(() => {
         async function isAdmin() {
-            const { data: response } = await axios.get('/api/auth');
-            if (response?.pk > 0) {
-                await localStorage.setItem('auth', JSON.stringify(response))
-                let obj = response;
+            const { data: response } = await axios.get('/api/getmyinfo');
+            if (response?.data?.pk > 0) {
+                await localStorage.setItem('auth', JSON.stringify(response?.data))
+                let obj = response?.data;
                 setAuth(obj);
             } else {
                 localStorage.removeItem('auth');
