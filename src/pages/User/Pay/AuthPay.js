@@ -93,7 +93,7 @@ const AuthPay = () => {
                             <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
                             <input type='hidden' name='allat_pmember_id' value='TMN054815' />
                             <input type='hidden' name='allat_shop_id' value='anipg5' />
-                            <input type='hidden' name='allat_order_no' value={location?.state?.item_pk} />
+                            <input type='hidden' name='allat_order_no' value={`${params?.pk??0}${(new Date()).getTime()}${auth?.pk??0}`} />
                             <input type='hidden' name='allat_recp_nm' value='test' />
                             <input type='hidden' name='allat_recp_addr' value='test' />
                             <input type='hidden' name='allat_product_cd' value='TMN054815' />
