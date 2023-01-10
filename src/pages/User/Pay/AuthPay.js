@@ -42,7 +42,11 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
-            $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
+            if(window.innerWidth>=1000){
+                $(document.body).append("<script>ftn_approval(document.getElementById('sendFm'));</script>");
+            }else{
+                $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
+            }
         }
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
