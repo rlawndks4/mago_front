@@ -109,32 +109,5 @@ const AuthPay = () => {
 
     )
 }
-$(document.body).append(`
-<script>
-function approval_submit(result_cd,result_msg,enc_data) 
-{
-    console.log('잘 실행됨');
-    Allat_Mobile_Close();
-    if(result_cd != '0000')
-    {
-        result_msg.CharsSet = "euc-kr";
-        alert(result_cd + " : " + result_msg);
-    } 
-    else 
-    {
-        let params = {
-            'enc_data': enc_data,
-            'item_pk':
-        }
-        await $.post('api/approval', parmas)
-        $('#loading-container').css('display','block');
-        sendFm.allat_enc_data.value = enc_data;
-        sendFm.action = "/api/allat_approval";
-        sendFm.method = "post";
-        sendFm.target = "_self";
-        sendFm.submit();
-    }
-}
-</script>
-`);
+
 export default AuthPay;
