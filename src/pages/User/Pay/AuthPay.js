@@ -43,7 +43,7 @@ const AuthPay = () => {
         }
         if (checkRef()) {
             if(window.innerWidth>=1000){
-                $(document.body).append("<script>ftn_approval(document.getElementById('sendFm'));</script>");
+                $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
             }else{
                 $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
             }
