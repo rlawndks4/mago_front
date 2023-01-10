@@ -98,7 +98,7 @@ const AuthPay = () => {
                             <input type='hidden' name='allat_recp_addr' value='test' />
                             <input type='hidden' name='allat_product_cd' value='TMN054815' />
                             <input type='hidden' name='allat_enc_data' value='' />
-                            <input type='hidden' name='shop_receive_url' value={`${backUrl + '/api/keyrecieve'}`} />
+                            <input type='hidden' name='shop_receive_url' value={`${frontUrl+'/api/keyrecieve'}`} />
                             <input type='hidden' name='allat_autoscreen_yn' value='y' />
                             <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
                             <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
