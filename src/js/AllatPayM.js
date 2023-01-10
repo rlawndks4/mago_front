@@ -4,6 +4,7 @@ document.write("<div id='ALLAT_MOBILE_PAY' style='left:0px; top:0px; width:320px
 
 export function Allat_Mobile_Approval(dfm, x, y) {
 	console.log(dfm)
+	console.log(dfm.allat_enc_data)
 	// allat_end_data 필드 체크
 	if (dfm.allat_enc_data == undefined) {
 		alert("allat_enc_data가 없습니다.");
@@ -30,7 +31,7 @@ export function Allat_Mobile_Approval(dfm, x, y) {
 		alert("allat_order_no는 1~70Byte 입니다.");
 		return;
 	}
-
+	console.log(dfm.allat_amt.value);
 	// allat_amt 필드 체크
 	if (dfm.allat_amt == undefined) {
 		alert("allat_amt가 없습니다.");
