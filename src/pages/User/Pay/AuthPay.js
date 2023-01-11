@@ -42,6 +42,7 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
+            console.log(4)
             if(window.innerWidth>=1000){
                 console.log(1)
                 $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
@@ -49,6 +50,8 @@ const AuthPay = () => {
                 console.log(2)
                 $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
             }
+        } else {
+            console.log(3)
         }
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
