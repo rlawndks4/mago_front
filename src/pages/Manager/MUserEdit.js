@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
@@ -11,8 +11,14 @@ import ButtonContainer from '../../components/elements/button/ButtonContainer';
 import AddButton from '../../components/elements/button/AddButton';
 import CancelButton from '../../components/elements/button/CancelButton';
 import $ from 'jquery';
-import { addItem, updateItem } from '../../functions/utils';
+import { addItem, base64toFile, updateItem } from '../../functions/utils';
 import { Card, Title, Input, Row, Col, ImageContainer, Select } from '../../components/elements/ManagerTemplete';
+import { backUrl } from '../../data/Data';
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
+import "react-quill/dist/quill.snow.css";
+import quillEmoji from "react-quill-emoji";
+import "react-quill-emoji/dist/quill-emoji.css";
 
 const Table = styled.table`
 font-size:12px;
@@ -40,6 +46,7 @@ const MUserEdit = () => {
     const [formData] = useState(new FormData())
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
+    const [managerNote, setManagerNote] = useState("");
     useEffect(() => {
 
         async function fetchPost() {
@@ -54,10 +61,61 @@ const MUserEdit = () => {
                 $('.address').val(response.data.address)
                 $('.address_detail').val(response.data.address_detail)
                 $('.zip_code').val(response.data.zip_code)
+                $('.account_holder').val(response.data.account_holder)
+                $('.bank_name').val(response.data.bank_name)
+                $('.account_number').val(response.data.account_number)
+                setManagerNote(response?.data?.manager_note);
+
             }
+            settingJquery();
         }
         fetchPost();
     }, [])
+    const settingJquery= () =>{
+
+        $('.ql-editor').attr('style','max-height:300px !important');
+        $('.ql-editor').attr('style','min-height:300px !important');
+    }
+    const modules = useMemo(() => ({
+        toolbar: {
+            container: [
+                [
+                    { header: [1, 2, 3, 4, 5, 6] },
+                    { font: [] }
+                ],
+                [{ size: [] }],
+                [{ color: [] }, { background: [] }],
+                ["bold", "italic", "underline", "strike", "blockquote","regular"],
+                [{ align: [] }],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["link", "image", "video"],
+                ["emoji"],
+                ["clean"],
+                ["code-block"]
+            ],
+        },
+        "emoji-toolbar": true,
+        "emoji-textarea": true,
+        "emoji-shortname": true
+    }), [])
+    const formats = [
+        'font',
+        'header',
+        'bold', 'italic', 'underline', 'strike', 'blockquote',
+        'list', 'bullet', 'indent',
+        'link', 'image',
+        'align', 'color', 'background',
+    ]
+    Quill.register("modules/imageResize", ImageResize);
+    Quill.register(
+        {
+            "formats/emoji": quillEmoji.EmojiBlot,
+            "modules/emoji-toolbar": quillEmoji.ToolbarEmoji,
+            "modules/emoji-textarea": quillEmoji.TextAreaEmoji,
+            "modules/emoji-shortname": quillEmoji.ShortNameEmoji
+        },
+        true
+    );
     const editUser = () => {
         if (!$(`.id`).val() || !$(`.name`).val() || !$(`.nickname`).val() || !$(`.phone`).val() || (!$(`.pw`).val() && params.pk == 0)) {
             alert('필요값이 비어있습니다.');
@@ -66,11 +124,39 @@ const MUserEdit = () => {
                 id: $(`.id`).val(),
 
             }
+            console.log(managerNote)
             if (window.confirm(`${params.pk == 0 ? '추가하시겠습니까?' : '수정하시겠습니까?'}`)) {
                 params.pk == 0 ?
-                    addItem('user', { id: $(`.id`).val(), pw: $(`.pw`).val(), name: $(`.name`).val(), nickname: $(`.nickname`).val(), phone: $(`.phone`).val(), user_level: $(`.level`).val(), address: $(`.address`).val(), address_detail: $(`.address_detail`).val(), zip_code: $(`.zip_code`).val() }) :
+                    addItem('user', {
+                        id: $(`.id`).val(),
+                        pw: $(`.pw`).val(),
+                        name: $(`.name`).val(),
+                        nickname: $(`.nickname`).val(),
+                        phone: $(`.phone`).val(),
+                        user_level: $(`.level`).val(),
+                        address: $(`.address`).val(),
+                        address_detail: $(`.address_detail`).val(),
+                        zip_code: $(`.zip_code`).val(),
+                        account_holder: $(`.account_holder`).val(),
+                        bank_name: $(`.bank_name`).val(),
+                        account_number: $(`.account_number`).val(),
+                        manager_note: managerNote,
+                    }) :
                     updateItem('user', {
-                        id: $(`.id`).val(), pw: $(`.pw`).val(), name: $(`.name`).val(), nickname: $(`.nickname`).val(), phone: $(`.phone`).val(), user_level: $(`.level`).val(), address: $(`.address`).val(), address_detail: $(`.address_detail`).val(), zip_code: $(`.zip_code`).val(), pk: params.pk
+                        id: $(`.id`).val(),
+                        pw: $(`.pw`).val(),
+                        name: $(`.name`).val(),
+                        nickname: $(`.nickname`).val(),
+                        phone: $(`.phone`).val(),
+                        user_level: $(`.level`).val(),
+                        address: $(`.address`).val(),
+                        address_detail: $(`.address_detail`).val(),
+                        zip_code: $(`.zip_code`).val(),
+                        account_holder: $(`.account_holder`).val(),
+                        bank_name: $(`.bank_name`).val(),
+                        account_number: $(`.account_number`).val(),
+                        manager_note: managerNote,
+                        pk: params.pk
                     })
             }
         }
@@ -81,10 +167,10 @@ const MUserEdit = () => {
         const { data: response } = await axios.post('/api/getaddressbytext', {
             text: $('.address').val()
         })
-        if(response?.result>0){
+        if (response?.result > 0) {
             setIsSelectAddress(false);
             setAddressList(response?.data);
-        }else{
+        } else {
             alert(response?.message);
         }
     }
@@ -172,6 +258,52 @@ const MUserEdit = () => {
                         <Input className='zip_code' />
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <Title>예금주</Title>
+                        <Input className='account_holder' />
+                    </Col>
+                    <Col>
+                        <Title>은행명</Title>
+                        <Input className='bank_name' />
+                    </Col>
+                    <Col>
+                        <Title>계좌번호</Title>
+                        <Input className='account_number' />
+                    </Col>
+                </Row>
+                <div id='editor'>
+                    <ReactQuill
+                        modules={modules}
+                        theme="snow"
+                        defaultValue={managerNote}
+                        value={managerNote}
+                        onChange={async (e) => {
+                            try {
+                                let note = e;
+                                console.log(e)
+                                if (e.includes('<img src="') && e.includes('base64,')) {
+                                    let base64_list = e.split('<img src="');
+                                    for(var i=0;i< base64_list.length;i++){
+                                        if(base64_list[i].includes('base64,')){
+                                            let img_src = base64_list[i];
+                                            img_src = await img_src.split(`"></p>`);
+                                            let base64 = img_src[0];
+                                            img_src = await base64toFile(img_src[0], 'note.png');
+                                            let formData = new FormData();
+                                            await formData.append('note', img_src);
+                                            const { data: response } = await axios.post('/api/addimageitems', formData);
+                                            note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
+                                        }
+                                    }
+                                }
+                                setManagerNote(note);
+                            } catch (err) {
+                                console.log(err);
+                            }
+                        }}
+                    />
+                </div>
             </Card>
             <ButtonContainer>
                 <CancelButton onClick={() => navigate(-1)}>x 취소</CancelButton>

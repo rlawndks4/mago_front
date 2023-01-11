@@ -14,7 +14,7 @@ margin-bottom:24px;
 font-size:${props => props.theme.size.font4};
 line-height:20px;
 `
-const Policy = () => {
+const Policy = (props) => {
     const params = useParams();
     const [title, setTitle] = useState("");
     useEffect(() => {
@@ -24,14 +24,15 @@ const Policy = () => {
             setTitle("개인정보처리방침");
         } else if (params.pk == 2) {
             setTitle("저작권정책");
-
         }
+        
     }, [params])
+   
     return (
         <>
-            <Wrappers>
+            <Wrappers style={{margin:`${props?.pk>=0 ? '0':''}`}}>
                 <Title not_arrow={true}>{title}</Title>
-                {params.pk == 0 ?
+                {params.pk == 0 || props?.pk == 0 ?
                     <>
                         <SubTitle>제 1 장 총 칙</SubTitle>
 
@@ -198,7 +199,7 @@ const Policy = () => {
                     :
                     <>
                     </>}
-                {params.pk == 1 ?
+                {params.pk == 1 || props?.pk == 1 ?
                     <>
                         <Text>
                             퍼스트파트너스(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립, 공개합니다.<br />
@@ -318,7 +319,7 @@ const Policy = () => {
                     :
                     <>
                     </>}
-                {params.pk == 2 ?
+                {params.pk == 2 || props?.pk == 2 ?
                     <>
                         <Text>
                             저작권 정책<br />

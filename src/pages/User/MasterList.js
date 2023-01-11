@@ -18,7 +18,7 @@ cursor:pointer;
 position:relative;
 border-top-left-radius:20px;
 border-bottom-right-radius:20px;
-width:21%;
+width:23%;
 height:280px;
 box-shadow:${props => props.theme.boxShadow};
 @media screen and (max-width:1000px) { 
@@ -34,19 +34,19 @@ const getReturnMargin = (innerWidth, idx) => {
     let margin_str = "";
     if (innerWidth >= 1000) {
         if (idx % 4 == 0) {
-            margin_str = "0 auto 16px 0";
+            margin_str = "0 1.33% 16px 0";
         } else if (idx % 4 == 1) {
-            margin_str = "0 auto 16px auto";
+            margin_str = "0 1.33% 16px 1.33%";
         } else if (idx % 4 == 2) {
-            margin_str = "0 auto 16px auto";
+            margin_str = "0 1.33% 16px 1.33%";
         } else if (idx % 4 == 3) {
-            margin_str = "0 0 16px auto";
+            margin_str = "0 0 16px 1.33%";
         }
     } else if (innerWidth >= 550) {
         if (idx % 2 == 0) {
-            margin_str = "0 auto 16px 0";
+            margin_str = "0 5% 16px 0";
         } else if (idx % 2 == 1) {
-            margin_str = "0 0 16px auto";
+            margin_str = "0 0 16px 5%";
         }
     } else {
         margin_str = "0 0 16px 0";
@@ -60,7 +60,7 @@ const MasterList = () => {
     useEffect(() => {
         async function fetchPosts() {
             const { data: response } = await axios.get('/api/users?level=30&status=1');
-            setPosts(response.data);
+            setPosts([...response.data]);
         }
         fetchPosts();
     }, [])
@@ -69,7 +69,7 @@ const MasterList = () => {
             <Wrappers>
                 <Title line={true}>최고의 전문가를 소개합니다.</Title>
                 <RowContent style={{flexWrap:'wrap',marginTop:'32px'}}>
-                    <Card style={{ background: theme.color.background1, color: theme.color.font1, margin: getReturnMargin(window.innerWidth, 0),display:'flex',flexDirection:'column',textAlign:'left',cursor:'default' }}>
+                    <Card style={{ background: theme.color.background2, color: theme.color.font1, margin: getReturnMargin(window.innerWidth, 0),display:'flex',flexDirection:'column',textAlign:'left',cursor:'default' }}>
                         <img src={clipIcon} style={{width:'auto',height:'32px',position:'absolute',right:'10%',top:'-16px'}} />
                         <div style={{margin:'auto auto 4px auto',width:'80%'}}>최고의</div>
                         <div style={{margin:'0 auto 4px auto',width:'80%'}}>전문가를</div>

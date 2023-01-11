@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { GrLinkTop } from 'react-icons/gr'
 import { commarNumber, numberToCategory } from '../../functions/utils'
 import { useEffect } from 'react'
+import {GiCancel} from 'react-icons/gi'
 import $ from 'jquery'
 const Tr = styled.tr`
 box-shadow:1px 1px 1px #00000029;
@@ -155,7 +156,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
 
                         {col.type == 'text' ?
                             <>
-                                <Td style={{ width: `${col.width}%` }}>{data[`${col.column}`]}</Td>
+                                <Td style={{ width: `${col.width}%` }}>{data[`${col.column}`]??"---"}</Td>
                             </>
                             :
                             <>
@@ -290,6 +291,22 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
                                     <BiEditAlt style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/${schema}/${data.pk}`)} />
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                            {col.type == 'pay_cancel' ?
+                            <>
+                                <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
+                                    {data?.price>0?
+                                    <>
+                                    <GiCancel style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/${schema}/${data.pk}`)} />
+                                    </>
+                                    :
+                                    <>
+                                    ---
+                                    </>}
                                 </Td>
                             </>
                             :

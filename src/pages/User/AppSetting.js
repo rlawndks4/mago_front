@@ -69,13 +69,13 @@ const AppSetting = () => {
                     <>
                     </>}
 
-                <Content>
+                {/* <Content>
                     <div>다크모드</div>
                     {localStorage.getItem('dark_mode') ?
                         <CgToggleOn style={{ color: `${theme.color.background1}`, cursor: 'pointer', fontSize: '30px' }} onClick={() => changeWantDark(0)} /> :
                         <CgToggleOff style={{ color: '#aaaaaa', cursor: 'pointer', fontSize: '30px' }} onClick={() => changeWantDark(1)} />}
 
-                </Content>
+                </Content> */}
                 {localStorage.getItem('auth') ?
                     <>
                         <Content onClick={() => { navigate('/resign') }} style={{ cursor: 'pointer' }}>

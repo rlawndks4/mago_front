@@ -149,8 +149,7 @@ flex-wrap:wrap;
 `
 const PopupContent = styled.div`
 background:#fff;
-margin-right:16px;
-margin-bottom:16px;
+margin:16px 16px auto 0;
 padding:24px 24px 48px 24px;
 box-shadow:${props => props.theme.boxShadow};
 border-radius:8px;

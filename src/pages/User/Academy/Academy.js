@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Wrappers, Card, Img, SelectType, ViewerContainer, Content, Title, } from "../../../components/elements/UserContentTemplete";
+import { Wrappers, Card, Img, SelectType, ViewerContainer, Title, } from "../../../components/elements/UserContentTemplete";
 import styled from "styled-components";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -66,6 +66,18 @@ width:100%;
 margin-top:24px;
 @media screen and (max-width:700px) { 
     flex-direction:column;
+}
+`
+const Content = styled.div`
+margin:0 auto 1rem 0;
+width:100%;
+font-size:${props => props.theme.size.font3};
+display:flex;
+flex-direction:column;
+font-weight:normal;
+max-width:800px;
+@media screen and (max-width:700px) { 
+    
 }
 `
 const Academy = () => {

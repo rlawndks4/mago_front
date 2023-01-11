@@ -4,7 +4,7 @@ import AddButton from "../../components/elements/button/AddButton";
 import { Input, Row, Select } from "../../components/elements/ManagerTemplete";
 import { objManagerListContent } from "../../data/Manager/ManagerContentData";
 import $ from 'jquery';
-import { excelDownload } from "../../functions/utils";
+import { excelDownload, returnMoment } from "../../functions/utils";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { SiMicrosoftexcel } from "react-icons/si";
@@ -37,7 +37,7 @@ const ReturnOptionContentBySchema = (props) => {
     }, [schema])
     async function fetchPost() {
         let list_ = { ...list };
-        if (schema == 'subscribe') {
+        if (schema == 'subscribe' || schema == 'bag') {
             list_ = {
                 master: [],
                 academy_category: []
@@ -65,7 +65,7 @@ const ReturnOptionContentBySchema = (props) => {
             </>
         )
     }
-    if (schema == 'subscribe') {
+    if (schema == 'subscribe' || schema == 'bag') {
 
         return (
             <>
@@ -85,6 +85,68 @@ const ReturnOptionContentBySchema = (props) => {
                         </>
                     ))}
                 </Select>
+            </>
+        )
+    }
+}
+const ReturnSecondOptionContentBySchema = (props) => {
+    const { schema, onChangeType } = props;
+    const [list, setList] = useState({});
+    const month_list = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    const [statisticsType, setStatisticsType] = useState('month');
+    const [yearList, setYearList] = useState([])
+    useEffect(() => {
+        settingOptionCard();
+    }, [])
+    const settingOptionCard = () => {
+        let year = parseInt(returnMoment().substring(0, 4));
+        let year_list = [];
+        for (var i = 0; i < 10; i++) {
+            if (year - i >= 2022) {
+                year_list.push(year - i);
+            }
+        }
+        setYearList(year_list)
+    }
+    if (schema == 'subscribe') {
+        return (
+            <>
+                <OptionCardWrappers>
+                    <Row>
+                        <Select className='statistics_type' style={{ margin: '12px 24px 12px 24px' }} onChange={(e)=>{setStatisticsType(e.target.value);onChangeType();}}>
+                            <option value={'month'}>월별 요약</option>
+                            <option value={'day'}>일차별 요약</option>
+                        </Select>
+                        <Select className='year' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                            {yearList.map((item, index) => (
+                                <>
+                                    <option value={item}>{`${item}년`}</option>
+                                </>
+                            ))}
+                        </Select>
+                        {statisticsType == 'day' ?
+                            <>
+                                <Select className='month' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                                    {month_list.map((item) => (
+                                        <>
+                                            {`${$('.year').val()}-${item < 10 ? '0' + item : item}` <= returnMoment().substring(0, 7) ?
+                                                <>
+                                                    <option value={item}>{`${item}월`}</option>
+                                                </>
+                                                :
+                                                <>
+                                                </>
+                                            }
+                                        </>
+                                    ))}
+                                </Select>
+                            </>
+                            :
+                            <>
+                            </>
+                        }
+                    </Row>
+                </OptionCardWrappers>
             </>
         )
     }
@@ -136,6 +198,7 @@ const OptionBox = (props) => {
                     </Row>
 
                 </OptionCardWrappers>
+                {/* <ReturnSecondOptionContentBySchema schema={schema} onChangeType={onChangeType} /> */}
             </div>
         </>
     )

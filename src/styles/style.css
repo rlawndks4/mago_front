@@ -54,7 +54,23 @@ body::-webkit-scrollbar-thumb {
     right: 36px;
     display: none !important;
 }
-
+.scroll-table::-webkit-scrollbar{
+    display: none;
+}
+.scroll-table::-webkit-scrollbar-thumb {
+    /* Chrome, Safari, Opera*/
+    background: #FECC2F55;
+}
+.scroll-table-green::-webkit-scrollbar{
+    display: none;
+    
+}
+.scroll-table-green::-webkit-scrollbar-thumb {
+    /* Chrome, Safari, Opera*/
+    background: rgba(103, 172, 91);
+    position: fixed;
+    bottom: 0;
+}
 .scroll-css {}
 
 .scroll-css::-webkit-scrollbar {

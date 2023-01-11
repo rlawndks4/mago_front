@@ -18,6 +18,7 @@ export const zSidebar = [
         sidebarObjListFormat('회원관리', '/manager/list/user', 40, ['/manager/list/user']),//edit
         sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
+        sidebarObjListFormat('장바구니관리', '/manager/list/bag', 40, ['/manager/list/bag']),//edit
     ], <BsPerson />),
     sidebarContentFormat('강의관리', [
         sidebarObjListFormat('전문가관리', '/manager/list/master', 40, ['/manager/list/master']),//list
@@ -107,6 +108,7 @@ export const objManagerListContent = {
             columnObjFormat('접근권한', '', 'level', 'user_level'),
             columnObjFormat('가입일', '', 'text', 'date'),
             columnObjFormat('로그인시간', '', 'text', 'last_login'),
+            columnObjFormat('노출여부', '', 'status', 'status'),
             columnObjFormat('수정', '', 'master_edit', 'master_edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
@@ -180,24 +182,46 @@ export const objManagerListContent = {
         [],
         false,
         false),
+    bag: sidebarObjFormat(
+        '장바구니 관리',
+        'subscribe',
+        [
+            columnObjFormat('유저아이디', '', 'text', 'id'),
+            columnObjFormat('유저명', '', 'text', 'user_name'),
+            columnObjFormat('수강상품', '', 'text', 'title'),
+            columnObjFormat('강사', '', 'text', 'master_nickname'),
+            columnObjFormat('날짜', '', 'text', 'date'),
+            columnObjFormat('삭제', '', 'delete', 'delete'),
+        ],
+        ['status=0', 'master_pk=', 'academy_category_pk='],
+        false,
+        false),
     subscribe: sidebarObjFormat(
         '결제 내역 관리',
         'subscribe',
         [
             columnObjFormat('신청번호', '', 'number', 'pk'),
             columnObjFormat('아이디', '', 'text', 'id'),
+            columnObjFormat('유저명', '', 'text', 'user_name'),
+            columnObjFormat('폰번호', '', 'text', 'phone'),
             columnObjFormat('수강강의', '', 'text', 'title'),
             columnObjFormat('강사', '', 'text', 'master_nickname'),
             columnObjFormat('승인금액', '', 'number', 'price'),
             columnObjFormat('취소금액', '', 'number', 'cancel_price'),
             columnObjFormat('등록일', '', 'text', 'date'),
             columnObjFormat('이용기간', '', 'period', 'period'),
+            columnObjFormat('예금주', '', 'text', 'account_holder'),
+            columnObjFormat('은행명', '', 'text', 'bank_name'),
+            columnObjFormat('계좌번호', '', 'text', 'account_number'),
             columnObjFormat('이용가능여부', '', 'status', 'use_status'),
             columnObjFormat('취소', '', 'pay_cancel', 'pay_cancel'),
+            columnObjFormat('수정', '', 'edit', 'edit'),
+            columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
         ['status=1', 'master_pk=', 'academy_category_pk='],
         false,
-        false),
+        false,
+        '150%'),
     request: sidebarObjFormat(
         '문의 관리',
         'request',
@@ -304,7 +328,7 @@ export const objManagerListContent = {
         ],
         [],
         true,
-        false),
+        true),
 }
 export const objManagerOptionCardContent = {
 
@@ -438,10 +462,10 @@ export const objManagerEditContent = {
                 editColumnObjFormat('닉네임(채널명)', 'input', {}, 'nickname'),
             ],
             [
-                editColumnObjFormat('프로필이미지', 'img', { field_name: 'master' }, 'profile_img'),
+                editColumnObjFormat('프로필이미지  (여백없이 200x200)', 'img', { field_name: 'master', title_width: '100%' }, 'profile_img'),
             ],
             [
-                editColumnObjFormat('서브프로필이미지', 'img', { field_name: 'master2' }, 'sub_profile_img'),
+                editColumnObjFormat('서브프로필이미지 (여백없이 200x200)', 'img', { field_name: 'master2', title_width: '100%' }, 'sub_profile_img'),
             ],
             [
                 editColumnObjFormat('이력', 'textarea', {}, 'record_note'),

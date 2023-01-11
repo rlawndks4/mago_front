@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { ShadowContainer, Title, Wrappers } from "../../../components/elements/UserContentTemplete";
+import { ShadowContainer, TextButton, Title, Wrappers } from "../../../components/elements/UserContentTemplete";
 import { backUrl } from "../../../data/Data";
 import defaultImg from '../../../assets/images/icon/default-profile.png'
 import axios from "axios";
@@ -203,13 +203,19 @@ const MyPage = () => {
                         schema={'subscribe'} />
                 </ShadowContainer>
                 <div style={{ marginTop: '36px' }} />
-                <LogoutButton onClick={onLogout}>
+                <Content>
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                        <TextButton onClick={onLogout} style={{ margin: '0 8px 0 auto' }}>로그아웃</TextButton>
+                        <TextButton onClick={() => { navigate('/resign') }}>회원탈퇴</TextButton>
+                    </div>
+                </Content>
+                {/* <LogoutButton onClick={onLogout}>
                     로그아웃
                 </LogoutButton>
 
                 <LogoutButton onClick={() => navigate('/appsetting')}>
                     설정
-                </LogoutButton>
+                </LogoutButton> */}
 
 
             </Wrappers>

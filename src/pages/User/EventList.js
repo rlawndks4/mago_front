@@ -71,18 +71,18 @@ const EventList = () => {
                     :
                     <>
                         <Title className='pointer' link={'/academylist'} line={true}>이벤트</Title>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <div style={{ display: 'flex', width: '100%', marginBottom: '16px' }}>
                             <div style={{ width: '50%', textAlign: 'center', cursor: 'pointer', fontSize: theme.size.font4, border: `1px solid ${theme.color.font1}`, background: `${typeNum == 0 ? theme.color.font1 : '#fff'}`, color: `${typeNum == 0 ? '#fff' : theme.color.font1}`, padding: '8px 0' }} onClick={() => { setTypeNum(0) }}>진행중 이벤트</div>
                             <div style={{ width: '50%', textAlign: 'center', cursor: 'pointer', fontSize: theme.size.font4, border: `1px solid ${theme.color.font1}`, background: `${typeNum == 1 ? theme.color.font1 : '#fff'}`, color: `${typeNum == 1 ? '#fff' : theme.color.font1}`, padding: '8px 0' }} onClick={() => { setTypeNum(1) }}>종료 이벤트</div>
                         </div>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {typeNum == 0 ?
                                 <>
                                     {ingList.map((item, idx) => (
                                         <>
-                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
+                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
                                                 <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 1000 ? '202px' : (window.innerWidth >= 650 ? '20.250vw' : '60vw')}` }} />
                                                 <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 600 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
                                                 <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 600 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>
@@ -96,7 +96,7 @@ const EventList = () => {
                                 <>
                                     {endList.map((item, idx) => (
                                         <>
-                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
+                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
                                                 <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 1000 ? '202px' : (window.innerWidth >= 650 ? '20.250vw' : '60vw')}` }} />
                                                 <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 600 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
                                                 <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 600 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>

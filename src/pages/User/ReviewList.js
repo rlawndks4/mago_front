@@ -36,7 +36,7 @@ const ReviewList = () => {
     const [reviewList, setReviewList] = useState([]);
     useEffect(() => {
         async function fetchPost() {
-            const { data: response } = await axios.get('/api/items?table=user&level=30');
+            const { data: response } = await axios.get('/api/items?table=user&level=30&status=1');
             let master_list = [...response?.data];
             for (var i = 0; i < master_list.length; i++) {
                 master_list[i]['title'] = master_list[i]['nickname'];

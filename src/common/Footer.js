@@ -5,6 +5,7 @@ import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
 import { onClickWindowOpen } from "../functions/utils";
+import kakaoFotterIcon from '../assets/images/test/kakao-footer.png'
 const Wrappers = styled.footer`
     display:flex;
     flex-direction:column;
@@ -68,7 +69,10 @@ const Footer = () => {
                         </div>
                     </div>
                     <Wrappers className="footer" style={{ background: `#23242f`,fontSize:theme.size.font5 }}>
+                        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',width:'100%',maxWidth:'800px'}}>
                         <Img src={logo} alt="footer" />
+                        <img src={kakaoFotterIcon} style={{width:'140px',cursor:'pointer'}} onClick={()=>window.location.href='http://pf.kakao.com/_xgKMUb/chat'}  />
+                        </div>
                         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
                             <Post onClick={() => navigate('/policy/1')}>개인정보처리방침</Post>

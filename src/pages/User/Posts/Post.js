@@ -250,7 +250,7 @@ const Post = (props) => {
                     <>
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'end', fontSize: `${theme.size.font4}` }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div style={{ margin: '0 4px' }}>{post.nickname}</div> /
+                                {/* <div style={{ margin: '0 4px' }}>{post.nickname}</div> / */}
                                 <div style={{ margin: '0 4px' }}>{post?.date?.substring(0, 10)}</div> /
                                 <div style={{ margin: '0 8px 0 4px' }}>조회수 {commarNumber(post?.views ?? 0)}</div>
                             </div>

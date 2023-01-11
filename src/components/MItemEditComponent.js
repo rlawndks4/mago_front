@@ -38,7 +38,7 @@ const MItemEditComponent = (props) => {
                 ],
                 [{ size: [] }],
                 [{ color: [] }, { background: [] }],
-                ["bold", "italic", "underline", "strike", "blockquote","regular"],
+                ["bold", "italic", "underline", "strike", "blockquote", "regular"],
                 [{ align: [] }],
                 [{ list: "ordered" }, { list: "bullet" }],
                 ["link", "image", "video"],
@@ -163,10 +163,10 @@ const MItemEditComponent = (props) => {
         }
         fetchPost();
     }, [pathname]);
-    const settingJquery= () =>{
+    const settingJquery = () => {
 
-        $('.ql-editor').attr('style','max-height:300px !important');
-        $('.ql-editor').attr('style','min-height:300px !important');
+        $('.ql-editor').attr('style', 'max-height:300px !important');
+        $('.ql-editor').attr('style', 'min-height:300px !important');
     }
 
     const editItem = async () => {
@@ -286,10 +286,10 @@ const MItemEditComponent = (props) => {
                                     {cols.map((item, idx) => (
                                         <>
                                             <Col>
-                                                <Title>{item.title}</Title>
+                                                <Title style={{ width: `${item.type_option?.title_width ?? ""}` }}>{item.title}</Title>
                                                 {item.type == 'input' ?
                                                     <>
-                                                        <Input className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} type={`${item.type_option?.type ?? ""}`} autoComplete={item.type_option?.type == 'password' ? 'new-password' : ''} disabled={item.type_option?.disabled??""} />
+                                                        <Input className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} type={`${item.type_option?.type ?? ""}`} autoComplete={item.type_option?.type == 'password' ? 'new-password' : ''} disabled={item.type_option?.disabled ?? ""} />
                                                     </>
                                                     :
                                                     <>
@@ -352,14 +352,19 @@ const MItemEditComponent = (props) => {
                                                                         let note = e;
                                                                         let editor_list_obj = await { ...editorListObj };
                                                                         if (e.includes('<img src="') && e.includes('base64,')) {
-                                                                            let img_src = await e.split('<img src="');
-                                                                            img_src = await img_src[1].split(`"></p>`);
-                                                                            let base64 = img_src[0];
-                                                                            img_src = await base64toFile(base64, 'note.png');
-                                                                            let formData = new FormData();
-                                                                            await formData.append('note', img_src);
-                                                                            const { data: response } = await axios.post('/api/addimageitems', formData);
-                                                                            note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
+                                                                            let base64_list = e.split('<img src="');
+                                                                            for (var i = 0; i < base64_list.length; i++) {
+                                                                                if (base64_list[i].includes('base64,')) {
+                                                                                    let img_src = base64_list[i];
+                                                                                    img_src = await img_src.split(`"></p>`);
+                                                                                    let base64 = img_src[0];
+                                                                                    img_src = await base64toFile(img_src[0], 'note.png');
+                                                                                    let formData = new FormData();
+                                                                                    await formData.append('note', img_src);
+                                                                                    const { data: response } = await axios.post('/api/addimageitems', formData);
+                                                                                    note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
+                                                                                }
+                                                                            }
                                                                         }
                                                                         editor_list_obj[`${item.class_name}`] = note;
                                                                         setEditorListObj(editor_list_obj);
@@ -375,7 +380,7 @@ const MItemEditComponent = (props) => {
                                                     </>}
                                                 {item.type == 'textarea' ?
                                                     <>
-                                                        <Textarea className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} disabled={item.type_option?.disabled??""} />
+                                                        <Textarea className={`${item.class_name}`} placeholder={`${item.type_option?.placeholder ?? ""}`} disabled={item.type_option?.disabled ?? ""} />
                                                     </>
                                                     :
                                                     <>

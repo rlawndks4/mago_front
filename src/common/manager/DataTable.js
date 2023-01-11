@@ -31,7 +31,7 @@ padding:14px 0;
 margin-bottom:6px;
 `
 const DataTable = (props) => {
-    const { column, data, schema, opTheTopItem, changeItemSequence, deleteItem, changeStatus } = props;
+    const { column, data, schema, opTheTopItem, changeItemSequence, deleteItem, changeStatus, width } = props;
     const navigate = useNavigate();
     const [zStatus, setZStatus] = useState([]);
     const [posts, setPosts] = useState([]);
@@ -82,8 +82,8 @@ const DataTable = (props) => {
 
     return (
         <>
-            <div style={{ marginBottom: '16px', overflowX: 'auto' }}>
-                <Table>
+            <div style={{ marginBottom: '16px',width:`${width?'95%':'100%'}`,margin:'0 auto', overflowX: 'auto' }} className='scroll-table'>
+                <Table style={{ width: `${width ? width : ''}` }}>
                     <Tr style={{ fontWeight: 'bold', background: `${theme.color.manager.background1}18`, fontSize: '16px' }}>
                         {column.map((item, index) => (
                             <>

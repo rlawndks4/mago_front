@@ -168,6 +168,7 @@ export const onClickWindowOpen = (link_)=>{
     }
 }
 export function base64toFile(base_data, filename) {
+    console.log(base_data)
     var arr = base_data.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),

@@ -124,11 +124,14 @@ const EditMyInfoCard = () => {
             $('.new-pw-check').val('');
             setTypeNum(num);
         }
-        if(num==0){
-            const {data:response} = await axios.get('/api/getmyinfo');
+        if (num == 0) {
+            const { data: response } = await axios.get('/api/getmyinfo');
             $('.address').val(response?.data?.address);
             $('.address_detail').val(response?.data?.address_detail);
             $('.zip_code').val(response?.data?.zip_code);
+            $('.account_holder').val(response?.data?.account_holder);
+            $('.bank_name').val(response?.data?.bank_name);
+            $('.account_number').val(response?.data?.account_number);
         }
     }
     const addFile = async (e) => {
@@ -158,13 +161,16 @@ const EditMyInfoCard = () => {
             const { data: response } = await axios.post('/api/uploadprofile', formData);
         }
         let str = '/api/editmyinfo';
-        
-        let obj = { id: myId, pw: $('.pw').val(),typeNum:num };
-        if(num==0){
+
+        let obj = { id: myId, pw: $('.pw').val(), typeNum: num };
+        if (num == 0) {
             obj.address = $('.address').val();
             obj.address_detail = $('.address_detail').val();
             obj.zip_code = $('.zip_code').val();
-        }else{
+            obj.account_holder = $('.account_holder').val();
+            obj.bank_name = $('.bank_name').val();
+            obj.account_number = $('.account_number').val();
+        } else {
             if (!$('.pw').val()) {
                 alert("비밀번호를 입력해주세요.");
                 return;
@@ -224,13 +230,14 @@ const EditMyInfoCard = () => {
         const { data: response } = await axios.post('/api/getaddressbytext', {
             text: $('.address').val()
         })
-        if(response?.result>0){
+        console.log(response)
+        if (response?.result > 0) {
             setIsSelectAddress(false);
             setAddressList(response?.data);
-        }else{
+        } else {
             alert(response?.message);
         }
-        
+
     }
     return (
         <>
@@ -276,31 +283,47 @@ const EditMyInfoCard = () => {
                                 <CategoryName>우편번호</CategoryName>
                                 <Input className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                                 <CategoryName>주소</CategoryName>
-                                <Input className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null}  />
+                                <Input className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
                                 <Button onClick={getAddressByText}>주소검색</Button>
                                 {addressList.length > 0 && !isSelectAddress ?
-                    <>
-                        <Table style={{ maxWidth: '700px', margin: '12px auto 12px 24px', width: '90%' }}>
-                            <Tr>
-                                <Td style={{ width: '30%' }}>우편번호</Td>
-                                <Td style={{ width: '70%' }}>주소</Td>
-                            </Tr>
-                            {addressList.map((item, idx) => (
-                                <>
-                                    <Tr style={{ cursor: 'pointer' }} onClick={() => { onSelectAddress(idx) }}>
-                                        <Td style={{ width: '30%', padding: '8px 0' }}>{item.zip_code ?? "---"}</Td>
-                                        <Td style={{ width: '70%', padding: '8px 0' }}>{item.address ?? "---"}</Td>
-                                    </Tr>
-                                </>
-                            ))}
-                        </Table>
-                    </>
-                    :
-                    <>
-                    </>
-                }
+                                    <>
+                                        <div style={{ width: '100%', background: theme.color.font5,display:'flex',marginTop:'32px' }}>
+                                            <div style={{ maxWidth: '700px',padding:'8px',margin:'8px auto', background: '#fff', width: '95%', display: 'flex', flexDirection: 'column', maxHeight: '1000px', minHeight: '500px', overflowY: 'auto' }}>
+                                                {addressList.map((item, idx) => (
+                                                    <>
+                                                        <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', borderBottom: `1px solid ${theme.color.font3}`,padding:'8px 0' }} onClick={() => { onSelectAddress(idx) }}>
+                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font5 }}>
+                                                                <div style={{color:theme.color.red}}>{item.zip_code ?? "---"}</div>
+                                                                <div style={{color:theme.color.font3,marginLeft:'8px'}}>({item.land_number ?? "---"})</div>
+                                                            </div>
+                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font4,marginTop:'8px' }}>
+                                                                <div style={{border:`1px solid ${theme.color.font4}`,padding:'3px 4px',fontSize:theme.size.font5,marginRight:'8px',borderRadius:'4px',color:theme.color.blue}}>도로명</div>
+                                                                <div>{item.road_address ?? "---"}</div>
+                                                            </div>
+                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font4,marginTop:'8px' }}>
+                                                                <div style={{border:`1px solid ${theme.color.font4}`,padding:'3px 10px',fontSize:theme.size.font5,marginRight:'8px',borderRadius:'4px',color:theme.color.blue}}>지번</div>
+                                                                <div>{item.address ?? "---"}</div>
+
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
                                 <CategoryName>상세주소</CategoryName>
-                                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.bank-name').focus() : null} />
+                                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                                <CategoryName>예금주</CategoryName>
+                                <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
+                                <CategoryName>은행명</CategoryName>
+                                <Input className="bank_name" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.account_number').focus() : null} />
+                                <CategoryName>계좌번호</CategoryName>
+                                <Input className="account_number" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
                             </>
                             :
                             <>
