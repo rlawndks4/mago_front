@@ -34,6 +34,7 @@ const AuthPay = () => {
     const itemRef = useRef([]);
     useEffect(() => {
         function checkRef() {
+            console.log(itemRef.current)
             for (var i = 0; i < itemRef.current.length; i++) {
                 if (!itemRef.current[i].value) {
                     return false;
