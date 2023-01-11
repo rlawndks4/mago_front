@@ -43,8 +43,10 @@ const AuthPay = () => {
         }
         if (checkRef()) {
             if(window.innerWidth>=1000){
+                console.log(1)
                 $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
             }else{
+                console.log(2)
                 $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
             }
         }
