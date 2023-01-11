@@ -75,6 +75,8 @@ const AddReview = () => {
             }
         }
         myAuth();
+        $('.ql-editor').attr('style', 'max-height:300px !important');
+        $('.ql-editor').attr('style', 'min-height:300px !important');
         async function fetchPost() {
             const { data: response } = await axios.post('/api/myitem', {
                 table: 'request',
@@ -130,15 +132,21 @@ const AddReview = () => {
                             onChange={async (e) => {
                                 try {
                                     let note = e;
+                                    console.log(e)
                                     if (e.includes('<img src="') && e.includes('base64,')) {
-                                        let img_src = await e.split('<img src="');
-                                        img_src = await img_src[1].split(`"></p>`);
-                                        let base64 = img_src[0];
-                                        img_src = await base64toFile(base64, 'note.png');
-                                        let formData = new FormData();
-                                        await formData.append('note', img_src);
-                                        const { data: response } = await axios.post('/api/addimageitems', formData);
-                                        note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`);
+                                        let base64_list = e.split('<img src="');
+                                        for(var i=0;i< base64_list.length;i++){
+                                            if(base64_list[i].includes('base64,')){
+                                                let img_src = base64_list[i];
+                                                img_src = await img_src.split(`"></p>`);
+                                                let base64 = img_src[0];
+                                                img_src = await base64toFile(img_src[0], 'note.png');
+                                                let formData = new FormData();
+                                                await formData.append('note', img_src);
+                                                const { data: response } = await axios.post('/api/addimageitems', formData);
+                                                note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
+                                            }
+                                        }
                                     }
                                     setNote(note);
                                 } catch (err) {
