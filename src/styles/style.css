@@ -190,6 +190,9 @@ margin: 18px auto;
 .slick-next{
     display: none !important;
 }
+.slick-prev{
+    display: none !important;
+}
 
 .master-dropdown-content{
     position: fixed;

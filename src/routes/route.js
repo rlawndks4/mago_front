@@ -43,6 +43,7 @@ import MyAcademy from '../pages/User/Academy/MyAcademy';
 import AuthPay from '../pages/User/Pay/AuthPay';
 import AddReview from '../pages/User/Auth/AddReview';
 import KeyRecieve from '../pages/User/Pay/KeyRecieve';
+import PayReady from '../pages/User/Pay/PayReady';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -75,6 +76,7 @@ const zUserRoute = [
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
 
+    { link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
     { link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
     { link: '/authpay', element: <AuthPay />, title: "결제" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },

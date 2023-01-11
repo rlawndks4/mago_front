@@ -61,7 +61,7 @@ const ContentTable = (props) => {
     }
     const onSubscribe = async (num) => {
         if (window.confirm("수강신청 하시겠습니까?")) {
-            navigate(`/authpay/${num}`, { state: { item_pk: num } });
+            navigate(`/payready/${num}`, { state: { item_pk: num } });
             return;
             const { data: response } = await axios.post('/api/onsubscribe', {
                 bag_pk: num,
@@ -117,7 +117,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                            {column.type == 'class_status' ?
-                                           <TextButton style={{height:'22px'}} onClick={()=>{onSubscribe(item?.pk)}}>수강신청</TextButton>
+                                           <TextButton style={{height:'22px'}} onClick={()=>{onSubscribe(item?.academy_category_pk)}}>수강신청</TextButton>
                                             :
                                             null} 
                                         {column.type == 'star' ?

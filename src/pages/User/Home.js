@@ -16,6 +16,7 @@ import AcademyCard from '../../components/AcademyCard';
 import { getIframeLinkByLink, onClickExternalLink, onClickWindowOpen } from '../../functions/utils';
 import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
 import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -24,7 +25,7 @@ width:100%;
 margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
-font-family:${props=>props.theme.font.normal};
+font-family:${props => props.theme.font.normal};
 @media screen and (max-width:1050px) { 
     margin-top:6rem;
 }
@@ -55,6 +56,7 @@ height:300px;
 const RowVideoContent = styled.div`
 display:flex;
 width:100%;
+position:relative;
 @media screen and (max-width:700px) { 
     flex-direction:column;
 }
@@ -62,9 +64,9 @@ width:100%;
 const ReviewCard = (props) => {
     let { item, onClick } = props;
     const [note, setNote] = useState([]);
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[props])
+    }, [props])
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', border: `1px solid ${theme.color.font5}`, width: '95%', margin: '0 auto' }} onClick={onClick}>
@@ -76,7 +78,7 @@ const ReviewCard = (props) => {
                     </div>
                 </div>
                 <div style={{ padding: '16px', background: theme.color.font6, fontSize: theme.size.font5, height: '25px' }}>
-                    {(item?.note.replace(/(<([^>]+)>)/ig,"") ?? "").substring(0, 30)}{item?.note.replace(/(<([^>]+)>)/ig,"").length > 30 ? '...' : ''}
+                    {(item?.note.replace(/(<([^>]+)>)/ig, "") ?? "").substring(0, 30)}{item?.note.replace(/(<([^>]+)>)/ig, "").length > 30 ? '...' : ''}
                 </div>
             </div>
         </>
@@ -94,6 +96,7 @@ const Home = () => {
     const [mainContent, setMainContent] = useState([]);
     const [mainVideos, setMainVideos] = useState([])
     const reviewRef = useRef();
+    const videoRef = useRef();
     const settings = {
         infinite: true,
         speed: 500,
@@ -109,6 +112,7 @@ const Home = () => {
         autoplaySpeed: 2500,
         slidesToShow: 1,
         slidesToScroll: 1,
+
         dots: true
     };
     const reviewSettings = {
@@ -196,6 +200,7 @@ const Home = () => {
     const onNext = () => {
         reviewRef.current.slickNext();
     }
+
     return (
         <>
             <WrappersStyle>
@@ -226,7 +231,7 @@ const Home = () => {
                     </>
                     :
                     <>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
@@ -235,7 +240,7 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true} onPrevious={onPrevious} onNext={onNext}>BEST 후기</Title>
                         <Slider {...reviewSettings} className='board-container pointer slider1' ref={reviewRef}>
                             {bestReviews.length > 0 && bestReviews.map((item, idx) => (
@@ -244,20 +249,27 @@ const Home = () => {
                                 </>
                             ))}
                         </Slider>
-                        <div style={{marginTop:'36px'}} />
-                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer' }}>
-                            <Slider {...videoSettings} className='board-container pointer slider1'>
+                        <div style={{ marginTop: '36px' }} />
+                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer',position:'relative' }}>
+                            <div style={{ padding: '4px 5px 3px 4px', background: theme.color.font6, borderRadius: '50%', cursor: 'pointer', position: 'absolute', top: '47%', left: '4px' }}>
+                                <GrFormPrevious onClick={() => { videoRef.current.slickPrev(); }} />
+                            </div>
+                            <div style={{ padding: '4px 4px 3px 5px', background: theme.color.font6, borderRadius: '50%', cursor: 'pointer', position: 'absolute', top: '47%', right: '4px' }}>
+                                <GrFormNext onClick={() => { videoRef.current.slickNext(); }} />
+                            </div>
+                            <Slider {...videoSettings} className='board-container pointer slider1' ref={videoRef}>
                                 {mainVideos.length > 0 && mainVideos.map((item, idx) => (
                                     <>
                                         <RowVideoContent>
-                                            <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center', width: '100%',minHeight:'200px' }}>
+
+                                            <div style={{ display: 'flex', flexDirection: 'column', margin: '0 8px 0 auto', alignItems: 'center', width: '100%', minHeight: '200px' }}>
                                                 <img src={sec3TitIcon} />
                                                 <div style={{ fontSize: theme.size.font3, fontWeight: 'bold', marginTop: 'auto' }}>{item?.title}</div>
                                                 <div style={{ fontSize: theme.size.font5, marginTop: 'auto' }}>{item?.sub_title}</div>
                                                 <div style={{ fontSize: theme.size.font5, marginTop: 'auto', color: theme.color.blue, cursor: 'pointer', paddingBottom: '16px', borderBottom: `1px solid ${theme.color.font3}`, width: '80%', textAlign: 'center' }} onClick={() => onClickWindowOpen(item?.link)}>자세히보기{'>'}</div>
-                                                <div style={{display:'flex',alignItems:'center',padding:'16px 0'}} onClick={()=>{onClickWindowOpen(item?.more_link??"/")}}>
-                                                    <img src={youtubeRowIcon} style={{height:'24px'}} />
-                                                    <div style={{fontSize:theme.size.font4,marginLeft:'8px'}}>더 많은 영상보기 {'>'}</div>
+                                                <div style={{ display: 'flex', alignItems: 'center', padding: '16px 0' }} onClick={() => { onClickWindowOpen(item?.more_link ?? "/") }}>
+                                                    <img src={youtubeRowIcon} style={{ height: '24px' }} />
+                                                    <div style={{ fontSize: theme.size.font4, marginLeft: '8px' }}>더 많은 영상보기 {'>'}</div>
                                                 </div>
                                             </div>
                                             <Iframe src={`https://www.youtube.com/embed/${item.video_link}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></Iframe>
@@ -268,14 +280,14 @@ const Home = () => {
                             </Slider>
 
                         </ShadowContainer>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <RowLastColumnContent>
                             <HalfContent>
                                 <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
                                 {notices.length > 0 && notices.map((item, idx) => (
                                     <>
                                         <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer', border: `1px solid ${theme.color.font5}`, padding: '4px 8px' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
-                                            <img style={{ height: '100px', width: '150px' }} src={item?.main_img?(backUrl + item?.main_img):defaultImageSrc} />
+                                            <img style={{ height: '100px', width: '150px' }} src={item?.main_img ? (backUrl + item?.main_img) : defaultImageSrc} />
                                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '0 auto 0 8px' }}>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>

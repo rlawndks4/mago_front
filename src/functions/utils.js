@@ -167,6 +167,16 @@ export const onClickWindowOpen = (link_)=>{
         window.open('https://'+link);
     }
 }
+export const  makeDiscountPrice = (num, percent) =>{
+    if(!num){
+        return 0;
+    }
+    if(!percent){
+        return num;
+    }
+    let result = num*(100-percent)/100;
+    return result;
+}
 export function base64toFile(base_data, filename) {
     console.log(base_data)
     var arr = base_data.split(','),

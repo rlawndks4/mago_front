@@ -69,7 +69,7 @@ const AcademySubCard = (props) => {
     const onSubscribe = async (num) => {
         if (window.confirm(num == 1 ? "수강신청 하시겠습니까?" : "장바구니 등록 하시겠습니까?")) {
             if (num == 1) {
-                navigate(`/authpay/${item?.pk}`, { state: { item_pk: item?.pk } })
+                navigate(`/payready/${item?.pk}`, { state: { item_pk: item?.pk } })
             } else {
                 const { data: response } = await axios.post('/api/onsubscribe', {
                     item_pk: item?.pk,
@@ -126,15 +126,17 @@ const AcademySubCard = (props) => {
                         <PriceContainer>
                         {is_detail ?
                         <>
-                        <div style={{ height: '12px', margin: '0 auto 16px 12px' }} />
+                        <div style={{ height: '12px', margin: `0 auto 16px 12px` }} />
                             <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
-                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> 
+                            </div>
                         </>
                         :
                         <>
-                        <div style={{ height: '17px', margin: '0 auto 16px 12px' }} />
+                        <div style={{ height: '17px', margin: `0 auto 16px 12px` }} />
                             <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
-                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto auto 12px' }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> </div>
+                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> 
+                            </div>
                         </>}
                             
                             {item?.is_deadline==1?
@@ -145,10 +147,12 @@ const AcademySubCard = (props) => {
                             </>
                             :
                             <>
+                            
                             <div style={{ display: "flex" }}>
                                 <TextButton style={{ margin: '0 4px 0 12px' }} onClick={() => onSubscribe(0)}>장바구니</TextButton>
                                 <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={() => onSubscribe(1)}>수강신청</TextFillButton>
                             </div>
+                           
                             </>}
                         </PriceContainer>
                     </>}

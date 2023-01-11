@@ -143,7 +143,7 @@ const Academy = () => {
                                 onClickTypeNum={onClickTypeNum}
                                 setTypeNum={setTypeNum}
                             />
-                            <Content>
+                            <Content style={{maxWidth:'750px'}}>
                                 <Title id='div-0'>소개</Title>
                                 <ViewerContainer className="viewer">
                                     <ReactQuill

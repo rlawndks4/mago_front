@@ -93,7 +93,7 @@ const AuthPay = () => {
         }
     }
     const authSetting = async () => {
-        if (!location?.state) {
+        if (!location?.state && !params?.pk) {
             alert("잘못된 접근 입니다.");
             navigate(-1);
         } else {
@@ -103,7 +103,7 @@ const AuthPay = () => {
         //await Allat_Mobile_Approval($('#sendFm')[0], 0, 0);
     }
     const getItem = async () => {
-        const { data: response } = await axios.get(`/api/item?table=academy_category&pk=${location?.state?.item_pk}`);
+        const { data: response } = await axios.get(`/api/item?table=academy_category&pk=${params?.pk}`);
         setItem(response?.data);
         if ($('.allat_product_nm').val() && $('.allat_amt').val() && $('.allat_buyer_nm').val()) {
 
