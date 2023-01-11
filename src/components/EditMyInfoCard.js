@@ -224,8 +224,13 @@ const EditMyInfoCard = () => {
         const { data: response } = await axios.post('/api/getaddressbytext', {
             text: $('.address').val()
         })
-        setIsSelectAddress(false);
-        setAddressList(response?.data);
+        if(response?.result>0){
+            setIsSelectAddress(false);
+            setAddressList(response?.data);
+        }else{
+            alert(response?.message);
+        }
+        
     }
     return (
         <>
