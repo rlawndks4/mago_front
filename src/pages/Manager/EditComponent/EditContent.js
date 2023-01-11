@@ -4,7 +4,6 @@ import EditInput from "./EditInput";
 
 const EditContent = (props) => {
     const { schema } = props;
-    console.log(props)
     return (
         <>
             {objManagerEditContent[`${schema}`].map((cols, index) => (

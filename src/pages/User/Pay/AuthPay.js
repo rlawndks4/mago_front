@@ -34,7 +34,6 @@ const AuthPay = () => {
     const itemRef = useRef([]);
     useEffect(() => {
         function checkRef() {
-            console.log(itemRef.current)
             for (var i = 0; i < itemRef.current.length; i++) {
                 if (!itemRef.current[i].value) {
                     return false;
@@ -43,16 +42,12 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
-            console.log(4)
             if(window.innerWidth>=1000){
-                console.log(1)
                 $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
             }else{
-                console.log(2)
                 $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
             }
         } else {
-            console.log(3)
         }
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
@@ -68,7 +63,17 @@ const AuthPay = () => {
     async function isAuth() {
         const { data: response } = await axios.get(`/api/getmyinfo`);
         if (response?.data?.pk > 0) {
-            setAuth(response?.data)
+            if(response?.data?.user_level > 0){
+                if(response?.data?.user_level==30){
+                    alert('관리자는 이용할 수 없습니다.');
+                }   
+                if(response?.data?.user_level==40){
+                    alert('전문가는 이용할 수 없습니다.');
+                }
+                navigate('/mypage');
+            }else{
+                setAuth(response?.data);
+            }
         } else {
             alert("회원전용 메뉴입니다.");
             navigate('/login');

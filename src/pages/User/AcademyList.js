@@ -48,7 +48,6 @@ const AcademyList = () => {
         const {data:response} = await axios.post('/api/myacademyclasses',{
             master_pk:masterList[num]?.pk
         })
-        console.log(response)
         setBestContents(response?.data);
     }
     return (

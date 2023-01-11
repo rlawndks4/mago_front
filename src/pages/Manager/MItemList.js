@@ -82,12 +82,10 @@ const MItemList = () => {
             for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
                 obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = objManagerListContent[`${params.table}`].queries[i].split("=")[1];
             }
-            console.log(objManagerListContent[`${params.table}`])
             if(objManagerListContent[`${params.table}`]?.if_use_pk && params?.pk){
                 obj[objManagerListContent[`${params.table}`]?.if_use_pk] = params?.pk;
             }
             const { data: response } = await axios.post(api_str, obj);
-            console.log(response)
             setPosts(response.data.data);
             setOptionObj(response?.data?.option_obj);
             setPageList(range(1, response.data.maxPage));

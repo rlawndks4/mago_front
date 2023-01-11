@@ -143,11 +143,9 @@ const Home = () => {
             setNotices(response?.data?.notice);
             setApps(response?.data?.app);
             let video_list = [...response?.data?.main_video];
-            console.log(response?.data?.main_video)
             for (var i = 0; i < video_list.length; i++) {
                 video_list[i]['video_link'] = await getIframeLinkByLink(video_list[i]?.video_link);
             }
-            console.log(video_list)
             setMainVideos(video_list)
             setMainVideos(response?.data?.main_video);
             setTimeout(() => setLoading(false), 1000);

@@ -56,7 +56,6 @@ const SelectTypeComponent = (props) => {
     const getFontWeight = (is_list, idx) => {
         if (is_list) {
             if (num.includes(idx)) {
-                console.log(1)
                 return "bold";
             } else {
                 return "";

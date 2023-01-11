@@ -138,7 +138,6 @@ const Video = () => {
             try {
                 setLoadingText("콘텐츠를 불러오는 중입니다...");
                 const { data: response } = await axiosInstance.get(`/api/getvideocontent?pk=${params.pk}&views=1`);
-                console.log(response)
                 if (response.result < 0) {
                     alert(response.message);
                     if (response.result == -150) {

@@ -8,7 +8,6 @@ const MAcademyEdit = () => {
     const navigate = useNavigate();
     useEffect(()=>{
         if(location.state){
-            console.log(location.state)
         }else{
             if(params.pk==0){
                 alert("잘못된 접근입니다.");

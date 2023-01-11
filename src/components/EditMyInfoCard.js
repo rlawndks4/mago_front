@@ -124,10 +124,8 @@ const EditMyInfoCard = () => {
             $('.new-pw-check').val('');
             setTypeNum(num);
         }
-        console.log(num)
         if(num==0){
             const {data:response} = await axios.get('/api/getmyinfo');
-            console.log(response)
             $('.address').val(response?.data?.address);
             $('.address_detail').val(response?.data?.address_detail);
             $('.zip_code').val(response?.data?.zip_code);

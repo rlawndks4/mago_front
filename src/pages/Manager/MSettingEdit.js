@@ -52,7 +52,6 @@ const MSettingEdit = () => {
     useEffect(() => {
         async function fetchPost() {
             const { data: response } = await axios.get('/api/setting');
-            console.log(response)
             setSetting(response.data ?? {});
             if (response.data) {
                 setUrl(response?.data?.main_img ? (backUrl + response?.data?.main_img) : "");

@@ -29,7 +29,6 @@ const MPopupEdit = () => {
         async function fetchPost() {
             if (params.pk > 0) {
                 const { data: response } = await axios.get(`/api/item?table=popup&pk=${params.pk}`)
-                console.log(response)
                 $('.link').val(response.data.link)
                 setUrl(backUrl + response.data?.img_src);
             }

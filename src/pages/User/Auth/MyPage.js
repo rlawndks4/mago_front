@@ -93,7 +93,6 @@ const MyPage = () => {
     }, [])
     async function getMyContent() {
         const { data: response } = await axios.post('/api/myitems', { table: 'subscribe' });
-        console.log(response)
         let list = [...response?.data?.data];
         let bag_list = [];
         let class_list = [];
@@ -106,7 +105,6 @@ const MyPage = () => {
         }
         setBagList(bag_list);
         setClassList(class_list);
-        console.log(response)
     }
     const pageSetting = async () => {
         await getMyContent();

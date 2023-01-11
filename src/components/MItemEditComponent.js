@@ -106,7 +106,6 @@ const MItemEditComponent = (props) => {
     async function getEditItem() {
         if (params_pk > 0) {
             const { data: response } = await axios.get(`/api/item?table=${objManagerEditContent[schema].schema}&pk=${params_pk}`);
-            console.log(response)
             let item = { ...response?.data };
             let url_list_obj = { ...imgUrlObj };
             let editor_list_obj = { ...editorListObj };
@@ -138,8 +137,6 @@ const MItemEditComponent = (props) => {
                     }
                     if (content.type == 'editor') {
                         editor_list_obj[`${content.class_name}`] = item[`${content.class_name}`];
-                        console.log(item)
-                        console.log(content)
                     }
                 }
             }
@@ -154,8 +151,6 @@ const MItemEditComponent = (props) => {
         async function fetchPost() {
             setLoading(true);
             await editPageSetting();
-            console.log(schema)
-            console.log(params_pk)
             if (params_pk > 0) {
                 await getEditItem();
             }

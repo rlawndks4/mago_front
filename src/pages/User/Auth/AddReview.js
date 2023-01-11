@@ -67,7 +67,6 @@ const AddReview = () => {
         }
         async function myAuth() {
             const { data: response } = await axios.get(`/api/auth`);
-            console.log(response)
             if (response?.pk > 0) {
 
             } else {

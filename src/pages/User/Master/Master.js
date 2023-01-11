@@ -90,7 +90,6 @@ const Master = () => {
         }
         setPage(num);
         const { data: response } = await axios.get(`/api/getmastercontent?pk=${params.pk}&page=${num}`);
-        console.log(response)
         if (response?.data?.master_content) {
             setMaster(response?.data?.master_content);
         }

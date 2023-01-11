@@ -93,7 +93,6 @@ const Academy = () => {
         }
         setPage(num);
         const { data: response } = await axios.get(`/api/getacademycategorycontent?pk=${params.pk}&page=${num}`);
-        console.log(response)
         if (response?.data?.academy_content) {
             setPosts(response?.data?.academy_content);
         }

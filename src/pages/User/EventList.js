@@ -27,7 +27,6 @@ const EventList = () => {
         async function fetchPost() {
             setLoading(true);
             const { data: response } = await axios.get('/api/items?table=event&status=1');
-            console.log(response)
             let moment = returnMoment().substring(0, 10);
             let list = [...response?.data];
             let ing_list = [];

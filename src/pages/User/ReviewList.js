@@ -58,7 +58,6 @@ const ReviewList = () => {
         const { data: response } = await axios.get(api_str);
         setReviewList(response?.data?.data);
         setPageList(range(1, response?.data?.maxPage));
-        console.log(response);
     }
     return (
         <>
