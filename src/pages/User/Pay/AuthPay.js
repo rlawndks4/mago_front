@@ -64,13 +64,18 @@ const AuthPay = () => {
         const { data: response } = await axios.get(`/api/getmyinfo`);
         if (response?.data?.pk > 0) {
             if(response?.data?.user_level > 0){
-                if(response?.data?.user_level==30){
-                    alert('관리자는 이용할 수 없습니다.');
+                if(response?.data?.user_level==50){
+                    alert('개발자는 이용할 수 없습니다.');
+                    navigate('/mypage');
                 }   
                 if(response?.data?.user_level==40){
+                    alert('관리자는 이용할 수 없습니다.');
+                    navigate('/mypage');
+                }   
+                if(response?.data?.user_level==30){
                     alert('전문가는 이용할 수 없습니다.');
+                    navigate('/mypage');
                 }
-                navigate('/mypage');
             }else{
                 setAuth(response?.data);
             }
