@@ -77,6 +77,14 @@ const AuthPay = () => {
                     navigate('/mypage');
                 }
             }else{
+                if(!response?.data?.address){
+                    alert('주소가 등록되어 있지 않습니다.');
+                    navigate('/mypage');
+                }
+                if(!response?.data?.address_detail){
+                    alert('상세주소가 등록되어 있지 않습니다.');
+                    navigate('/mypage');
+                }
                 setAuth(response?.data);
             }
         } else {
