@@ -146,9 +146,13 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     return reg.test(str)
 }
 export const onClickExternalLink = (link_) =>{//외부링크이동
+    console.log(link_)
     let link = link_??"";
     if(!link){
         return;
+    }
+    if(link[0]=='/'){
+        window.location.href = link;
     }
     if(link.includes('http')){
         window.location.href = link;
