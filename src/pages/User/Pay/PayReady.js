@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Wrappers, Card, Img, SelectType, ViewerContainer, Title, ShadowContainer, TextFillButton, TextButton, } from "../../../components/elements/UserContentTemplete";
+import { Wrappers, Card, Img, SelectType, ViewerContainer, Title, TextFillButton, TextButton, } from "../../../components/elements/UserContentTemplete";
 import styled from "styled-components";
 import theme from "../../../styles/theme";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -42,6 +42,12 @@ align-items:center;
 justify-content:space-between;
 width:100%;
 margin: 24px 0 16px 0;
+`
+const ShadowContainer = styled.div`
+background:#FAFAFA;
+border-radius:${props => props.theme.borderRadius};
+padding:6px 30px;
+box-shadow:${props => props.theme.boxShadow};
 `
 const PayReady = () => {
 
@@ -106,7 +112,7 @@ const PayReady = () => {
                                 {commarNumber(makeDiscountPrice(posts?.price, posts?.discount_percent))}원
                             </div>
                         </RowContent>
-                        <ShadowContainer style={{ marginTop: '32px' }}>
+                        <ShadowContainer style={{ margin: '32px 0px' }}>
                             <Content style={{ fontSize: theme.size.font4, borderBottom: `1px solid ${theme.color.font4}` }}>
                                 <RowContent style={{ justifyContent: 'space-between' }}>
                                     <div>상품명</div>
