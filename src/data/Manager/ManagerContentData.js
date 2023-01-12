@@ -205,8 +205,8 @@ export const objManagerListContent = {
             columnObjFormat('폰번호', '', 'text', 'phone'),
             columnObjFormat('수강강의', '', 'text', 'title'),
             columnObjFormat('강사', '', 'text', 'master_nickname'),
-            columnObjFormat('승인금액', '', 'number', 'price'),
-            columnObjFormat('취소금액', '', 'number', 'cancel_price'),
+            columnObjFormat('승인금액', '', 'approve_price', 'price'),
+            columnObjFormat('취소금액', '', 'cancel_price', 'price'),
             columnObjFormat('등록일', '', 'text', 'date'),
             columnObjFormat('이용기간', '', 'period', 'period'),
             columnObjFormat('예금주', '', 'text', 'account_holder'),
@@ -214,11 +214,11 @@ export const objManagerListContent = {
             columnObjFormat('계좌번호', '', 'text', 'account_number'),
             columnObjFormat('이용가능여부', '', 'status', 'use_status'),
             columnObjFormat('취소', '', 'pay_cancel', 'pay_cancel'),
-            columnObjFormat('수정', '', 'edit', 'edit'),
+            columnObjFormat('수정', '', 'pay_edit', 'pay_edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
         ['status=1', 'master_pk=', 'academy_category_pk='],
-        false,
+        true,
         false,
         '150%'),
     request: sidebarObjFormat(
@@ -487,6 +487,39 @@ export const objManagerEditContent = {
                 editColumnObjFormat('탑 띠배너 글', 'input', {}, 'top_banner_note'),
                 editColumnObjFormat('탑 띠배너 링크', 'input', { placeholder: '/home' }, 'top_banner_link'),
             ],
+        ],
+    },
+    subscribe: {
+        schema: 'subscribe',
+        breadcrumb: '결제 내역',
+        add_list: [],
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('유저아이디', 'input', {}, 'user_id'),
+            ],
+            [
+                editColumnObjFormat('강의명', 'select', {
+                    api_url: '/api/items?table=academy_category', option_list: [], use_name_column: 'title', use_val_column: 'pk'
+                }, 'academy_category_pk'),
+            ],
+            [
+                editColumnObjFormat('승인금액', 'input', {}, 'price'),
+
+            ],
+        ],
+    },
+    pay_edit: {
+        schema: 'subscribe',
+        breadcrumb: '결제 내역',
+        add_list: [],
+        columns: [//img, select, input, 
+        ],
+    },
+    pay_cancel: {
+        schema: 'subscribe',
+        breadcrumb: '결제 내역 취소',
+        add_list: [],
+        columns: [//img, select, input, 
         ],
     },
     home_setting: {

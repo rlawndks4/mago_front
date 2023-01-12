@@ -18,7 +18,7 @@ import "react-quill-emoji/dist/quill-emoji.css";
 import { useMemo } from 'react';
 const Font = ReactQuill.Quill.import('formats/font');
 const MItemEditComponent = (props) => {
-    const { editContent, schema, params_pk, add_list, breadcrumb } = props;
+    const { editContent, schema, params_pk, add_list, breadcrumb, editItemByParent } = props;
 
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -398,7 +398,13 @@ const MItemEditComponent = (props) => {
 
             <ButtonContainer>
                 <AddButton style={{ background: theme.color.red, marginRight: '8px' }} onClick={() => { navigate(-1) }}>{'취소'}</AddButton>
-                <AddButton onClick={editItem}>{'저장'}</AddButton>
+                <AddButton onClick={()=>{
+                    if(editItemByParent){
+                        editItemByParent();
+                    }else{
+                        editItem();
+                    }
+                    }}>{'저장'}</AddButton>
             </ButtonContainer>
             {/* {params_pk > 0 ?
                         <>

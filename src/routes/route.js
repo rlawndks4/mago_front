@@ -45,6 +45,9 @@ import AddReview from '../pages/User/Auth/AddReview';
 import KeyRecieve from '../pages/User/Pay/KeyRecieve';
 import PayReady from '../pages/User/Pay/PayReady';
 import PayResult from '../pages/User/Pay/PayResult';
+import MSubscribeEdit from '../pages/Manager/MSubscribeEdit';
+import MPayEdit from '../pages/Manager/MPayEdit';
+import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -53,6 +56,9 @@ const zManagerRoute = [
     { link: '/manager/edit/video/:pk', element: <MVideoEdit />, title: "핵심비디오관리" },
     { link: '/manager/edit/alarm/:pk', element: <MAlarmEdit />, title: "알람관리" },
     { link: '/manager/edit/academy/:pk', element: <MAcademyEdit />, title: "강의관리" },
+    { link: '/manager/edit/subscribe/:pk', element: <MSubscribeEdit />, title: "결제 내역 관리" },
+    { link: '/manager/edit/pay_edit/:pk', element: <MPayEdit />, title: "결제 내역 관리" },
+    { link: '/manager/edit/pay_cancel/:pk', element: <MPayCancelEdit />, title: "결제 내역 취소 관리" },
     { link: '/manager/edit/issue_category/:pk', element: <MIssueCategoryEdit />, title: "핵심이슈카테고리관리" },
     { link: '/manager/edit/feature_category/:pk', element: <MFeatureCategoryEdit />, title: "특징주카테고리관리" },
     { link: '/manager/edit/setting', element: <MSettingEdit />, title: "환경설정" },
