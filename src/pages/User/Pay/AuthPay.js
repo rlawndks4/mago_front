@@ -23,6 +23,7 @@ import $ from 'jquery'
 import { Suspense } from "react"
 import { useRef } from "react"
 
+const isPC = window.innerWidth>=1000 ? true : false;
 const AuthPay = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
-            if(window.innerWidth>=1000){
+            if(isPC){
                 $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
             }else{
                 $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
@@ -137,5 +138,26 @@ const AuthPay = () => {
 
     )
 }
+
+$(document.body).append(`
+<script>
+function result_submit(result_cd, result_msg, enc_data)
+{
+` + (isPC ? 'AllatPay_Closechk_End();' : 'Allat_Mobile_Close();') + `
+    if( result_cd != '0000') 
+    {
+        result_msg.CharsSet = "euc-kr";
+        window.setTimeout(async function() {
+            await alert(result_cd + " : " + result_msg);
+            window.setTimeout(function() { window.location.href = '/mypage';}, 1000);
+        }, 500);
+    }
+    else
+    {
+        window.setTimeout(function() { window.location.href = '/home';}, 500);
+    }
+}
+</script>
+`);
 
 export default AuthPay;
