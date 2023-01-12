@@ -108,7 +108,7 @@ const PayReady = () => {
                         {/* <div style={{ padding: '8px 24px', borderBottom: `1px solid ${theme.color.font2}`, width: '150px', textAlign: 'center', margin: '0 auto', fontSize: theme.size.font4, fontWeight: 'bold' }}>{posts?.title}</div> */}
                         <AcademySubCard item={posts} not_price={true} />
                         <RowContent>
-                            <div style={{ marginLeft: 'auto' }}>
+                            <div style={{ marginLeft: 'auto', marginRight: '22px'}}>
                                 {commarNumber(makeDiscountPrice(posts?.price, posts?.discount_percent))}원
                             </div>
                         </RowContent>

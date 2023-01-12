@@ -44,6 +44,7 @@ import AuthPay from '../pages/User/Pay/AuthPay';
 import AddReview from '../pages/User/Auth/AddReview';
 import KeyRecieve from '../pages/User/Pay/KeyRecieve';
 import PayReady from '../pages/User/Pay/PayReady';
+import PayResult from '../pages/User/Pay/PayResult';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -79,6 +80,7 @@ const zUserRoute = [
     { link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
     { link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
     { link: '/authpay', element: <AuthPay />, title: "결제" },
+    { link: '/payresult/:class_pk/:status', element: <PayResult />, title: "" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 
     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },

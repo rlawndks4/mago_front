@@ -23,7 +23,7 @@ import $ from 'jquery'
 import { Suspense } from "react"
 import { useRef } from "react"
 
-const isPC = window.innerWidth>=1000 ? true : false;
+const isPC = window.innerWidth >= 1000 ? true : false;
 const AuthPay = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -43,13 +43,30 @@ const AuthPay = () => {
             return true;
         }
         if (checkRef()) {
-            if(isPC){
-                $(document.body).append("<script>AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();</script>");
-            }else{
-                $(document.body).append("<script>Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);</script>");
+            $(document.body).append("<script>" + (isPC ? "AllatPay_Approval(document.getElementById('sendFm')); AllatPay_Closechk_Start();" : "Allat_Mobile_Approval(document.getElementById('sendFm'), 0, 0);") + "</script>");
+            $(document.body).append(`
+            <script>
+            function result_submit(result_cd, result_msg, enc_data)
+            {
+            ` + (isPC ? 'AllatPay_Closechk_End();' : 'Allat_Mobile_Close();') + `
+                if( result_cd != '0000') 
+                {
+                    result_msg.CharsSet = "euc-kr";
+                    window.setTimeout(async function() {
+                        await alert(result_cd + " : " + result_msg);
+                        window.setTimeout(function() { window.location.href = '/payresult/${params?.pk}/0';}, 500);
+                    }, 500);
+                }
+                else
+                {
+                    window.setTimeout(function() { window.location.href = '/payresult/${params?.pk}/1';}, 500);
+                }
             }
+            </script>
+            `);
         } else {
         }
+
     }, [itemRef.current.map((itm) => { return itm.value })])
     useEffect(() => {
         authSetting();
@@ -64,25 +81,25 @@ const AuthPay = () => {
     async function isAuth() {
         const { data: response } = await axios.get(`/api/getmyinfo`);
         if (response?.data?.pk > 0) {
-            if(response?.data?.user_level > 0){
-                if(response?.data?.user_level==50){
+            if (response?.data?.user_level > 0) {
+                if (response?.data?.user_level == 50) {
                     alert('개발자는 이용할 수 없습니다.');
                     navigate('/mypage');
-                }   
-                if(response?.data?.user_level==40){
+                }
+                if (response?.data?.user_level == 40) {
                     alert('관리자는 이용할 수 없습니다.');
                     navigate('/mypage');
-                }   
-                if(response?.data?.user_level==30){
+                }
+                if (response?.data?.user_level == 30) {
                     alert('전문가는 이용할 수 없습니다.');
                     navigate('/mypage');
                 }
-            }else{
-                if(!response?.data?.address){
+            } else {
+                if (!response?.data?.address) {
                     alert('주소가 등록되어 있지 않습니다.');
                     navigate('/mypage');
                 }
-                if(!response?.data?.address_detail){
+                if (!response?.data?.address_detail) {
                     alert('상세주소가 등록되어 있지 않습니다.');
                     navigate('/mypage');
                 }
@@ -127,7 +144,7 @@ const AuthPay = () => {
                     <input type='hidden' name='allat_recp_addr' value={auth?.address + ' ' + auth?.address_detail} />
                     <input type='hidden' name='allat_product_cd' value='TMN054815' />
                     <input type='hidden' name='allat_enc_data' value='' />
-                    <input type='hidden' name='shop_receive_url' value={`${frontUrl + `/api/keyrecieve/${params?.pk}/${window.innerWidth>=1000?'pc':'mobile'}`}`} />
+                    <input type='hidden' name='shop_receive_url' value={`${frontUrl + `/api/keyrecieve/${params?.pk}/${window.innerWidth >= 1000 ? 'pc' : 'mobile'}`}`} />
                     <input type='hidden' name='allat_autoscreen_yn' value='y' />
                     <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
                     <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
@@ -137,27 +154,9 @@ const AuthPay = () => {
         </>
 
     )
+
 }
 
-$(document.body).append(`
-<script>
-function result_submit(result_cd, result_msg, enc_data)
-{
-` + (isPC ? 'AllatPay_Closechk_End();' : 'Allat_Mobile_Close();') + `
-    if( result_cd != '0000') 
-    {
-        result_msg.CharsSet = "euc-kr";
-        window.setTimeout(async function() {
-            await alert(result_cd + " : " + result_msg);
-            window.setTimeout(function() { window.location.href = '/mypage';}, 1000);
-        }, 500);
-    }
-    else
-    {
-        window.setTimeout(function() { window.location.href = '/home';}, 500);
-    }
-}
-</script>
-`);
+
 
 export default AuthPay;

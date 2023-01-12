@@ -76,6 +76,7 @@ const MyPage = () => {
     useEffect(() => {
         async function isAdmin() {
             const { data: response } = await axios.get('/api/getmyinfo');
+            console.log(response)
             if (response?.data?.pk > 0) {
                 await localStorage.setItem('auth', JSON.stringify(response?.data))
                 let obj = response?.data;
