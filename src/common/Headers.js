@@ -158,6 +158,7 @@ min-height:200px;
 position:relative;
 opacity:0.95;
 z-index:10;
+cursor:pointer;
 @media screen and (max-width:400px) { 
 width:78vw;
 }

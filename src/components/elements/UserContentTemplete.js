@@ -58,7 +58,7 @@ display:flex;
 align-items:center;
 `
 export const Title = (props) => {
-    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id } = props;
+    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id} = props;
     const navigate = useNavigate();
     const [containerStyle, setContainerStyle] = useState({});
     const [titleStyle, setTitleStyle] = useState({});

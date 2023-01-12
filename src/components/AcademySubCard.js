@@ -67,10 +67,12 @@ const AcademySubCard = (props) => {
         return result;
     }
     const onSubscribe = async (num) => {
-        if (window.confirm(num == 1 ? "수강신청 하시겠습니까?" : "장바구니 등록 하시겠습니까?")) {
-            if (num == 1) {
-                navigate(`/payready/${item?.pk}`, { state: { item_pk: item?.pk } })
-            } else {
+        if (num == 1) {
+            navigate(`/payready/${item?.pk}`, { state: { item_pk: item?.pk } })
+        }
+        if (num == 0) {
+            if (window.confirm("장바구니 등록 하시겠습니까?")) {
+
                 const { data: response } = await axios.post('/api/onsubscribe', {
                     item_pk: item?.pk,
                     type_num: num
@@ -79,13 +81,14 @@ const AcademySubCard = (props) => {
                     alert("성공적으로 등록 되었습니다.");
                 } else {
                     alert(response?.message);
-                    if(response?.result==-150){
+                    if (response?.result == -150) {
                         navigate('/login');
                     }
                 }
-            }
 
+            }
         }
+
     }
     return (
         <>
@@ -102,15 +105,15 @@ const AcademySubCard = (props) => {
                     <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '12px', width: 'auto' }}>
                         {is_detail ?
                             <>
-                                <div style={{ fontSize: theme.size.font2, margin: '0px auto 16px 12px',fontWeight:'bold' }}>{item?.title}</div>
+                                <div style={{ fontSize: theme.size.font2, margin: '0px auto 16px 12px', fontWeight: 'bold' }}>{item?.title}</div>
                                 <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강대상: {item?.target}</div>
-                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강기간: {item?.start_date??"---"} ~ {item?.end_date??"---"}</div>
+                                <div style={{ fontSize: theme.size.font4, margin: '0 auto 12px 12px' }}>수강기간: {item?.start_date ?? "---"} ~ {item?.end_date ?? "---"}</div>
                                 <div style={{ fontSize: theme.size.font4, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                             </>
                             :
                             <>
                                 <div style={{ fontSize: theme.size.font3, margin: '0 auto 16px 12px' }}>{item?.title}</div>
-                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {item?.start_date??"---"} ~ {item?.end_date??"---"}</div>
+                                <div style={{ fontSize: theme.size.font5, margin: '0 auto 16px 12px' }}>수강기간: {item?.start_date ?? "---"} ~ {item?.end_date ?? "---"}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: '0 auto auto 12px' }}>강의구성: {item?.composition}</div>
                                 <div style={{ fontSize: theme.size.font5, margin: 'auto auto 0 12px' }}>{item?.sub_title}</div>
                             </>}
@@ -124,36 +127,36 @@ const AcademySubCard = (props) => {
                     :
                     <>
                         <PriceContainer>
-                        {is_detail ?
-                        <>
-                        <div style={{ height: '12px', margin: `0 auto 16px 12px` }} />
-                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
-                            <div style={{ fontSize: theme.size.font4, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> 
-                            </div>
-                        </>
-                        :
-                        <>
-                        <div style={{ height: '17px', margin: `0 auto 16px 12px` }} />
-                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
-                            <div style={{ fontSize: theme.size.font5, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div> 
-                            </div>
-                        </>}
-                            
-                            {item?.is_deadline==1?
-                            <>
-                            <AddButton style={{background:theme.color.red,margin: '0 4px 0 12px',cursor:'default',color:'#fff',padding:'8px',fontSize:theme.size.font4,width:'200px'}}>
-                             현재 강의는 마감되었습니다
-                            </AddButton>
-                            </>
-                            :
-                            <>
-                            
-                            <div style={{ display: "flex" }}>
-                                <TextButton style={{ margin: '0 4px 0 12px' }} onClick={() => onSubscribe(0)}>장바구니</TextButton>
-                                <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={() => onSubscribe(1)}>수강신청</TextFillButton>
-                            </div>
-                           
-                            </>}
+                            {is_detail ?
+                                <>
+                                    <div style={{ height: '12px', margin: `0 auto 16px 12px` }} />
+                                    <div style={{ fontSize: theme.size.font4, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
+                                    <div style={{ fontSize: theme.size.font4, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div style={{ height: '17px', margin: `0 auto 16px 12px` }} />
+                                    <div style={{ fontSize: theme.size.font5, display: 'flex', margin: '0 auto 16px 12px' }}><div style={{ width: '48px' }}>정가:</div> <div style={{ textDecoration: 'line-through', textDecorationColor: theme.color.font2 }}>{commarNumber(item?.price ?? 0)}원</div></div>
+                                    <div style={{ fontSize: theme.size.font5, display: 'flex', margin: `0 auto auto 12px` }}><div style={{ width: '48px' }}>판매가:</div><div style={{ color: theme.color.red, margin: '0 2px 0 0' }}>[{item?.discount_percent}% 할인]</div> <div style={{ fontWeight: 'bold' }}>{commarNumber((item?.price ?? 0) * ((100 - item?.discount_percent) / 100))}원</div>
+                                    </div>
+                                </>}
+
+                            {item?.is_deadline == 1 ?
+                                <>
+                                    <AddButton style={{ background: theme.color.red, margin: '0 4px 0 12px', cursor: 'default', color: '#fff', padding: '8px', fontSize: theme.size.font4, width: '200px' }}>
+                                        현재 강의는 마감되었습니다
+                                    </AddButton>
+                                </>
+                                :
+                                <>
+
+                                    <div style={{ display: "flex" }}>
+                                        <TextButton style={{ margin: '0 4px 0 12px' }} onClick={() => onSubscribe(0)}>장바구니</TextButton>
+                                        <TextFillButton style={{ margin: '0 auto 0 4px' }} onClick={() => onSubscribe(1)}>수강신청</TextFillButton>
+                                    </div>
+
+                                </>}
                         </PriceContainer>
                     </>}
 

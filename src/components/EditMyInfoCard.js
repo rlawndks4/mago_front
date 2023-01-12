@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { WrapperForm, CategoryName, Input, Button, FlexBox, SnsLogo, RegularNotice } from './elements/AuthContentTemplete';
-import { Title, SelectType } from "./elements/UserContentTemplete";
+import { Title, SelectType, RowContent } from "./elements/UserContentTemplete";
 import theme from "../styles/theme";
 import $ from 'jquery';
 import axios from "axios";
@@ -10,6 +10,8 @@ import { formatPhoneNumber, regExp } from "../functions/utils";
 import defaultImg from '../assets/images/icon/default-profile.png';
 import { backUrl } from "../data/Data";
 import imageCompression from 'browser-image-compression';
+import DaumPostcode from 'react-daum-postcode';
+import AddButton from './elements/button/AddButton';
 const Table = styled.table`
 font-size:12px;
 width:95%;
@@ -63,6 +65,7 @@ const EditMyInfoCard = () => {
     const [zType, setZType] = useState([{ title: "닉네임 변경", type: 1 }, { title: "비밀번호 변경", type: 2 }, { title: "전화번호 변경", type: 3 }])
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
+    const [isSeePostCode, setIsSeePostCode] = useState(false);
     useEffect(() => {
         if (localStorage.getItem('is_ios')) {
             onChangeTypeNum(1)
@@ -218,11 +221,10 @@ const EditMyInfoCard = () => {
             alert(response.message);
         }
     }
-    const onSelectAddress = (idx) => {
-        setIsSelectAddress(true);
-        let address_obj = addressList[idx];
-        $('.address').val(address_obj?.address);
-        $('.zip_code').val(address_obj?.zip_code);
+     const onSelectAddress = (data) => {
+        console.log(data);
+        $('.address').val(data?.address);
+        $('.zip_code').val(data?.zonecode);
         $('.address_detail').val("");
         $('.address_detail').focus();
     }
@@ -280,44 +282,22 @@ const EditMyInfoCard = () => {
                                 <div>
                                     <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                 </div>
-                                <CategoryName>우편번호</CategoryName>
-                                <Input className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
-                                <CategoryName>주소</CategoryName>
-                                <Input className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                                <Button onClick={getAddressByText}>주소검색</Button>
-                                {addressList.length > 0 && !isSelectAddress ?
-                                    <>
-                                        <div style={{ width: '100%', background: theme.color.font5,display:'flex',marginTop:'32px' }}>
-                                            <div style={{ maxWidth: '700px',padding:'8px',margin:'8px auto', background: '#fff', width: '95%', display: 'flex', flexDirection: 'column', maxHeight: '1000px', minHeight: '500px', overflowY: 'auto' }}>
-                                                {addressList.map((item, idx) => (
-                                                    <>
-                                                        <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', borderBottom: `1px solid ${theme.color.font3}`,padding:'8px 0' }} onClick={() => { onSelectAddress(idx) }}>
-                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font5 }}>
-                                                                <div style={{color:theme.color.red}}>{item.zip_code ?? "---"}</div>
-                                                                <div style={{color:theme.color.font3,marginLeft:'8px'}}>({item.land_number ?? "---"})</div>
-                                                            </div>
-                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font4,marginTop:'8px' }}>
-                                                                <div style={{border:`1px solid ${theme.color.font4}`,padding:'3px 4px',fontSize:theme.size.font5,marginRight:'8px',borderRadius:'4px',color:theme.color.blue}}>도로명</div>
-                                                                <div>{item.road_address ?? "---"}</div>
-                                                            </div>
-                                                            <div style={{ display: 'flex',alignItems:'center',fontSize:theme.size.font4,marginTop:'8px' }}>
-                                                                <div style={{border:`1px solid ${theme.color.font4}`,padding:'3px 10px',fontSize:theme.size.font5,marginRight:'8px',borderRadius:'4px',color:theme.color.blue}}>지번</div>
-                                                                <div>{item.address ?? "---"}</div>
-
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                    </>
-                                    :
-                                    <>
-                                    </>
-                                }
-                                <CategoryName>상세주소</CategoryName>
-                                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
+                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                    <Input style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
+                </RowContent>
+                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
+                <Input style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
+                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                {isSeePostCode ?
+                    <>
+                        <DaumPostcode style={postCodeStyle} autoClose onComplete={onSelectAddress} />
+                    </>
+                    :
+                    <>
+                    </>}
                                 <CategoryName>예금주</CategoryName>
                                 <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
                                 <CategoryName>은행명</CategoryName>
@@ -376,4 +356,14 @@ const EditMyInfoCard = () => {
         </>
     )
 }
+const postCodeStyle = {
+    display: 'block',
+    position: 'relative',
+    top: '0%',
+    maxWidth: '500px',
+    width: '100%',
+    height: '400px',
+    margin: '16px auto'
+};
+
 export default EditMyInfoCard;

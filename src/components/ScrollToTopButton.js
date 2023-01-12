@@ -62,7 +62,7 @@ const ScrollToTopButton = () => {
     }
     return (
         <>
-            <Button onClick={scrollToTop} style={{bottom:`${isPost?'6rem':'8rem'}`, display:`${display}`}}>
+            <Button onClick={scrollToTop} style={{bottom:`${isPost?'6rem':'8rem'}`, display:`${display}`,color:'#fff'}}>
                 <AiOutlineUp />
             </Button>
         </>

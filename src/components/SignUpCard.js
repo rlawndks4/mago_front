@@ -13,6 +13,8 @@ import { WrapperForm, CategoryName, Input, Button, FlexBox, SnsLogo, RegularNoti
 import { regularExpression } from '../data/Data';
 import Policy from '../pages/User/Policy/Policy';
 import theme from '../styles/theme';
+import DaumPostcode from 'react-daum-postcode';
+import AddButton from './elements/button/AddButton';
 
 const SignUpCard = () => {
     const location = useLocation();
@@ -33,6 +35,7 @@ const SignUpCard = () => {
     const [isRegPw, setIsRegPw] = useState(false)
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
+    const [isSeePostCode, setIsSeePostCode] = useState(false);
     useEffect(() => {
         if (location.state) {
             if (!location.state.id) {
@@ -215,31 +218,64 @@ const SignUpCard = () => {
             setCoinsidePw(true);
         }
     }
-    const onSelectAddress = (idx) => {
-        setIsSelectAddress(true);
-        let address_obj = addressList[idx];
-        $('.address').val(address_obj?.address);
-        $('.zip_code').val(address_obj?.zip_code);
+    const onSelectAddress = (data) => {
+        console.log(data);
+        $('.address').val(data?.address);
+        $('.zip_code').val(data?.zonecode);
         $('.address_detail').val("");
         $('.address_detail').focus();
     }
-    const getAddressByText = async () => {
-        const { data: response } = await axios.post('/api/getaddressbytext', {
-            text: $('.address').val()
-        })
-        console.log(response)
-        if (response?.result > 0) {
-            setIsSelectAddress(false);
-            setAddressList(response?.data);
-        } else {
-            alert(response?.message);
-        }
 
-    }
     return (
         <>
             <WrapperForm onSubmit={onSignUp} id='login_form'>
                 <Title>회원가입</Title>
+                <Title>이용약관</Title>
+                <div style={{ width: '94%', height: '300px', maxWidth: '400px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
+                    <Policy pk={0} />
+                </div>
+                <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
+                    <input type={'radio'} id="term-of-use-1" name="term-of-use" style={{ margin: '0 4px 0 auto' }}
+                        onChange={(e) => {
+                            if ($('input[id=privacy-policy-1]:checked').val()) {
+                                $('#all-allow').prop('checked', true);
+                            }
+                        }} />
+                    <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                    <input type={'radio'} id="term-of-use-2" name="term-of-use" style={{ margin: '0 4px 0 0' }}
+                        onChange={(e) => {
+                            $('#all-allow').prop('checked', false);
+                        }} />
+                    <label for={'term-of-use-2'} style={{ margin: '0' }}>동의안함</label>
+                </RowContent>
+                <Title>개인정보취급방침</Title>
+                <div style={{ width: '94%', height: '300px', maxWidth: '400px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
+                    <Policy pk={1} />
+                </div>
+                <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
+                    <input type={'radio'} id="privacy-policy-1" name="privacy-policy" style={{ margin: '0 4px 0 auto' }}
+                        onChange={(e) => {
+                            if ($('input[id=term-of-use-1]:checked').val()) {
+                                $('#all-allow').prop('checked', true);
+                            }
+                        }} />
+                    <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                    <input type={'radio'} id="privacy-policy-2" name="privacy-policy" style={{ margin: '0 4px 0 0' }}
+                        onChange={(e) => {
+                            $('#all-allow').prop('checked', false);
+                        }} />
+                    <label for={'privacy-policy-2'} style={{ margin: '0' }}>동의안함</label>
+                </RowContent>
+                <RowContent style={{ alignItems: 'center', marginTop: '32px' }}>
+                    <input type={'checkbox'} id='all-allow'
+                        onChange={(e) => {
+                            if ($('#all-allow').is(':checked')) {
+                                $("input:radio[id='term-of-use-1']").prop("checked", true);
+                                $("input:radio[id='privacy-policy-1']").prop("checked", true);
+                            }
+                        }} />
+                    <label for='all-allow'>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
+                </RowContent>
                 {location.state ?
                     <>
                     </>
@@ -275,98 +311,41 @@ const SignUpCard = () => {
                 <Input style={{ marginTop: '36px' }} placeholder='인증번호를 입력해주세요.' type={'text'} className='phone-check' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhoneCheck} />
                 <RegularNotice></RegularNotice>
                 <Button onClick={confirmCoincide} disabled={isCheckPhoneNumber}>{isCheckPhoneNumber ? '확인완료' : '인증번호 확인'}</Button>
-                <CategoryName>우편번호</CategoryName>
-                <Input className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
-                <CategoryName>주소</CategoryName>
-                <Input className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                <Button onClick={getAddressByText}>주소검색</Button>
-                {addressList.length > 0 && !isSelectAddress ?
+                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
+                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                    <Input style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
+                </RowContent>
+                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
+                <Input style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
+                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                {isSeePostCode ?
                     <>
-                        <div style={{ width: '100%', background: theme.color.font5, display: 'flex', marginTop: '32px' }}>
-                            <div style={{ maxWidth: '700px', padding: '8px', margin: '8px auto', background: '#fff', width: '95%', display: 'flex', flexDirection: 'column', maxHeight: '1000px', minHeight: '500px', overflowY: 'auto' }}>
-                                {addressList.map((item, idx) => (
-                                    <>
-                                        <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', borderBottom: `1px solid ${theme.color.font3}`, padding: '8px 0' }} onClick={() => { onSelectAddress(idx) }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font5 }}>
-                                                <div style={{ color: theme.color.red }}>{item.zip_code ?? "---"}</div>
-                                                <div style={{ color: theme.color.font3, marginLeft: '8px' }}>({item.land_number ?? "---"})</div>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font4, marginTop: '8px' }}>
-                                                <div style={{ border: `1px solid ${theme.color.font4}`, padding: '3px 4px', fontSize: theme.size.font5, marginRight: '8px', borderRadius: '4px', color: theme.color.blue }}>도로명</div>
-                                                <div>{item.road_address ?? "---"}</div>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font4, marginTop: '8px' }}>
-                                                <div style={{ border: `1px solid ${theme.color.font4}`, padding: '3px 10px', fontSize: theme.size.font5, marginRight: '8px', borderRadius: '4px', color: theme.color.blue }}>지번</div>
-                                                <div>{item.address ?? "---"}</div>
-
-                                            </div>
-                                        </div>
-                                    </>
-                                ))}
-                            </div>
-                        </div>
-
+                        <DaumPostcode style={postCodeStyle} autoClose onComplete={onSelectAddress} />
                     </>
                     :
                     <>
-                    </>
-                }
-                <CategoryName>상세주소</CategoryName>
-                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                    </>}
                 {/* <CategoryName>SNS 간편 회원가입</CategoryName>
                 <FlexBox>
                     <SnsLogo src={kakao} />
                     <SnsLogo src={naver} />
                 </FlexBox> */}
-                <Title>이용약관</Title>
-                <div style={{ width: '94%', height: '300px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
-                    <Policy pk={0} />
-                </div>
-                <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
-                    <input type={'radio'} id="term-of-use-1" name="term-of-use" style={{ margin: '0 4px 0 auto' }}
-                        onChange={(e) => {
-                            if ($('input[id=privacy-policy-1]:checked').val()) {
-                                $('#all-allow').prop('checked', true);
-                            }
-                        }} />
-                    <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
-                    <input type={'radio'} id="term-of-use-2" name="term-of-use" style={{ margin: '0 4px 0 0' }}
-                        onChange={(e) => {
-                            $('#all-allow').prop('checked', false);
-                        }} />
-                    <label for={'term-of-use-2'} style={{ margin: '0' }}>동의안함</label>
-                </RowContent>
-                <Title>개인정보취급방침</Title>
-                <div style={{ width: '94%', height: '300px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
-                    <Policy pk={1} />
-                </div>
-                <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
-                    <input type={'radio'} id="privacy-policy-1" name="privacy-policy" style={{ margin: '0 4px 0 auto' }}
-                        onChange={(e) => {
-                            if ($('input[id=term-of-use-1]:checked').val()) {
-                                $('#all-allow').prop('checked', true);
-                            }
-                        }} />
-                    <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
-                    <input type={'radio'} id="privacy-policy-2" name="privacy-policy" style={{ margin: '0 4px 0 0' }}
-                        onChange={(e) => {
-                            $('#all-allow').prop('checked', false);
-                        }} />
-                    <label for={'privacy-policy-2'} style={{ margin: '0' }}>동의안함</label>
-                </RowContent>
-                <RowContent style={{ alignItems: 'center', marginTop: '32px' }}>
-                    <input type={'checkbox'} id='all-allow'
-                        onChange={(e) => {
-                            if ($('#all-allow').is(':checked')) {
-                                $("input:radio[id='term-of-use-1']").prop("checked", true);
-                                $("input:radio[id='privacy-policy-1']").prop("checked", true);
-                            }
-                        }} />
-                    <label for='all-allow'>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
-                </RowContent>
+
                 <Button style={{ marginTop: '36px' }} onClick={onSignUp}>회원가입</Button>
             </WrapperForm>
         </>
     );
 };
+const postCodeStyle = {
+    display: 'block',
+    position: 'relative',
+    top: '0%',
+    maxWidth: '500px',
+    width: '100%',
+    height: '400px',
+    margin: '16px auto'
+};
+
 export default SignUpCard;

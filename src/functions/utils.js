@@ -133,7 +133,7 @@ export const numberToCategory = (num) => {
 export const regExp = (type, str) => {//id,pw,nickname,name
     let reg = undefined;
     if (type == 'id') {
-        reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{5,12}$/;
+        reg = /^[a-z]+[a-z0-9]{4,19}$/g;
     } else if (type == 'pw') {
         reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~`!@#$%^&*()_+-=,./;'<>?:"])[A-Za-z\d~`!@#$%^&*()_+-=,./;'<>?:"]{8,15}$/;
     } else if (type == 'name') {

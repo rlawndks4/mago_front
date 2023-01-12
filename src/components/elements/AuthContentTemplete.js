@@ -9,7 +9,8 @@ flex-direction:column;
 `
 
 export const CategoryName = styled.div`
-width:364px;
+max-width:398px;
+width:100%;
 margin:1rem auto 0 auto;
 font-size:15px;
 color:${(props) => props.theme.color.manager.font1};
@@ -20,8 +21,9 @@ margin-top: 36px;
 }
 `
 export const Input = styled.input`
-width:336px;
-padding:16px 12px;
+width:96%;
+max-width:364px;
+padding:16px 2%;
 border:1px solid #cccccc;
 margin:1rem auto 0 auto;
 outline:none;
@@ -36,7 +38,8 @@ border-radius:4px;
 }
 `
 export const Button = styled.button`
-width:364px;
+max-width:398px;
+width:100%;
 margin:0 auto;
 height:48px;
 border:none;
@@ -76,7 +79,7 @@ width:79.8%;
 }
 `
 export const FlexBox = styled.div`
-width:364px;
+width:398px;
 margin:1rem auto;
 display:flex;
 align-items:center;

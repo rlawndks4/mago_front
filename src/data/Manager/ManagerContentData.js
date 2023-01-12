@@ -122,7 +122,6 @@ export const objManagerListContent = {
             columnObjFormat('메인배너', '', 'img', 'main_img'),
             columnObjFormat('강사', '', 'text', 'master_nickname'),
             columnObjFormat('제목', '', 'text', 'title'),
-            columnObjFormat('난이도', '', 'text', 'difficulty'),
             columnObjFormat('정가', '', 'number', 'price'),
             columnObjFormat('할인율', '', 'text', 'discount_percent'),
             columnObjFormat('등록일', '', 'text', 'date'),

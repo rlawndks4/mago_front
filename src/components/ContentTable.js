@@ -60,19 +60,7 @@ const ContentTable = (props) => {
         return str;
     }
     const onSubscribe = async (num) => {
-        if (window.confirm("수강신청 하시겠습니까?")) {
-            navigate(`/payready/${num}`, { state: { item_pk: num } });
-            return;
-            const { data: response } = await axios.post('/api/onsubscribe', {
-                bag_pk: num,
-            })
-            if(response?.result>0){
-                alert("성공적으로 등록 되었습니다.");
-                pageSetting();
-            }else{
-                alert(response?.message);
-            }
-        }
+        navigate(`/payready/${num}`, { state: { item_pk: num } });
     }
     const getExistingPossessionByNumber = (num) => {
         if (num == 0) {
