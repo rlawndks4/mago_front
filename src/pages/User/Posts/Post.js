@@ -15,6 +15,7 @@ import Loading from '../../../components/Loading'
 import MetaTag from "../../../components/MetaTag";
 import ScrollToTopButton from "../../../components/ScrollToTopButton";
 import ZoomButton from "../../../components/ZoomButton";
+import ReactQuill from "react-quill";
 
 const Progress = styled.progress`
 
@@ -78,9 +79,9 @@ const Post = (props) => {
                 // if (obj['is_ios']) {
                 //     await localStorage.setItem('is_ios', '1');
                 // }
-                if(obj?.data?.id){
+                if (obj?.data?.id) {
                     await onLoginBySns(obj.data);
-                }else{
+                } else {
                     alert("로그인 해주세요.");
                     navigate('/login');
                 }
@@ -107,7 +108,8 @@ const Post = (props) => {
                     }
                 }
                 let obj = response.data ?? {};
-                if(obj?.note && (typeof obj?.note == 'string')){
+                console.log(response)
+                if (obj?.note && (typeof obj?.note == 'string')) {
                     obj.note = obj?.note.replaceAll('<p><br></p>', '<br>');
                     obj.note = obj?.note.replaceAll('http://localhost:8001', backUrl);
                     obj.note = obj?.note.replaceAll('https://weare-first.com:8443', backUrl);
@@ -134,14 +136,17 @@ const Post = (props) => {
                     $('.wrappers > .viewer > p').addClass("dark-mode");
                     $('.footer').addClass("dark-mode");
                     $('.viewer > div > div > div > p').addClass("dark-mode");
+                    await new Promise((r) => setTimeout(r, 300));
+                    $('.ql-editor').attr('style', 'width: 100% !important;');
+                    $('.ql-editor > p > img').attr('style', 'width: 100% !important;');
                 }
             } catch (err) {
                 if (err?.message?.includes('timeout of')) {
                     if (window.confirm('요청시간이 초과되었습니다. (인터넷 환경을 확인해주시기 바랍니다.)')) {
 
                     }
-                }else{
-                    if(window.confirm(err?.message)){
+                } else {
+                    if (window.confirm(err?.message)) {
                     }
                 }
             }
@@ -244,11 +249,11 @@ const Post = (props) => {
                 <MetaTag title={returnTitle(post?.title ?? "")} />
                 {loading ?
                     <>
-                        <Loading text={loadingText}/>
+                        <Loading text={loadingText} />
                     </>
                     :
                     <>
-                        
+
                         {/* {post?.main_img?
                         <>
                         <img src={backUrl + post?.main_img} style={{ width: '100%', margin: '16px 0' }} alt="#" />
@@ -266,7 +271,12 @@ const Post = (props) => {
                         </div>
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
                         <ViewerContainer className="viewer" style={{ margin: `${getViewerMarginByNumber(post?.note_align)}` }}>
-                            <Viewer initialValue={post?.note ?? `<body></body>`} />
+                            <ReactQuill
+                                value={post?.note ?? `<body></body>`}
+                                readOnly={true}
+                                theme={"bubble"}
+                                bounds={'.app'}
+                            />
                         </ViewerContainer>
                         {/* <ZoomButton/> */}
                         <CommentComponent addComment={addComment} data={comments} fetchComments={fetchComments} updateComment={updateComment} auth={auth} />

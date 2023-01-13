@@ -5,7 +5,6 @@ import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
 import { onClickWindowOpen } from "../functions/utils";
-import kakaoFotterIcon from '../assets/images/test/kakao-footer.png'
 const Wrappers = styled.footer`
     display:flex;
     flex-direction:column;
