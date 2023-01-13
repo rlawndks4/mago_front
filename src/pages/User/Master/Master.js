@@ -105,7 +105,9 @@ const Master = () => {
     const getAcademyContent = async (num) =>{
         setAcademyPage(num);
         const {data:response} = await axios.get(`/api/items?table=academy_category&page=${num}&page_cut=3&master_pk=${params.pk}`);
+        console.log(response)
         setAcademyList(response?.data?.data);
+
         setAcademyPageList(range(1, response?.data?.maxPage));
     }
     return (
@@ -138,7 +140,7 @@ const Master = () => {
                                 onClickTypeNum={onClickTypeNum}
                                 setTypeNum={setTypeNum}
                             />
-                            <Content>
+                            <Content style={{maxWidth:'750px'}}>
                                 <Title id='div-0'>소개</Title>
                                 {master?.introduce_img?
                                 <>
@@ -165,7 +167,7 @@ const Master = () => {
                                         <PageButton onClick={() => getAcademyContent(1)}>
                                             처음
                                         </PageButton>
-                                        {pageList.map((item, index) => (
+                                        {academyPageList.map((item, index) => (
                                             <>
                                                 <PageButton onClick={() => getAcademyContent(item)} style={{ color: `${academyPage == item ? '#fff' : ''}`, background: `${academyPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - academyPage) > 4 ? 'none' : ''}` }}>
                                                     {item}

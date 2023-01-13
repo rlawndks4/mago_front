@@ -111,6 +111,9 @@ const Academy = () => {
         setReviewList(response?.data?.review_list);
         setPageList(range(1, response?.data?.maxPage));
         setLoading(false);
+        await new Promise((r) => setTimeout(r, 300));
+        $('.ql-editor').attr('style','width: 100% !important;');
+        $('.ql-editor > p > img').attr('style','width: 100% !important;');
     }
     const onClickTypeNum = (num) => {
         setTypeNum(num);
@@ -150,6 +153,7 @@ const Academy = () => {
                                         value={posts?.introduce_note ?? `<body></body>`}
                                         readOnly={true}
                                         theme={"bubble"}
+                                        style={{width:'100%'}}
                                     />
                                 </ViewerContainer>
                                 <Title id='div-1'>혜택</Title>

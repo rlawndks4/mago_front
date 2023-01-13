@@ -221,8 +221,10 @@ const EditMyInfoCard = () => {
             alert(response.message);
         }
     }
-     const onSelectAddress = (data) => {
+    const onSelectAddress = (data) => {
+        setIsSeePostCode(false);
         console.log(data);
+
         $('.address').val(data?.address);
         $('.zip_code').val(data?.zonecode);
         $('.address_detail').val("");
@@ -283,21 +285,23 @@ const EditMyInfoCard = () => {
                                     <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                 </div>
                                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
-                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                    <Input style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
-                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
-                </RowContent>
-                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                <Input style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
-                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
-                {isSeePostCode ?
-                    <>
-                        <DaumPostcode style={postCodeStyle} autoClose onComplete={onSelectAddress} />
-                    </>
-                    :
-                    <>
-                    </>}
+                                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                                    <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
+                                </RowContent>
+                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
+                                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
+                                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                                {isSeePostCode ?
+                                    <>
+                                        <div>
+                                            <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                                        </div>
+                                    </>
+                                    :
+                                    <>
+                                    </>}
                                 <CategoryName>예금주</CategoryName>
                                 <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
                                 <CategoryName>은행명</CategoryName>

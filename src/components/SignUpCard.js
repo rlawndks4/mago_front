@@ -219,6 +219,7 @@ const SignUpCard = () => {
         }
     }
     const onSelectAddress = (data) => {
+        setIsSeePostCode(false);
         console.log(data);
         $('.address').val(data?.address);
         $('.zip_code').val(data?.zonecode);
@@ -231,7 +232,7 @@ const SignUpCard = () => {
             <WrapperForm onSubmit={onSignUp} id='login_form'>
                 <Title>회원가입</Title>
                 <Title>이용약관</Title>
-                <div style={{ width: '94%', height: '300px', maxWidth: '400px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
+                <div style={{ width: '94%', height: '150px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
                     <Policy pk={0} />
                 </div>
                 <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
@@ -249,7 +250,7 @@ const SignUpCard = () => {
                     <label for={'term-of-use-2'} style={{ margin: '0' }}>동의안함</label>
                 </RowContent>
                 <Title>개인정보취급방침</Title>
-                <div style={{ width: '94%', height: '300px', maxWidth: '400px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
+                <div style={{ width: '94%', height: '150px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
                     <Policy pk={1} />
                 </div>
                 <RowContent style={{ alignItems: 'center', marginTop: '8px' }}>
@@ -313,16 +314,18 @@ const SignUpCard = () => {
                 <Button onClick={confirmCoincide} disabled={isCheckPhoneNumber}>{isCheckPhoneNumber ? '확인완료' : '인증번호 확인'}</Button>
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
                 <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                    <Input style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                    <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                     <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
                 </RowContent>
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                <Input style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
                 <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
                 {isSeePostCode ?
                     <>
-                        <DaumPostcode style={postCodeStyle} autoClose onComplete={onSelectAddress} />
+                     <div>
+                     <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                     </div>
                     </>
                     :
                     <>

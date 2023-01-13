@@ -71,7 +71,7 @@ const Footer = () => {
                     <Wrappers className="footer" style={{ background: `#23242f`, fontSize: theme.size.font5 }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '800px' }}>
                             <Img src={logo} alt="footer" />
-                            <img src={kakaoFotterIcon} style={{ width: '140px', cursor: 'pointer' }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
+                            
                         </div>
                         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
