@@ -314,11 +314,11 @@ const SignUpCard = () => {
                 <Button onClick={confirmCoincide} disabled={isCheckPhoneNumber}>{isCheckPhoneNumber ? '확인완료' : '인증번호 확인'}</Button>
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
                 <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                    <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                    <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                     <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
                 </RowContent>
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
                 <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
                 <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
                 {isSeePostCode ?
