@@ -138,7 +138,7 @@ const ServiceCenter = () => {
                         {typeNum == 1 ?
                             <>
                                 <Content style={{ marginTop: '16px' }}>
-                                    <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font3, borderBottom: `1px solid ${theme.color.font4}`, fontWeight: 'bold', padding: '6px 0' }}>
+                                    <div style={{ color: theme.color.font1, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font3, borderBottom: `1px solid ${theme.color.font4}`, fontWeight: 'bold', padding: '6px 0' }}>
                                         <div style={{ width: '50%', textAlign: 'left' }}>제목</div>
                                         <div style={{ width: '25%', textAlign: 'end' }}>작성일</div>
                                         <div style={{ width: '25%', textAlign: 'end' }}>비고</div>

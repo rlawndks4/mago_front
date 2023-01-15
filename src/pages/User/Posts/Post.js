@@ -16,7 +16,8 @@ import MetaTag from "../../../components/MetaTag";
 import ScrollToTopButton from "../../../components/ScrollToTopButton";
 import ZoomButton from "../../../components/ZoomButton";
 import ReactQuill from "react-quill";
-
+import 'react-quill/dist/quill.snow.css';
+import './post.css';
 const Progress = styled.progress`
 
 appearance: none;
@@ -108,8 +109,9 @@ const Post = (props) => {
                     }
                 }
                 let obj = response.data ?? {};
-                console.log(response)
                 if (obj?.note && (typeof obj?.note == 'string')) {
+
+                    obj.note = obj?.note.replaceAll('youtube.com/embed', 'youtube-nocookie.com/embed');
                     obj.note = obj?.note.replaceAll('<p><br></p>', '<br>');
                     obj.note = obj?.note.replaceAll('http://localhost:8001', backUrl);
                     obj.note = obj?.note.replaceAll('https://weare-first.com:8443', backUrl);
@@ -157,10 +159,11 @@ const Post = (props) => {
         fetchPost();
         fetchComments();
         $('.lazy-load-image-background').addClass('comment-img');
-        window.addEventListener('scroll', function (el) {
-            let per = Math.floor(($(window).scrollTop() / ($(document).height() - $(window).height())) * 100);
-            setPercent(per);
-        })
+        $('.ytp-cued-thumbnail-overlay-image').attr('style','background-size:contain !important;');
+        // window.addEventListener('scroll', function (el) {
+        //     let per = Math.floor(($(window).scrollTop() / ($(document).height() - $(window).height())) * 100);
+        //     setPercent(per);
+        // })
 
     }, [])
     const onLoginBySns = async (obj) => {
@@ -283,7 +286,7 @@ const Post = (props) => {
 
                     </>}
 
-                <Progress value={`${percent}`} max="100"></Progress>
+                {/* <Progress value={`${percent}`} max="100"></Progress> */}
                 {/* <Logo src={logo} style={{left:`${percent-1}.7%`}}/> */}
             </Wrappers>
         </>
