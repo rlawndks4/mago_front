@@ -159,7 +159,6 @@ const Post = (props) => {
         fetchPost();
         fetchComments();
         $('.lazy-load-image-background').addClass('comment-img');
-        $('.ytp-cued-thumbnail-overlay-image').attr('style','background-size:contain !important;');
         // window.addEventListener('scroll', function (el) {
         //     let per = Math.floor(($(window).scrollTop() / ($(document).height() - $(window).height())) * 100);
         //     setPercent(per);

@@ -80,10 +80,11 @@ const PayReady = () => {
     const onPayTypeClick = (type_num) => {
         if (!$('input[id=term-of-use-1]:checked').val()) {
             alert('이용약관을 동의해 주세요.');
-
-        } else if (!$('input[id=privacy-policy-1]:checked').val()) {
+            return;
+        }
+        if (!$('input[id=privacy-policy-1]:checked').val()) {
             alert('개인정보취급방침을 동의해 주세요.');
-
+            return;
         }
         if (type_num == 0) {
             setIsSeeKakao(false);
