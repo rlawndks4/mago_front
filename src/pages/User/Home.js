@@ -61,6 +61,42 @@ position:relative;
     flex-direction:column;
 }
 `
+const NoticeContainer = styled.div`
+color: ${props=>props.theme.color.font2};
+display: flex;
+justify-content: space-between;
+font-size: theme.size.font4;
+margin-bottom: 8px;
+cursor: pointer;
+border: 1px solid ${theme.color.font5};
+padding: 4px 8px;
+@media screen and (max-width:450px) { 
+    flex-direction:column;
+}
+`
+const NoticeImg = styled.img`
+height: 100px;
+width: 150px;
+@media screen and (max-width:450px) { 
+    width:84vw;
+    height:56vw;
+    margin:0 auto 8px auto;
+}
+`
+const NoticeContent = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+margin: 0 auto 0 8px;
+width:306px;
+@media screen and (max-width:1000px) {
+width:80%;
+}
+@media screen and (max-width:450px) { 
+    width:84vw;
+    margin:0 auto;
+}
+`
 const ReviewCard = (props) => {
     let { item, onClick } = props;
     const [note, setNote] = useState([]);
@@ -125,7 +161,7 @@ const Home = () => {
     };
     useEffect(() => {
         async function fetchPost() {
-            setLoading(true)
+           // setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
             let banner_list = [];
             let banner_link_obj = {};
@@ -286,16 +322,16 @@ const Home = () => {
                                 <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
                                 {notices.length > 0 && notices.map((item, idx) => (
                                     <>
-                                        <div style={{ color: theme.color.font2, display: 'flex', justifyContent: 'space-between', fontSize: theme.size.font4, marginBottom: '8px', cursor: 'pointer', border: `1px solid ${theme.color.font5}`, padding: '4px 8px' }} onClick={() => navigate(`/post/notice/${item?.pk}`)}>
-                                            <img style={{ height: '100px', width: '150px' }} src={item?.main_img ? (backUrl + item?.main_img) : defaultImageSrc} />
-                                            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', margin: '0 auto 0 8px' }}>
+                                        <NoticeContainer onClick={() => navigate(`/post/notice/${item?.pk}`)}>
+                                            <NoticeImg  src={item?.main_img ? (backUrl + item?.main_img) : defaultImageSrc} />
+                                            <NoticeContent>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
-                                                    <div>{item?.title}</div>
+                                                    <div>{item?.title}asdsadsadsadsa</div>
                                                 </div>
-                                                <div>{item?.date.substring(0, 10)}</div>
-                                            </div>
-                                        </div>
+                                                <div style={{margin:`${window.innerWidth>=450?'':'8px 0 0 auto'}`}}>{item?.date.substring(0, 10)}</div>
+                                            </NoticeContent>
+                                        </NoticeContainer>
                                     </>
                                 ))}
                             </HalfContent>
