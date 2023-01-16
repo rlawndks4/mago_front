@@ -191,7 +191,7 @@ const PayReady = () => {
                         </RowContent>
                         {isSeeGoPay ?
                             <>
-                                <TextFillButton style={{ width: '100%', maxWidth: '500px', margin: '16px auto', height: '60px', background: theme.color.background2, border: `1px solid ${theme.color.background2}`, borderRadius: '0' }}
+                                <TextFillButton style={{ width: '100%', maxWidth: '500px', margin: '16px auto', background: theme.color.background2, border: `1px solid ${theme.color.background2}` }}
                                     onClick={() => {
                                         if (!$('input[id=term-of-use-1]:checked').val()) {
                                             alert('이용약관을 동의해 주세요.');
@@ -213,7 +213,7 @@ const PayReady = () => {
                             </>}
                         {isSeeKakao ?
                             <>
-                                <div style={{ width: '100%', maxWidth: '500px', display: 'flex', padding: '16px 0', margin: '16px auto', cursor: 'pointer', background: '#ffe812', alignItems: 'center' }}
+                                <div style={{ width: '100%', maxWidth: '500px', display: 'flex', padding: '11px 0', margin: '16px auto', cursor: 'pointer', background: '#ffe812', alignItems: 'center',borderRadius:theme.borderRadius }}
                                     onClick={() => {
                                         if (!$('input[id=term-of-use-1]:checked').val()) {
                                             alert('이용약관을 동의해 주세요.');
