@@ -112,6 +112,7 @@ const ContentTable = (props) => {
                                             getStarBynum(parseInt(item[column.column])) ?? "---"
                                             :
                                             null}
+                                            
                                         {column.type == 'number' ?
                                             commarNumber(item[column.column]) ?? "---"
                                             :

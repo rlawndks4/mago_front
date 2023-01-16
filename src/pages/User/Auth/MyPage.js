@@ -73,6 +73,7 @@ const MyPage = () => {
     const [isWebView, setIsWebView] = useState(false);
     const [bagList, setBagList] = useState();
     const [calssList, setClassList] = useState();
+    const [payList, setPayList] = useState();
     useEffect(() => {
         async function isAdmin() {
             const { data: response } = await axios.get('/api/getmyinfo');
@@ -97,15 +98,21 @@ const MyPage = () => {
         let list = [...response?.data?.data];
         let bag_list = [];
         let class_list = [];
+        let pay_list = [];
+        console.log(response)
         for (var i = 0; i < list.length; i++) {
             if (list[i]?.status == 1) {
-                class_list.push(list[i]);
+                if(list[i]?.price>0){
+                    class_list.push(list[i]);
+                }
+                pay_list.push(list[i]);
             } else {
                 bag_list.push(list[i]);
             }
         }
         setBagList(bag_list);
         setClassList(class_list);
+        setPayList(pay_list);
     }
     const pageSetting = async () => {
         await getMyContent();
@@ -196,11 +203,12 @@ const MyPage = () => {
                 <Title>결제 내역</Title>
                 <ShadowContainer>
                     <ContentTable columns={[
-                        { name: "수강상품", column: "title", width: 40, type: 'text' },
-                        { name: "강사", column: "master_name", width: 30, type: 'text' },
-                        { name: "결제금액", column: "price", width: 30, type: 'number' },
+                        { name: "수강상품", column: "title", width: 30, type: 'text' },
+                        { name: "강사", column: "master_name", width: 20, type: 'text' },
+                        { name: "결제금액", column: "price", width: 20, type: 'number' },
+                        { name: "결제일시", column: "trade_date", width: 30, type: 'text' },
                     ]}
-                        data={calssList}
+                        data={payList}
                         schema={'subscribe'} />
                 </ShadowContainer>
                 <div style={{ marginTop: '36px' }} />
