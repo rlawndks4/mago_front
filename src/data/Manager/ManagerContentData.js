@@ -54,6 +54,7 @@ export const objManagerListContent = {
             columnObjFormat('로그인타입', '', 'login_type', 'type'),
             columnObjFormat('아이디', '', 'text', 'id'),
             columnObjFormat('이름', '', 'text', 'name'),
+            columnObjFormat('닉네임', '', 'text', 'nickname'),
             columnObjFormat('폰번호', '', 'text', 'phone'),
             columnObjFormat('접근권한', '', 'level', 'user_level'),
             columnObjFormat('가입일', '', 'text', 'date'),
@@ -202,6 +203,7 @@ export const objManagerListContent = {
         [
             columnObjFormat('신청번호', '', 'number', 'pk'),
             columnObjFormat('아이디', '', 'text', 'id'),
+            columnObjFormat('닉네임', '', 'text', 'nickname'),
             columnObjFormat('유저명', '', 'text', 'user_name'),
             columnObjFormat('폰번호', '', 'text', 'phone'),
             columnObjFormat('수강강의', '', 'text', 'title'),

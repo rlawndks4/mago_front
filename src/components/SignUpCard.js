@@ -227,7 +227,7 @@ const SignUpCard = () => {
         $('.address_detail').val("");
         $('.address_detail').focus();
     }
-    const onClickXbutton = () =>{
+    const onClickXbutton = () => {
         setIsSeePostCode(false);
     }
     return (
@@ -320,8 +320,11 @@ const SignUpCard = () => {
                     <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                     <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
                 </RowContent>
-                <CategoryName>주소</CategoryName>
-                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <CategoryName style={{ display: 'flex', alignItems: 'center' }}>
+                    <div>주소</div>
+                    <div style={{ fontSize: theme.size.font6, color: theme.color.red, marginLeft: '6px' }}>※ 교재발송을 위한 주소입니다. 교재를 수령하실 주소를 입력해주세요.</div>
+                </CategoryName>
+                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
                 <CategoryName>상세주소</CategoryName>
                 <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
 
