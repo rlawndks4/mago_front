@@ -104,7 +104,7 @@ const Master = () => {
     }
     const getAcademyContent = async (num) =>{
         setAcademyPage(num);
-        const {data:response} = await axios.get(`/api/items?table=academy_category&page=${num}&page_cut=3&master_pk=${params.pk}`);
+        const {data:response} = await axios.get(`/api/items?table=academy_category&page=${num}&page_cut=3&master_pk=${params.pk}&status=1`);
         console.log(response)
         setAcademyList(response?.data?.data);
 
