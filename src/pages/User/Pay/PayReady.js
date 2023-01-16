@@ -109,7 +109,7 @@ const PayReady = () => {
                         {/* <div style={{ padding: '8px 24px', borderBottom: `1px solid ${theme.color.font2}`, width: '150px', textAlign: 'center', margin: '0 auto', fontSize: theme.size.font4, fontWeight: 'bold' }}>{posts?.title}</div> */}
                         <AcademySubCard item={posts} not_price={true} />
                         <RowContent>
-                            <div style={{ marginLeft: 'auto', marginRight: '22px'}}>
+                            <div style={{ marginLeft: 'auto', marginRight: '22px' }}>
                                 {commarNumber(makeDiscountPrice(posts?.price, posts?.discount_percent))}원
                             </div>
                         </RowContent>
@@ -193,6 +193,14 @@ const PayReady = () => {
                             <>
                                 <TextFillButton style={{ width: '100%', maxWidth: '500px', margin: '16px auto', height: '60px', background: theme.color.background2, border: `1px solid ${theme.color.background2}`, borderRadius: '0' }}
                                     onClick={() => {
+                                        if (!$('input[id=term-of-use-1]:checked').val()) {
+                                            alert('이용약관을 동의해 주세요.');
+                                            return;
+                                        }
+                                        if (!$('input[id=privacy-policy-1]:checked').val()) {
+                                            alert('개인정보취급방침을 동의해 주세요.');
+                                            return;
+                                        }
                                         if (window.confirm('결제하시겠습니까?')) {
                                             navigate(`/authpay/${params?.pk}`);
                                         }
@@ -206,7 +214,17 @@ const PayReady = () => {
                         {isSeeKakao ?
                             <>
                                 <div style={{ width: '100%', maxWidth: '500px', display: 'flex', padding: '16px 0', margin: '16px auto', cursor: 'pointer', background: '#ffe812', alignItems: 'center' }}
-                                    onClick={() => { window.open('http://pf.kakao.com/_xgKMUb/chat'); }}>
+                                    onClick={() => {
+                                        if (!$('input[id=term-of-use-1]:checked').val()) {
+                                            alert('이용약관을 동의해 주세요.');
+                                            return;
+                                        }
+                                        if (!$('input[id=privacy-policy-1]:checked').val()) {
+                                            alert('개인정보취급방침을 동의해 주세요.');
+                                            return;
+                                        }
+                                        window.open('http://pf.kakao.com/_xgKMUb/chat');
+                                    }}>
                                     <div style={{ margin: '0 4px 0 auto' }}>무통장 입금 방법 문의하기</div>
                                     <RiKakaoTalkFill style={{ margin: '0 auto 0 4px', fontSize: theme.size.font1 }} />
                                 </div>
