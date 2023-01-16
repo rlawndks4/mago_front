@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { WrapperForm, CategoryName, Input, Button, FlexBox, SnsLogo, RegularNotice } from './elements/AuthContentTemplete';
-import { Title, SelectType, RowContent } from "./elements/UserContentTemplete";
+import { Title, SelectType, RowContent, ShadowContainer } from "./elements/UserContentTemplete";
 import theme from "../styles/theme";
 import $ from 'jquery';
 import axios from "axios";
@@ -12,6 +12,7 @@ import { backUrl } from "../data/Data";
 import imageCompression from 'browser-image-compression';
 import DaumPostcode from 'react-daum-postcode';
 import AddButton from './elements/button/AddButton';
+import { AiOutlineLock } from "react-icons/ai";
 const Table = styled.table`
 font-size:12px;
 width:95%;
@@ -66,6 +67,8 @@ const EditMyInfoCard = () => {
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
     const [isSeePostCode, setIsSeePostCode] = useState(false);
+    const [isPermisstionEdit, setIsPermissionEdit] = useState(false);
+
     useEffect(() => {
         if (localStorage.getItem('is_ios')) {
             onChangeTypeNum(1)
@@ -166,6 +169,10 @@ const EditMyInfoCard = () => {
         let str = '/api/editmyinfo';
 
         let obj = { id: myId, pw: $('.pw').val(), typeNum: num };
+        if (!$('.pw').val()) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
         if (num == 0) {
             obj.address = $('.address').val();
             obj.address_detail = $('.address_detail').val();
@@ -173,12 +180,7 @@ const EditMyInfoCard = () => {
             obj.account_holder = $('.account_holder').val();
             obj.bank_name = $('.bank_name').val();
             obj.account_number = $('.account_number').val();
-        } else {
-            if (!$('.pw').val()) {
-                alert("비밀번호를 입력해주세요.");
-                return;
-            }
-        }
+        } 
         if (num == 1) {
             if (!$('.nickname').val()) {
                 alert("닉네임을 입력해주세요.");
@@ -217,6 +219,7 @@ const EditMyInfoCard = () => {
         const { data: response } = await axios.post(str, obj);
         if (response.result > 0) {
             alert("성공적으로 저장되었습니다.");
+            navigate('/mypage');
         } else {
             alert(response.message);
         }
@@ -242,119 +245,144 @@ const EditMyInfoCard = () => {
         }
 
     }
+    const checkPw = async() =>{
+        const {data:response} = await axios.post('/api/checkpassword',{
+            pw:$('.check-pw').val()
+        })
+        console.log(response)
+        if(response?.result>0){
+            setIsPermissionEdit(true);
+        }else{
+            alert(response?.message);
+        }
+    }
     return (
         <>
             <WrapperForm>
                 <Title>마이페이지 수정</Title>
-                <SelectType className="select-type">
-                    {zType.map((item, idx) => (
-                        <>
-                            <Type style={{ borderBottom: `4px solid ${typeNum == item?.type ? theme.color.background1 : '#fff'}`, color: `${typeNum == item?.type ? theme.color.background1 : (localStorage.getItem('dark_mode') ? '#fff' : '#ccc')}` }} onClick={() => { onChangeTypeNum(item?.type) }}>{item.title}</Type>
-                        </>
-                    ))}
-
-                </SelectType>
-                {localStorage.getItem('is_ios') ?
+                {!isPermisstionEdit ?
                     <>
+                        <AiOutlineLock style={{margin:'36px auto',fontSize:'64px',color:theme.color.font3}} />
+                        <div style={{margin:'0 auto 36px auto'}}>"비밀번호를 확인해 주세요."</div>
+                        <div style={{margin:'0 auto 36px auto',fontSize:theme.size.font4,color:theme.color.font3,textAlign:'center',lineHeight:theme.size.font2}}>회원님의 개인정보를 안전하게 보호하기 위해<br/>비밀번호를 재 확인 합니다.</div>
+                        <Input className="check-pw" type={'password'} placeholder="현재 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? checkPw() : null} />
+                        <Button style={{ marginTop: '36px' }} onClick={() => checkPw()}>확인</Button>
                     </>
                     :
                     <>
-                        {typeNum == 0 ?
+                        <SelectType className="select-type">
+                            {zType.map((item, idx) => (
+                                <>
+                                    <Type style={{ borderBottom: `4px solid ${typeNum == item?.type ? theme.color.background1 : '#fff'}`, color: `${typeNum == item?.type ? theme.color.background1 : (localStorage.getItem('dark_mode') ? '#fff' : '#ccc')}` }} onClick={() => { onChangeTypeNum(item?.type) }}>{item.title}</Type>
+                                </>
+                            ))}
+
+                        </SelectType>
+                        {localStorage.getItem('is_ios') ?
                             <>
-                                <CategoryName>이미지 업로드</CategoryName>
-                                <label for="file1" style={{ margin: '0 auto' }}>
-                                    {url ?
-                                        <>
-                                            <img src={url} alt="#"
-                                                style={{
-                                                    width: '8rem', height: '8rem',
-                                                    margin: '2rem auto', borderRadius: '50%'
-                                                }} />
-                                        </>
-                                        :
-                                        <>
-                                            <img src={defaultImg} alt="#"
-                                                style={{
-                                                    width: '8rem', height: '8rem',
-                                                    margin: '2rem auto', borderRadius: '50%'
-                                                }} />
-                                        </>}
-                                </label>
-                                <div>
-                                    <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
-                                </div>
-                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
-                                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                                    <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
-                                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
-                                </RowContent>
-                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
-                                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
-                                {isSeePostCode ?
+                            </>
+                            :
+                            <>
+                                {typeNum == 0 ?
                                     <>
+                                        <CategoryName>이미지 업로드</CategoryName>
+                                        <label for="file1" style={{ margin: '0 auto' }}>
+                                            {url ?
+                                                <>
+                                                    <img src={url} alt="#"
+                                                        style={{
+                                                            width: '8rem', height: '8rem',
+                                                            margin: '2rem auto', borderRadius: '50%'
+                                                        }} />
+                                                </>
+                                                :
+                                                <>
+                                                    <img src={defaultImg} alt="#"
+                                                        style={{
+                                                            width: '8rem', height: '8rem',
+                                                            margin: '2rem auto', borderRadius: '50%'
+                                                        }} />
+                                                </>}
+                                        </label>
                                         <div>
-                                            <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                                            <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                         </div>
+                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
+                                        <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                                            <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                                            <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
+                                        </RowContent>
+                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
+                                        <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
+                                        <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                                        {isSeePostCode ?
+                                            <>
+                                                <div>
+                                                    <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                                                </div>
+                                            </>
+                                            :
+                                            <>
+                                            </>}
+                                        <CategoryName>예금주</CategoryName>
+                                        <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
+                                        <CategoryName>은행명</CategoryName>
+                                        <Input className="bank_name" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.account_number').focus() : null} />
+                                        <CategoryName>계좌번호</CategoryName>
+                                        <Input className="account_number" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
+                                        <CategoryName>비밀번호</CategoryName>
+                                        <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.nickname').focus() : null} autoComplete={'new-password'} />
                                     </>
                                     :
                                     <>
-                                    </>}
-                                <CategoryName>예금주</CategoryName>
-                                <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
-                                <CategoryName>은행명</CategoryName>
-                                <Input className="bank_name" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.account_number').focus() : null} />
-                                <CategoryName>계좌번호</CategoryName>
-                                <Input className="account_number" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
+                                    </>
+                                }
+                            </>
+                        }
+
+                        {typeNum == 1 ?
+                            <>
+                                <CategoryName>비밀번호</CategoryName>
+                                <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.nickname').focus() : null} autoComplete={'new-password'} />
+                                <CategoryName>변경할 닉네임</CategoryName>
+                                <Input className="nickname" placeholder="변경할 닉네임을 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
                             </>
                             :
                             <>
                             </>
                         }
-                    </>
-                }
+                        {typeNum == 2 ?
+                            <>
+                                <CategoryName>현재 비밀번호</CategoryName>
+                                <Input className="pw" type={'password'} placeholder="현재 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.new-pw').focus() : null} autoComplete={'new-password'} />
+                                <CategoryName>새 비밀번호</CategoryName>
+                                <Input className="new-pw" type={'password'} placeholder="새 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.new-pw-check').focus() : null} autoComplete={'new-password'} />
+                                <CategoryName>새 비밀번호 확인</CategoryName>
+                                <Input className="new-pw-check" type={'password'} placeholder="비밀번호를 한번 더 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} autoComplete={'new-password'} />
+                            </>
+                            :
+                            <>
+                            </>
+                        }
+                        {typeNum == 3 ?
+                            <>
+                                <CategoryName>비밀번호</CategoryName>
+                                <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.phone').focus() : null} autoComplete={'new-password'} />
+                                <CategoryName>전화번호</CategoryName>
+                                <Input className="phone" placeholder="전화번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? sendSms() : null} />
+                                <RegularNotice></RegularNotice>
+                                <Button onClick={sendSms}>인증번호 발송</Button>
+                                <CategoryName>인증번호</CategoryName>
+                                <Input className="phone-check" placeholder="인증번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
+                            </>
+                            :
+                            <>
+                            </>
+                        }
+                        <Button style={{ marginTop: '36px' }} onClick={() => onSave(typeNum)}>저장</Button>
+                    </>}
 
-                {typeNum == 1 ?
-                    <>
-                        <CategoryName>비밀번호</CategoryName>
-                        <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.nickname').focus() : null} />
-                        <CategoryName>변경할 닉네임</CategoryName>
-                        <Input className="nickname" placeholder="변경할 닉네임을 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
-                    </>
-                    :
-                    <>
-                    </>
-                }
-                {typeNum == 2 ?
-                    <>
-                        <CategoryName>현재 비밀번호</CategoryName>
-                        <Input className="pw" type={'password'} placeholder="현재 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.new-pw').focus() : null} />
-                        <CategoryName>새 비밀번호</CategoryName>
-                        <Input className="new-pw" type={'password'} placeholder="새 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.new-pw-check').focus() : null} />
-                        <CategoryName>새 비밀번호 확인</CategoryName>
-                        <Input className="new-pw-check" type={'password'} placeholder="비밀번호를 한번 더 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
-                    </>
-                    :
-                    <>
-                    </>
-                }
-                {typeNum == 3 ?
-                    <>
-                        <CategoryName>비밀번호</CategoryName>
-                        <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.phone').focus() : null} />
-                        <CategoryName>전화번호</CategoryName>
-                        <Input className="phone" placeholder="전화번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? sendSms() : null} />
-                        <RegularNotice></RegularNotice>
-                        <Button onClick={sendSms}>인증번호 발송</Button>
-                        <CategoryName>인증번호</CategoryName>
-                        <Input className="phone-check" placeholder="인증번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
-                    </>
-                    :
-                    <>
-                    </>
-                }
-                <Button style={{ marginTop: '36px' }} onClick={() => onSave(typeNum)}>저장</Button>
             </WrapperForm>
         </>
     )
