@@ -13,8 +13,9 @@ import { useState } from 'react'
 import { GrLinkTop } from 'react-icons/gr'
 import { commarNumber, numberToCategory } from '../../functions/utils'
 import { useEffect } from 'react'
-import {GiCancel} from 'react-icons/gi'
+import { GiCancel } from 'react-icons/gi'
 import $ from 'jquery'
+import {RiMoneyDollarCircleLine} from 'react-icons/ri'
 const Tr = styled.tr`
 box-shadow:1px 1px 1px #00000029;
 font-size:14px;
@@ -29,7 +30,7 @@ margin-bottom:6px;
 `
 const ItemTypes = { CARD: 'card' }
 
-const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opTheTopItem, changeItemSequence, deleteItem, changeStatus }) => {
+const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, obj, opTheTopItem, changeItemSequence, deleteItem, changeStatus }) => {
     const notUseCard = ['all', 'user_statistics'];
     const navigate = useNavigate();
     const ref = useRef(null)
@@ -156,7 +157,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
 
                         {col.type == 'text' ?
                             <>
-                                <Td style={{ width: `${col.width}%` }}>{data[`${col.column}`]??"---"}</Td>
+                                <Td style={{ width: `${col.width}%` }}>{data[`${col.column}`] ?? "---"}</Td>
                             </>
                             :
                             <>
@@ -225,10 +226,10 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
                             :
                             <>
                             </>}
-                            {col.type == 'period' ?
+                        {col.type == 'period' ?
                             <>
                                 <Td style={{ width: `${col.width}%` }}>
-                                {data?.date.substring(0, 10)} ~ {data?.end_date} 
+                                    {data?.date.substring(0, 10)} ~ {data?.end_date}
                                 </Td>
                             </>
                             :
@@ -296,7 +297,7 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
                             :
                             <>
                             </>}
-                            {col.type == 'pay_edit' ?
+                        {col.type == 'pay_edit' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
                                     <BiEditAlt style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/pay_edit/${data.pk}`)} />
@@ -305,35 +306,44 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort,obj, opT
                             :
                             <>
                             </>}
-                            {col.type == 'cancel_price' ?
-                            <>
-                                <Td style={{ width: `${col.width}%` }}>
-                                    {data?.price>0?'---':commarNumber((data?.price??0)*(-1))}
-                                </Td>
-                            </>
-                            :
-                            <>
-                            </>}
-                            {col.type == 'approve_price' ?
-                            <>
-                                <Td style={{ width: `${col.width}%` }}>
-                                    {data?.price<0?'---':commarNumber((data?.price??0))}
-                                </Td>
-                            </>
-                            :
-                            <>
-                            </>}
-                            {col.type == 'pay_cancel' ?
+                            {col.type == 'user_pay_list' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
-                                    {data?.price>0?
-                                    <>
-                                    <GiCancel style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/pay_cancel/${data.pk}`)} />
-                                    </>
-                                    :
-                                    <>
-                                    ---
-                                    </>}
+                                    <RiMoneyDollarCircleLine style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/subscribe/${data.pk}`,{state:{breadcrumb:`${data?.id} 회원 결제 내역`}})} />
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                        {col.type == 'cancel_price' ?
+                            <>
+                                <Td style={{ width: `${col.width}%` }}>
+                                    {data?.price > 0 ? '---' : commarNumber((data?.price ?? 0) * (-1))}
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                        {col.type == 'approve_price' ?
+                            <>
+                                <Td style={{ width: `${col.width}%` }}>
+                                    {data?.price < 0 ? '---' : commarNumber((data?.price ?? 0))}
+                                </Td>
+                            </>
+                            :
+                            <>
+                            </>}
+                        {col.type == 'pay_cancel' ?
+                            <>
+                                <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
+                                    {data?.price > 0 ?
+                                        <>
+                                            <GiCancel style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/pay_cancel/${data.pk}`)} />
+                                        </>
+                                        :
+                                        <>
+                                            ---
+                                        </>}
                                 </Td>
                             </>
                             :

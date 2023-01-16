@@ -16,7 +16,7 @@ export const needTwoImage = ['issue', 'theme', 'feature'];
 export const zSidebar = [
     sidebarContentFormat('회원관리', [
         sidebarObjListFormat('회원관리', '/manager/list/user', 40, ['/manager/list/user']),//edit
-        sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
+        //sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
         sidebarObjListFormat('장바구니관리', '/manager/list/bag', 40, ['/manager/list/bag']),//edit
     ], <BsPerson />),
@@ -58,6 +58,7 @@ export const objManagerListContent = {
             columnObjFormat('접근권한', '', 'level', 'user_level'),
             columnObjFormat('가입일', '', 'text', 'date'),
             columnObjFormat('로그인시간', '', 'text', 'last_login'),
+            columnObjFormat('결제내역', '', 'user_pay_list', 'user_pay_list'),
             columnObjFormat('수정', '', 'edit', 'edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
@@ -81,7 +82,7 @@ export const objManagerListContent = {
         true),
     user_statistics: sidebarObjFormat(
         '회원 통계',
-        'user_statistics',
+        'user',
         [
             columnObjFormat('로그인타입', '', 'login_type', 'type'),
             columnObjFormat('아이디', '', 'text', 'id'),

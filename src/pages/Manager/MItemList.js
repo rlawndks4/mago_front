@@ -40,6 +40,7 @@ const MItemList = () => {
     const { pathname, state } = useLocation();
     const params = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [zColumn, setZColumn] = useState([])
     const [posts, setPosts] = useState([])
@@ -53,6 +54,7 @@ const MItemList = () => {
     const notAddList = [
         'comment'
     ]
+    const use_user_pk_list = ['subscribe'];
     useEffect(() => {
         setZColumn(objManagerListContent[`${params.table}`].zColumn ?? {})
         async function fetchPost() {
@@ -78,6 +80,9 @@ const MItemList = () => {
             obj['page_cut'] = 10;
             if (objManagerListContent[`${params.table}`].is_move) {
                 obj['order'] = 'sort';
+            }
+            if(use_user_pk_list.includes(params?.table) && params?.pk){
+                obj['user_pk'] = params?.pk;
             }
             for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
                 if (objManagerListContent[`${params.table}`].queries[i].split("=")[1]) {
@@ -109,6 +114,9 @@ const MItemList = () => {
         obj['keyword'] = $('.search').val();
         if (objManagerListContent[`${params.table}`].is_move) {
             obj['order'] = 'sort';
+        }
+        if(use_user_pk_list.includes(params?.table) && params?.pk){
+            obj['user_pk'] = params?.pk;
         }
         for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
             if (objManagerListContent[`${params.table}`].queries[i].split("=")[1]) {
