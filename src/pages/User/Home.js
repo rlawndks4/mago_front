@@ -71,7 +71,7 @@ const ReviewCard = (props) => {
         <>
             <div style={{ display: 'flex', flexDirection: 'column', border: `1px solid ${theme.color.font5}`, width: '95%', margin: '0 auto' }} onClick={onClick}>
                 <div style={{ display: 'flex', alignItems: 'center', padding: '16px' }}>
-                    <div style={{ backgroundImage: `url(${backUrl + item?.main_img})`,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center center',backgroundBlendMode:'multiply', width: '100px', height: '100px', borderRadius: '50%' }} />
+                    <div style={{ backgroundImage: `url(${backUrl + item?.main_img})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundBlendMode: 'multiply', width: '100px', height: '100px', borderRadius: '50%' }} />
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100px' }}>
                         <div style={{ margin: '8px 0 auto 6px', color: '#b48d4c' }}>REVIEW</div>
                         <div style={{ fontWeight: 'bold', margin: '14px 0 auto 6px' }}> {(item?.title ?? "").substring(0, 15)}{item?.title.length > 15 ? '...' : ''}</div>
@@ -250,7 +250,7 @@ const Home = () => {
                             ))}
                         </Slider>
                         <div style={{ marginTop: '36px' }} />
-                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer',position:'relative' }}>
+                        <ShadowContainer onClick={() => { navigate(mainContent?.home_main_link ?? "/") }} style={{ padding: '32px', marginTop: '32px', cursor: 'pointer', position: 'relative' }}>
                             <div style={{ padding: '4px 5px 3px 4px', background: theme.color.font6, borderRadius: '50%', cursor: 'pointer', position: 'absolute', top: '47%', left: '4px' }}>
                                 <GrFormPrevious onClick={() => { videoRef.current.slickPrev(); }} />
                             </div>
