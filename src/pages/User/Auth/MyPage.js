@@ -205,7 +205,7 @@ const MyPage = () => {
                     <ContentTable columns={[
                         { name: "수강상품", column: "title", width: 30, type: 'text' },
                         { name: "강사", column: "master_name", width: 20, type: 'text' },
-                        { name: "결제금액", column: "price", width: 20, type: 'number' },
+                        { name: "결제금액", column: "price", width: 20, type: 'won' },
                         { name: "결제일시", column: "trade_date", width: 30, type: 'text' },
                     ]}
                         data={payList}

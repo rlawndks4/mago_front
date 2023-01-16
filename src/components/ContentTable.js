@@ -117,6 +117,10 @@ const ContentTable = (props) => {
                                             commarNumber(item[column.column]) ?? "---"
                                             :
                                             null}
+                                            {column.type == 'won' ?
+                                            `${commarNumber(item[column.column])}원` ?? "---"
+                                            :
+                                            null}
                                         {column.type == 'month' ?
                                             commarNumber(item[column.column]) + '月'
                                             :
