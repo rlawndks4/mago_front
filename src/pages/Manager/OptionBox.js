@@ -85,11 +85,23 @@ const ReturnOptionContentBySchema = (props) => {
                         </>
                     ))}
                 </Select>
-                <Select className="price_is_minus" onChange={onChangeType}>
-                    <option value={'all'}>전체금액</option>
-                    <option value={0}>승인금액</option>
-                    <option value={1}>취소금액</option>
-                </Select>
+                {schema == 'subscribe' ?
+                    <>
+                        <Select className="price_is_minus" onChange={onChangeType}>
+                            <option value={'all'}>전체금액</option>
+                            <option value={0}>승인금액</option>
+                            <option value={1}>취소금액</option>
+                        </Select>
+                        <Select className="type" onChange={onChangeType}>
+                            <option value={'all'}>전체타입</option>
+                            <option value={0}>카드결제</option>
+                            <option value={1}>무통장입금</option>
+                        </Select>
+                    </>
+                    :
+                    <>
+                    </>}
+
             </>
         )
     }

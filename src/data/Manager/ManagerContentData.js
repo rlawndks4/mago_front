@@ -213,12 +213,13 @@ export const objManagerListContent = {
             columnObjFormat('예금주', '', 'text', 'account_holder'),
             columnObjFormat('은행명', '', 'text', 'bank_name'),
             columnObjFormat('계좌번호', '', 'text', 'account_number'),
+            columnObjFormat('결제타입', '', 'text', 'type'),
             columnObjFormat('이용가능여부', '', 'status', 'use_status'),
             columnObjFormat('취소', '', 'pay_cancel', 'pay_cancel'),
             columnObjFormat('수정', '', 'pay_edit', 'pay_edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
-        ['status=1', 'master_pk=', 'academy_category_pk=', 'price_is_minus=', 'start_date=', 'end_date='],
+        ['status=1', 'master_pk=', 'academy_category_pk=', 'price_is_minus=', 'start_date=', 'end_date=', 'type='],
         true,
         false,
         '150%'),
@@ -506,6 +507,14 @@ export const objManagerEditContent = {
             [
                 editColumnObjFormat('승인금액', 'input', {}, 'price'),
 
+            ],
+            [
+                editColumnObjFormat('결제타입', 'select', {
+                    api_url: false, option_list: [
+                        { name: '카드결제', val: 0 },
+                        { name: '무통장입금', val: 1 },
+                    ]
+                }, 'type'),
             ],
         ],
     },

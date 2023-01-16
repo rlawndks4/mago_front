@@ -25,6 +25,7 @@ const MSubscribeEdit = () => {
             user_id: $('.user_id').val(),
             academy_category_pk: $('.academy_category_pk').val(),
             price: $('.price').val(),
+            type: $('.type').val(),
         };
         const { data: response } = await axios.post('/api/checkexistidbymanager', {
             id: edit_obj['user_id']
