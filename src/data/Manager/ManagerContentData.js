@@ -217,7 +217,7 @@ export const objManagerListContent = {
             columnObjFormat('수정', '', 'pay_edit', 'pay_edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
-        ['status=1', 'master_pk=', 'academy_category_pk='],
+        ['status=1', 'master_pk=', 'academy_category_pk=', 'price_is_minus=', 'start_date=', 'end_date='],
         true,
         false,
         '150%'),

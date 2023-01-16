@@ -80,7 +80,13 @@ const MItemList = () => {
                 obj['order'] = 'sort';
             }
             for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
-                obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = objManagerListContent[`${params.table}`].queries[i].split("=")[1];
+                if (objManagerListContent[`${params.table}`].queries[i].split("=")[1]) {
+                    obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = objManagerListContent[`${params.table}`].queries[i].split("=")[1];
+                } else {
+                    if ($(`.${objManagerListContent[`${params.table}`].queries[i].split("=")[0]}`).val() != 'all') {
+                        obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = $(`.${objManagerListContent[`${params.table}`].queries[i].split("=")[0]}`).val();
+                    }
+                }
             }
             if(objManagerListContent[`${params.table}`]?.if_use_pk && params?.pk){
                 obj[objManagerListContent[`${params.table}`]?.if_use_pk] = params?.pk;
@@ -181,14 +187,17 @@ const MItemList = () => {
         changePage(page)
     });
 
+    const onClickType = (key, value) =>{
 
+        changePage(1);
+    }
     const onChangeType = (e) => {
         changePage(1);
     }
     return (
         <>
             <Breadcrumb title={breadcrumbText} nickname={``} />
-            <OptionBox schema={params.table} onChangeType={onChangeType} changePage={changePage} onchangeSelectPageCut={onchangeSelectPageCut} apiStr={apiStr} />
+            <OptionBox schema={params.table} onChangeType={onChangeType} changePage={changePage} onchangeSelectPageCut={onchangeSelectPageCut} apiStr={apiStr} onClickType={onClickType} />
             {Object.keys(optionObj).length>0?
             <>
             <OptionCardWrappers>

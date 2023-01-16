@@ -49,7 +49,7 @@ export const commarNumber = (num) => {
     } else {
         str = num;
     }
-    if(!str){
+    if (!str) {
         return "---";
     }
     let result = "";
@@ -76,8 +76,15 @@ export const formatPhoneNumber = (input) => {
     }
     return result;
 }
-export const returnMoment = (num, type) => {//num 0: 오늘, num -1: 어제 ,  type=date 날짜만, type=moment 시간까지 다 나오게
+export const returnMoment = (num, date) => {//num 0: 오늘, num -1: 어제 , date->new Date() 인자로 받음
     var today = new Date();
+    if (num) {
+        let new_date = new Date(today.setDate(today.getDate() + num));
+        today = new_date;
+    }
+    if(date){
+        today = date; 
+    }
     var year = today.getFullYear();
     var month = ('0' + (today.getMonth() + 1)).slice(-2);
     var day = ('0' + today.getDate()).slice(-2);
@@ -111,7 +118,7 @@ export const categoryToNumber = (str) => {
         return 2;
     } else if (str == 'review') {
         return 3;
-    }else {
+    } else {
         return -1;
     }
 }
@@ -122,12 +129,12 @@ export const numberToCategory = (num) => {
         return { schema: 'academy', name: '강의' };
     } else if (num == 2) {
         return { schema: 'notice', name: '공지사항' };
-    }  else if (num == 3) {
+    } else if (num == 3) {
         return { schema: 'review', name: '이용후기' };
-    }else {
+    } else {
         return { schema: '---', name: '---' };
     }
-    
+
 }
 
 export const regExp = (type, str) => {//id,pw,nickname,name
@@ -145,40 +152,40 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     }
     return reg.test(str)
 }
-export const onClickExternalLink = (link_) =>{//외부링크이동
+export const onClickExternalLink = (link_) => {//외부링크이동
     console.log(link_)
-    let link = link_??"";
-    if(!link){
+    let link = link_ ?? "";
+    if (!link) {
         return;
     }
-    if(link[0]=='/'){
+    if (link[0] == '/') {
         window.location.href = link;
     }
-    if(link.includes('http')){
+    if (link.includes('http')) {
         window.location.href = link;
-    }else{
-        window.location.href = 'https://'+link;
+    } else {
+        window.location.href = 'https://' + link;
     }
 }
-export const onClickWindowOpen = (link_)=>{
-    let link = link_??"";
-    if(!link){
+export const onClickWindowOpen = (link_) => {
+    let link = link_ ?? "";
+    if (!link) {
         return;
     }
-    if(link.includes('http')){
+    if (link.includes('http')) {
         window.open(link);
-    }else{
-        window.open('https://'+link);
+    } else {
+        window.open('https://' + link);
     }
 }
-export const  makeDiscountPrice = (num, percent) =>{
-    if(!num){
+export const makeDiscountPrice = (num, percent) => {
+    if (!num) {
         return 0;
     }
-    if(!percent){
+    if (!percent) {
         return num;
     }
-    let result = num*(100-percent)/100;
+    let result = num * (100 - percent) / 100;
     return result;
 }
 export function base64toFile(base_data, filename) {

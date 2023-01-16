@@ -85,66 +85,74 @@ const ReturnOptionContentBySchema = (props) => {
                         </>
                     ))}
                 </Select>
+                <Select className="price_is_minus" onChange={onChangeType}>
+                    <option value={'all'}>전체금액</option>
+                    <option value={0}>승인금액</option>
+                    <option value={1}>취소금액</option>
+                </Select>
             </>
         )
     }
 }
 const ReturnSecondOptionContentBySchema = (props) => {
-    const { schema, onChangeType } = props;
-    const [list, setList] = useState({});
-    const month_list = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-    const [statisticsType, setStatisticsType] = useState('month');
-    const [yearList, setYearList] = useState([])
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const { schema, onChangeType, onClickType } = props;
     useEffect(() => {
         settingOptionCard();
     }, [])
     const settingOptionCard = () => {
-        let year = parseInt(returnMoment().substring(0, 4));
-        let year_list = [];
-        for (var i = 0; i < 10; i++) {
-            if (year - i >= 2022) {
-                year_list.push(year - i);
+        let start_date = returnMoment().substring(0, 10);
+        start_date = start_date.split('-');
+        start_date[2] = '01';
+        start_date = start_date.join('-');
+        setStartDate(start_date);
+        setEndDate(returnMoment().substring(0, 10));
+        onChangeType();
+    }
+    const calculDate = () => {
+
+    }
+    const onClickDate = (num) => {
+        if (num == 1) {
+            $('.start_date').val(returnMoment().substring(0, 10));
+            $('.end_date').val(returnMoment().substring(0, 10));
+        } else if (num == -1) {
+            $('.start_date').val(returnMoment(-1).substring(0, 10));
+            $('.end_date').val(returnMoment(-1).substring(0, 10));
+        } else if (num == 3) {
+            $('.start_date').val(returnMoment(-3).substring(0, 10));
+            $('.end_date').val(returnMoment(-1).substring(0, 10));
+        } else if (num == 30) {
+            let moment = returnMoment().substring(0, 10);
+            moment = moment.split('-');
+            if (moment[1] == '01') {
+                moment[1] = '12';
+                moment[0] = moment[0] - 1;
+            } else {
+                moment[1] = moment[1] - 1;
             }
+            $('.start_date').val(`${moment[0]}-${moment[1] >= 10 ? moment[1] : `0${moment[1]}`}-01`);
+            $('.end_date').val(returnMoment(undefined, new Date(moment[0], moment[1], 0)).substring(0, 10))
+        } else {
+            return;
         }
-        setYearList(year_list)
+        onChangeType();
     }
     if (schema == 'subscribe') {
         return (
             <>
                 <OptionCardWrappers>
                     <Row>
-                        <Select className='statistics_type' style={{ margin: '12px 24px 12px 24px' }} onChange={(e)=>{setStatisticsType(e.target.value);onChangeType();}}>
-                            <option value={'month'}>월별 요약</option>
-                            <option value={'day'}>일차별 요약</option>
-                        </Select>
-                        <Select className='year' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
-                            {yearList.map((item, index) => (
-                                <>
-                                    <option value={item}>{`${item}년`}</option>
-                                </>
-                            ))}
-                        </Select>
-                        {statisticsType == 'day' ?
-                            <>
-                                <Select className='month' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
-                                    {month_list.map((item) => (
-                                        <>
-                                            {`${$('.year').val()}-${item < 10 ? '0' + item : item}` <= returnMoment().substring(0, 7) ?
-                                                <>
-                                                    <option value={item}>{`${item}월`}</option>
-                                                </>
-                                                :
-                                                <>
-                                                </>
-                                            }
-                                        </>
-                                    ))}
-                                </Select>
-                            </>
-                            :
-                            <>
-                            </>
-                        }
+                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(-1)}>어제</AddButton>
+                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(1)}>당일</AddButton>
+                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(3)}>3일전</AddButton>
+                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(30)}>1개월</AddButton>
+                        <Input className="start_date" type={'date'} style={{ margin: '12px 0 12px 24px' }} onChange={onChangeType} defaultValue={startDate} />
+                        <div style={{ margin: '18px 0 12px 24px', display: 'flex' }}>
+                            ~
+                        </div>
+                        <Input className="end_date" type={'date'} style={{ margin: '12px 0 12px 24px' }} onChange={onChangeType} defaultValue={endDate} />
                     </Row>
                 </OptionCardWrappers>
             </>
@@ -153,7 +161,7 @@ const ReturnSecondOptionContentBySchema = (props) => {
 }
 const OptionBox = (props) => {
     const params = useParams();
-    const { onChangeType, schema, changePage, onchangeSelectPageCut, apiStr } = props;
+    const { onChangeType, schema, changePage, onchangeSelectPageCut, apiStr, onClickType } = props;
 
     const exportExcel = async () => {
         let obj = {};
@@ -198,7 +206,7 @@ const OptionBox = (props) => {
                     </Row>
 
                 </OptionCardWrappers>
-                {/* <ReturnSecondOptionContentBySchema schema={schema} onChangeType={onChangeType} /> */}
+                <ReturnSecondOptionContentBySchema schema={schema} onChangeType={onChangeType} onClickType={onClickType} />
             </div>
         </>
     )
