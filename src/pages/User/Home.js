@@ -327,7 +327,7 @@ const Home = () => {
                                             <NoticeContent>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
-                                                    <div>{item?.title}asdsadsadsadsa</div>
+                                                    <div>{item?.title}</div>
                                                 </div>
                                                 <div style={{margin:`${window.innerWidth>=450?'':'8px 0 0 auto'}`}}>{item?.date.substring(0, 10)}</div>
                                             </NoticeContent>
