@@ -13,6 +13,7 @@ import imageCompression from 'browser-image-compression';
 import DaumPostcode from 'react-daum-postcode';
 import AddButton from './elements/button/AddButton';
 import { AiOutlineLock } from "react-icons/ai";
+import Modal from "./Modal";
 const Table = styled.table`
 font-size:12px;
 width:95%;
@@ -180,7 +181,7 @@ const EditMyInfoCard = () => {
             obj.account_holder = $('.account_holder').val();
             obj.bank_name = $('.bank_name').val();
             obj.account_number = $('.account_number').val();
-        } 
+        }
         if (num == 1) {
             if (!$('.nickname').val()) {
                 alert("닉네임을 입력해주세요.");
@@ -245,16 +246,19 @@ const EditMyInfoCard = () => {
         }
 
     }
-    const checkPw = async() =>{
-        const {data:response} = await axios.post('/api/checkpassword',{
-            pw:$('.check-pw').val()
+    const checkPw = async () => {
+        const { data: response } = await axios.post('/api/checkpassword', {
+            pw: $('.check-pw').val()
         })
         console.log(response)
-        if(response?.result>0){
+        if (response?.result > 0) {
             setIsPermissionEdit(true);
-        }else{
+        } else {
             alert(response?.message);
         }
+    }
+    const onClickXbutton = () => {
+        setIsSeePostCode(false);
     }
     return (
         <>
@@ -262,9 +266,9 @@ const EditMyInfoCard = () => {
                 <Title>마이페이지 수정</Title>
                 {!isPermisstionEdit ?
                     <>
-                        <AiOutlineLock style={{margin:'36px auto',fontSize:'64px',color:theme.color.font3}} />
-                        <div style={{margin:'0 auto 36px auto'}}>"비밀번호를 확인해 주세요."</div>
-                        <div style={{margin:'0 auto 36px auto',fontSize:theme.size.font4,color:theme.color.font3,textAlign:'center',lineHeight:theme.size.font2}}>회원님의 개인정보를 안전하게 보호하기 위해<br/>비밀번호를 재 확인 합니다.</div>
+                        <AiOutlineLock style={{ margin: '36px auto', fontSize: '64px', color: theme.color.font3 }} />
+                        <div style={{ margin: '0 auto 36px auto' }}>"비밀번호를 확인해 주세요."</div>
+                        <div style={{ margin: '0 auto 36px auto', fontSize: theme.size.font4, color: theme.color.font3, textAlign: 'center', lineHeight: theme.size.font2 }}>회원님의 개인정보를 안전하게 보호하기 위해<br />비밀번호를 재 확인 합니다.</div>
                         <Input className="check-pw" type={'password'} placeholder="현재 비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? checkPw() : null} />
                         <Button style={{ marginTop: '36px' }} onClick={() => checkPw()}>확인</Button>
                     </>
@@ -307,20 +311,20 @@ const EditMyInfoCard = () => {
                                         <div>
                                             <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                         </div>
-                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
-                                        <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                                        <CategoryName>우편번호</CategoryName>
+                                        <RowContent style={{ maxWidth: '398px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
                                             <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                                             <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
                                         </RowContent>
-                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                                        <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                                        <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
-                                        <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                                        <CategoryName>주소</CategoryName>
+                                        <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                                        <CategoryName>상세주소</CategoryName>
+                                        <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
                                         {isSeePostCode ?
                                             <>
-                                                <div>
+                                                <Modal onClickXbutton={onClickXbutton}>
                                                     <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
-                                                </div>
+                                                </Modal>
                                             </>
                                             :
                                             <>
@@ -391,9 +395,8 @@ const postCodeStyle = {
     display: 'block',
     position: 'relative',
     top: '0%',
-    maxWidth: '500px',
-    width: '100%',
-    height: '400px',
+    width: '90%',
+    height: '450px',
     margin: '16px auto'
 };
 

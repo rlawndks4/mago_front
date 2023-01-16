@@ -15,6 +15,7 @@ import Policy from '../pages/User/Policy/Policy';
 import theme from '../styles/theme';
 import DaumPostcode from 'react-daum-postcode';
 import AddButton from './elements/button/AddButton';
+import Modal from './Modal';
 
 const SignUpCard = () => {
     const location = useLocation();
@@ -226,7 +227,9 @@ const SignUpCard = () => {
         $('.address_detail').val("");
         $('.address_detail').focus();
     }
-
+    const onClickXbutton = () =>{
+        setIsSeePostCode(false);
+    }
     return (
         <>
             <WrapperForm onSubmit={onSignUp} id='login_form'>
@@ -312,20 +315,21 @@ const SignUpCard = () => {
                 <Input style={{ marginTop: '36px' }} placeholder='인증번호를 입력해주세요.' type={'text'} className='phone-check' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhoneCheck} />
                 <RegularNotice></RegularNotice>
                 <Button onClick={confirmCoincide} disabled={isCheckPhoneNumber}>{isCheckPhoneNumber ? '확인완료' : '인증번호 확인'}</Button>
-                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>우편번호</CategoryName>
-                <RowContent style={{ maxWidth: '500px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                    <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
+                <CategoryName>우편번호</CategoryName>
+                <RowContent style={{ maxWidth: '398px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
+                    <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                     <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
                 </RowContent>
-                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>주소</CategoryName>
-                <Input  onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  style={{ maxWidth: '470px' }} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                <CategoryName style={{ maxWidth: '500px', width: '100%' }}>상세주소</CategoryName>
-                <Input style={{ maxWidth: '470px' }} className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+                <CategoryName>주소</CategoryName>
+                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true}  className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
+                <CategoryName>상세주소</CategoryName>
+                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
+
                 {isSeePostCode ?
                     <>
-                     <div>
-                     <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
-                     </div>
+                        <Modal onClickXbutton={onClickXbutton}>
+                            <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                        </Modal>
                     </>
                     :
                     <>
@@ -345,9 +349,8 @@ const postCodeStyle = {
     display: 'block',
     position: 'relative',
     top: '0%',
-    maxWidth: '500px',
-    width: '100%',
-    height: '400px',
+    width: '90%',
+    height: '450px',
     margin: '16px auto'
 };
 

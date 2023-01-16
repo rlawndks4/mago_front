@@ -11,16 +11,15 @@ top:0;
 left:0;
 width:100%;
 height: 100%;
-display: ${props => props.modal};
 justify-content: center;
 align-items: center;
 z-index:10;
-
+display:flex;
 `
 const ModalOverlay = styled.div`
 background-color: black;
 width:100%;
-height: 100%;
+height: 100vw;
 position: absolute;
 opacity: 0.4;
 `
@@ -31,8 +30,7 @@ background-color:white;
 position: relative;
 border-radius: 12px;
 width:50%;
-
-top: 0;
+margin:auto;
 align-items: center;
 display:flex;
 flex-direction:column;
@@ -64,33 +62,17 @@ height: 36px;
 }
 `
 const Modal = (props) => {
-    const [modal, setModal] = useState("none");
-    useEffect(() => {
-        setModal('flex')
-    }, [])
-    const handleModal = () => {
-        if (modal == "none") {
-            setModal("flex");
-        }
-        else {
-            setModal("none");
-        }
-    };
+    let {children, onClickXbutton} = props;
+
     return (
         <>
-            <ModalContainer modal={modal}>
-                
-                <ModalOverlay onClick={handleModal} />
+            <ModalContainer>
+                <ModalOverlay onClick={onClickXbutton} />
                 <ModalContent>
-                <img src={logo} alt="#" style={{position:'absolute',zIndex:5,top:'28px',width:'48px'}} />
-                    <XButton onClick={handleModal}>
+                    <XButton onClick={onClickXbutton}>
                         X
                     </XButton>
-                    <div style={{ width: '12rem', padding: '7rem 2rem 3rem 2rem' }}>
-                        {props.comment}
-                    </div>
-
-
+                        {children}
                 </ModalContent>
             </ModalContainer>
         </>
