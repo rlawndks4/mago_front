@@ -73,8 +73,15 @@ const PayReady = () => {
     }, [])
 
     const changePage = async (num, is_load) => {
-        const { data: response } = await axios.get(`/api/item?table=academy_category&pk=${params.pk}`);
-        setPosts(response?.data);
+        const { data: response } = await axios.post(`/api/checkitemstatus`, {
+            pk: params?.pk
+        });
+        if (response?.result < 0) {
+            alert(response?.message);
+            navigate(-1);
+        } else {
+            setPosts(response?.data);
+        }
     }
 
     const onPayTypeClick = (type_num) => {
@@ -213,7 +220,7 @@ const PayReady = () => {
                             </>}
                         {isSeeKakao ?
                             <>
-                                <div style={{ width: '100%', maxWidth: '500px', display: 'flex', padding: '11px 0', margin: '16px auto', cursor: 'pointer', background: '#ffe812', alignItems: 'center',borderRadius:theme.borderRadius }}
+                                <div style={{ width: '100%', maxWidth: '500px', display: 'flex', padding: '11px 0', margin: '16px auto', cursor: 'pointer', background: '#ffe812', alignItems: 'center', borderRadius: theme.borderRadius }}
                                     onClick={() => {
                                         if (!$('input[id=term-of-use-1]:checked').val()) {
                                             alert('이용약관을 동의해 주세요.');

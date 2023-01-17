@@ -116,6 +116,14 @@ const SignUpCard = () => {
     }
     const confirmCoincide = (e) => {
         if (randNum === $('.phone-check').val()) {
+            if(!$('.phone').val()){
+                alert("전화번호를 입력해 주세요.");
+                return;
+            }
+            if(!isSendSms){
+                alert("인증번호 발송을 완료해 주세요.");
+                return;
+            }
             setIsCheckPhoneNumber(true);
             alert("인증번호가 일치합니다.");
         } else {

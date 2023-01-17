@@ -72,7 +72,6 @@ const AcademySubCard = (props) => {
         }
         if (num == 0) {
             if (window.confirm("장바구니 등록 하시겠습니까?")) {
-
                 const { data: response } = await axios.post('/api/onsubscribe', {
                     item_pk: item?.pk,
                     type_num: num
