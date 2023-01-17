@@ -25,7 +25,7 @@ import { useRef } from "react"
 
 const isPC = window.innerWidth >= 1000 ? true : false;
 const AuthPay = (props) => {
-    const {itemPk} = props;
+    const { itemPk } = props;
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
@@ -54,12 +54,12 @@ const AuthPay = (props) => {
                     result_msg.CharsSet = "euc-kr";
                     window.setTimeout(async function() {
                         await alert(result_cd + " : " + result_msg);
-                        window.setTimeout(function() { window.location.href = '/payresult/${itemPk}/0';}, 500);
-                    }, 500);
+                        window.location.href = '/payresult/${itemPk}/0';
+                    }, 10);
                 }
                 else
                 {
-                    window.setTimeout(function() { window.location.href = '/payresult/${itemPk}/1';}, 500);
+                    window.setTimeout(function() { window.location.href = '/payresult/${itemPk}/1';}, 10);
                 }
             }
             </script>
@@ -76,7 +76,7 @@ const AuthPay = (props) => {
             }
         }
 
-    }, []);
+    }, [props]);
 
     async function isAuth() {
         const { data: response } = await axios.get(`/api/getmyinfo`);
@@ -117,7 +117,7 @@ const AuthPay = (props) => {
     }
     const getItem = async () => {
         const { data: response } = await axios.post(`/api/checkitemstatus`, {
-            pk: params?.pk
+            pk: itemPk
         });
         if (response?.result < 0) {
             alert(response?.message);
@@ -130,7 +130,7 @@ const AuthPay = (props) => {
     return (
         <>
             <Wrappers>
-                <form method='post' id="sendFm" accept-charset="utf-8" style={{ display: 'none' }}>
+                <form method='post' id="sendFm" accept-charset="euc-kr" style={{ display: 'none' }}>
                     {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
                             </object> */}
                     {/* <div className='auth-font tm-clr intro-small-text'>환영합니다!</div>
@@ -138,12 +138,12 @@ const AuthPay = (props) => {
                     <input type='hidden' name='mkey' value='26345016f7802e8de59e5e7328a184c7' />
                     <input type='hidden' name='allat_pmember_id' value='TMN054815' />
                     <input type='hidden' name='allat_shop_id' value='anipg5' />
-                    <input type='hidden' name='allat_order_no' value={`${params?.pk ?? 0}${(new Date()).getTime()}${auth?.pk ?? 0}`} />
+                    <input type='hidden' name='allat_order_no' value={`${itemPk ?? 0}${(new Date()).getTime()}${auth?.pk ?? 0}`} />
                     <input type='hidden' name='allat_recp_nm' value={auth?.name} />
                     <input type='hidden' name='allat_recp_addr' value={auth?.address + ' ' + auth?.address_detail} />
                     <input type='hidden' name='allat_product_cd' value='TMN054815' />
                     <input type='hidden' name='allat_enc_data' value='' />
-                    <input type='hidden' name='shop_receive_url' value={`${frontUrl + `/api/keyrecieve/${params?.pk}/${window.innerWidth >= 1000 ? 'pc' : 'mobile'}`}`} />
+                    <input type='hidden' name='shop_receive_url' value={`${frontUrl + `/api/keyrecieve/${itemPk}/${window.innerWidth >= 1000 ? 'pc' : 'mobile'}`}`} />
                     <input type='hidden' name='allat_autoscreen_yn' value='y' />
                     <input type='text' className="title" name='allat_product_nm' value={item?.title} ref={e => (itemRef.current[0] = e)} />
                     <input type='number' className="price" name='allat_amt' value={((item?.price ?? 0) * (100 - item?.discount_percent ?? 0) / 100)} ref={e => (itemRef.current[1] = e)} />
