@@ -41,7 +41,8 @@ const PayResult = () => {
                     {params?.status == 1 ?
                         <>
                             <div style={{ margin: 'auto auto 8px auto' }}>결제가 완료되었습니다.</div>
-                            <div style={{ margin: '8px auto 8px auto' }}>결제 내역은 마이페이지에서 확인하실 수 있습니다.</div>
+                            <div style={{ margin: '8px auto 8px auto' }}>잠시후 카카오톡(위드싸인)으로 계약서가 발송됩니다.</div>
+                            <div style={{ margin: '8px auto 8px auto' }}>결제내역은 마이페이지에서 확인하실 수 있습니다.</div>
                             <BsCheck2All style={{ margin: '8px auto auto auto', fontSize: theme.size.font1 }} />
                         </>
                         :

@@ -164,7 +164,7 @@ const EnrolmentList = () => {
                                 alt={"#"}
                                 effect="blur"
                                 src={bottomBanners}
-                                style={{ width: '100%', height: 'auto',maxWidth:'400px',margin:'16px auto' }}
+                                style={{ width: '100%', height: `auto`,maxWidth:'600px',margin:'16px auto', }}
                             />
                         </Content>
                     </>}

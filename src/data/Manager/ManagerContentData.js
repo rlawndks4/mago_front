@@ -19,12 +19,12 @@ export const zSidebar = [
         //sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
         sidebarObjListFormat('장바구니관리', '/manager/list/bag', 40, ['/manager/list/bag']),//edit
+        sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
     ], <BsPerson />),
     sidebarContentFormat('강의관리', [
         sidebarObjListFormat('전문가관리', '/manager/list/master', 40, ['/manager/list/master']),//list
         sidebarObjListFormat('강의관리', '/manager/list/academy_category', 40, ['/manager/list/academy_category']),//list
         sidebarObjListFormat('강의컨텐츠관리', '/manager/list/academy', 40, ['/manager/list/academy']),//list
-        sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
     ], <BsCameraVideo />),
     sidebarContentFormat('기본설정', [
         sidebarObjListFormat('상단띠배너', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
