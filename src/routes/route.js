@@ -84,8 +84,8 @@ const zUserRoute = [
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
 
     { link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
-    { link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
-    { link: '/authpay', element: <AuthPay />, title: "결제" },
+    //{ link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
+    //{ link: '/authpay', element: <AuthPay />, title: "결제" },
     { link: '/payresult/:class_pk/:status', element: <PayResult />, title: "" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 

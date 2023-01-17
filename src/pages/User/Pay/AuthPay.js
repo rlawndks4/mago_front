@@ -24,12 +24,12 @@ import { Suspense } from "react"
 import { useRef } from "react"
 
 const isPC = window.innerWidth >= 1000 ? true : false;
-const AuthPay = () => {
+const AuthPay = (props) => {
+    const {itemPk} = props;
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
     const [loading, setLoading] = useState(false);
-    const [itemPk, setItemPk] = useState(0);
     const [item, setItem] = useState({});
     const [auth, setAuth] = useState({});
     const itemRef = useRef([]);
@@ -54,12 +54,12 @@ const AuthPay = () => {
                     result_msg.CharsSet = "euc-kr";
                     window.setTimeout(async function() {
                         await alert(result_cd + " : " + result_msg);
-                        window.setTimeout(function() { window.location.href = '/payresult/${params?.pk}/0';}, 500);
+                        window.setTimeout(function() { window.location.href = '/payresult/${itemPk}/0';}, 500);
                     }, 500);
                 }
                 else
                 {
-                    window.setTimeout(function() { window.location.href = '/payresult/${params?.pk}/1';}, 500);
+                    window.setTimeout(function() { window.location.href = '/payresult/${itemPk}/1';}, 500);
                 }
             }
             </script>
@@ -111,11 +111,6 @@ const AuthPay = () => {
         }
     }
     const authSetting = async () => {
-        if (!location?.state && !params?.pk) {
-            alert("잘못된 접근 입니다.");
-            navigate(-1);
-        } else {
-        }
         await isAuth();
         await getItem();
         //await Allat_Mobile_Approval($('#sendFm')[0], 0, 0);

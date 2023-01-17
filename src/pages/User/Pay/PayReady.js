@@ -16,6 +16,7 @@ import Policy from "../Policy/Policy";
 import depositKakaoImg from '../../../assets/images/test/deposit-kakao.png'
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { GrFormNext } from 'react-icons/gr'
+import AuthPay from "./AuthPay";
 const RowContent = styled.div`
 display:flex;
 width:100%;
@@ -68,6 +69,7 @@ const PayReady = () => {
     const [isSeeGoPay, setIsSeeGoPay] = useState(false);
     const [termOfUseDisplay, setTermOfUseDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
+    const [isSeePay, setIsSeePay] = useState(false);
     useEffect(() => {
         changePage(1, true)
     }, [])
@@ -198,7 +200,7 @@ const PayReady = () => {
                         </RowContent>
                         {isSeeGoPay ?
                             <>
-                                <TextFillButton style={{ width: '100%', maxWidth: '500px', margin: '16px auto', background: theme.color.background2, border: `1px solid ${theme.color.background2}` }}
+                                <TextFillButton style={{ width: '100%', maxWidth: '500px', margin: '16px auto', background: theme.color.background2, border: `1px solid ${theme.color.background2}`, height: '48px' }}
                                     onClick={() => {
                                         if (!$('input[id=term-of-use-1]:checked').val()) {
                                             alert('이용약관을 동의해 주세요.');
@@ -209,7 +211,7 @@ const PayReady = () => {
                                             return;
                                         }
                                         if (window.confirm('결제하시겠습니까?')) {
-                                            navigate(`/authpay/${params?.pk}`);
+                                            setIsSeePay(true);
                                         }
                                     }}>
                                     {commarNumber(makeDiscountPrice(posts?.price, posts?.discount_percent))}원 결제하기
@@ -243,6 +245,13 @@ const PayReady = () => {
                     </>}
 
             </Wrappers>
+            {isSeePay ?
+                <>
+                    <AuthPay itemPk={params?.pk} />
+                </>
+                :
+                <>
+                </>}
         </>
     )
 }
