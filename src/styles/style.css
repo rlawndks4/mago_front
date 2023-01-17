@@ -187,6 +187,9 @@ background-blend-mode: multiply;
 margin: 18px auto;
 
 }
+#ALLAT_MOBILE_PAY{
+    position: fixed !important;
+}
 .slick-next{
     display: none !important;
 }

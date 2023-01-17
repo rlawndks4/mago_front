@@ -129,7 +129,7 @@ const AuthPay = (props) => {
 
     return (
         <>
-            <Wrappers>
+            <Wrappers style={{ position: 'fixed', top: '0' }}>
                 <form method='post' id="sendFm" accept-charset="euc-kr" style={{ display: 'none' }}>
                     {/* <object type="image/svg+xml" data="../images/icon/logo-icon.svg" id="logo-img">
                             </object> */}
