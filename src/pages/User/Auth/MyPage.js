@@ -77,7 +77,6 @@ const MyPage = () => {
     useEffect(() => {
         async function isAdmin() {
             const { data: response } = await axios.get('/api/getmyinfo');
-            console.log(response)
             if (response?.data?.pk > 0) {
                 await localStorage.setItem('auth', JSON.stringify(response?.data))
                 let obj = response?.data;
@@ -99,7 +98,6 @@ const MyPage = () => {
         let bag_list = [];
         let class_list = [];
         let pay_list = [];
-        console.log(response)
         for (var i = 0; i < list.length; i++) {
             if (list[i]?.status == 1) {
                 if(list[i]?.price>0){

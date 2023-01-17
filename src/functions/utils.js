@@ -153,7 +153,6 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     return reg.test(str)
 }
 export const onClickExternalLink = (link_) => {//외부링크이동
-    console.log(link_)
     let link = link_ ?? "";
     if (!link) {
         return;
@@ -189,7 +188,6 @@ export const makeDiscountPrice = (num, percent) => {
     return result;
 }
 export function base64toFile(base_data, filename) {
-    console.log(base_data)
     var arr = base_data.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),

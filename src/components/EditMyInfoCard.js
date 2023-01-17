@@ -227,7 +227,6 @@ const EditMyInfoCard = () => {
     }
     const onSelectAddress = (data) => {
         setIsSeePostCode(false);
-        console.log(data);
         $('.address').val(data?.address);
         $('.zip_code').val(data?.zonecode);
         $('.address_detail').val("");
@@ -237,7 +236,6 @@ const EditMyInfoCard = () => {
         const { data: response } = await axios.post('/api/getaddressbytext', {
             text: $('.address').val()
         })
-        console.log(response)
         if (response?.result > 0) {
             setIsSelectAddress(false);
             setAddressList(response?.data);
@@ -250,7 +248,6 @@ const EditMyInfoCard = () => {
         const { data: response } = await axios.post('/api/checkpassword', {
             pw: $('.check-pw').val()
         })
-        console.log(response)
         if (response?.result > 0) {
             setIsPermissionEdit(true);
         } else {

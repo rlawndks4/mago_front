@@ -17,7 +17,6 @@ const MPayCancelEdit = () => {
     useEffect(() => {
         async function fetchPost() {
             const { data: response } = await axios.get(`/api/item?table=subscribe&pk=${params?.pk}`);
-            console.log(response)
             setClassObj(response?.data);
         }
         fetchPost();

@@ -101,7 +101,6 @@ const MyAcademy = () => {
                 pk: params?.pk,
                 page: page
             })
-            console.log(response)
             if (response?.result > 0) {
                 setPageList(range(1, response?.data?.maxPage))
                 setAcademyList(response?.data?.data);

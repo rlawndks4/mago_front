@@ -229,7 +229,6 @@ const SignUpCard = () => {
     }
     const onSelectAddress = (data) => {
         setIsSeePostCode(false);
-        console.log(data);
         $('.address').val(data?.address);
         $('.zip_code').val(data?.zonecode);
         $('.address_detail').val("");

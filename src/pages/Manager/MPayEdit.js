@@ -17,10 +17,8 @@ const MPayEdit = () => {
     useEffect(() => {
         async function fetchPost() {
             const { data: response } = await axios.get(`/api/item?table=subscribe&pk=${params?.pk}`);
-            console.log(response)
             setClassObj(response?.data);
             const { data: response2 } = await axios.get(`/api/item?table=user&pk=${response?.data?.user_pk}`);
-            console.log(response2)
             setUserObj(response2?.data);
         }
         fetchPost();

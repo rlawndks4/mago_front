@@ -124,7 +124,6 @@ const MUserEdit = () => {
                 id: $(`.id`).val(),
 
             }
-            console.log(managerNote)
             if (window.confirm(`${params.pk == 0 ? '추가하시겠습니까?' : '수정하시겠습니까?'}`)) {
                 params.pk == 0 ?
                     addItem('user', {
