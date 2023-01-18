@@ -32,7 +32,7 @@ const EnrolmentList = () => {
     const [loading, setLoading] = useState(false);
     const [bestContents, setBestContents] = useState([]);
     const [banners, setBanners] = useState([]);
-    const [bottomBanners, setBottomBanners] = useState("");
+    const [bottomBanners, setBottomBanners] = useState({});
     const [masterList, setMasterList] = useState([]);
     const difficulty_list = [
         { name: '왕초보', val: 1 },
@@ -57,19 +57,24 @@ const EnrolmentList = () => {
     useEffect(() => {
         async function fetchPost() {
             //setLoading(true)
-            const { data: response } = await axios.get('/api/getenrolmentlist')
+            const { data: response } = await axios.get('/api/getenrolmentlist');
+            console.log(response)
             let banner_list = [];
             for (var i = 1; i <= 5; i++) {
                 if (response?.data?.banner[`enrolment_banner_img_${i}`]) {
-                    await banner_list.push({img:`${backUrl + response?.data?.banner[`enrolment_banner_img_${i}`]}`,link:`${response?.data?.banner[`enrolment_banner_link_${i}`]}`});
+                    await banner_list.push({ img: `${backUrl + response?.data?.banner[`enrolment_banner_img_${i}`]}`, link: `${response?.data?.banner[`enrolment_banner_link_${i}`]}` });
                 }
             }
             if (response?.data?.banner[`enrolment_bottom_banner`]) {
-                setBottomBanners(`${backUrl + response?.data?.banner[`enrolment_bottom_banner`]}`)
+
+                setBottomBanners({
+                    img: `${backUrl + response?.data?.banner[`enrolment_bottom_banner`]}`,
+                    link: response?.data?.banner[`enrolment_bottom_banner_link`]
+                });
             }
             setBanners(banner_list)
             setBestContents(response?.data?.best_academy);
-            setMasterList([...[{title:'전체'}],...response?.data?.master]);
+            setMasterList([...[{ title: '전체' }], ...response?.data?.master]);
             setSelectContents(response?.data?.contents);
             setTimeout(() => setLoading(false), 1000);
             $('span.lazy-load-image-background').addClass('width-100');
@@ -81,7 +86,7 @@ const EnrolmentList = () => {
         setTypeNum(num);
         setDifficultyNum(0);
         let str = `/api/items?table=academy_category`;
-        if(num!=0){
+        if (num != 0) {
             str += `&master_pk=${masterList[num]?.pk}`
         }
         const { data: response } = await axios.get(str);
@@ -96,14 +101,14 @@ const EnrolmentList = () => {
     }
     return (
         <>
-           <WrappersStyle>
+            <WrappersStyle>
                 {loading ?
                     <>
                         <Loading />
                     </>
                     :
                     <>
-                        
+
                     </>}
             </WrappersStyle>
             <Wrappers className='wrappers' style={{ marginTop: '16px' }}>
@@ -121,13 +126,13 @@ const EnrolmentList = () => {
                                         effect="blur"
                                         src={item?.img}
                                         className="enrolment-banner-img"
-                                        onClick={()=>{onClickExternalLink(item?.link)}}
+                                        onClick={() => { onClickExternalLink(item?.link) }}
                                     />
 
                                 </>
                             ))}
                         </Slider>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>오늘의 BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
@@ -147,7 +152,7 @@ const EnrolmentList = () => {
                                 </>
                             ))}
                         </RowContent> */}
-                        <div style={{marginTop:'104px'}} />
+                        <div style={{ marginTop: '104px' }} />
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
                             posts={masterList} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
@@ -158,13 +163,14 @@ const EnrolmentList = () => {
                             ))}
 
                         </RowContent>
-                        <div style={{marginTop:'36px'}} />
+                        <div style={{ marginTop: '36px' }} />
                         <Content>
                             <img
                                 alt={"#"}
                                 effect="blur"
-                                src={bottomBanners}
-                                style={{ width: '100%', height: `auto`,maxWidth:'600px',margin:'16px auto', }}
+                                src={bottomBanners?.img}
+                                style={{ width: '100%', height: `auto`, maxWidth: '600px', margin: '16px auto', cursor: 'pointer' }}
+                                onClick={() => { onClickExternalLink(bottomBanners?.link) }}
                             />
                         </Content>
                     </>}

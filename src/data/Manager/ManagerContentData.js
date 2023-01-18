@@ -607,7 +607,7 @@ export const objManagerEditContent = {
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_banner_link_5'),
             ],
             [
-                editColumnObjFormat('하단 배너 (400x150)', 'img', { field_name: 'content' }, 'enrolment_bottom_banner'),
+                editColumnObjFormat('하단 배너 (600x150)', 'img', { field_name: 'content' }, 'enrolment_bottom_banner'),
             ],
             [
                 editColumnObjFormat('링크', 'input', { placeholder: '/home' }, 'enrolment_bottom_banner_link'),

@@ -86,9 +86,18 @@ const SignUpCard = () => {
             alert("핸드폰 번호를 입력해주세요.")
             return;
         }
+
         setIsCheckPhoneNumber(false);
-        let fix_phone = $('.phone').val().replace('-', '');
-        setFixPhoneNumber(fix_phone);
+        let fix_phone = $('.phone').val();
+        for(var i= 0 ;i<fix_phone.length;i++){
+            if(isNaN(parseInt(fix_phone[i]))){
+                alert("전화번호는 숫자만 입력해 주세요.");
+                return;
+            }
+        }
+        fix_phone = fix_phone.replaceAll('-', '');
+        fix_phone = fix_phone.replaceAll(' ', '');
+        $('.phone').val(fix_phone);
         let content = "";
         for (var i = 0; i < 6; i++) {
             content += Math.floor(Math.random() * 10).toString();
@@ -119,6 +128,13 @@ const SignUpCard = () => {
             if(!$('.phone').val()){
                 alert("전화번호를 입력해 주세요.");
                 return;
+            }
+            let fix_phone = $('.phone').val();
+            for(var i= 0 ;i<fix_phone.length;i++){
+                if(isNaN(parseInt(fix_phone[i]))){
+                    alert("전화번호는 숫자만 입력해 주세요.");
+                    return;
+                }
             }
             if(!isSendSms){
                 alert("인증번호 발송을 완료해 주세요.");
@@ -316,7 +332,7 @@ const SignUpCard = () => {
                 <Button onClick={onCheckNickname} disabled={isCheckNickname}>{isCheckNickname ? '사용가능' : '중복확인'}</Button>
                 <CategoryName>전화번호</CategoryName>
                 <CategoryName style={{ marginTop: '8px', fontSize: '12px' }}>- 아이디 찾기 및 비밀번호 찾기에 이용됩니다.</CategoryName>
-                <Input placeholder='전화번호를 입력해주세요.' type={'text'} className='phone' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhone} />
+                <Input placeholder="'-' 제외 전화번호를 입력해주세요." type={'text'} className='phone' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhone} />
                 <RegularNotice></RegularNotice>
                 <Button onClick={sendSms} disabled={isCheckPhoneNumber}>인증번호 발송</Button>
                 <Input style={{ marginTop: '36px' }} placeholder='인증번호를 입력해주세요.' type={'text'} className='phone-check' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhoneCheck} />
