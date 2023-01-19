@@ -76,7 +76,7 @@ const MItemList = () => {
             changePage(1);
         }
         fetchPost();
-    }, [location.pathname])
+    }, [location.pathname, location.search])
     useEffect(()=>{
         getItems();
     },[location.search])
@@ -129,13 +129,13 @@ const MItemList = () => {
         search['table'] = objManagerListContent[`${params.table}`].schema;
         search['page'] = search['page'] ?? 1;
         search['page_cut'] = search['page_cut'] ?? 10;
-        console.log(search)
         const { data: response } = await axios.post(apiStr, search);
-        console.log(response)
         setPage(search['page']);
+        console.log(response)
         setPosts(response.data.data);
         setOptionObj(response?.data?.option_obj);
         setPageList(range(1, response.data.maxPage));
+        await new Promise((r) => setTimeout(r, 100));
         setLoading(false)
     }
     const onchangeSelectPageCut = (e) => {
