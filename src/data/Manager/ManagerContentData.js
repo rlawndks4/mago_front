@@ -210,7 +210,7 @@ export const objManagerListContent = {
             columnObjFormat('강사', '', 'text', 'master_nickname'),
             columnObjFormat('승인금액', '', 'approve_price', 'price'),
             columnObjFormat('취소금액', '', 'cancel_price', 'price'),
-            columnObjFormat('등록일', '', 'text', 'date'),
+            columnObjFormat('등록일', '', 'text', 'trade_date'),
             columnObjFormat('이용기간', '', 'period', 'period'),
             columnObjFormat('예금주', '', 'text', 'account_holder'),
             columnObjFormat('은행명', '', 'text', 'bank_name'),
