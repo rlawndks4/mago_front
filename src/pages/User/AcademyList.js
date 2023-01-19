@@ -32,13 +32,7 @@ const AcademyList = () => {
                 navigate('/login');
             }
             setMasterList([...[{title:'전체'}],...response?.data?.master]);
-            let academy_list = [];
-            for(var i = 0;i<response?.data?.academy.length;i++){
-                if(response?.data?.academy[i]?.use_status==1){
-                    academy_list.push(response?.data?.academy[i]);
-                }
-            }
-            setBestContents(academy_list);
+            selectTypeNum(0);
             $('span.lazy-load-image-background').addClass('width-100');
             setLoading(false);
         }
