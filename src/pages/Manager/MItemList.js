@@ -116,7 +116,6 @@ const MItemList = () => {
             }
         }
         query = query.substring(0, query.length-1);
-        console.log(query)
         if(`${location.pathname}${location.search}` == `${location.pathname.split('?')[0]}${query}`){
             getItems();
         }else{
@@ -131,7 +130,6 @@ const MItemList = () => {
         search['page_cut'] = search['page_cut'] ?? 10;
         const { data: response } = await axios.post(apiStr, search);
         setPage(search['page']);
-        console.log(response)
         setPosts(response.data.data);
         setOptionObj(response?.data?.option_obj);
         setPageList(range(1, response.data.maxPage));
