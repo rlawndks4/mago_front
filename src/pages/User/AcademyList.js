@@ -32,7 +32,13 @@ const AcademyList = () => {
                 navigate('/login');
             }
             setMasterList([...[{title:'전체'}],...response?.data?.master]);
-            setBestContents(response?.data?.academy);
+            let academy_list = [];
+            for(var i = 0;i<response?.data?.academy.length;i++){
+                if(response?.data?.academy[i]?.use_status==1){
+                    academy_list.push(response?.data?.academy[i]);
+                }
+            }
+            setBestContents(academy_list);
             $('span.lazy-load-image-background').addClass('width-100');
             setLoading(false);
         }
@@ -41,10 +47,6 @@ const AcademyList = () => {
     }, [])
     const selectTypeNum = async (num) => {
         setTypeNum(num);
-        let str = `/api/items?table=academy_category`;
-        if(num!=0){
-            str += `&master_pk=${masterList[num]?.pk}`
-        }
         const {data:response} = await axios.post('/api/myacademyclasses',{
             master_pk:masterList[num]?.pk
         })
