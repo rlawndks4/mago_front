@@ -46,6 +46,7 @@ const MPayCancelEdit = () => {
                 order_num: classObj?.order_num,
                 approval_num: classObj?.approval_num,
                 end_date: classObj?.end_date,
+                type: classObj?.type,
                 transaction_status: -1
 
             };

@@ -184,7 +184,7 @@ const SignUpCard = () => {
                     address: $('.address').val(),
                     address_detail: $('.address_detail').val(),
                     zip_code: $('.zip_code').val(),
-                    phone: fixPhoneNumber,
+                    phone: $('.phone').val(),
                     user_level: 0,
                     type_num: location.state ? state.typeNum : typeNum,
                     profile_img: location.state ? state.profile_img : null

@@ -138,7 +138,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                             {column.type == 'end_date' ?
-                                            `${item['date'].substring(0,10)} ~ ${item[column.column].substring(0,10)}`
+                                            `${item['start_date'].substring(0,10)} ~ ${item[column.column].substring(0,10)}`
                                             :
                                             null}
                                         {column.type == 'percent' ?

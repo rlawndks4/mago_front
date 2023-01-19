@@ -100,7 +100,7 @@ const MyPage = () => {
         let pay_list = [];
         for (var i = 0; i < list.length; i++) {
             if (list[i]?.status == 1) {
-                if(list[i]?.price>0){
+                if(list[i]?.price>0 && list[i]?.use_status==1){
                     class_list.push(list[i]);
                 }
                 pay_list.push(list[i]);
