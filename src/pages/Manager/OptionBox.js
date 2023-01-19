@@ -4,9 +4,9 @@ import AddButton from "../../components/elements/button/AddButton";
 import { Input, Row, Select } from "../../components/elements/ManagerTemplete";
 import { objManagerListContent } from "../../data/Manager/ManagerContentData";
 import $ from 'jquery';
-import { excelDownload, returnMoment } from "../../functions/utils";
+import { excelDownload, makeQueryObj, returnMoment } from "../../functions/utils";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -173,8 +173,8 @@ const ReturnSecondOptionContentBySchema = (props) => {
 }
 const OptionBox = (props) => {
     const params = useParams();
+    const [search, setSearch] = useState({});
     const { onChangeType, schema, changePage, onchangeSelectPageCut, apiStr, onClickType } = props;
-
     const exportExcel = async () => {
         let obj = {};
         obj['table'] = objManagerListContent[schema].schema;
@@ -203,10 +203,10 @@ const OptionBox = (props) => {
                     <Row>
                         <ReturnOptionContentBySchema schema={schema} onChangeType={onChangeType} />
                         <SearchContainer>
-                            <Input style={{ margin: '12px 0 12px 24px', border: 'none' }} className='search' placeholder='두 글자 이상 입력해주세요.' onKeyPress={(e) => { e.key == 'Enter' ? changePage(1) : console.log("") }} />
+                            <Input style={{ margin: '12px 0 12px 24px', border: 'none' }} className='search' placeholder='두 글자 이상 입력해주세요.' onKeyPress={(e) => { e.key == 'Enter' ? changePage(1) : console.log("") }} defaultValue={search?.keyword} />
                             <AiOutlineSearch className='search-button' style={{ padding: '14px', cursor: 'pointer' }} onClick={() => changePage(1)} />
                         </SearchContainer>
-                        <Select className='page-cut' style={{ margin: '12px 24px 12px 24px' }} onChange={onchangeSelectPageCut}>
+                        <Select className='page-cut' style={{ margin: '12px 24px 12px 24px' }} onChange={onchangeSelectPageCut} defaultValue={search?.page_cut}>
                             <option value={10}>10개</option>
                             <option value={20}>20개</option>
                             <option value={50}>50개</option>

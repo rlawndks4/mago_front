@@ -27,6 +27,7 @@ const Td = styled.td`
 text-align:center;
 padding:14px 0;
 margin-bottom:6px;
+max-width:200px;
 `
 const ItemTypes = { CARD: 'card' }
 
