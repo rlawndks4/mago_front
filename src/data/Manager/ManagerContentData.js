@@ -22,7 +22,7 @@ export const zSidebar = [
         sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
     ], <BsPerson />),
     sidebarContentFormat('강의관리', [
-        sidebarObjListFormat('전문가관리', '/manager/list/master', 40, ['/manager/list/master']),//list
+        sidebarObjListFormat('전문가관리', '/manager/list/master?level=30', 40, ['/manager/list/master']),//list
         sidebarObjListFormat('강의관리', '/manager/list/academy_category', 40, ['/manager/list/academy_category']),//list
         sidebarObjListFormat('강의컨텐츠관리', '/manager/list/academy', 40, ['/manager/list/academy']),//list
     ], <BsCameraVideo />),

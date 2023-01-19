@@ -63,6 +63,7 @@ const ServiceCenter = () => {
             api_str = '/api/items';
         }
         const { data: response } = await axios.post(api_str, obj);
+        console.log(response)
         setPosts(response?.data?.data);
         setPageList(range(1, response?.data?.maxPage));
     }
@@ -83,6 +84,7 @@ const ServiceCenter = () => {
             api_str = '/api/items';
         }
         const { data: response } = await axios.post(api_str, obj);
+        console.log(response)
         setPosts(response?.data?.data);
         setPageList(range(1, response?.data?.maxPage));
     }

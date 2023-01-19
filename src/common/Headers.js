@@ -362,11 +362,7 @@ const Headers = () => {
     }
   }
   const onClickNavigateBefore = () => {
-    if (document.referrer) {
       navigate(-1);
-    } else {
-      navigate('/home');
-    }
   }
   const onLogout = async () => {
     if (window.confirm("정말 로그아웃 하시겠습니까?")) {

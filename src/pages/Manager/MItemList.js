@@ -8,7 +8,7 @@ import DataTable from '../../common/manager/DataTable';
 import MBottomContent from '../../components/elements/MBottomContent';
 import PageContainer from '../../components/elements/pagination/PageContainer';
 import PageButton from '../../components/elements/pagination/PageButton';
-import { excelDownload, range } from '../../functions/utils';
+import { excelDownload, makeQueryObj, range } from '../../functions/utils';
 import AddButton from '../../components/elements/button/AddButton';
 import Loading from '../../components/Loading';
 import theme from '../../styles/theme';
@@ -58,9 +58,9 @@ const MItemList = () => {
     useEffect(() => {
         setZColumn(objManagerListContent[`${params.table}`].zColumn ?? {})
         async function fetchPost() {
-            if(state?.breadcrumb){
+            if (state?.breadcrumb) {
                 setBreadcrumbText(state?.breadcrumb);
-            }else{
+            } else {
                 setBreadcrumbText(`${objManagerListContent[params.table]?.breadcrumb}`);
             }
             let api_str = "/api/items";
@@ -71,51 +71,26 @@ const MItemList = () => {
                 setApiStr("/api/items");
                 api_str = "/api/items";
             }
-            setLoading(true)
-            $('.page-cut').val(10);
-            setPage(1)
-            let obj = {};
-            obj['page'] = 1;
-            obj['table'] = objManagerListContent[`${params.table}`].schema;
-            obj['page_cut'] = 10;
-            if (objManagerListContent[`${params.table}`].is_move) {
-                obj['order'] = 'sort';
-            }
-            if(use_user_pk_list.includes(params?.table) && params?.pk){
-                obj['user_pk'] = params?.pk;
-            }
-            for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
-                if (objManagerListContent[`${params.table}`].queries[i].split("=")[1]) {
-                    obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = objManagerListContent[`${params.table}`].queries[i].split("=")[1];
-                } else {
-                    if ($(`.${objManagerListContent[`${params.table}`].queries[i].split("=")[0]}`).val() != 'all') {
-                        obj[objManagerListContent[`${params.table}`].queries[i].split("=")[0]] = $(`.${objManagerListContent[`${params.table}`].queries[i].split("=")[0]}`).val();
-                    }
-                }
-            }
-            if(objManagerListContent[`${params.table}`]?.if_use_pk && params?.pk){
-                obj[objManagerListContent[`${params.table}`]?.if_use_pk] = params?.pk;
-            }
-            const { data: response } = await axios.post(api_str, obj);
-            setPosts(response.data.data);
-            setOptionObj(response?.data?.option_obj);
-            setPageList(range(1, response.data.maxPage));
-            setLoading(false)
+        }
+        if(!location.search.includes('page=')){
+            changePage(1);
         }
         fetchPost();
-    }, [pathname])
+    }, [location.pathname])
+    useEffect(()=>{
+        getItems();
+    },[location.search])
     const changePage = async (num) => {
         setLoading(true)
-        setPage(num)
+        setPage(num??1)
         let obj = {};
-        obj['page'] = num;
-        obj['table'] = objManagerListContent[`${params.table}`].schema;
+        obj['page'] = num??1;
         obj['page_cut'] = $('.page-cut').val();
         obj['keyword'] = $('.search').val();
         if (objManagerListContent[`${params.table}`].is_move) {
             obj['order'] = 'sort';
         }
-        if(use_user_pk_list.includes(params?.table) && params?.pk){
+        if (use_user_pk_list.includes(params?.table) && params?.pk) {
             obj['user_pk'] = params?.pk;
         }
         for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
@@ -127,10 +102,37 @@ const MItemList = () => {
                 }
             }
         }
-        if(objManagerListContent[`${params.table}`]?.if_use_pk && params?.pk){
+        if (objManagerListContent[`${params.table}`]?.if_use_pk && params?.pk) {
             obj[objManagerListContent[`${params.table}`]?.if_use_pk] = params?.pk;
         }
-        const { data: response } = await axios.post(apiStr, obj);
+        let query = "";
+        for (var i = 0; i < Object.keys(obj).length; i++) {
+            if (i == 0) {
+                query += `?`;
+            }
+            let key = Object.keys(obj)[i];
+            if(obj[key]){
+                query += `${key}=${obj[key]}&`;
+            }
+        }
+        query = query.substring(0, query.length-1);
+        console.log(query)
+        if(`${location.pathname}${location.search}` == `${location.pathname.split('?')[0]}${query}`){
+            getItems();
+        }else{
+            navigate(`${location.pathname.split('?')[0]}${query}`);
+        }
+    }
+    const getItems = async () => {
+        setLoading(true)
+        let search = await makeQueryObj(location.search);
+        search['table'] = objManagerListContent[`${params.table}`].schema;
+        search['page'] = search['page'] ?? 1;
+        search['page_cut'] = search['page_cut'] ?? 10;
+        console.log(search)
+        const { data: response } = await axios.post(apiStr, search);
+        console.log(response)
+        setPage(search['page']);
         setPosts(response.data.data);
         setOptionObj(response?.data?.option_obj);
         setPageList(range(1, response.data.maxPage));
@@ -195,7 +197,7 @@ const MItemList = () => {
         changePage(page)
     });
 
-    const onClickType = (key, value) =>{
+    const onClickType = (key, value) => {
 
         changePage(1);
     }
@@ -206,22 +208,22 @@ const MItemList = () => {
         <>
             <Breadcrumb title={breadcrumbText} nickname={``} />
             <OptionBox schema={params.table} onChangeType={onChangeType} changePage={changePage} onchangeSelectPageCut={onchangeSelectPageCut} apiStr={apiStr} onClickType={onClickType} />
-            {Object.keys(optionObj).length>0?
-            <>
-            <OptionCardWrappers>
-                <Row>
-                {Object.keys(optionObj).map((item)=>(
-                    <>
-                    <div style={{ padding: '12px 24px' }}>{optionObj[item]?.title}: {optionObj[item]?.content}</div>
-                    </>
-                ))}
-                </Row>
-            </OptionCardWrappers>
-            </>
-            :
-            <>
-            </>}
-           
+            {Object.keys(optionObj).length > 0 ?
+                <>
+                    <OptionCardWrappers>
+                        <Row>
+                            {Object.keys(optionObj).map((item) => (
+                                <>
+                                    <div style={{ padding: '12px 24px' }}>{optionObj[item]?.title}: {optionObj[item]?.content}</div>
+                                </>
+                            ))}
+                        </Row>
+                    </OptionCardWrappers>
+                </>
+                :
+                <>
+                </>}
+
             {loading ?
                 <>
                     <Loading text={loadingText} />

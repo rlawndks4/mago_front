@@ -6,7 +6,7 @@ import theme from "../../../styles/theme";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ThemeCard from "../../../components/ThemeCard";
-import { commarNumber, getIframeLinkByLink, range } from "../../../functions/utils";
+import { commarNumber, getIframeLinkByLink, makeQueryObj, range } from "../../../functions/utils";
 import { backUrl } from "../../../data/Data";
 import masterCardIcon from '../../../assets/images/test/master-card.svg';
 import { Viewer } from '@toast-ui/react-editor';
@@ -63,7 +63,7 @@ const MyAcademy = () => {
 
     const navigate = useNavigate();
     const params = useParams();
-    const { state } = useLocation();
+    const location = useLocation();
 
     const [posts, setPosts] = useState([]);
     const [typeNum, setTypeNum] = useState(0);
@@ -73,29 +73,22 @@ const MyAcademy = () => {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [pageList, setPageList] = useState([]);
-    useEffect(() => {
-        // async function fetchPosts() {
-        //     setLoading(true);
-        //     const { data: response } = await axios.post(`/api/myacademyclass`, {
-        //         pk: params.pk
-        //     });
-        //     if (response?.result > 0) {
-        //         setPosts(response?.data);
-        //         setLoading(false);
-        //     } else {
-        //         alert(response?.message);
-        //         navigate(-1);
-        //     }
-        // }
-        // fetchPosts();
-        // if(state?.type_num){
-        // }
-        selectTypeNum(1, 1);
-    }, [])
-
+    
+    useEffect(()=>{
+        checkQuery();
+    },[location.search])
+    const checkQuery = async () => {
+        if (location.search) {
+            console.log(location.search)
+            let search = await makeQueryObj(location.search);
+            selectTypeNum(1, search?.page);
+        } else {
+            selectTypeNum(1, 1);
+        }
+    }
     const selectTypeNum = async (num, page) => {
         setTypeNum(num);
-        setPage(page);
+        setPage(page??1);
         if (num == 1) {
             const { data: response } = await axios.post('/api/myacademylist', {
                 pk: params?.pk,
@@ -112,7 +105,7 @@ const MyAcademy = () => {
         }
     }
     const onChangePage = (num) => {
-        selectTypeNum(1, num);
+        navigate(`/myacademy/${params?.pk}?page=${num}`)
     }
     return (
         <>

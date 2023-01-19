@@ -187,6 +187,19 @@ export const makeDiscountPrice = (num, percent) => {
     let result = num * (100 - percent) / 100;
     return result;
 }
+export const makeQueryObj = (query_) =>{
+    let obj = {};
+    if(!query_ || query_[0] != '?'){
+        return obj;
+    }
+    let query = query_.substring(1, query_.length);
+    query = query.split('&');
+    for(var i = 0;i<query.length;i++){
+        let content = query[i].split('=');
+        obj[content[0]] = content[1];
+    }
+    return obj;
+}
 export function base64toFile(base_data, filename) {
     var arr = base_data.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
