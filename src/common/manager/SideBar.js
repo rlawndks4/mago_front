@@ -31,7 +31,7 @@ padding-bottom:16px;
 @media screen and (max-width:900px) {
     position:fixed;
     display:${(props => props.display)};
-    transition:1s;
+    transition:0.3s;
     @keyframes fadein {
         from {
             left:-500px;
@@ -128,14 +128,13 @@ const SideBar = () => {
     }, [])
     const onChangeMenuDisplay = async () => {
         if (display == 'flex') {
-            $('.header-menu-list').animate({ left: '-500px', opacity: '0' }, 700);
+            $('.header-menu-list').animate({ left: '-500px', opacity: '0' }, 300);
             if (window.innerWidth <= 1050) {
-                await new Promise((r) => setTimeout(r, 700));
+                await new Promise((r) => setTimeout(r, 300));
                 $('.header-menu-list').css("display", "none");
-
             }
         } else {
-            $('.header-menu-list').animate({ left: '0', opacity: '1' }, 700);
+            $('.header-menu-list').animate({ left: '0', opacity: '1' }, 1);
             if (window.innerWidth <= 1050) {
                 $('.header-menu-list').css("display", "flex");
             }
