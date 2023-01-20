@@ -89,8 +89,8 @@ const SignUpCard = () => {
 
         setIsCheckPhoneNumber(false);
         let fix_phone = $('.phone').val();
-        for(var i= 0 ;i<fix_phone.length;i++){
-            if(isNaN(parseInt(fix_phone[i]))){
+        for (var i = 0; i < fix_phone.length; i++) {
+            if (isNaN(parseInt(fix_phone[i]))) {
                 alert("전화번호는 숫자만 입력해 주세요.");
                 return;
             }
@@ -125,18 +125,18 @@ const SignUpCard = () => {
     }
     const confirmCoincide = (e) => {
         if (randNum === $('.phone-check').val()) {
-            if(!$('.phone').val()){
+            if (!$('.phone').val()) {
                 alert("전화번호를 입력해 주세요.");
                 return;
             }
             let fix_phone = $('.phone').val();
-            for(var i= 0 ;i<fix_phone.length;i++){
-                if(isNaN(parseInt(fix_phone[i]))){
+            for (var i = 0; i < fix_phone.length; i++) {
+                if (isNaN(parseInt(fix_phone[i]))) {
                     alert("전화번호는 숫자만 입력해 주세요.");
                     return;
                 }
             }
-            if(!isSendSms){
+            if (!isSendSms) {
                 alert("인증번호 발송을 완료해 주세요.");
                 return;
             }
@@ -148,13 +148,15 @@ const SignUpCard = () => {
         }
     }
     const onSignUp = async () => {
-        if (!$('.id').val() && !location.state) {
+        if (!$('.id').val() || !$('.name').val()) {
             alert('필수값을 입력해주세요.');
-        } else if (!isCheckId && !location.state) {
+        } else if (!isCheckId) {
             alert('아이디 중복확인을 해주세요.');
-        } else if (!regExp('pw', $('.pw').val()) && !location.state) {
+        } else if (!regExp('pw', $('.pw').val())) {
             alert('비밀번호 정규식을 지켜주세요.');
-        } else if ($('.pw').val() != $('.pw-check').val() && !location.state) {
+        } else if (!regExp('name', $('.name').val())) {
+            alert('이름 정규식을 지켜주세요.');
+        } else if ($('.pw').val() != $('.pw-check').val()) {
             alert('비밀번호가 일치하지 않습니다.');
         } else if (!isCheckPhoneNumber) {
             alert('전화번호 인증을 완료해 주세요.');
@@ -310,7 +312,7 @@ const SignUpCard = () => {
                     <>
                         <CategoryName>아이디</CategoryName>
                         <Input placeholder='아이디를 입력해주세요.' type={'text'} className='id' disabled={isCheckId} onKeyPress={onKeyPressId} />
-                        <RegularNotice>5~20자 내의 영문, 숫자 조합만 가능합니다.</RegularNotice>
+                        <RegularNotice>5~20자의 영문 소문자, 숫자 조합만 가능합니다.</RegularNotice>
                         <Button onClick={onCheckId} disabled={isCheckId}>{isCheckId ? '사용가능' : '중복확인'}</Button>
                         <CategoryName>비밀번호</CategoryName>
                         <Input placeholder='비밀번호를 입력해주세요.' type={'password'} className='pw' onKeyPress={onKeyPressPw} onChange={onChangePw} />

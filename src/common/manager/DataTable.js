@@ -17,7 +17,7 @@ const Table = styled.table`
 width:95%;
 margin:0 auto;
 border-spacing: 0 10px;
-min-width:700px;
+min-width:900px;
 `
 const Tr = styled.tr`
 box-shadow:1px 1px 1px #00000029;

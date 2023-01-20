@@ -144,7 +144,7 @@ export const regExp = (type, str) => {//id,pw,nickname,name
     } else if (type == 'pw') {
         reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~`!@#$%^&*()_+-=,./;'<>?:"])[A-Za-z\d~`!@#$%^&*()_+-=,./;'<>?:"]{8,15}$/;
     } else if (type == 'name') {
-        reg = /^[가-힣]{2,5}$/;
+        reg = /^[가-힣|a-z|A-Z]{2,5}$/;
     } else if (type == 'nickname') {
         reg = /^[가-힣|a-z|A-Z|0-9|]{2,8}$/;
     } else {

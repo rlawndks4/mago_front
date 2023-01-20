@@ -28,7 +28,6 @@ const OptionCardWrappers = styled.div`
 width:95%;
 margin:0.5rem auto;
 border-spacing: 0 10px;
-min-width:700px;
 box-shadow:1px 1px 1px #00000029;
 font-size:14px;
 background:#fff;
@@ -72,11 +71,14 @@ const MItemList = () => {
                 api_str = "/api/items";
             }
         }
+        fetchPost();
+    }, [location.pathname, location.search])
+    useEffect(()=>{
+        $('.search').val("");
         if(!location.search.includes('page=')){
             changePage(1);
         }
-        fetchPost();
-    }, [location.pathname, location.search])
+    },[location.pathname])
     useEffect(()=>{
         getItems();
     },[location.search])
@@ -124,7 +126,7 @@ const MItemList = () => {
     }
     const getItems = async () => {
         setLoading(true)
-        let search = await makeQueryObj(location.search);
+        let search = await makeQueryObj(decodeURI(location.search));
         search['table'] = objManagerListContent[`${params.table}`].schema;
         search['page'] = search['page'] ?? 1;
         search['page_cut'] = search['page_cut'] ?? 10;
@@ -228,8 +230,17 @@ const MItemList = () => {
                 </>
                 :
                 <>
-                    <DataTable width={objManagerListContent[`${params.table}`]?.width} data={posts} column={zColumn} schema={params.table}
-                        opTheTopItem={opTheTopItem} changeItemSequence={changeItemSequence} deleteItem={deleteItem} changeStatus={changeStatus} changePage={changePage} page={page} />
+                    <DataTable 
+                    width={objManagerListContent[`${params.table}`]?.width} 
+                    data={posts} 
+                    column={zColumn} 
+                    schema={params.table}
+                    opTheTopItem={opTheTopItem} 
+                    changeItemSequence={changeItemSequence} 
+                    deleteItem={deleteItem} 
+                    changeStatus={changeStatus} 
+                    changePage={changePage} 
+                    page={page} />
                 </>}
 
             <MBottomContent>

@@ -158,6 +158,7 @@ export const objManagerListContent = {
         'academy',
         [
             columnObjFormat('메인이미지', '', 'img', 'main_img'),
+            columnObjFormat('강의명', '', 'text', 'class_title'),
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('추가일', '', 'text', 'date'),
             columnObjFormat('맨위로', '', 'top', 'top'),
@@ -298,7 +299,7 @@ export const objManagerListContent = {
             columnObjFormat('자세히보기', '', 'edit', 'edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
-        [],
+        [ 'master_pk=', 'academy_category_pk='],
         false,
         false),
     alarm: sidebarObjFormat(

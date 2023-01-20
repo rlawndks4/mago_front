@@ -42,8 +42,8 @@ outline:none;
 }
 `
 export const Textarea = styled.textarea`
-margin:12px auto 6px 24px;
-width:400px;
+margin:12px auto 6px 24px !important;
+width:400px !important;
 padding:8px;
 border:1px solid #dadde6;
 border-radius:4px;
@@ -54,7 +54,7 @@ height:84px;
     color: #cccccc;
 }
 @media screen and (max-width:700px) {
-    width:80%;
+    width:80% !important;
 }
 `
 export const Select = styled.select`

@@ -15,7 +15,6 @@ const OptionCardWrappers = styled.div`
 width:95%;
 margin:0.5rem auto;
 border-spacing: 0 10px;
-min-width:700px;
 box-shadow:1px 1px 1px #00000029;
 font-size:14px;
 background:#fff;
@@ -29,6 +28,11 @@ margin-left: auto;
     margin-left: 0;
 }
 `
+const RowContent = styled.div`
+display:flex;
+align-items:center;
+margin:12px 24px 12px 24px;
+`
 const ReturnOptionContentBySchema = (props) => {
     const { schema, onChangeType } = props;
     const [list, setList] = useState({});
@@ -37,7 +41,7 @@ const ReturnOptionContentBySchema = (props) => {
     }, [schema])
     async function fetchPost() {
         let list_ = { ...list };
-        if (schema == 'subscribe' || schema == 'bag') {
+        if (schema == 'subscribe' || schema == 'bag' || schema == 'review') {
             list_ = {
                 master: [],
                 academy_category: []
@@ -65,7 +69,7 @@ const ReturnOptionContentBySchema = (props) => {
             </>
         )
     }
-    if (schema == 'subscribe' || schema == 'bag') {
+    if (schema == 'subscribe' || schema == 'bag' || schema == 'review') {
 
         return (
             <>
@@ -156,15 +160,19 @@ const ReturnSecondOptionContentBySchema = (props) => {
             <>
                 <OptionCardWrappers>
                     <Row>
-                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(-1)}>어제</AddButton>
-                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(1)}>당일</AddButton>
-                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(3)}>3일전</AddButton>
-                        <AddButton style={{ margin: '12px 0 12px 24px' }} onClick={() => onClickDate(30)}>1개월</AddButton>
-                        <Input className="start_date" type={'date'} style={{ margin: '12px 0 12px 24px' }} onChange={onChangeType} defaultValue={startDate} />
-                        <div style={{ margin: '18px 0 12px 24px', display: 'flex' }}>
-                            ~
-                        </div>
-                        <Input className="end_date" type={'date'} style={{ margin: '12px 0 12px 24px' }} onChange={onChangeType} defaultValue={endDate} />
+                        <RowContent>
+                            <AddButton style={{ margin: '0 0 0 0' }} onClick={() => onClickDate(-1)}>어제</AddButton>
+                            <AddButton style={{ margin: '0 0 0 12px' }} onClick={() => onClickDate(1)}>당일</AddButton>
+                            <AddButton style={{ margin: '0 0 0 12px' }} onClick={() => onClickDate(3)}>3일전</AddButton>
+                            <AddButton style={{ margin: '0 0 0 12px' }} onClick={() => onClickDate(30)}>1개월</AddButton>
+                        </RowContent>
+                        <RowContent>
+                            <Input className="start_date" type={'date'} style={{ margin: '0 0 0 0' }} onChange={onChangeType} defaultValue={startDate} />
+                            <div style={{ margin: '0 0 0 12px', display: 'flex' }}>
+                                ~
+                            </div>
+                            <Input className="end_date" type={'date'} style={{ margin: '0 0 0 12px' }} onChange={onChangeType} defaultValue={endDate} />
+                        </RowContent>
                     </Row>
                 </OptionCardWrappers>
             </>
