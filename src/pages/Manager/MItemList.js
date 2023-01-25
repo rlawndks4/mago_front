@@ -118,7 +118,7 @@ const MItemList = () => {
             }
         }
         query = query.substring(0, query.length-1);
-        if(`${location.pathname}${location.search}` == `${location.pathname.split('?')[0]}${query}`){
+        if(decodeURI(`${location.pathname}${location.search}`) == `${location.pathname.split('?')[0]}${query}`){
             getItems();
         }else{
             navigate(`${location.pathname.split('?')[0]}${query}`);
@@ -198,16 +198,26 @@ const MItemList = () => {
     });
 
     const onClickType = (key, value) => {
-
         changePage(1);
     }
     const onChangeType = (e) => {
         changePage(1);
     }
+    const onSearch = () =>{
+
+    }
     return (
         <>
             <Breadcrumb title={breadcrumbText} nickname={``} />
-            <OptionBox schema={params.table} onChangeType={onChangeType} changePage={changePage} onchangeSelectPageCut={onchangeSelectPageCut} apiStr={apiStr} onClickType={onClickType} />
+            <OptionBox 
+            schema={params.table} 
+            onChangeType={onChangeType} 
+            changePage={changePage} 
+            onchangeSelectPageCut={onchangeSelectPageCut} 
+            apiStr={apiStr} 
+            onClickType={onClickType}
+            onSearch={onSearch}
+             />
             {Object.keys(optionObj).length > 0 ?
                 <>
                     <OptionCardWrappers>

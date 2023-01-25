@@ -182,7 +182,7 @@ const ReturnSecondOptionContentBySchema = (props) => {
 const OptionBox = (props) => {
     const params = useParams();
     const [search, setSearch] = useState({});
-    const { onChangeType, schema, changePage, onchangeSelectPageCut, apiStr, onClickType } = props;
+    const { onChangeType, schema, changePage, onchangeSelectPageCut, apiStr, onClickType, onSearch } = props;
     const exportExcel = async () => {
         let obj = {};
         obj['table'] = objManagerListContent[schema].schema;
