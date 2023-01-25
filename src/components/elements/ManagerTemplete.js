@@ -49,7 +49,7 @@ border:1px solid #dadde6;
 border-radius:4px;
 outline:none;
 resize:none;
-height:84px;
+height:126px;
 ::placeholder {
     color: #cccccc;
 }
