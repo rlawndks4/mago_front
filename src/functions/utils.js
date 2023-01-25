@@ -250,7 +250,7 @@ export const excelDownload = async (excelData, objManagerListContent, schema) =>
         }
     }
     const ws = XLSX.utils.aoa_to_sheet([
-        ['daogo - 다오고']
+        ['퍼스트 아카데미']
         , []
         , name_list
     ]);
