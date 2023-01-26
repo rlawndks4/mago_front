@@ -520,6 +520,7 @@ export const objManagerEditContent = {
                     api_url: false, option_list: [
                         { name: '카드결제', val: 0 },
                         { name: '무통장입금', val: 1 },
+                        { name: '기타', val: 2 },
                     ]
                 }, 'type'),
             ],
