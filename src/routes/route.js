@@ -48,6 +48,7 @@ import PayResult from '../pages/User/Pay/PayResult';
 import MSubscribeEdit from '../pages/Manager/MSubscribeEdit';
 import MPayEdit from '../pages/Manager/MPayEdit';
 import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
+import AuthPayV2 from '../pages/User/Pay/AuthPay-v2';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -86,6 +87,7 @@ const zUserRoute = [
     { link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
     //{ link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
     //{ link: '/authpay', element: <AuthPay />, title: "결제" },
+    { link: '/authpay-v2/:pk', element: <AuthPayV2 />, title: "결제 v2" },
     { link: '/payresult/:class_pk/:status', element: <PayResult />, title: "" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 

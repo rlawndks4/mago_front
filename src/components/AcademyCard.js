@@ -14,10 +14,6 @@ cursor:pointer;
     width: 48%;
     height:57.6vw;
 }
-@media screen and (max-width:550px) { 
-    width: 100%;
-    height:120vw;
-}
 `
 const AcademyImg = styled.img`
 width: 100%;
@@ -29,9 +25,7 @@ border-bottom-left-radius:0;
 @media screen and (max-width:1000px) { 
     height:28.8vw;
 }
-@media screen and (max-width:550px) { 
-    height:60vw;
-}
+
 `
 const AcademyTextContainer = styled.div`
 padding:0px 16px;
@@ -42,9 +36,7 @@ height:45%;
 @media screen and (max-width:800px) { 
     height:42%;
 }
-@media screen and (max-width:550px) { 
-    padding:3vw 4vw;
-}
+
 `
 const AcademyCard = (props) => {
     let { item, idx, link, inst_arr } = props;
@@ -59,15 +51,13 @@ const AcademyCard = (props) => {
             } else {
                 margin = "0 0.66% 16px 0.66%";
             }
-        } else if (window.innerWidth >= 550) {
+        } else {
             if (idx % 2 == 0) {
                 margin = "0 2% 16px 0";
             } else {
                 margin = "0 0 16px 2%";
             }
-        } else {
-            margin = "0 0 16px 0";
-        }
+        } 
         return margin;
     }
     return (

@@ -100,6 +100,7 @@ const ReturnOptionContentBySchema = (props) => {
                             <option value={'all'}>전체타입</option>
                             <option value={0}>카드결제</option>
                             <option value={1}>무통장입금</option>
+                            <option value={2}>기타</option>
                         </Select>
                     </>
                     :

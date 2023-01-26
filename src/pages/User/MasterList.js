@@ -67,13 +67,13 @@ const MasterList = () => {
     return (
         <>
             <Wrappers>
-                <Title line={true}>최고의 전문가를 소개합니다.</Title>
+                <Title line={true}>퍼스트 강사를 소개합니다.</Title>
                 <RowContent style={{flexWrap:'wrap',marginTop:'32px'}}>
                     <Card style={{ background: theme.color.background2, color: theme.color.font1, margin: getReturnMargin(window.innerWidth, 0),display:'flex',flexDirection:'column',textAlign:'left',cursor:'default' }}>
                         <img src={clipIcon} style={{width:'auto',height:'32px',position:'absolute',right:'10%',top:'-16px'}} />
-                        <div style={{margin:'auto auto 4px auto',width:'80%'}}>최고의</div>
-                        <div style={{margin:'0 auto 4px auto',width:'80%'}}>전문가를</div>
-                        <div style={{margin:'32px auto auto auto',width:'80%'}}>소개하겠습니다.</div>
+                        <div style={{margin:'auto auto 32px auto',width:'80%'}}>To be your Best partner</div>
+                        <div style={{margin:'0 auto 4px auto',width:'80%'}}>성공을 위한 지름길, </div>
+                        <div style={{margin:'0 auto auto auto',width:'80%'}}>퍼스트아카데미와 함께하세요.</div>
                     </Card>
                     {posts.map((item, idx) => (
                         <>
