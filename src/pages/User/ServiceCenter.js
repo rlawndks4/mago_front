@@ -102,7 +102,7 @@ const ServiceCenter = () => {
                                 { title: '공지사항' },
                                 { title: '문의하기' },
                                 { title: '자주하는 질문' },
-                            ]} />
+                            ]} subTypePadding={'16px 0'} />
                         {typeNum == 0 ?
                             <>
                                 <Content style={{ marginTop: '16px' }}>

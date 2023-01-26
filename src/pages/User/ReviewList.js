@@ -63,7 +63,6 @@ const ReviewList = () => {
         }
     }
     const selectTypeNum = async (num, page) => {
-        console.log(masterList)
         setTypeNum(num);
         setPage(page ?? 1);
         let api_str = `/api/getreviewbymasterpk?page=${page ?? 1}`;
@@ -87,7 +86,7 @@ const ReviewList = () => {
                     <>
                         <Title className='pointer' link={'/academylist'} line={true}>수강후기</Title>
                         <SelectTypeComponent selectTypeNum={changePage} num={typeNum}
-                            posts={masterList} />
+                            posts={masterList} subTypePadding={'16px 0'} />
                         <Content>
                             {reviewList && reviewList.map((item, idx) => (
                                 <>

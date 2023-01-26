@@ -56,8 +56,12 @@ const EventList = () => {
         } else if (idx % 3 == 2) {
             margin = "0 0 8px 2.5%";
         }
-        if (window.innerWidth < 650) {
-            margin = "0 0 8px 0"
+        if (window.innerWidth < 700) {
+            if(idx%2==0){
+                margin = "0 2.5% 8px 0";
+            }else{
+                margin = "0 0 8px 2.5%";
+            }
         }
         return margin;
     }
@@ -82,10 +86,10 @@ const EventList = () => {
                                 <>
                                     {ingList.map((item, idx) => (
                                         <>
-                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
-                                                <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 1000 ? '202px' : (window.innerWidth >= 650 ? '20.250vw' : '60vw')}` }} />
-                                                <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 600 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
-                                                <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 600 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>
+                                            <div style={{ width: `${window.innerWidth >= 700 ? '30%' : '47.5%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
+                                                <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 700 ? '202px' :'28.785vw'}` }} />
+                                                <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 700 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
+                                                <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 700 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>
                                             </div>
                                         </>
                                     ))}
@@ -96,10 +100,10 @@ const EventList = () => {
                                 <>
                                     {endList.map((item, idx) => (
                                         <>
-                                            <div style={{ width: `${window.innerWidth >= 650 ? '30%' : '100%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
-                                                <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 1000 ? '202px' : (window.innerWidth >= 650 ? '20.250vw' : '60vw')}` }} />
-                                                <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 600 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
-                                                <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 600 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>
+                                            <div style={{ width: `${window.innerWidth >= 700 ? '30%' : '47.5%'}`, margin: `${getmarginByIdx(idx)}`, display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => { navigate(`/post/event/${item?.pk}`) }}>
+                                                <img src={backUrl + item?.main_img} style={{ width: '100%', height: `${window.innerWidth >= 700 ? '202px' :'28.785vw'}` }} />
+                                                <div style={{ marginTop: '16px', fontWeight: 'bold', fontSize: `${window.innerWidth >= 700 ? theme.size.font4 : theme.size.font5}` }}>{item?.title}</div>
+                                                <div style={{ margin: '16px 0', fontSize: `${window.innerWidth >= 700 ? theme.size.font5 : theme.size.font6}` }}>{item?.start_date.replaceAll('-', '.')} ~ {item?.end_date.replaceAll('-', '.')}</div>
                                             </div>
                                         </>
                                     ))}

@@ -154,7 +154,7 @@ const EnrolmentList = () => {
                         </RowContent> */}
                         <div style={{ marginTop: '104px' }} />
                         <SelectTypeComponent selectTypeNum={selectTypeNum} num={typeNum}
-                            posts={masterList} />
+                            posts={masterList} subTypePadding={'16px 0'} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {selectContents.map((item, idx) => (
                                 <>

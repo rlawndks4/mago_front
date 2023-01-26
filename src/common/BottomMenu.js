@@ -78,7 +78,7 @@ const BottomMenu = () => {
             if (j == zBottomMenu[i].allowList.length) {
                 arr.push(localStorage.getItem('dark_mode') ? '#fff' : theme.color.font1);
             } else {
-                arr.push(theme.color.background1);
+                arr.push(theme.color.background0);
             }
         }
 
@@ -111,7 +111,7 @@ const BottomMenu = () => {
                                     {zBottomMenu.map((item, index) => (
                                         <>
                                             <OneMenuContainer onClick={() => { navigate(item.link) }} style={{ color: `${colorList[index]}` }} key={index}>
-                                                {colorList[index] == theme.color.background1 ? item.activeIcon : item.icon}
+                                                {colorList[index] == theme.color.background0 ? item.activeIcon : item.icon}
                                                 <OneMenuName style={{ color: `${colorList[index]}` }} >
                                                     {item.name}
                                                 </OneMenuName>

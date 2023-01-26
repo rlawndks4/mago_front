@@ -22,12 +22,8 @@ width:23%;
 height:280px;
 box-shadow:${props => props.theme.boxShadow};
 @media screen and (max-width:1000px) { 
-    width:45%;
-    height:54vw;
-}
-@media screen and (max-width:550px) { 
-    width:100%;
-    height:120vw;
+    width:47.5%;
+    height:55vw;
 }
 `
 const getReturnMargin = (innerWidth, idx) => {
@@ -42,15 +38,13 @@ const getReturnMargin = (innerWidth, idx) => {
         } else if (idx % 4 == 3) {
             margin_str = "0 0 16px 1.33%";
         }
-    } else if (innerWidth >= 550) {
-        if (idx % 2 == 0) {
-            margin_str = "0 5% 16px 0";
-        } else if (idx % 2 == 1) {
-            margin_str = "0 0 16px 5%";
-        }
     } else {
-        margin_str = "0 0 16px 0";
-    }
+        if (idx % 2 == 0) {
+            margin_str = "0 2.5% 16px 0";
+        } else if (idx % 2 == 1) {
+            margin_str = "0 0 16px 2.5%";
+        }
+    } 
     return margin_str;
 }
 const MasterList = () => {

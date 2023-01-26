@@ -50,7 +50,9 @@ font-weight:normal;
 const Iframe = styled.iframe`
 width:100%;
 height:300px;
-@media screen and (max-width:450px) { 
+@media screen and (max-width:700px) { 
+    height:55vw;
+    margin-bottom:8px;
 }
 `
 const RowVideoContent = styled.div`
@@ -58,7 +60,7 @@ display:flex;
 width:100%;
 position:relative;
 @media screen and (max-width:700px) { 
-    flex-direction:column;
+    flex-direction:column-reverse;
 }
 `
 const NoticeContainer = styled.div`
@@ -70,17 +72,14 @@ margin-bottom: 8px;
 cursor: pointer;
 border: 1px solid ${theme.color.font5};
 padding: 4px 8px;
-@media screen and (max-width:450px) { 
-    flex-direction:column;
-}
 `
 const NoticeImg = styled.img`
 height: 100px;
 width: 150px;
-@media screen and (max-width:450px) { 
-    width:84vw;
-    height:56vw;
+@media screen and (max-width:700px) { 
     margin:0 auto 8px auto;
+    width:30vw;
+    height:20vw;
 }
 `
 const NoticeContent = styled.div`
@@ -90,12 +89,9 @@ justify-content: space-between;
 margin: 0 auto 0 8px;
 width:306px;
 @media screen and (max-width:1000px) {
-width:80%;
+width:100%;
 }
-@media screen and (max-width:450px) { 
-    width:84vw;
-    margin:0 auto;
-}
+
 `
 const ReviewCard = (props) => {
     let { item, onClick } = props;
@@ -161,7 +157,7 @@ const Home = () => {
     };
     useEffect(() => {
         async function fetchPost() {
-            setLoading(true)
+            //setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
             let banner_list = [];
             let banner_link_obj = {};
@@ -323,13 +319,26 @@ const Home = () => {
                                 {notices.length > 0 && notices.map((item, idx) => (
                                     <>
                                         <NoticeContainer onClick={() => navigate(`/post/notice/${item?.pk}`)}>
+                                            {window.innerWidth>=700?
+                                            <>
                                             <NoticeImg  src={item?.main_img ? (backUrl + item?.main_img) : defaultImageSrc} />
-                                            <NoticeContent>
+                                            </>
+                                            :
+                                            <>
+                                            {idx==0?
+                                            <>
+                                            <NoticeImg  src={item?.main_img ? (backUrl + item?.main_img) : defaultImageSrc} />
+                                            </>
+                                            :
+                                            <>
+                                            </>}
+                                            </>}
+                                            <NoticeContent style={{width:`${(window.innerWidth<700 && idx==0)?'65%':''}`}}>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
                                                     <div>{item?.title}</div>
                                                 </div>
-                                                <div style={{margin:`${window.innerWidth>=450?'':'8px 0 0 auto'}`}}>{item?.date.substring(0, 10)}</div>
+                                                <div style={{margin:`${window.innerWidth>=700?'':'8px 0 0 auto'}`}}>{item?.date.substring(0, 10)}</div>
                                             </NoticeContent>
                                         </NoticeContainer>
                                     </>
@@ -340,9 +349,9 @@ const Home = () => {
                                 <RowContent style={{ flexWrap: 'wrap' }}>
                                     {apps.length > 0 && apps.map((item, idx) => (
                                         <>
-                                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '24px', width: '124px', alignItems: 'center', cursor: 'pointer', marginBottom: '16px' }} onClick={() => onClickWindowOpen(item?.link)}>
-                                                <img src={backUrl + item?.main_img} style={{ width: '104px', height: '104px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
-                                                <div>{item?.name}</div>
+                                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '24px', width: '72px', alignItems: 'center', cursor: 'pointer', marginBottom: '16px' }} onClick={() => onClickWindowOpen(item?.link)}>
+                                                <img src={backUrl + item?.main_img} style={{ width: '72px', height: '72px', marginBottom: '6px', borderRadius: theme.borderRadius, border: `1px solid ${theme.color.font2}` }} />
+                                                <div style={{fontSize:theme.size.font4}}>{item?.name}</div>
                                             </div>
                                         </>
                                     ))}
