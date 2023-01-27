@@ -48,6 +48,7 @@ const theme = {
   size: {
     font1: '27px',
     font2: '25px',
+    font2_5: '22px',
     font3: '17px',
     font4: '14px',
     font5: '12px',

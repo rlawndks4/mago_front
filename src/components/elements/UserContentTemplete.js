@@ -58,7 +58,7 @@ display:flex;
 align-items:center;
 `
 export const Title = (props) => {
-    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id} = props;
+    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id, is_more_small} = props;
     const navigate = useNavigate();
     const [containerStyle, setContainerStyle] = useState({});
     const [titleStyle, setTitleStyle] = useState({});
@@ -81,7 +81,7 @@ export const Title = (props) => {
         <>
             <TitleContainer className="title" style={containerStyle} id={id}>
                 <TitleStyle style={titleStyle}>
-                    <div>{props?.children ?? ""}</div>
+                    <div style={{fontSize:`${is_more_small?theme.size.font2_5:''}`}}>{props?.children ?? ""}</div>
                     {is_thumb ?
                         <>
                             <img src={umziIcon} style={{ height: '32px', width: 'auto', paddingLeft: '8px' }} />

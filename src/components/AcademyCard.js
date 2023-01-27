@@ -38,6 +38,25 @@ height:45%;
 }
 
 `
+const MainText = styled.div`
+font-size:${props => props.theme.size.font4};
+@media screen and (max-width:500px) { 
+    font-size:${props => props.theme.size.font5};
+}
+@media screen and (max-width:300px) {
+    font-size:${props => props.theme.size.font6};
+
+}
+`
+const Text = styled.div`
+font-size:${props => props.theme.size.font5};
+@media screen and (max-width:500px) { 
+    font-size:${props => props.theme.size.font6};
+}
+@media screen and (max-width:300px) {
+    font-size:${props => props.theme.size.font7};
+}
+`
 const AcademyCard = (props) => {
     let { item, idx, link, inst_arr } = props;
     const navigate = useNavigate();
@@ -57,7 +76,7 @@ const AcademyCard = (props) => {
             } else {
                 margin = "0 0 16px 2%";
             }
-        } 
+        }
         return margin;
     }
     return (
@@ -65,18 +84,18 @@ const AcademyCard = (props) => {
             <AcademyContainer style={{ margin: getMarginByIndex(idx) }} onClick={() => { navigate(link ? link : `/academy/${item?.pk}`) }}>
                 <AcademyImg src={backUrl + item?.main_img} />
                 <AcademyTextContainer>
-                    <div style={{ margin: '0 0 auto 0', color: theme.color.blue, fontSize: theme.size.font4, fontWeight: 'bold' }}>{item.user_nickname}</div>
-                    <div style={{ margin: '4px 0 auto 0', color: theme.color.font1, fontSize: theme.size.font4 }}>{item.title}</div>
-                    <div style={{ margin: 'auto 0 auto 0', color: theme.color.font1, fontSize: theme.size.font5, fontWeight: 'bold' }}>{item.sub_title}</div>
-                    <div style={{ margin: 'auto 0 auto 0', color: theme.color.font4, fontSize: theme.size.font5 }}>{item.hash}</div>
+                    <MainText style={{ margin: '0 0 auto 0', color: theme.color.blue, fontWeight: 'bold' }}>{item.user_nickname}</MainText>
+                    <MainText style={{ margin: '4px 0 auto 0', color: theme.color.font1, }}>{item.title}</MainText>
+                    <Text style={{ margin: 'auto 0 auto 0', color: theme.color.font1, fontWeight: 'bold' }}>{item.sub_title}</Text>
+                    <Text style={{ margin: 'auto 0 auto 0', color: theme.color.font4 }}>{item.hash}</Text>
                     {/* <div style={{ margin: 'auto 0 0 0', color: theme.color.blue, fontSize: theme.size.font5, fontWeight: 'bold' }}>{commarNumber(item.price * ((100 - item?.discount_percent ?? 0) / 100))}원 (VAT 별도)</div> */}
-                    {inst_arr?
-                    <>
-                    <img src={instArrIcon}  style={{margin: 'auto 4px 0 auto',width:'28px',height:'auto'}} />
-                    </>
-                    :
-                    <>
-                    </>}
+                    {inst_arr ?
+                        <>
+                            <img src={instArrIcon} style={{ margin: 'auto 4px 0 auto', width: '28px', height: 'auto' }} />
+                        </>
+                        :
+                        <>
+                        </>}
                 </AcademyTextContainer>
             </AcademyContainer>
         </>

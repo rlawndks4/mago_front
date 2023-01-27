@@ -25,7 +25,6 @@ cursor:pointer;
 @media screen and (max-width:550px) { 
     width:100%;
     border-right:none;
-    flex-direction:column;
 }
 `
 const Img = styled.img`
@@ -33,6 +32,8 @@ height: 120px;
 width: 160px;
 @media screen and (max-width:550px) { 
     margin-bottom:16px;
+    height: 90px;
+    width: 120px;
 }
 `
 const ReviewCard = (props) => {

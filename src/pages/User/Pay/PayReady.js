@@ -70,8 +70,10 @@ const PayReady = () => {
     const [termOfUseDisplay, setTermOfUseDisplay] = useState(false);
     const [privacyPolicyDisplay, setPrivacyPolicyDisplay] = useState(false);
     const [isSeePay, setIsSeePay] = useState(false);
+    const [auth, setAuth] = useState({});
     useEffect(() => {
-        changePage(1, true)
+        changePage(1, true);
+        isAuth();
     }, [])
 
     const changePage = async (num, is_load) => {
@@ -85,7 +87,38 @@ const PayReady = () => {
             setPosts(response?.data);
         }
     }
-
+    async function isAuth() {
+        const { data: response } = await axios.get(`/api/getmyinfo`);
+        if (response?.data?.pk > 0) {
+            if (response?.data?.user_level > 0) {
+                if (response?.data?.user_level == 50) {
+                    alert('개발자는 이용할 수 없습니다.');
+                    navigate('/mypage');
+                }
+                if (response?.data?.user_level == 40) {
+                    alert('관리자는 이용할 수 없습니다.');
+                    navigate('/mypage');
+                }
+                if (response?.data?.user_level == 30) {
+                    alert('전문가는 이용할 수 없습니다.');
+                    navigate('/mypage');
+                }
+            } else {
+                if (!response?.data?.address) {
+                    alert('주소가 등록되어 있지 않습니다.');
+                    navigate('/mypage');
+                }
+                if (!response?.data?.address_detail) {
+                    alert('상세주소가 등록되어 있지 않습니다.');
+                    navigate('/mypage');
+                }
+                setAuth(response?.data);
+            }
+        } else {
+            alert("회원전용 메뉴입니다.");
+            navigate('/login');
+        }
+    }
     const onPayTypeClick = (type_num) => {
         if (!$('input[id=term-of-use-1]:checked').val()) {
             alert('이용약관을 동의해 주세요.');
@@ -156,12 +189,12 @@ const PayReady = () => {
                                         $('#all-allow').prop('checked', true);
                                     }
                                 }} />
-                            <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                            <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0',fontSize:theme.size.font5  }}>동의함</label>
                             <input type={'radio'} id="term-of-use-2" name="term-of-use" style={{ margin: '0 4px 0 0' }}
                                 onChange={(e) => {
                                     $('#all-allow').prop('checked', false);
                                 }} />
-                            <label for={'term-of-use-2'} style={{ margin: '0' }}>동의안함</label>
+                            <label for={'term-of-use-2'} style={{ margin: '0',fontSize:theme.size.font5  }}>동의안함</label>
                         </RowContent>
                         <TitleStyle>
                             <div>개인정보취급방침</div>
@@ -177,12 +210,12 @@ const PayReady = () => {
                                         $('#all-allow').prop('checked', true);
                                     }
                                 }} />
-                            <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                            <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0',fontSize:theme.size.font5 }}>동의함</label>
                             <input type={'radio'} id="privacy-policy-2" name="privacy-policy" style={{ margin: '0 4px 0 0' }}
                                 onChange={(e) => {
                                     $('#all-allow').prop('checked', false);
                                 }} />
-                            <label for={'privacy-policy-2'} style={{ margin: '0' }}>동의안함</label>
+                            <label for={'privacy-policy-2'} style={{ margin: '0',fontSize:theme.size.font5 }}>동의안함</label>
                         </RowContent>
                         <RowContent style={{ alignItems: 'center', marginTop: '32px' }}>
                             <input type={'checkbox'} id='all-allow'
@@ -192,7 +225,7 @@ const PayReady = () => {
                                         $("input:radio[id='privacy-policy-1']").prop("checked", true);
                                     }
                                 }} />
-                            <label for='all-allow'>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
+                            <label for='all-allow' style={{fontSize:theme.size.font5}}>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
                         </RowContent>
                         <RowContent style={{ marginTop: '32px' }}>
                             <TextFillButton style={{ margin: '0 3% 0 0', width: '47%', height: '48px' }} onClick={() => onPayTypeClick(0)}>신용카드</TextFillButton>
@@ -212,6 +245,13 @@ const PayReady = () => {
                                         }
                                         if (window.confirm('결제하시겠습니까?')) {
                                             setIsSeePay(true);
+                                            let ordNo = `${`${(new Date).getTime()}${auth.pk}${params?.pk}`}`;
+                                            let amount = makeDiscountPrice(posts?.price, posts?.discount_percent);
+                                            let product = posts?.title;
+                                            let item_num = params?.pk;
+                                            let user_num = auth?.pk;
+                                            let key = 'firstafacvsdjcpiq2@E!Evlpbp['
+                                            window.location.href = `https://divecebu.co.kr/divecebu/api/kiwoom/auth_pay.php?ordNo=${ordNo}&amount=${amount}&product=${product}&item_num=${item_num}&user_num=${user_num}&key=${key}`
                                         }
                                     }}>
                                     {commarNumber(makeDiscountPrice(posts?.price, posts?.discount_percent))}원 결제하기
@@ -245,13 +285,13 @@ const PayReady = () => {
                     </>}
 
             </Wrappers>
-            {isSeePay ?
+            {/* {isSeePay ?
                 <>
                     <AuthPay itemPk={params?.pk} />
                 </>
                 :
                 <>
-                </>}
+                </>} */}
         </>
     )
 }

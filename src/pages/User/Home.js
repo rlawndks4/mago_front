@@ -264,7 +264,7 @@ const Home = () => {
                     :
                     <>
                         <div style={{ marginTop: '36px' }} />
-                        <Title className='pointer' link={'/academylist'} line={true} is_thumb={true}>BEST 강의</Title>
+                        <Title className='pointer' link={'/academylist'} line={true} is_thumb={true} is_more_small={true}>BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
                                 <>
@@ -273,7 +273,7 @@ const Home = () => {
                             ))}
                         </RowContent>
                         <div style={{ marginTop: '36px' }} />
-                        <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true} onPrevious={onPrevious} onNext={onNext}>BEST 후기</Title>
+                        <Title className='pointer' link={'/reviewlist'} line={true} is_thumb={true} onPrevious={onPrevious} onNext={onNext} is_more_small={true}>BEST 후기</Title>
                         <Slider {...reviewSettings} className='board-container pointer slider1' ref={reviewRef}>
                             {bestReviews.length > 0 && bestReviews.map((item, idx) => (
                                 <>
@@ -315,7 +315,7 @@ const Home = () => {
                         <div style={{ marginTop: '36px' }} />
                         <RowLastColumnContent>
                             <HalfContent>
-                                <Title className='pointer' text={'더보기'} text_link={'/servicecenter'}>공지사항</Title>
+                                <Title className='pointer' text={'더보기'} text_link={'/servicecenter'} is_more_small={true}>공지사항</Title>
                                 {notices.length > 0 && notices.map((item, idx) => (
                                     <>
                                         <NoticeContainer onClick={() => navigate(`/post/notice/${item?.pk}`)}>
@@ -345,7 +345,7 @@ const Home = () => {
                                 ))}
                             </HalfContent>
                             <HalfContent>
-                                <Title className='pointer'>퍼스트앱</Title>
+                                <Title className='pointer' is_more_small={true}>퍼스트앱</Title>
                                 <RowContent style={{ flexWrap: 'wrap' }}>
                                     {apps.length > 0 && apps.map((item, idx) => (
                                         <>

@@ -24,10 +24,8 @@ width:60%;
 cursor:pointer;
 border-right: 1px solid ${theme.color.font4};
 @media screen and (max-width:550px) { 
-    flex-direction:column;
     width:100%;
     border-right:none;
-    border-bottom: 1px solid ${theme.color.font4};
     padding-bottom:16px;
 }
 `
@@ -42,7 +40,7 @@ height:120px;
 }
 `
 const AcademySubCard = (props) => {
-    let { item, is_detail, not_price } = props;
+    let { item, is_detail, not_price, column } = props;
 
     const navigate = useNavigate();
     const getPeriodByNumber = (num) => {
@@ -92,14 +90,14 @@ const AcademySubCard = (props) => {
     return (
         <>
             <Container style={{ paddingBottom: `${not_price ? '16px' : ''}` }}>
-                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }} style={{ borderBottom: `${not_price ? 'none' : ''}`, borderRight: `${not_price ? 'none' : ''}` }}>
+                <ContentContainer onClick={() => { navigate(`/academy/${item?.pk}`) }} style={{ flexDirection: `${(column && window.innerWidth <= 550) ? 'column' : ''}`, borderBottom: `${not_price ? 'none' : ''}`, borderRight: `${not_price ? 'none' : ''}` }}>
                     {is_detail ?
                         <>
-                            <img src={backUrl + item?.main_img} style={{ height: '120px', width: '160px' }} />
+                            <img src={backUrl + item?.main_img} style={{ height: '120px', width: '160px', margin: `${(column && window.innerWidth <= 550) ? '0px auto 24px 12px' : ''}` }} />
                         </>
                         :
                         <>
-                            <img src={backUrl + item?.sub_img} style={{ height: '120px', width: '90px' }} />
+                            <img src={backUrl + item?.sub_img} style={{ height: '120px', width: '90px', margin: `${(column && window.innerWidth <= 550) ? '0px auto 24px 12px' : ''}` }} />
                         </>}
                     <div style={{ display: 'flex', flexDirection: 'column', paddingRight: '12px', width: 'auto' }}>
                         {is_detail ?

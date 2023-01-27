@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Title, ViewerContainer, Wrappers } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl } from "../../../data/Data";
@@ -51,7 +51,8 @@ const Post = (props) => {
     const [loading, setLoading] = useState(false)
     const [postPk, setPostPk] = useState(0);
     const [postTable, setPostTable] = useState('');
-    const [loadingText, setLoadingText] = useState("")
+    const [loadingText, setLoadingText] = useState("");
+    const viewerRef = useRef();
     const returnTitle = (ttl) => {
         if (postTable == 'notice') {
             return "first-academy - 공지사항 / " + ttl;
@@ -118,9 +119,7 @@ const Post = (props) => {
                 }
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
-                await new Promise((r) => setTimeout(r, 100));
                 setTimeout(() => setLoading(false), 1000);
-                await new Promise((r) => setTimeout(r, 1500));
 
                 if (localStorage.getItem('dark_mode')) {
                     $('body').addClass("dark-mode");
@@ -138,7 +137,7 @@ const Post = (props) => {
                     $('.wrappers > .viewer > p').addClass("dark-mode");
                     $('.footer').addClass("dark-mode");
                     $('.viewer > div > div > div > p').addClass("dark-mode");
-                    await new Promise((r) => setTimeout(r, 300));
+                    await new Promise((r) => setTimeout(r, 500));
                     $('.ql-editor').attr('style', 'width: 100% !important;');
                     $('.ql-editor > p > img').attr('style', 'width: 100% !important;');
                 }
@@ -244,7 +243,9 @@ const Post = (props) => {
             alert("공유하기가 지원되지 않는 환경 입니다.")
         }
     }
-
+    useEffect(() => {
+        console.log(viewerRef.current?.value);
+    }, [viewerRef.current])
     return (
         <>
             <Wrappers className="post-container">
@@ -273,12 +274,14 @@ const Post = (props) => {
                         </div>
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
                         <ViewerContainer className="viewer" style={{ margin: `${getViewerMarginByNumber(post?.note_align)}` }}>
-                            <ReactQuill
+                            <Viewer initialValue={post?.note ?? `<body></body>`} />
+                            {/* <ReactQuill
                                 value={post?.note ?? `<body></body>`}
                                 readOnly={true}
                                 theme={"bubble"}
                                 bounds={'.app'}
-                            />
+                                ref={viewerRef}
+                            /> */}
                         </ViewerContainer>
                         {/* <ZoomButton/> */}
                         <CommentComponent addComment={addComment} data={comments} fetchComments={fetchComments} updateComment={updateComment} auth={auth} />

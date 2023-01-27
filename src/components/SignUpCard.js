@@ -270,12 +270,12 @@ const SignUpCard = () => {
                                 $('#all-allow').prop('checked', true);
                             }
                         }} />
-                    <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                    <label for={'term-of-use-1'} style={{ margin: '0 4px 0 0',fontSize:theme.size.font5  }}>동의함</label>
                     <input type={'radio'} id="term-of-use-2" name="term-of-use" style={{ margin: '0 4px 0 0' }}
                         onChange={(e) => {
                             $('#all-allow').prop('checked', false);
                         }} />
-                    <label for={'term-of-use-2'} style={{ margin: '0' }}>동의안함</label>
+                    <label for={'term-of-use-2'} style={{ margin: '0',fontSize:theme.size.font5  }}>동의안함</label>
                 </RowContent>
                 <Title>개인정보취급방침</Title>
                 <div style={{ width: '94%', height: '150px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
@@ -288,12 +288,12 @@ const SignUpCard = () => {
                                 $('#all-allow').prop('checked', true);
                             }
                         }} />
-                    <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0' }}>동의함</label>
+                    <label for={'privacy-policy-1'} style={{ margin: '0 4px 0 0',fontSize:theme.size.font5 }}>동의함</label>
                     <input type={'radio'} id="privacy-policy-2" name="privacy-policy" style={{ margin: '0 4px 0 0' }}
                         onChange={(e) => {
                             $('#all-allow').prop('checked', false);
                         }} />
-                    <label for={'privacy-policy-2'} style={{ margin: '0' }}>동의안함</label>
+                    <label for={'privacy-policy-2'} style={{ margin: '0',fontSize:theme.size.font5 }}>동의안함</label>
                 </RowContent>
                 <RowContent style={{ alignItems: 'center', marginTop: '32px' }}>
                     <input type={'checkbox'} id='all-allow'
@@ -303,7 +303,7 @@ const SignUpCard = () => {
                                 $("input:radio[id='privacy-policy-1']").prop("checked", true);
                             }
                         }} />
-                    <label for='all-allow'>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
+                    <label for='all-allow' style={{fontSize:theme.size.font5}}>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
                 </RowContent>
                 {location.state ?
                     <>
