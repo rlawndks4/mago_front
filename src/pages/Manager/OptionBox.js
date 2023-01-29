@@ -36,6 +36,10 @@ margin:12px 24px 12px 24px;
 const ReturnOptionContentBySchema = (props) => {
     const { schema, onChangeType } = props;
     const [list, setList] = useState({});
+    const [yearList, setYearList] = useState([])
+    const month_list = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    const [statisticsType, setStatisticsType] = useState('month');
+
     useEffect(() => {
         fetchPost();
     }, [schema])
@@ -62,10 +66,62 @@ const ReturnOptionContentBySchema = (props) => {
             });
             setList(list_);
         }
+        if (schema == 'user_statistics') {
+            let year = parseInt(returnMoment().substring(0, 4));
+            let year_list = [];
+            for (var i = 0; i < 10; i++) {
+                if (year - i >= 2022) {
+                    year_list.push(year - i);
+                }
+            }
+            setYearList(year_list);
+        }
+    }
+    const onChangeStatisticsType = (e) =>{
+        setStatisticsType(e.target.value);
+        onChangeType();
     }
     if (schema == 'user') {
         return (
             <>
+            </>
+        )
+    }
+    if (schema == 'user_statistics') {
+        return (
+            <>
+                <Select className='statistics_type' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeStatisticsType}>
+                    <option value={'month'}>월별 요약</option>
+                    <option value={'day'}>일차별 요약</option>
+                </Select>
+                <Select className='statistics_year' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                    {yearList.map((item, index) => (
+                        <>
+                            <option value={item}>{`${item}년`}</option>
+                        </>
+                    ))}
+                </Select>
+                {statisticsType == 'day' ?
+                    <>
+                        <Select className='statistics_month' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                            {month_list.map((item) => (
+                                <>
+                                    {`${$('.statistics_year').val()}-${item < 10 ? '0' + item : item}` <= returnMoment().substring(0, 7) ?
+                                        <>
+                                            <option value={item}>{`${item}월`}</option>
+                                        </>
+                                        :
+                                        <>
+                                        </>
+                                    }
+                                </>
+                            ))}
+                        </Select>
+                    </>
+                    :
+                    <>
+                    </>
+                }
             </>
         )
     }

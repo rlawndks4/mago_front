@@ -16,7 +16,7 @@ export const needTwoImage = ['issue', 'theme', 'feature'];
 export const zSidebar = [
     sidebarContentFormat('회원관리', [
         sidebarObjListFormat('회원관리', '/manager/list/user', 40, ['/manager/list/user']),//edit
-        //sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
+        sidebarObjListFormat('회원통계', '/manager/list/user_statistics', 40, ['/manager/list/user_statistics']),//edit
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
         sidebarObjListFormat('장바구니관리', '/manager/list/bag', 40, ['/manager/list/bag']),//edit
         sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
@@ -87,20 +87,17 @@ export const objManagerListContent = {
         true),
     user_statistics: sidebarObjFormat(
         '회원 통계',
-        'user',
+        'user_statistics',
         [
-            columnObjFormat('로그인타입', '', 'login_type', 'type'),
-            columnObjFormat('아이디', '', 'text', 'id'),
-            columnObjFormat('이름', '', 'text', 'name'),
-            columnObjFormat('폰번호', '', 'text', 'phone'),
-            columnObjFormat('접근권한', '', 'level', 'user_level'),
-            columnObjFormat('가입일', '', 'text', 'date'),
-            columnObjFormat('로그인시간', '', 'text', 'last_login'),
-            columnObjFormat('수정', '', 'edit', 'edit'),
-            columnObjFormat('삭제', '', 'delete', 'delete'),
+            columnObjFormat('일자', '', 'text', 'date'),
+            columnObjFormat('가입', '', 'number', 'user_count'),
+            columnObjFormat('방문', '', 'number', 'visit_count'),
+            columnObjFormat('새글', '', 'number', 'post_count'),
+            columnObjFormat('댓글', '', 'number', 'comment_count'),
+            columnObjFormat('페이지뷰', '', 'number', 'views_count'),
         ],
-        [],
-        true,
+        ['statistics_type=','statistics_year=','statistics_month='],
+        false,
         false),
     master: sidebarObjFormat(
         '전문가 리스트',
