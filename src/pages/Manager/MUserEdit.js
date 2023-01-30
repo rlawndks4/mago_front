@@ -218,8 +218,8 @@ const MUserEdit = () => {
                     <Col>
                         <Title style={{ margintop: '32px' }}>유저레벨</Title>
                         <Select className='level'>
-                            <option value={-10}>불량회원</option>
                             <option value={0}>일반유저</option>
+                            <option value={-10}>불량회원</option>
                             <option value={40}>관리자</option>
                         </Select>
                     </Col>
