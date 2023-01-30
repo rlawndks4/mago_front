@@ -19,6 +19,8 @@ import ImageResize from "quill-image-resize-module-react";
 import "react-quill/dist/quill.snow.css";
 import quillEmoji from "react-quill-emoji";
 import "react-quill-emoji/dist/quill-emoji.css";
+import DaumPostcode from 'react-daum-postcode';
+import Modal from '../../components/Modal';
 
 const Table = styled.table`
 font-size:12px;
@@ -47,6 +49,8 @@ const MUserEdit = () => {
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
     const [managerNote, setManagerNote] = useState("");
+    const [isSeePostCode, setIsSeePostCode] = useState(false);
+
     useEffect(() => {
 
         async function fetchPost() {
@@ -173,12 +177,15 @@ const MUserEdit = () => {
             alert(response?.message);
         }
     }
-    const onSelectAddress = (idx) => {
-        setIsSelectAddress(true);
-        let address_obj = addressList[idx];
-        $('.address').val(address_obj?.address);
-        $('.zip_code').val(address_obj?.zip_code);
+    const onSelectAddress = (data) => {
+        setIsSeePostCode(false);
+        $('.address').val(data?.address);
+        $('.zip_code').val(data?.zonecode);
+        $('.address_detail').val("");
         $('.address_detail').focus();
+    }
+    const onClickXbutton = () => {
+        setIsSeePostCode(false);
     }
     return (
         <>
@@ -217,44 +224,35 @@ const MUserEdit = () => {
                         </Select>
                     </Col>
                 </Row>
+                <Col>
+                    <Title>우편번호</Title>
+                    <div style={{ display: 'flex' }}>
+                        <Input style={{ margin: '12px 0 6px 24px' }} className='zip_code' onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} placeholder="예) 12345" />
+                        <AddButton style={{ margin: '12px auto 6px 12px',width:'104px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호검색</AddButton>
+                    </div>
+                </Col>
                 <Row>
                     <Col>
                         <Title>주소</Title>
-                        <div style={{ display: 'flex' }}>
-                            <Input className='address' onKeyPress={(e) => { e.key == 'Enter' ? getAddressByText() : console.log(null) }} />
-                            <AddButton style={{ margin: '12px auto 6px 12px' }} onClick={getAddressByText}>검색</AddButton>
-                        </div>
+                        <Input className='address' disabled={true} />
                     </Col>
-                </Row>
-                {addressList.length > 0 && !isSelectAddress ?
-                    <>
-                        <Table style={{ maxWidth: '700px', margin: '12px auto 12px 24px', width: '90%' }}>
-                            <Tr>
-                                <Td style={{ width: '30%' }}>우편번호</Td>
-                                <Td style={{ width: '70%' }}>주소</Td>
-                            </Tr>
-                            {addressList.map((item, idx) => (
-                                <>
-                                    <Tr style={{ cursor: 'pointer' }} onClick={() => { onSelectAddress(idx) }}>
-                                        <Td style={{ width: '30%', padding: '8px 0' }}>{item.zip_code ?? "---"}</Td>
-                                        <Td style={{ width: '70%', padding: '8px 0' }}>{item.address ?? "---"}</Td>
-                                    </Tr>
-                                </>
-                            ))}
-                        </Table>
-                    </>
-                    :
-                    <>
-                    </>
-                }
-                <Row>
                     <Col>
                         <Title>상세주소</Title>
                         <Input className='address_detail' />
                     </Col>
+
+                </Row>
+                <Row>
                     <Col>
-                        <Title>우편번호</Title>
-                        <Input className='zip_code' />
+                        {isSeePostCode ?
+                            <>
+                                <Modal onClickXbutton={onClickXbutton}>
+                                    <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
+                                </Modal>
+                            </>
+                            :
+                            <>
+                            </>}
                     </Col>
                 </Row>
                 <Row>
@@ -317,4 +315,12 @@ const MUserEdit = () => {
         </>
     )
 }
+const postCodeStyle = {
+    display: 'block',
+    position: 'relative',
+    top: '0%',
+    width: '90%',
+    height: '450px',
+    margin: '16px auto'
+};
 export default MUserEdit;

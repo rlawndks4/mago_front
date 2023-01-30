@@ -81,6 +81,10 @@ const ReturnOptionContentBySchema = (props) => {
         setStatisticsType(e.target.value);
         onChangeType();
     }
+    const onChangeStatisticsYear = (e) =>{
+        $('.statistics_month').val(1);
+        onChangeType();
+    }
     if (schema == 'user') {
         return (
             <>
@@ -94,7 +98,7 @@ const ReturnOptionContentBySchema = (props) => {
                     <option value={'month'}>월별 요약</option>
                     <option value={'day'}>일차별 요약</option>
                 </Select>
-                <Select className='statistics_year' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeType}>
+                <Select className='statistics_year' style={{ margin: '12px 24px 12px 24px' }} onChange={onChangeStatisticsYear}>
                     {yearList.map((item, index) => (
                         <>
                             <option value={item}>{`${item}년`}</option>
