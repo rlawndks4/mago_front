@@ -217,14 +217,14 @@ const MUserEdit = () => {
                 <Col>
                     <Title>우편번호</Title>
                     <div style={{ display: 'flex' }}>
-                        <Input style={{ margin: '12px 0 6px 24px' }} className='zip_code' onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} placeholder="예) 12345" />
+                        <Input style={{ margin: '12px 0 6px 24px' }} className='zip_code' onClick={() => { setIsSeePostCode(!isSeePostCode) }} placeholder="예) 12345" />
                         <AddButton style={{ margin: '12px auto 6px 12px', width: '104px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호검색</AddButton>
                     </div>
                 </Col>
                 <Row>
                     <Col>
                         <Title>주소</Title>
-                        <Input className='address' disabled={true} />
+                        <Input className='address'/>
                     </Col>
                     <Col>
                         <Title>상세주소</Title>
