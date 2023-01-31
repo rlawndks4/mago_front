@@ -120,48 +120,38 @@ const MUserEdit = () => {
         },
         true
     );
-    const editUser = () => {
+    const editUser = async () => {
         if (!$(`.id`).val() || !$(`.name`).val() || !$(`.nickname`).val() || !$(`.phone`).val() || (!$(`.pw`).val() && params.pk == 0)) {
             alert('필요값이 비어있습니다.');
         } else {
             let obj = {
                 id: $(`.id`).val(),
-
+                pw: $(`.pw`).val(),
+                name: $(`.name`).val(),
+                nickname: $(`.nickname`).val(),
+                phone: $(`.phone`).val(),
+                user_level: $(`.level`).val(),
+                address: $(`.address`).val(),
+                address_detail: $(`.address_detail`).val(),
+                zip_code: $(`.zip_code`).val(),
+                account_holder: $(`.account_holder`).val(),
+                bank_name: $(`.bank_name`).val(),
+                account_number: $(`.account_number`).val(),
+                manager_note: managerNote,
+            }
+            if (params?.pk > 0) {
+                obj['pk'] = params.pk;
             }
             if (window.confirm(`${params.pk == 0 ? '추가하시겠습니까?' : '수정하시겠습니까?'}`)) {
-                params.pk == 0 ?
-                    addItem('user', {
-                        id: $(`.id`).val(),
-                        pw: $(`.pw`).val(),
-                        name: $(`.name`).val(),
-                        nickname: $(`.nickname`).val(),
-                        phone: $(`.phone`).val(),
-                        user_level: $(`.level`).val(),
-                        address: $(`.address`).val(),
-                        address_detail: $(`.address_detail`).val(),
-                        zip_code: $(`.zip_code`).val(),
-                        account_holder: $(`.account_holder`).val(),
-                        bank_name: $(`.bank_name`).val(),
-                        account_number: $(`.account_number`).val(),
-                        manager_note: managerNote,
-                    }) :
-                    updateItem('user', {
-                        id: $(`.id`).val(),
-                        pw: $(`.pw`).val(),
-                        name: $(`.name`).val(),
-                        nickname: $(`.nickname`).val(),
-                        phone: $(`.phone`).val(),
-                        user_level: $(`.level`).val(),
-                        address: $(`.address`).val(),
-                        address_detail: $(`.address_detail`).val(),
-                        zip_code: $(`.zip_code`).val(),
-                        account_holder: $(`.account_holder`).val(),
-                        bank_name: $(`.bank_name`).val(),
-                        account_number: $(`.account_number`).val(),
-                        manager_note: managerNote,
-                        pk: params.pk
-                    })
+                const { data: response } = await axios.post(`/api/${params?.pk == 0 ? 'add' : 'update'}user`, obj);
+                if (response?.result > 0) {
+                    alert(response.message);
+                    navigate(-1);
+                } else {
+                    alert(response.message);
+                }
             }
+
         }
 
 
@@ -228,7 +218,7 @@ const MUserEdit = () => {
                     <Title>우편번호</Title>
                     <div style={{ display: 'flex' }}>
                         <Input style={{ margin: '12px 0 6px 24px' }} className='zip_code' onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} placeholder="예) 12345" />
-                        <AddButton style={{ margin: '12px auto 6px 12px',width:'104px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호검색</AddButton>
+                        <AddButton style={{ margin: '12px auto 6px 12px', width: '104px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호검색</AddButton>
                     </div>
                 </Col>
                 <Row>

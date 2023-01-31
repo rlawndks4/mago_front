@@ -66,7 +66,7 @@ export const objManagerListContent = {
             columnObjFormat('수정', '', 'edit', 'edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
         ],
-        [],
+        ['level='],
         true,
         false,
         '150%'),
