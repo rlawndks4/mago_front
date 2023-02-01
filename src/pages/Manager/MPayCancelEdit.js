@@ -48,7 +48,6 @@ const MPayCancelEdit = () => {
                 end_date: classObj?.end_date,
                 type: classObj?.type,
                 transaction_status: -1
-
             };
             edit_obj['table'] = 'subscribe';
             const { data: res } = await axios.post('/api/additem', edit_obj);

@@ -316,28 +316,10 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, obj, op
                             :
                             <>
                             </>}
-                        {col.type == 'cancel_price' ?
-                            <>
-                                <Td style={{ width: `${col.width}%` }}>
-                                    {data?.price > 0 ? '---' : commarNumber((data?.price ?? 0) * (-1))}
-                                </Td>
-                            </>
-                            :
-                            <>
-                            </>}
-                        {col.type == 'approve_price' ?
-                            <>
-                                <Td style={{ width: `${col.width}%` }}>
-                                    {data?.price < 0 ? '---' : commarNumber((data?.price ?? 0))}
-                                </Td>
-                            </>
-                            :
-                            <>
-                            </>}
                         {col.type == 'pay_cancel' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
-                                    {data?.price > 0 ?
+                                    {data?.transaction_status >= 0 ?
                                         <>
                                             <GiCancel style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/edit/pay_cancel/${data.pk}`)} />
                                         </>
