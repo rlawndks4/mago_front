@@ -126,14 +126,14 @@ const MyAcademy = () => {
                                 { title: '이용후기' },
                             ]} /> */}
                         <Title line={true}>My 강의실</Title>
-                        {typeNum == 0 ?
+                        {/* {typeNum == 0 ?
                             <>
                                 <ViewerContainer className="viewer">
                                     <Viewer initialValue={posts?.introduce_note ?? `<body></body>`} />
                                 </ViewerContainer>
                             </>
                             :
-                            <></>}
+                            <></>} */}
                         {typeNum == 1 ?
                             <>
                                 <Content>

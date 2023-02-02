@@ -85,7 +85,11 @@ const ServiceCenter = () => {
         }
         const { data: response } = await axios.post(api_str, obj);
         console.log(response)
-        setPosts(response?.data?.data);
+        let data = {...response?.data?.data}
+        if(data?.note){
+            data.note = data?.note.replaceAll('https://1st-academy.kr:8443', backUrl);
+        }
+        setPosts(data);
         setPageList(range(1, response?.data?.maxPage));
     }
     return (

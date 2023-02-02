@@ -106,7 +106,12 @@ const Academy = () => {
         setPage(num);
         const { data: response } = await axios.get(`/api/getacademycategorycontent?pk=${params.pk}&page=${num}`);
         if (response?.data?.academy_content) {
-            setPosts(response?.data?.academy_content);
+            let academy_content = {...response?.data?.academy_content};
+            academy_content.introduce_note = academy_content?.introduce_note.replaceAll('https://1st-academy.kr:8443', backUrl);
+            academy_content.benefit_note = academy_content?.benefit_note.replaceAll('https://1st-academy.kr:8443', backUrl);
+            academy_content.leader_note = academy_content?.leader_note.replaceAll('https://1st-academy.kr:8443', backUrl);
+            academy_content.curriculum_note = academy_content?.curriculum_note.replaceAll('https://1st-academy.kr:8443', backUrl);
+            setPosts(academy_content);
         }
         setReviewList(response?.data?.review_list);
         setPageList(range(1, response?.data?.maxPage));

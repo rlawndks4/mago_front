@@ -115,7 +115,7 @@ const Post = (props) => {
                     obj.note = obj?.note.replaceAll('youtube.com/embed', 'youtube-nocookie.com/embed');
                     obj.note = obj?.note.replaceAll('<p><br></p>', '<br>');
                     obj.note = obj?.note.replaceAll('http://localhost:8001', backUrl);
-                    obj.note = obj?.note.replaceAll('https://weare-first.com:8443', backUrl);
+                    obj.note = obj?.note.replaceAll('https://1st-academy.kr:8443', backUrl);
                 }
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
