@@ -23,7 +23,12 @@ body::-webkit-scrollbar-thumb {
 .ql-editor::-webkit-scrollbar{
     display: none;
 }
-
+.ql-editor{
+    padding: 16px 0 !important;
+}
+.ql-editor > p > img{
+    width: 100% !important;
+}
 .show-scrollbar ::-webkit-scrollbar {
     display: block !important;
 }

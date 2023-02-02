@@ -111,35 +111,34 @@ const Post = (props) => {
                 }
                 let obj = response.data ?? {};
                 if (obj?.note && (typeof obj?.note == 'string')) {
-
                     obj.note = obj?.note.replaceAll('youtube.com/embed', 'youtube-nocookie.com/embed');
                     obj.note = obj?.note.replaceAll('<p><br></p>', '<br>');
+                    obj.note = obj?.note.replaceAll('<img ', '<img style="width:100%;" ');
                     obj.note = obj?.note.replaceAll('http://localhost:8001', backUrl);
                     obj.note = obj?.note.replaceAll('https://1st-academy.kr:8443', backUrl);
                 }
+                console.log(obj?.note)
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
                 setTimeout(() => setLoading(false), 1000);
 
                 if (localStorage.getItem('dark_mode')) {
-                    $('body').addClass("dark-mode");
-                    $('p').addClass("dark-mode");
-                    $('.toastui-editor-contents p').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents span').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents h1').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents h2').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents h3').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents h4').attr("style", "color:#ffffff !important");
-                    $('.toastui-editor-contents h5').attr("style", "color:#ffffff !important");
-                    $('.menu-container').addClass("dark-mode");
-                    $('.header').addClass("dark-mode");
-                    $('.select-type').addClass("dark-mode");
-                    $('.wrappers > .viewer > p').addClass("dark-mode");
-                    $('.footer').addClass("dark-mode");
-                    $('.viewer > div > div > div > p').addClass("dark-mode");
+                    // $('body').addClass("dark-mode");
+                    // $('p').addClass("dark-mode");
+                    // $('.toastui-editor-contents p').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents span').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents h1').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents h2').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents h3').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents h4').attr("style", "color:#ffffff !important");
+                    // $('.toastui-editor-contents h5').attr("style", "color:#ffffff !important");
+                    // $('.menu-container').addClass("dark-mode");
+                    // $('.header').addClass("dark-mode");
+                    // $('.select-type').addClass("dark-mode");
+                    // $('.wrappers > .viewer > p').addClass("dark-mode");
+                    // $('.footer').addClass("dark-mode");
+                    // $('.viewer > div > div > div > p').addClass("dark-mode");
                     await new Promise((r) => setTimeout(r, 500));
-                    $('.ql-editor').attr('style', 'width: 100% !important;');
-                    $('.ql-editor > p > img').attr('style', 'width: 100% !important;');
                 }
             } catch (err) {
                 if (err?.message?.includes('timeout of')) {
@@ -274,14 +273,14 @@ const Post = (props) => {
                         </div>
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
                         <ViewerContainer className="viewer" style={{ margin: `${getViewerMarginByNumber(post?.note_align)}` }}>
-                            <Viewer initialValue={post?.note ?? `<body></body>`} />
-                            {/* <ReactQuill
+                            {/* <Viewer initialValue={post?.note ?? `<body></body>`} /> */}
+                             <ReactQuill
                                 value={post?.note ?? `<body></body>`}
                                 readOnly={true}
                                 theme={"bubble"}
                                 bounds={'.app'}
                                 ref={viewerRef}
-                            /> */}
+                            /> 
                         </ViewerContainer>
                         {/* <ZoomButton/> */}
                         <CommentComponent addComment={addComment} data={comments} fetchComments={fetchComments} updateComment={updateComment} auth={auth} />
