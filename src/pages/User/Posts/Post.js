@@ -117,7 +117,6 @@ const Post = (props) => {
                     obj.note = obj?.note.replaceAll('http://localhost:8001', backUrl);
                     obj.note = obj?.note.replaceAll('https://1st-academy.kr:8443', backUrl);
                 }
-                console.log(obj?.note)
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
                 setTimeout(() => setLoading(false), 1000);
@@ -243,7 +242,6 @@ const Post = (props) => {
         }
     }
     useEffect(() => {
-        console.log(viewerRef.current?.value);
     }, [viewerRef.current])
     return (
         <>
