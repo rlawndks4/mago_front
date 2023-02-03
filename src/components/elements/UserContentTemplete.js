@@ -189,6 +189,9 @@ color:${props => props.theme.color.font2};
 background:#fff;
 font-size:${props => props.theme.size.font4};
 cursor:pointer;
+@media screen and (max-width:700px) { 
+    font-size:${props => props.theme.size.font5};
+}
 `
 export const TextFillButton = styled.button`
 width:124px;
@@ -199,4 +202,7 @@ color:#fff;
 background:${props => props.theme.color.font2};
 font-size:${props => props.theme.size.font4};
 cursor:pointer;
+@media screen and (max-width:700px) { 
+    font-size:${props => props.theme.size.font5};
+}
 `

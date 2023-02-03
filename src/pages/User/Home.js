@@ -13,7 +13,7 @@ import Loading from '../../components/Loading';
 import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import AcademyCard from '../../components/AcademyCard';
-import { getIframeLinkByLink, onClickExternalLink, onClickWindowOpen } from '../../functions/utils';
+import { getIframeLinkByLink, onClickExternalLink, onClickWindowOpen, overString } from '../../functions/utils';
 import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
 import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
@@ -263,7 +263,7 @@ const Home = () => {
                     </>
                     :
                     <>
-                        <div style={{ marginTop: '36px' }} />
+                        <div style={{ marginTop: `${window.innerWidth>=700?'36px':'0'}` }} />
                         <Title className='pointer' link={'/academylist'} line={true} is_thumb={true} is_more_small={true}>BEST 강의</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {bestContents.map((item, idx) => (
@@ -336,7 +336,14 @@ const Home = () => {
                                             <NoticeContent style={{width:`${(window.innerWidth<700 && idx==0)?'65%':''}`}}>
                                                 <div style={{ display: 'flex', fontWeight: 'bold', fontSize: theme.size.font3 }}>
                                                     <div style={{ marginRight: '8px', color: '#b48d4c' }}>NOTICE</div>
+                                                    {window.innerWidth<700 && idx==0?
+                                                    <>
+                                                    <div>{overString(item?.title, 19)}</div>
+                                                    </>
+                                                    :
+                                                    <>
                                                     <div>{item?.title}</div>
+                                                    </>}
                                                 </div>
                                                 <div style={{margin:`${window.innerWidth>=700?'':'8px 0 0 auto'}`}}>{item?.date.substring(0, 10)}</div>
                                             </NoticeContent>

@@ -32,6 +32,17 @@ export const addItem = async (type, obj) => {
         window.history.back();
     }
 }
+export const overString = (str_, cut_count) =>{
+    let str = str_;
+    if(!str){
+        return "";
+    }
+    if(str.length<=cut_count){
+        return str;
+    }else{
+        return str.substring(0, cut_count) + '...'
+    }
+}
 export const updateItem = async (type, obj) => {
     const { data: response } = await axios.post(`/api/update${type}`, obj)
     alert(response.message);
