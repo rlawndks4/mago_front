@@ -21,6 +21,29 @@ import PageButton from '../../components/elements/pagination/PageButton';
 import { commarNumber, range } from '../../functions/utils';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { Viewer } from '@toast-ui/react-editor';
+
+const NoticeContent = styled.div`
+color: ${theme.color.font2};
+display: flex; 
+flex-direction: column; 
+font-size: ${theme.size.font3};
+padding: 6px 0; 
+cursor: pointer;
+border-bottom: 1px solid ${theme.color.font4};
+width:100%;
+`
+const NoticeIcon = styled.div`
+display: flex;
+align-items: center;
+`
+const NoticeTitle = styled.div`
+font-weight: bold;
+color: ${theme.color.font1};
+width:auto;
+@media screen and (max-width:700px) { 
+    width:80%;
+}
+`
 const ServiceCenter = () => {
     const navigate = useNavigate();
     const params = useParams();
@@ -118,22 +141,19 @@ const ServiceCenter = () => {
                                     <div style={{ borderBottom: `1px solid ${theme.color.font4}` }} />
                                     {posts && posts.length > 0 && posts.map((item, idx) => (
                                         <>
-                                            <div style={{
-                                                color: theme.color.font2, display: 'flex', flexDirection: 'column', fontSize: theme.size.font3,
-                                                padding: '6px 0', cursor: 'pointer', borderBottom: `1px solid ${theme.color.font4}`
-                                            }}
+                                            <NoticeContent
                                                 onClick={() => navigate(`/post/notice/${item?.pk}`)}>
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <NoticeIcon>
                                                     <TextButton style={{ width: '48px', border: `1px solid ${theme.color.font5}`, marginRight: '8px' }}>공지</TextButton>
-                                                    <div style={{ fontWeight: 'bold', color: theme.color.font1 }}>{item?.title}</div>
-                                                </div>
+                                                    <NoticeTitle>{item?.title}</NoticeTitle>
+                                                </NoticeIcon>
                                                 <div style={{ display: 'flex', alignItems: 'center', fontSize: theme.size.font5, marginTop: '8px' }}>
                                                     <div style={{ marginRight: '6px' }}>{item?.nickname}</div>
                                                     <div style={{ marginRight: '6px', color: theme.color.font3 }}>{item?.date.substring(0, 10)}</div>
                                                     <div style={{ marginRight: '6px' }}>조회수</div>
                                                     <div style={{ color: theme.color.font3 }}>{commarNumber(item?.views)}</div>
                                                 </div>
-                                            </div>
+                                            </NoticeContent>
                                         </>
                                     ))}
                                 </Content>

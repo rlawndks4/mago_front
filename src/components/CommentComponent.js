@@ -28,7 +28,7 @@ const CommentInputContent = (props) => {
 }
 const CommentContent = (props) => {
     const { item, deleteComment, isReply, displayReplyInput, displayUpdateInput, updateCommentObj, updateComment, auth } = props;
-    
+
     return (
         <>
             <div style={{ borderBottom: `1px solid ${theme.color.font3}`, display: 'flex', padding: '1.5%', fontSize: theme.size.font4, width: `${isReply ? '90%' : '97%'}`, margin: `${isReply ? '0 0 0 auto' : '0'}` }}>
@@ -45,11 +45,11 @@ const CommentContent = (props) => {
                     height={64}
                     width={64}
                     src={item?.profile_img ? (item?.profile_img?.substring(0, 4) == 'http' ? item.profile_img.replaceAll("http://", "https://") : backUrl + item.profile_img) : defaultImg} // use normal <img> attributes as props
-                    style={{ borderRadius: '50%'}}
+                    style={{ borderRadius: '50%' }}
                     onError={defaultImg} />
-                <div style={{marginLeft:'16px'}}>
+                <div style={{ marginLeft: '16px' }}>
                     <div style={{ marginBottom: '6px', display: 'flex' }}><div style={{ marginRight: '6px' }}>{item.nickname}</div> <div style={{ color: theme.color.font3 }}>{item.date.substring(0, 16)}</div></div>
-                    <div style={{ wordBreak: 'break-all', marginBottom: '6px', fontSize: theme.size.font3 }}>{item.note}</div>
+                    <div style={{ wordBreak: 'break-all', marginBottom: '6px', fontSize: theme.size.font3, whiteSpace: 'pre-line' }}>{item.note}</div>
                     <div style={{ display: 'flex' }}>
                         {!isReply && ((localStorage.getItem('auth') && JSON.parse(localStorage.getItem('auth'))?.user_level >= 0) || (auth && auth?.user_level >= 0)) ?
                             <>
