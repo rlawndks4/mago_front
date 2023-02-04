@@ -120,7 +120,7 @@ const Post = (props) => {
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
                 setTimeout(() => setLoading(false), 1000);
-
+                
                 if (localStorage.getItem('dark_mode')) {
                     // $('body').addClass("dark-mode");
                     // $('p').addClass("dark-mode");

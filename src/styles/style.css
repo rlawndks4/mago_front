@@ -130,7 +130,12 @@ body::-webkit-scrollbar-thumb {
 .subtype-container::-webkit-scrollbar {
     display: none;
 }
-
+.viewer > div > div > div.ql-editor > p > a > img{
+    max-width: 1000px !important;
+}
+.viewer > div > div > div.ql-editor > p > img{
+    max-width: 1000px !important;
+}
 .comment-img {
     width: 64px;
     height: 64px;
@@ -265,6 +270,12 @@ margin: 18px auto;
 @media screen and (max-width:700px) {
     .theme-img {
         width: 30vw;
+    }
+    .viewer > div > div > div.ql-editor > p > a > img{
+        width: 100% !important;
+    }
+    .viewer > div > div > div.ql-editor > p > img{
+        width: 100% !important;
     }
 }
 
