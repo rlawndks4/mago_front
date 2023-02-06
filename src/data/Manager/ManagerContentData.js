@@ -20,6 +20,7 @@ export const zSidebar = [
         sidebarObjListFormat('댓글관리', '/manager/list/comment', 40, ['/manager/list/comment']),//edit
         sidebarObjListFormat('장바구니관리', '/manager/list/bag', 40, ['/manager/list/bag']),//edit
         sidebarObjListFormat('결제내역관리', '/manager/list/subscribe', 40, ['/manager/list/subscribe']),//list
+        sidebarObjListFormat('결제엑셀업로드', '/manager/edit/pay_excel', 40, ['/manager/edit/pay_excel']),//list
     ], <BsPerson />),
     sidebarContentFormat('강의관리', [
         sidebarObjListFormat('전문가관리', '/manager/list/master?level=30', 40, ['/manager/list/master']),//list
