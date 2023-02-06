@@ -120,7 +120,7 @@ const MPayExcelEdit = () => {
     return (
         <>
 
-            <Breadcrumb title={'회원 머니 엑셀 일괄 업로드'} nickname={myNick} />
+            <Breadcrumb title={'결제 엑셀 업로드'} nickname={myNick} />
             <Card>
                 <Row>
                     <Col>
