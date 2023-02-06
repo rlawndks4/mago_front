@@ -56,9 +56,8 @@ const EnrolmentList = () => {
 
     useEffect(() => {
         async function fetchPost() {
-            //setLoading(true)
+            setLoading(true)
             const { data: response } = await axios.get('/api/getenrolmentlist');
-            console.log(response)
             let banner_list = [];
             for (var i = 1; i <= 5; i++) {
                 if (response?.data?.banner[`enrolment_banner_img_${i}`]) {
