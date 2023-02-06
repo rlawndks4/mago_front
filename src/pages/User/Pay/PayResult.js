@@ -25,8 +25,16 @@ const PayResult = () => {
     }, [])
 
     const changePage = async (num, is_load) => {
-        const { data: response } = await axios.get(`/api/item?table=academy_category&pk=${params?.class_pk}`);
-        setPosts(response?.data);
+        const { data: response } = await axios.post(`/api/insertpayresult`,{
+            item_pk:params?.class_pk,
+            status:params?.status
+        });
+        if(response?.result>0){
+            setPosts(response?.data);
+        }else{
+            alert(response?.message);
+            navigate(-1);
+        }
     }
     return (
         <>
