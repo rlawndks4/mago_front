@@ -86,10 +86,10 @@ const zUserRoute = [
     { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
 
-    { link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
+    //{ link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
     //{ link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
     //{ link: '/authpay', element: <AuthPay />, title: "결제" },
-    { link: '/authpay-v2/:pk', element: <AuthPayV2 />, title: "결제 v2" },
+    //{ link: '/authpay-v2/:pk', element: <AuthPayV2 />, title: "결제 v2" },
     { link: '/payresult/:class_pk/:status', element: <PayResult />, title: "" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 

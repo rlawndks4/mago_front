@@ -60,7 +60,8 @@ const ContentTable = (props) => {
         return str;
     }
     const onSubscribe = async (num) => {
-        navigate(`/payready/${num}`, { state: { item_pk: num } });
+        window.open('http://pf.kakao.com/_xgKMUb/chat');
+        //navigate(`/payready/${num}`, { state: { item_pk: num } });
     }
     const getExistingPossessionByNumber = (num) => {
         if (num == 0) {

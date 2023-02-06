@@ -66,7 +66,8 @@ const AcademySubCard = (props) => {
     }
     const onSubscribe = async (num) => {
         if (num == 1) {
-            navigate(`/payready/${item?.pk}`, { state: { item_pk: item?.pk } })
+            window.open('http://pf.kakao.com/_xgKMUb/chat');
+            //navigate(`/payready/${item?.pk}`, { state: { item_pk: item?.pk } })
         }
         if (num == 0) {
             if (window.confirm("장바구니 등록 하시겠습니까?")) {
