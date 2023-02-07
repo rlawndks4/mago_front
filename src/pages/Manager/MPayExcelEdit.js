@@ -11,12 +11,13 @@ import ButtonContainer from '../../components/elements/button/ButtonContainer';
 import AddButton from '../../components/elements/button/AddButton';
 import CancelButton from '../../components/elements/button/CancelButton';
 import $ from 'jquery';
-import { Card, Title, Input, Select, Row, Col, ImageContainer, Table, Tr, Td, SectorInput, SectorAddButton, Container } from '../../components/elements/ManagerTemplete';
+import { Card, Title, Input, Select, Row, Col, ImageContainer, Table, Tr, Td, SectorInput, SectorAddButton, Container, Explain } from '../../components/elements/ManagerTemplete';
 import { RiDeleteBinLine } from 'react-icons/ri'
 import ExcelComponent from '../../components/ExcelComponent';
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import readXlsxFile from 'read-excel-file'
+import { returnMoment } from '../../functions/utils';
 const MPayExcelEdit = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -55,21 +56,27 @@ const MPayExcelEdit = () => {
     }
     const uploadExcel = (e) => {
         if (e.target.files[0]) {
-            readXlsxFile(e.target.files[0]).then(async(rows) => {
+            readXlsxFile(e.target.files[0]).then(async (rows) => {
                 rows.shift();
                 setSectorList(rows)
+                console.log(rows)
                 await new Promise((r) => setTimeout(r, 500));
                 for (var i = 0; i < 5000; i++) {
                     if (i == rows.length) {
                         break;
                     } else {
+                        let date = returnMoment(false, rows[i][4]).substring(0, 10);
+                        if (!date) {
+                            alert(`${i + 2}행에 날짜 이외의 값이 있습니다.`)
+                            return;
+                        }
                         $(`.sector-tr-${i}`).css('display', 'flex');
-                        $(`.sector-td-1-${i}`).val(`${rows[i][0]??""}`);
-                        $(`.sector-td-2-${i}`).val(`${rows[i][1]??""}`);
-                        $(`.sector-td-3-${i}`).val(`${rows[i][2]??""}`);
-                        $(`.sector-td-4-${i}`).val(`${rows[i][3]??""}`);
-                        $(`.sector-td-5-${i}`).val(`${rows[i][4]??""}`);
-                        $(`.sector-td-6-${i}`).val(`${rows[i][5]??""}`);
+                        $(`.sector-td-1-${i}`).val(`${rows[i][0] ?? ""}`);
+                        $(`.sector-td-2-${i}`).val(`${rows[i][1] ?? ""}`);
+                        $(`.sector-td-3-${i}`).val(`${rows[i][2] ?? ""}`);
+                        $(`.sector-td-4-${i}`).val(`${rows[i][3] ?? ""}`);
+                        $(`.sector-td-5-${i}`).val(`${date}`);
+                        $(`.sector-td-6-${i}`).val(`${rows[i][5] ?? ""}`);
                     }
                 }
             })
@@ -100,7 +107,7 @@ const MPayExcelEdit = () => {
                 ws,
                 [
                     [
-                       
+
                     ]
                 ],
                 { origin: -1 }
@@ -122,6 +129,15 @@ const MPayExcelEdit = () => {
 
             <Breadcrumb title={'결제 엑셀 업로드'} nickname={myNick} />
             <Card>
+                <Row>
+                    <Col>
+                        <Explain>1. 아이디를 공백없이 입력해 주세요.</Explain>
+                        <Explain>2. 수강강의를 빈캄포함 정확히 입력해 주세요.</Explain>
+                        <Explain>3. 승인금액또는 취소금액중 한 곳에만 입력해 주세요.</Explain>
+                        <Explain>4. 등록일 포맷은 0000-00-00 입니다.</Explain>
+                        <Explain>5. 결제타입은 카드결제, 무통장입금, 기타 중 하나만 입력해 주세요.</Explain>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <ExcelComponent uploadExcel={uploadExcel} extractExcel={extractExcel} />

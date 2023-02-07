@@ -88,24 +88,30 @@ export const formatPhoneNumber = (input) => {
     return result;
 }
 export const returnMoment = (num, date) => {//num 0: 오늘, num -1: 어제 , date->new Date() 인자로 받음
-    var today = new Date();
-    if (num) {
-        let new_date = new Date(today.setDate(today.getDate() + num));
-        today = new_date;
+    try{
+        var today = new Date();
+        if (num) {
+            let new_date = new Date(today.setDate(today.getDate() + num));
+            today = new_date;
+        }
+        if(date){
+            today = date; 
+        }
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+        var dateString = year + '-' + month + '-' + day;
+        var hours = ('0' + today.getHours()).slice(-2);
+        var minutes = ('0' + today.getMinutes()).slice(-2);
+        var seconds = ('0' + today.getSeconds()).slice(-2);
+        var timeString = hours + ':' + minutes + ':' + seconds;
+        let moment = dateString + ' ' + timeString;
+        return moment;
+    }catch(err){
+        console.log(err);
+        return false;
     }
-    if(date){
-        today = date; 
-    }
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
-    var dateString = year + '-' + month + '-' + day;
-    var hours = ('0' + today.getHours()).slice(-2);
-    var minutes = ('0' + today.getMinutes()).slice(-2);
-    var seconds = ('0' + today.getSeconds()).slice(-2);
-    var timeString = hours + ':' + minutes + ':' + seconds;
-    let moment = dateString + ' ' + timeString;
-    return moment;
+    
 }
 export const getIframeLinkByLink = (str) => {
     let ans = "";
