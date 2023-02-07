@@ -80,7 +80,9 @@ const MItemList = () => {
         }
     },[location.pathname])
     useEffect(()=>{
-        getItems();
+        if(location.search.includes('page=')){
+            getItems();
+        }
     },[location.search])
     const changePage = async (num) => {
         setLoading(true)

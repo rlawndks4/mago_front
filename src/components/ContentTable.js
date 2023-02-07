@@ -127,7 +127,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                         {column.type == 'subscribe_date' ?
-                                            item[column.column] ? item[column.column].substring(5, 10).replaceAll("-", ".") : "---"
+                                            item[column?.column] ? item[column?.column].substring(5, 10).replaceAll("-", ".") : "---"
                                             :
                                             null}
                                         {column.type == 'existing_possession' ?
@@ -139,7 +139,7 @@ const ContentTable = (props) => {
                                             :
                                             null}
                                             {column.type == 'end_date' ?
-                                            `${item['start_date'].substring(0,10)} ~ ${item[column.column].substring(0,10)}`
+                                            `${item['start_date'] && item['start_date'].substring(0,10)} ~ ${item[column.column] && item[column.column].substring(0,10)}`
                                             :
                                             null}
                                         {column.type == 'percent' ?

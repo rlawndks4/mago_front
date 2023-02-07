@@ -94,6 +94,7 @@ const MyPage = () => {
     }, [])
     async function getMyContent() {
         const { data: response } = await axios.post('/api/myitems', { table: 'subscribe' });
+        console.log(response)
         let list = [...response?.data?.data];
         let bag_list = [];
         let class_list = [];
