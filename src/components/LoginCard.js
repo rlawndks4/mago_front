@@ -38,6 +38,7 @@ const LoginCard = () => {
         if (window && window.flutter_inappwebview) {
             setIsWebView(true)
         }
+        
     }, [])
     const onLogin = async () => {
         const { data: response } = await axios.post('/api/loginbyid', {
@@ -181,7 +182,14 @@ const LoginCard = () => {
                         <CategoryName style={{ marginTop: '12px', fontSize: '11px' }}>
                             아직 first academy 회원이 아니라면?<strong style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '12px' }} onClick={() => { navigate('/signup') }}>회원가입</strong>
                         </CategoryName>
-                        {/* <Button style={{ marginTop: '36px' }} onClick={() => navigate('/appsetting')}>설정</Button> */}
+                        {isWebView?
+                        <>
+                       <Button style={{ marginTop: '36px' }} onClick={() => navigate('/appsetting')}>설정</Button> 
+
+                        </>
+                        :
+                        <>
+                        </>}
                     </>}
 
             </WrapperForm>

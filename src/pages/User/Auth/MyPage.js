@@ -101,7 +101,7 @@ const MyPage = () => {
         let pay_list = [];
         for (var i = 0; i < list.length; i++) {
             if (list[i]?.status == 1) {
-                if(list[i]?.transaction_status>=0 && list[i]?.use_status==1){
+                if (list[i]?.transaction_status >= 0 && list[i]?.use_status == 1) {
                     class_list.push(list[i]);
                 }
                 pay_list.push(list[i]);
@@ -225,7 +225,15 @@ const MyPage = () => {
                     설정
                 </LogoutButton> */}
 
-
+                {isWebView ?
+                    <>
+                        <LogoutButton onClick={() => navigate('/appsetting')}>
+                            설정
+                        </LogoutButton>
+                    </>
+                    :
+                    <>
+                    </>}
             </Wrappers>
         </>
     )
