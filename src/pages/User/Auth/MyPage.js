@@ -14,11 +14,11 @@ import ContentTable from "../../../components/ContentTable";
 const MyCard = styled.div`
 display:flex;
 width:100%;
-height:250px;
+height:400px;
 border:1px solid ${props => props.theme.color.background3};
 @media screen and (max-width:700px) {
     flex-direction:column;
-    height:500px;
+    height:700px;
 }
 `
 const ProfileContainer = styled.div`
@@ -26,7 +26,7 @@ width:50%;
 display:flex;
 flex-direction:column;
 align-items:center;
-height:250px;
+height:400px;
 background:#f4f4f4;
 @media screen and (max-width:700px) {
     width:100%;
@@ -166,6 +166,18 @@ const MyPage = () => {
                         <Content>
                             <Category>전화번호</Category>
                             <Result>{auth?.phone ?? "---"}</Result>
+                        </Content>
+                        <Content>
+                            <Category>우편번호</Category>
+                            <Result>{auth?.zip_code}</Result>
+                        </Content>
+                        <Content>
+                            <Category>주소</Category>
+                            <Result>{auth?.address}</Result>
+                        </Content>
+                        <Content>
+                            <Category>상세주소</Category>
+                            <Result>{auth?.address_detail}</Result>
                         </Content>
                         <Content>
                             <Category>개인정보동의</Category>

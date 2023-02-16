@@ -308,7 +308,10 @@ const EditMyInfoCard = () => {
                                         <div>
                                             <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                                         </div>
-                                        <CategoryName>우편번호</CategoryName>
+                                        <CategoryName style={{ display: 'flex', alignItems: 'center' }}>
+                                            <div>우편번호</div>
+                                            <div style={{ fontSize: theme.size.font6, color: theme.color.red, marginLeft: '6px' }}>※ 오른쪽 우편번호 검색을 클릭하세요.</div>
+                                        </CategoryName>
                                         <RowContent style={{ maxWidth: '398px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
                                             <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
                                             <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
@@ -329,12 +332,12 @@ const EditMyInfoCard = () => {
                                             :
                                             <>
                                             </>}
-                                        <CategoryName>예금주</CategoryName>
+                                        {/* <CategoryName>예금주</CategoryName>
                                         <Input className="account_holder" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.bank_name').focus() : null} />
                                         <CategoryName>은행명</CategoryName>
                                         <Input className="bank_name" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? $('.account_number').focus() : null} />
                                         <CategoryName>계좌번호</CategoryName>
-                                        <Input className="account_number" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} />
+                                        <Input className="account_number" placeholder="" onKeyPress={(e) => e.key == 'Enter' ? onSave(typeNum) : null} /> */}
                                         <CategoryName>비밀번호</CategoryName>
                                         <Input className="pw" type={'password'} placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? $('.nickname').focus() : null} autoComplete={'new-password'} />
                                     </>

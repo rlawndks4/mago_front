@@ -241,6 +241,12 @@ margin: 18px auto;
     .video-img{
         height: 28.266666666vw;
     }
+    .viewer > div > div > div.ql-editor > p > a > img{
+        width: 100% !important;
+    }
+    .viewer > div > div > div.ql-editor > p > img{
+        width: 100% !important;
+    }
 }
 
 @media screen and (max-width:1100px) {
@@ -271,12 +277,7 @@ margin: 18px auto;
     .theme-img {
         width: 30vw;
     }
-    .viewer > div > div > div.ql-editor > p > a > img{
-        width: 100% !important;
-    }
-    .viewer > div > div > div.ql-editor > p > img{
-        width: 100% !important;
-    }
+   
 }
 
 @media screen and (max-width:600px) {
