@@ -187,42 +187,50 @@ const MyPage = () => {
                     </Container>
                 </MyCard>
                 <div style={{ marginTop: '36px' }} />
-                <Title>장바구니</Title>
-                <ShadowContainer>
-                    <ContentTable columns={[
-                        { name: "수강상품", column: "title", width: 30, type: 'text' },
-                        { name: "강사", column: "master_name", width: 30, type: 'text' },
-                        { name: "수강상태", column: "", width: 30, type: "class_status" },
-                        { name: "삭제", column: "", width: 30, type: 'delete' },
-                    ]}
-                        data={bagList}
-                        schema={'subscribe'}
-                        pageSetting={pageSetting} />
-                </ShadowContainer>
-                <div style={{ marginTop: '36px' }} />
-                <Title>내 강의실</Title>
-                <ShadowContainer>
-                    <ContentTable columns={[
-                        { name: "수강상품", column: "title", width: 30, type: 'text' },
-                        { name: "강사", column: "master_name", width: 40, type: 'text' },
-                        { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
-                    ]}
-                        data={calssList}
-                        schema={'subscribe'} />
-                </ShadowContainer>
-                <div style={{ marginTop: '36px' }} />
-                <Title>결제 내역</Title>
-                <ShadowContainer>
-                    <ContentTable columns={[
-                        { name: "수강상품", column: "title", width: 30, type: 'text' },
-                        { name: "강사", column: "master_name", width: 20, type: 'text' },
-                        { name: "결제금액", column: "price", width: 20, type: 'won' },
-                        { name: "결제일시", column: "trade_date", width: 30, type: 'text' },
-                    ]}
-                        data={payList}
-                        schema={'subscribe'} />
-                </ShadowContainer>
-                <div style={{ marginTop: '36px' }} />
+                {isWebView ?
+                    <>
+
+                    </>
+                    :
+                    <>
+                        <Title>장바구니</Title>
+                        <ShadowContainer>
+                            <ContentTable columns={[
+                                { name: "수강상품", column: "title", width: 30, type: 'text' },
+                                { name: "강사", column: "master_name", width: 30, type: 'text' },
+                                { name: "수강상태", column: "", width: 30, type: "class_status" },
+                                { name: "삭제", column: "", width: 30, type: 'delete' },
+                            ]}
+                                data={bagList}
+                                schema={'subscribe'}
+                                pageSetting={pageSetting} />
+                        </ShadowContainer>
+                        <div style={{ marginTop: '36px' }} />
+                        <Title>내 강의실</Title>
+                        <ShadowContainer>
+                            <ContentTable columns={[
+                                { name: "수강상품", column: "title", width: 30, type: 'text' },
+                                { name: "강사", column: "master_name", width: 40, type: 'text' },
+                                { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
+                            ]}
+                                data={calssList}
+                                schema={'subscribe'} />
+                        </ShadowContainer>
+                        <div style={{ marginTop: '36px' }} />
+                        <Title>결제 내역</Title>
+                        <ShadowContainer>
+                            <ContentTable columns={[
+                                { name: "수강상품", column: "title", width: 30, type: 'text' },
+                                { name: "강사", column: "master_name", width: 20, type: 'text' },
+                                { name: "결제금액", column: "price", width: 20, type: 'won' },
+                                { name: "결제일시", column: "trade_date", width: 30, type: 'text' },
+                            ]}
+                                data={payList}
+                                schema={'subscribe'} />
+                        </ShadowContainer>
+                        <div style={{ marginTop: '36px' }} />
+                    </>}
+
                 <Content>
                     <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                         <TextButton onClick={onLogout} style={{ margin: '0 8px 0 auto' }}>로그아웃</TextButton>
