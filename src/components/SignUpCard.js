@@ -148,8 +148,14 @@ const SignUpCard = () => {
         }
     }
     const onSignUp = async () => {
-        if (!$('.id').val() || !$('.name').val()) {
-            alert('필수값을 입력해주세요.');
+        if (!$('.id').val()) {
+            if(!state?.id){
+                alert('아이디를 입력해주세요.');
+            }
+        }else if (!$('.name').val()) {
+            if(!state?.name){
+                alert('이름을 입력해주세요.');
+            }
         } else if (!isCheckId) {
             alert('아이디 중복확인을 해주세요.');
         } else if (!regExp('pw', $('.pw').val())) {
@@ -179,10 +185,10 @@ const SignUpCard = () => {
         } else {
             if (window.confirm('회원가입 하시겠습니까?')) {
                 const { data: response } = await axios.post('/api/adduser', {
-                    id: location.state ? state.id : $('.id').val(),
+                    id:  $('.id').val() || state?.id,
                     pw: location.state ? "111" : $('.pw').val(),
-                    name: location.state ? state.name : $('.name').val(),
-                    nickname: $('.nickname').val(),
+                    name:  $('.name').val() || state?.name,
+                    nickname: $('.nickname').val() || state?.nickname,
                     address: $('.address').val(),
                     address_detail: $('.address_detail').val(),
                     zip_code: $('.zip_code').val(),
