@@ -38,7 +38,7 @@ const LoginCard = () => {
         if (window && window.flutter_inappwebview) {
             setIsWebView(true)
         }
-        
+
     }, [])
     const onLogin = async () => {
         const { data: response } = await axios.post('/api/loginbyid', {
@@ -96,7 +96,7 @@ const LoginCard = () => {
             if (response.result <= 50) {//신규유저
                 navigate('/signup', { state: { id: objs.id, typeNum: objs.typeNum, profile_img: objs.profile_img, name: objs.name } })
             } else {
-                
+
                 await localStorage.setItem('auth', JSON.stringify(response.data));
                 window.location.href = '/mypage';
             }
@@ -108,7 +108,7 @@ const LoginCard = () => {
     const snsLogin = async (num) => {
         if (window && window.flutter_inappwebview) {
             setLoading(true);
-            setLoadingText(num==1?'카카오 로그인 중입니다...':'')
+            setLoadingText(num == 1 ? '카카오 로그인 중입니다...' : '')
             var params = { 'login_type': num };
             await window.flutter_inappwebview.callHandler('native_app_login', JSON.stringify(params)).then(async function (result) {
                 //result = "{'code':100, 'message':'success', 'data':{'login_type':1, 'id': 1000000}}"
@@ -150,46 +150,43 @@ const LoginCard = () => {
                             </div>
                         </FlexBox>
                         <Button onClick={onLogin}>로그인</Button>
-                        {/* <CategoryName style={{ marginTop: '36px' }}>SNS 간편 로그인</CategoryName>
-                        <FlexBox>
-                            <SnsLogo src={kakao} onClick={() => snsLogin(1)} />
-                            {localStorage.getItem('is_ios') ?
-                                <>
-                                    {isWebView ?
+
+                        {/* <SnsLogo src={kakao} onClick={() => snsLogin(1)} /> */}
+                        {localStorage.getItem('is_ios') && isWebView ?
+                            <>
+                                <CategoryName style={{ marginTop: '36px' }}>SNS 간편 로그인</CategoryName>
+                                <FlexBox>
+                                    {localStorage.getItem('dark_mode') ?
                                         <>
-                                            {localStorage.getItem('dark_mode') ?
-                                                <>
-                                                    <SnsLogo src={apple} onClick={() => snsLogin(3)} />
-                                                </>
-                                                :
-                                                <>
-                                                    <SnsLogo src={appleDark} onClick={() => snsLogin(3)} />
-                                                </>
-                                            }
+                                            <SnsLogo src={apple} onClick={() => snsLogin(3)} />
                                         </>
                                         :
                                         <>
+                                            <SnsLogo src={appleDark} onClick={() => snsLogin(3)} />
                                         </>
                                     }
-                                </>
-                                :
-                                <>
-                                </>
-                            }
+                                </FlexBox>
 
 
-                        </FlexBox> */}
+
+                            </>
+                            :
+                            <>
+                            </>
+                        }
+
+
                         <CategoryName style={{ marginTop: '12px', fontSize: '11px' }}>
                             아직 first academy 회원이 아니라면?<strong style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '12px' }} onClick={() => { navigate('/signup') }}>회원가입</strong>
                         </CategoryName>
-                        {isWebView?
-                        <>
-                       <Button style={{ marginTop: '36px' }} onClick={() => navigate('/appsetting')}>설정</Button> 
+                        {isWebView ?
+                            <>
+                                <Button style={{ marginTop: '36px' }} onClick={() => navigate('/appsetting')}>설정</Button>
 
-                        </>
-                        :
-                        <>
-                        </>}
+                            </>
+                            :
+                            <>
+                            </>}
                     </>}
 
             </WrapperForm>
