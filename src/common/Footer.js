@@ -28,7 +28,7 @@ z-index:3;
 
 `
 const KakaoImg = styled.img`
-width: 140px;
+width: 100px;
 cursor: pointer;
 margin-right:8px;
 animation: fadein 0.5s;
