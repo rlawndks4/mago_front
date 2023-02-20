@@ -5,6 +5,43 @@ import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
 import { onClickWindowOpen } from "../functions/utils";
+import kakaoFotterIcon from '../assets/images/test/kakao-footer.png'
+
+const Button = styled.div`
+
+background:${props => props.theme.color.background1};
+padding:7px 8px 5px 8px;
+color:#000;
+border-radius:50%;
+font-size:16px;
+cursor:pointer;
+animation: fadein 0.5s;
+z-index:3;
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+`
+const KakaoImg = styled.img`
+width: 140px;
+cursor: pointer;
+margin-right:8px;
+animation: fadein 0.5s;
+z-index:3;
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+`
 const Wrappers = styled.footer`
     display:flex;
     flex-direction:column;
@@ -84,10 +121,10 @@ const Footer = () => {
                                 <div style={{ marginRight: '16px' }}>Email&nbsp;&nbsp;First_partner@naver.com</div>
                                 <div>FAX&nbsp;&nbsp;02-332-3593</div>
                             </Flex>
-                            {/* <div style={{display:'flex',alignItems:'center'}}>
-                                <img src={kakao} />
+                             <div style={{display:'flex',alignItems:'center'}}>
+                             <KakaoImg src={kakaoFotterIcon} style={{ display: `flex` }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
                                 <div></div>
-                            </div> */}
+                            </div> 
                         </Flex>
                     </Wrappers>
                 </>
