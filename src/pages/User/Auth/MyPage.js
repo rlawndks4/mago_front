@@ -18,7 +18,7 @@ height:400px;
 border:1px solid ${props => props.theme.color.background3};
 @media screen and (max-width:700px) {
     flex-direction:column;
-    height:700px;
+    height:800px;
 }
 `
 const ProfileContainer = styled.div`

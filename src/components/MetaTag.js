@@ -21,6 +21,7 @@ const MetaTag = props => {
     return (
         <Helmet>
             <title>{props.title ? props.title : title}</title>
+            <meta name={'viewport'} content={`initial-scale=1.0,maximum-scale=2,width=device-width${['/login','/signup'].includes(pathname)?',user-scalable=no':''}`} />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={props.title ? props.title : title} />
             <meta property="og:site_name" content={props.title ? props.title : title} />

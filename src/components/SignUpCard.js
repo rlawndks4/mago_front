@@ -148,63 +148,64 @@ const SignUpCard = () => {
         }
     }
     const onSignUp = async () => {
-        if (!$('.id').val()) {
-            if(!state?.id){
-                alert('아이디를 입력해주세요.');
-            }
-        }else if (!$('.name').val()) {
-            if(!state?.name){
-                alert('이름을 입력해주세요.');
-            }
-        } else if (!isCheckId) {
-            alert('아이디 중복확인을 해주세요.');
-        } else if (!regExp('pw', $('.pw').val())) {
-            alert('비밀번호 정규식을 지켜주세요.');
-        } else if (!regExp('name', $('.name').val())) {
-            alert('이름 정규식을 지켜주세요.');
-        } else if ($('.pw').val() != $('.pw-check').val()) {
-            alert('비밀번호가 일치하지 않습니다.');
-        } else if (!isCheckPhoneNumber) {
-            alert('전화번호 인증을 완료해 주세요.');
-        } else if (!isCheckNickname) {
-            alert('닉네임 중복확인을 해주세요.');
-        } else if (!$('.zip_code').val()) {
-            alert('우편번호를 입력해 주세요.');
-        } else if (!$('.address').val()) {
-            alert('주소를 입력해 주세요.');
-        } else if (!$('.address_detail').val()) {
-            alert('상세주소를 입력해 주세요.');
-        } else if (!regExp('nickname', $('.nickname').val())) {
-            alert('닉네임 정규식을 지켜주세요.');
-        } else if (!$('input[id=term-of-use-1]:checked').val()) {
-            alert('이용약관을 동의해 주세요.');
-
-        } else if (!$('input[id=privacy-policy-1]:checked').val()) {
-            alert('개인정보취급방침을 동의해 주세요.');
-
-        } else {
-            if (window.confirm('회원가입 하시겠습니까?')) {
-                const { data: response } = await axios.post('/api/adduser', {
-                    id:  $('.id').val() || state?.id,
-                    pw: location.state ? "111" : $('.pw').val(),
-                    name:  $('.name').val() || state?.name,
-                    nickname: $('.nickname').val() || state?.nickname,
-                    address: $('.address').val(),
-                    address_detail: $('.address_detail').val(),
-                    zip_code: $('.zip_code').val(),
-                    phone: $('.phone').val(),
-                    user_level: 0,
-                    type_num: location.state ? state.typeNum : typeNum,
-                    profile_img: location.state ? state.profile_img : null
-                })
-                if (response.result > 0) {
-                    alert('회원가입이 완료되었습니다.');
-                    navigate('/login');
-                } else {
-                    alert(response.message);
+        try {
+            console.log(JSON.stringify(state))
+            if (!$('.id').val()&&!state?.id ) {
+                    alert('아이디를 입력해주세요.');
+            } else if (!$('.name').val() &&!state.name) {
+                    alert('이름을 입력해주세요.');
+            } else if (!isCheckId&&!state?.id) {
+                alert('아이디 중복확인을 해주세요.');
+            } else if (!regExp('pw', $('.pw').val())&&!state) {
+                alert('비밀번호 정규식을 지켜주세요.');
+            } else if (!regExp('name', $('.name').val())) {
+                alert('이름 정규식을 지켜주세요.');
+            } else if ($('.pw').val() !== $('.pw-check').val()) {
+                alert('비밀번호가 일치하지 않습니다.');
+            } else if (!isCheckPhoneNumber) {
+                alert('전화번호 인증을 완료해 주세요.');
+            } else if (!isCheckNickname) {
+                alert('닉네임 중복확인을 해주세요.');
+            } else if (!$('.zip_code').val()) {
+                alert('우편번호를 입력해 주세요.');
+            } else if (!$('.address').val()) {
+                alert('주소를 입력해 주세요.');
+            } else if (!$('.address_detail').val()) {
+                alert('상세주소를 입력해 주세요.');
+            } else if (!regExp('nickname', $('.nickname').val())) {
+                alert('닉네임 정규식을 지켜주세요.');
+            } else if (!$('input[id=term-of-use-1]:checked').val()) {
+                alert('이용약관을 동의해 주세요.');
+            } else if (!$('input[id=privacy-policy-1]:checked').val()) {
+                alert('개인정보취급방침을 동의해 주세요.');
+            } else {
+                if (window.confirm('회원가입 하시겠습니까?')) {
+                    const { data: response } = await axios.post('/api/adduser', {
+                        id: $('.id').val() || state?.id,
+                        pw: location.state ? "111" : $('.pw').val(),
+                        name: $('.name').val() || state?.name,
+                        nickname: $('.nickname').val() || state?.nickname,
+                        address: $('.address').val(),
+                        address_detail: $('.address_detail').val(),
+                        zip_code: $('.zip_code').val(),
+                        phone: $('.phone').val(),
+                        user_level: 0,
+                        type_num: location.state ? state.typeNum : typeNum,
+                        profile_img: location.state ? state.profile_img : null
+                    })
+                    if (response.result > 0) {
+                        alert('회원가입이 완료되었습니다.');
+                        navigate('/login');
+                    } else {
+                        alert(response.message);
+                    }
                 }
             }
+        } catch (err) {
+            console.log(JSON.stringify(err))
         }
+
+
     }
     const onKeyPressId = (e) => {
         if (e.key == 'Enter') {
@@ -326,12 +327,12 @@ const SignUpCard = () => {
                         <CategoryName>비밀번호 확인</CategoryName>
                         <Input placeholder='비밀번호를 한번더 입력해주세요.' type={'password'} className='pw-check' onKeyPress={onKeyPressPwCheck} onChange={onChangePwCheck} />
                         <RegularNotice>{!coinsidePW ? '비밀번호가 일치하지 않습니다.' : ''}</RegularNotice>
-                        <CategoryName>이름</CategoryName>
-                        <Input placeholder='이름을 입력해주세요.' type={'text'} className='name' onKeyPress={onKeyPressName} />
-                        <RegularNotice>실명으로 입력해주세요.</RegularNotice>
+
                     </>
                 }
-
+                <CategoryName>이름</CategoryName>
+                <Input placeholder='이름을 입력해주세요.' type={'text'} className='name' onKeyPress={onKeyPressName} />
+                <RegularNotice>실명으로 입력해주세요.</RegularNotice>
 
 
                 <CategoryName>닉네임</CategoryName>
