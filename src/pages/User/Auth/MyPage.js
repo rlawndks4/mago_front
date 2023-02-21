@@ -8,7 +8,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { MdEdit } from 'react-icons/md';
 import theme from "../../../styles/theme";
-import { CgToggleOn, CgToggleOff } from 'react-icons/cg'
 import ContentTable from "../../../components/ContentTable";
 
 const MyCard = styled.div`

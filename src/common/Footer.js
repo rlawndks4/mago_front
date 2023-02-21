@@ -41,6 +41,9 @@ z-index:3;
         opacity: 1;
     }
 }
+@media screen and (max-width:650px) {
+    margin: 0 0 0 auto;
+}
 `
 const Wrappers = styled.footer`
     display:flex;
@@ -116,15 +119,11 @@ const Footer = () => {
                         </div> */}
                         <div style={{ marginTop: '8px' }}>서울시 마포구 양화로 127 7층(첨단빌딩)</div>
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Flex>
-
+                            <Flex style={{margin:'0 auto 0 0'}}>
                                 <div style={{ marginRight: '16px' }}>Email&nbsp;&nbsp;First_partner@naver.com</div>
                                 <div>FAX&nbsp;&nbsp;02-332-3593</div>
                             </Flex>
-                             <div style={{display:'flex',alignItems:'center'}}>
                              <KakaoImg src={kakaoFotterIcon} style={{ display: `flex` }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
-                                <div></div>
-                            </div> 
                         </Flex>
                     </Wrappers>
                 </>
