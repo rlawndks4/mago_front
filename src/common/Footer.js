@@ -78,7 +78,7 @@ transition: 0.3s;
 const Img = styled.img`
 width: 120px;
 @media screen and (max-width:400px) {
-width:14vw;
+width:24vw;
 }
 `
 const Flex = styled.div`
@@ -108,9 +108,9 @@ const Footer = () => {
                         </div>
                     </div>
                     <Wrappers className="footer" style={{ background: `#23242f`, fontSize: theme.size.font5 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '800px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                             <Img src={logo} alt="footer" />
-                            
+                            <KakaoImg src={kakaoFotterIcon} style={{ display: `flex` }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
                         </div>
                         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
@@ -123,7 +123,7 @@ const Footer = () => {
                                 <div style={{ marginRight: '16px' }}>Email&nbsp;&nbsp;First_partner@naver.com</div>
                                 <div>FAX&nbsp;&nbsp;02-332-3593</div>
                             </Flex>
-                             <KakaoImg src={kakaoFotterIcon} style={{ display: `flex` }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
+                            
                         </Flex>
                     </Wrappers>
                 </>
