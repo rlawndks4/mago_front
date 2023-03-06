@@ -272,9 +272,9 @@ const Post = (props) => {
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
                         {post?.pdf_img ?
                             <>
-                            <div onClick={()=>window.location.href=backUrl+decodeURI(post?.pdf)} download={''} >
+                            <a href={backUrl+post?.pdf} download={backUrl+post?.pdf} >
                             <img src={backUrl + post?.pdf_img} style={{ width: '100%', margin: '16px auto', cursor: 'pointer' }} />
-                            </div>
+                            </a>
                             </>
                             :
                             <>
