@@ -112,7 +112,7 @@ const MItemEditComponent = (props) => {
             for (var i = 0; i < objManagerEditContent[schema].columns.length; i++) {
                 for (var j = 0; j < objManagerEditContent[schema].columns[i].length; j++) {
                     let content = objManagerEditContent[schema].columns[i][j];
-                    if (content.type == 'img') {
+                    if (content.type == 'img' || content.type == 'pdf') {
                         if (item[`${content.class_name}`]) {
                             url_list_obj[`${content.class_name}`] = backUrl + item[`${content.class_name}`];
                         }
@@ -196,6 +196,12 @@ const MItemEditComponent = (props) => {
                             obj[content.class_name] = $(`.${content.class_name}`).val() ?? optionListObj[content.class_name][0]['val'];
                         } else if (content.type == 'editor') {
                             obj[content.class_name] = editorListObj[`${content.class_name}`];
+                        } else if (content.type == 'pdf' && imgContentObj[`${content?.class_name}`]) {
+                            key_field_connect_obj[content?.type_option?.field_name] = content.class_name;
+                            await formData.append(`${content?.type_option?.field_name}`, imgContentObj[`${content?.class_name}`]);
+                            img_count++;
+                        } else if (content.type == 'pdf' && imgUrlObj[`${content?.class_name}`] == -1) {//초기화시
+                            obj[content.class_name] = '';
                         }
                     }
                 }
@@ -306,6 +312,23 @@ const MItemEditComponent = (props) => {
                                                     :
                                                     <>
                                                     </>}
+                                                {item.type == 'pdf' ?
+                                                    <>
+                                                        {imgUrlObj[`${item.class_name}`] && imgUrlObj[`${item.class_name}`] != -1 ?
+                                                            <>
+                                                                <a style={{ margin: '12px auto 0px 24px' }} href={imgUrlObj[`${item.class_name}`]}>pdf 미리보기</a>
+                                                            </>
+                                                            :
+                                                            <>
+                                                            </>}
+                                                        <Input type="file" id={`${item.class_name}`} onChange={addFile} />
+                                                        <Explain style={{ margin: '8px auto 0px 24px' }}>
+                                                            <AddButton onClick={() => imgReset(item.class_name)}>초기화</AddButton>
+                                                        </Explain>
+                                                    </>
+                                                    :
+                                                    <>
+                                                    </>}
                                                 {item.type == 'img' ?
                                                     <>
                                                         <ImageContainer for={`${item.class_name}`}>
@@ -335,7 +358,6 @@ const MItemEditComponent = (props) => {
                                                             :
                                                             <>
                                                             </>}
-
                                                     </>
                                                     :
                                                     <>
@@ -399,13 +421,13 @@ const MItemEditComponent = (props) => {
 
             <ButtonContainer>
                 <AddButton style={{ background: theme.color.red, marginRight: '8px' }} onClick={() => { navigate(-1) }}>{'취소'}</AddButton>
-                <AddButton onClick={()=>{
-                    if(editItemByParent){
+                <AddButton onClick={() => {
+                    if (editItemByParent) {
                         editItemByParent();
-                    }else{
+                    } else {
                         editItem();
                     }
-                    }}>{'저장'}</AddButton>
+                }}>{'저장'}</AddButton>
             </ButtonContainer>
             {/* {params_pk > 0 ?
                         <>

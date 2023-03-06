@@ -28,7 +28,6 @@ height: 5rem;
 display: -webkit-flex;
 display: flex;
 margin: 0 auto;
-
 `
 const OneMenuContainer = styled.div`
     color: inherit;
