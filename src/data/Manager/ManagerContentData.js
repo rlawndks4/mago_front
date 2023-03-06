@@ -414,6 +414,9 @@ export const objManagerEditContent = {
                 editColumnObjFormat('해시태그', 'input', { placeholder: '' }, 'hash'),
             ],
             [
+                editColumnObjFormat('pdf 다운로드이동 이미지', 'img', { field_name: 'pdfimg' }, 'pdf_img'),
+            ],
+            [
                 editColumnObjFormat('pdf업로드', 'pdf', { field_name: 'pdf' }, 'pdf'),
             ],
             [

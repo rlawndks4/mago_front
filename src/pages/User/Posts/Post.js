@@ -120,7 +120,7 @@ const Post = (props) => {
                 await new Promise((r) => setTimeout(r, 300));
                 setPost(obj);
                 setTimeout(() => setLoading(false), 1000);
-                
+
                 if (localStorage.getItem('dark_mode')) {
                     // $('body').addClass("dark-mode");
                     // $('p').addClass("dark-mode");
@@ -270,15 +270,24 @@ const Post = (props) => {
                             </div>
                         </div>
                         <div style={{ fontSize: `${theme.size.font4}`, color: `${theme.color.font2}` }}>{post.hash}</div>
+                        {post?.pdf_img ?
+                            <>
+                            <a href={backUrl+post?.pdf} download={backUrl+post?.pdf} >
+                            <img src={backUrl + post?.pdf_img} style={{ width: '100%', margin: '16px auto', cursor: 'pointer' }} />
+                            </a>
+                            </>
+                            :
+                            <>
+                            </>}
                         <ViewerContainer className="viewer" style={{ margin: `${getViewerMarginByNumber(post?.note_align)}` }}>
                             {/* <Viewer initialValue={post?.note ?? `<body></body>`} /> */}
-                             <ReactQuill
+                            <ReactQuill
                                 value={post?.note ?? `<body></body>`}
                                 readOnly={true}
                                 theme={"bubble"}
                                 bounds={'.app'}
                                 ref={viewerRef}
-                            /> 
+                            />
                         </ViewerContainer>
                         {/* <ZoomButton/> */}
                         <CommentComponent addComment={addComment} data={comments} fetchComments={fetchComments} updateComment={updateComment} auth={auth} />
