@@ -29,26 +29,19 @@ import MSettingEdit from '../pages/Manager/MSettingEdit';
 
 import MItemEdit from '../pages/Manager/MItemEdit';
 import MItemList from '../pages/Manager/MItemList';
-import Notice from '../pages/User/Notice/Notice';
 import MAlarmEdit from '../pages/Manager/MAlarmEdit';
 import MAcademyEdit from '../pages/Manager/MAcademyEdit';
 import EnrolmentList from '../pages/User/EnrolmentList';
 import AcademyList from '../pages/User/AcademyList';
-import Academy from '../pages/User/Academy/Academy';
 import ReviewList from '../pages/User/ReviewList';
 import ServiceCenter from '../pages/User/ServiceCenter';
 import EventList from '../pages/User/EventList';
 import Request from '../pages/User/Auth/Request';
-import MyAcademy from '../pages/User/Academy/MyAcademy';
-import AuthPay from '../pages/User/Pay/AuthPay';
 import AddReview from '../pages/User/Auth/AddReview';
-import KeyRecieve from '../pages/User/Pay/KeyRecieve';
-import PayReady from '../pages/User/Pay/PayReady';
 import PayResult from '../pages/User/Pay/PayResult';
 import MSubscribeEdit from '../pages/Manager/MSubscribeEdit';
 import MPayEdit from '../pages/Manager/MPayEdit';
 import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
-import AuthPayV2 from '../pages/User/Pay/AuthPay-v2';
 import MPayExcelEdit from '../pages/Manager/MPayExcelEdit';
 import MShopEdit from '../pages/Manager/MShopEdit';
 
@@ -78,8 +71,6 @@ const zUserRoute = [
     { link: '/search', element: <Search />, title: "검색" },
     { link: '/enrolmentlist', element: <EnrolmentList />, title: "수강신청" },
     { link: '/academylist', element: <AcademyList />, title: "강의실" },
-    { link: '/academy/:pk', element: <Academy />, title: "강의실" },
-    { link: '/myacademy/:pk', element: <MyAcademy />, title: "강의실" },
     { link: '/reviewlist', element: <ReviewList />, title: "수강후기" },
     { link: '/servicecenter', element: <ServiceCenter />, title: "상담문의" },
     { link: '/servicecenter/:type_num', element: <ServiceCenter />, title: "상담문의" },

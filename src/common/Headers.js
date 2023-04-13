@@ -194,7 +194,7 @@ const Headers = () => {
 
   const [popupList, setPopupList] = useState([]);
   const [topBanner, setTopBanner] = useState({});
-  const [masterList, setMasterList] = useState([]);
+  const [themeList, setThemeList] = useState([]);
 
   const [auth, setAuth] = useState({});
   useEffect(() => {
@@ -251,7 +251,7 @@ const Headers = () => {
     const { data: response } = await axios.get('/api/getheadercontent')
     setPopupList(response?.data?.popup ?? []);
     setTopBanner(response?.data?.top_banner);
-    setMasterList(response?.data?.master);
+    setThemeList(response?.data?.theme);
   }
 
   useEffect(() => {
@@ -498,9 +498,9 @@ const Headers = () => {
             ))}
             <div className="master-dropdown-content">
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
-                {masterList && masterList.map((item, idx) => (
+                {themeList && themeList.map((item, idx) => (
                   <>
-                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name} 전문가</TextButton>
+                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name}</TextButton>
                   </>
                 ))}
               </div>
