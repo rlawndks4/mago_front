@@ -317,7 +317,7 @@ export const objManagerListContent = {
         false,
         false),
     shop_event: sidebarObjFormat(
-        '업체리뷰 관리',
+        '업체이벤트 관리',
         'shop_event',
         [
             columnObjFormat('메인이미지', '', 'img', 'main_img'),

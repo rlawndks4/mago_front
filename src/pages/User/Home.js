@@ -30,92 +30,18 @@ font-family:${props => props.theme.font.normal};
     margin-top:4rem;
 }
 `
-const RowLastColumnContent = styled.div`
-display:flex;
-justify-content:space-between;
-@media screen and (max-width:1000px) { 
-flex-direction:column;
-}
-`
-const HalfContent = styled.div`
-width:48%;
-font-size:${props => props.theme.size.font3};
-display:flex;
-flex-direction:column;
-font-weight:normal;
-@media screen and (max-width:1000px) { 
-    width:100%;
-}
-`
-const Iframe = styled.iframe`
-width:100%;
-height:300px;
-@media screen and (max-width:700px) { 
-    height:55vw;
-    margin-bottom:8px;
-}
-`
-const RowVideoContent = styled.div`
-display:flex;
-width:100%;
-position:relative;
-@media screen and (max-width:700px) { 
-    flex-direction:column-reverse;
-}
-`
-const NoticeContainer = styled.div`
-color: ${props=>props.theme.color.font2};
-display: flex;
-justify-content: space-between;
-font-size: theme.size.font4;
-margin-bottom: 8px;
-cursor: pointer;
-border: 1px solid ${theme.color.font5};
-padding: 4px 8px;
-`
-const NoticeImg = styled.img`
-height: 100px;
-width: 150px;
-@media screen and (max-width:700px) { 
-    margin:0 auto 8px auto;
-    width:30vw;
-    height:20vw;
-}
-`
-const NoticeContent = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-margin: 0 auto 0 8px;
-width:306px;
-@media screen and (max-width:1000px) {
-width:100%;
-}
 
-`
-const ReviewCard = (props) => {
-    let { item, onClick } = props;
-    const [note, setNote] = useState([]);
-    useEffect(() => {
-
-    }, [props])
-    return (
-        <>
-            <div style={{ display: 'flex', flexDirection: 'column', border: `1px solid ${theme.color.font5}`, width: '95%', margin: '0 auto' }} onClick={onClick}>
-                <div style={{ display: 'flex', alignItems: 'center', padding: '16px' }}>
-                    <div style={{ backgroundImage: `url(${backUrl + item?.main_img})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundBlendMode: 'multiply', width: '100px', height: '100px', borderRadius: '50%' }} />
-                    <div style={{ display: 'flex', flexDirection: 'column', height: '100px' }}>
-                        <div style={{ margin: '8px 0 auto 6px', color: '#b48d4c' }}>REVIEW</div>
-                        <div style={{ fontWeight: 'bold', margin: '14px 0 auto 6px' }}> {(item?.title ?? "").substring(0, 15)}{item?.title.length > 15 ? '...' : ''}</div>
-                    </div>
-                </div>
-                <div style={{ padding: '16px', background: theme.color.font6, fontSize: theme.size.font5, height: '25px' }}>
-                    {(item?.note.replace(/(<([^>]+)>)/ig, "") ?? "").substring(0, 30)}{item?.note.replace(/(<([^>]+)>)/ig, "").length > 30 ? '...' : ''}
-                </div>
-            </div>
-        </>
-    )
+const CityCard = styled.img`
+width: 22%;
+height:100px;
+margin:0.5rem 1%;
+cursor:pointer;
+@media screen and (max-width:1050px) { 
+    width: 40vw;
+    height: 20vw;
+    margin:0.5rem 2%;
 }
+`
 const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -125,8 +51,10 @@ const Home = () => {
     const [apps, setApps] = useState({});
     const [banners, setBanners] = useState([]);
     const [bannerLinks, setBannerLinks] = useState({});
+    const [cityList, setCityList] = useState([])
     const [mainContent, setMainContent] = useState([]);
     const [mainVideos, setMainVideos] = useState([])
+
     const reviewRef = useRef();
     const videoRef = useRef();
     const settings = {
@@ -159,6 +87,7 @@ const Home = () => {
         async function fetchPost() {
             setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
+            console.log(response)
             let banner_list = [];
             let banner_link_obj = {};
             for (var i = 1; i <= 5; i++) {
@@ -166,14 +95,15 @@ const Home = () => {
                     await banner_list.push(`${backUrl + response?.data?.banner[`home_banner_img_${i}`]}`);
                 }
             }
+            setCityList(response?.data?.city ?? []);
             setBanners(banner_list);
 
             setLoading(false);
         }
         fetchPost();
-        
+
     }, [])
-    
+
     return (
         <>
             <WrappersStyle>
@@ -204,9 +134,18 @@ const Home = () => {
                     </>
                     :
                     <>
-
+                        <Title is_center={true}>지역별 마사지 바로가기</Title>
+                        <RowContent style={{ flexWrap: 'wrap' }}>
+                            {cityList && cityList.map((item, idx) => (
+                                <>
+                                    <CityCard src={backUrl + item?.img_src} idx={idx} onClick={() => {
+                                        navigate(`/shop-list?city=${item?.pk}`)
+                                    }} />
+                                </>
+                            ))}
+                        </RowContent>
                     </>}
-
+                
 
             </Wrappers>
         </>

@@ -486,7 +486,7 @@ const Headers = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', margin: '0 auto', alignItems: 'flex-start', textAlign: 'left' }}>
                           <div onClick={() => onClickServiceCenter(0)}>공지사항</div>
                           <div onClick={() => onClickServiceCenter(1)}>문의하기</div>
-                          <div onClick={() => onClickServiceCenter(2)}>자주 하는 질문</div>
+                          <div onClick={() => onClickServiceCenter(2)}>FAQ</div>
                         </div>
                       </div>
                     </>
@@ -501,7 +501,9 @@ const Headers = () => {
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
                 {themeList && themeList.map((item, idx) => (
                   <>
-                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => {}}>{item?.name}</TextButton>
+                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => {
+                      navigate(`/shop-list?theme=${item?.pk}`)
+                    }}>{item?.name}</TextButton>
                   </>
                 ))}
               </div>

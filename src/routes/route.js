@@ -23,12 +23,10 @@ import MLogin from '../pages/Manager/MLogin';
 import MUserEdit from '../pages/Manager/MUserEdit';
 import MIssueCategoryEdit from '../pages/Manager/MIssueCategoryEdit';
 import MFeatureCategoryEdit from '../pages/Manager/MFeatureCategoryEdit';
-import MVideoEdit from '../pages/Manager/MVideoEdit';
 import MSettingEdit from '../pages/Manager/MSettingEdit';
 
 import MItemEdit from '../pages/Manager/MItemEdit';
 import MItemList from '../pages/Manager/MItemList';
-import MAlarmEdit from '../pages/Manager/MAlarmEdit';
 import MAcademyEdit from '../pages/Manager/MAcademyEdit';
 
 import Request from '../pages/User/Auth/Request';
@@ -38,13 +36,17 @@ import MPayEdit from '../pages/Manager/MPayEdit';
 import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
 import MPayExcelEdit from '../pages/Manager/MPayExcelEdit';
 import MShopEdit from '../pages/Manager/MShopEdit';
+import ShopList from '../pages/User/Shop/ShopList';
+import Shop from '../pages/User/Shop/Shop';
+import AddShop from '../pages/User/Shop/AddShop';
+import CommunityList from '../pages/User/Community/CommunityList';
+import Community from '../pages/User/Community/Community';
+import AddCommunity from '../pages/User/Community/AddCommunity';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/login', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/edit/user/:pk', element: <MUserEdit />, title: "회원관리" },
-    { link: '/manager/edit/video/:pk', element: <MVideoEdit />, title: "핵심비디오관리" },
-    { link: '/manager/edit/alarm/:pk', element: <MAlarmEdit />, title: "알람관리" },
     { link: '/manager/edit/academy/:pk', element: <MAcademyEdit />, title: "강의관리" },
     { link: '/manager/edit/subscribe/:pk', element: <MSubscribeEdit />, title: "결제 내역 관리" },
     { link: '/manager/edit/pay_edit/:pk', element: <MPayEdit />, title: "결제 내역 관리" },
@@ -64,23 +66,9 @@ const zUserRoute = [
     { link: '/home', element: <Home />, title: "홈" },
     { link: '/search', element: <Search />, title: "검색" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
-    //{ link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
-    //{ link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
-    //{ link: '/authpay', element: <AuthPay />, title: "결제" },
-    //{ link: '/authpay-v2/:pk', element: <AuthPayV2 />, title: "결제 v2" },
-   // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
+
 
     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
-
-    // { link: '/selectissuecategory', element: <SelectIssueCategory />, title: "핵심이슈" },
-    // { link: '/selectfeaturecategory', element: <SelectFeatureCategory />, title: "특징주" },
-    // { link: '/themelist', element: <ThemeList />, title: "핵심테마" },
-    // { link: '/videolist', element: <VideoList />, title: "핵심비디오" },
-    // { link: '/issuelist/:pk', element: <IssueList />, title: "핵심이슈" },
-    // { link: '/featurelist/:pk', element: <FeatureList />, title: "특징주" },
-    // { link: '/onewordlist', element: <OneWordList />, title: "하루1단어" },
-    // { link: '/oneeventlist', element: <OneEventList />, title: "하루1종목" },
-    // { link: '/noticelist', element: <NoticeList />, title: "공지사항" },
 
     { link: '/login', element: <Login />, title: "로그인" },
     { link: '/mypage', element: <MyPage />, title: "마이페이지" },
@@ -90,10 +78,18 @@ const zUserRoute = [
     { link: '/resign', element: <Resign />, title: "회원탈퇴" },
     { link: '/request', element: <Request />, title: "문의하기" },
     { link: '/request/:pk', element: <Request />, title: "문의하기" },
-    // { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
-    // { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
 
     { link: '/policy/:pk', element: <Policy />, title: "" },
+
+    { link: '/add-community', element: <AddCommunity />, title: "" },
+    { link: '/community/:table/:pk', element: <Community />, title: "" },
+    { link: '/community-list/:table', element: <CommunityList />, title: "" },
+    { link: '/community-list', element: <CommunityList />, title: "" },
+    { link: '/add-shop', element: <AddShop />, title: "" },
+    { link: '/shop/:pk', element: <Shop />, title: "" },
+    { link: '/shop-list', element: <ShopList />, title: "" },
+
+
 ];
 let str = "";
 for(var i = 0;i<zUserRoute.length;i++){
