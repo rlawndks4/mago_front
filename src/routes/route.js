@@ -14,7 +14,6 @@ import Resign from '../pages/User/Auth/Resign';
 import KakaoRedirectHandler from '../pages/User/Auth/KakaoRedirectHandler';
 
 import NoticeList from '../pages/User/Notice/NoticeList';
-import Master from '../pages/User/Master/Master';
 
 import Post from '../pages/User/Posts/Post';
 
@@ -31,14 +30,9 @@ import MItemEdit from '../pages/Manager/MItemEdit';
 import MItemList from '../pages/Manager/MItemList';
 import MAlarmEdit from '../pages/Manager/MAlarmEdit';
 import MAcademyEdit from '../pages/Manager/MAcademyEdit';
-import EnrolmentList from '../pages/User/EnrolmentList';
-import AcademyList from '../pages/User/AcademyList';
-import ReviewList from '../pages/User/ReviewList';
-import ServiceCenter from '../pages/User/ServiceCenter';
-import EventList from '../pages/User/EventList';
+
 import Request from '../pages/User/Auth/Request';
-import AddReview from '../pages/User/Auth/AddReview';
-import PayResult from '../pages/User/Pay/PayResult';
+
 import MSubscribeEdit from '../pages/Manager/MSubscribeEdit';
 import MPayEdit from '../pages/Manager/MPayEdit';
 import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
@@ -69,21 +63,11 @@ const zUserRoute = [
     { link: '/', element: <Home />, title: "홈" },
     { link: '/home', element: <Home />, title: "홈" },
     { link: '/search', element: <Search />, title: "검색" },
-    { link: '/enrolmentlist', element: <EnrolmentList />, title: "수강신청" },
-    { link: '/academylist', element: <AcademyList />, title: "강의실" },
-    { link: '/reviewlist', element: <ReviewList />, title: "수강후기" },
-    { link: '/servicecenter', element: <ServiceCenter />, title: "상담문의" },
-    { link: '/servicecenter/:type_num', element: <ServiceCenter />, title: "상담문의" },
-    { link: '/eventlist', element: <EventList />, title: "이벤트" },
-    { link: '/masterlist', element: <MasterList />, title: "전문가" },
-    { link: '/master/:pk', element: <Master />, title: "전문가" },
     { link: '/post/:table/:pk', element: <Post />, title: "게시물" },
-
     //{ link: '/payready/:pk', element: <PayReady />, title: "결제준비" },
     //{ link: '/authpay/:pk', element: <AuthPay />, title: "결제" },
     //{ link: '/authpay', element: <AuthPay />, title: "결제" },
     //{ link: '/authpay-v2/:pk', element: <AuthPayV2 />, title: "결제 v2" },
-    { link: '/payresult/:class_pk/:status', element: <PayResult />, title: "" },
    // { link: '/keyrecieve', element: <KeyRecieve />, title: "결제" },
 
     { link: '/appsetting', element: <AppSetting />, title: "앱 세팅" },
@@ -105,13 +89,9 @@ const zUserRoute = [
     { link: '/signup', element: <SignUp />, title: "회원가입" },
     { link: '/resign', element: <Resign />, title: "회원탈퇴" },
     { link: '/request', element: <Request />, title: "문의하기" },
-    { link: '/addreview', element: <AddReview />, title: "후기작성" },
     { link: '/request/:pk', element: <Request />, title: "문의하기" },
-    { link: '/oauth/callback/kakao', element: <KakaoRedirectHandler />, title: "" },
-
     // { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
     // { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
-
     { link: '/policy/:pk', element: <Policy />, title: "" },
 ];
 let str = "";

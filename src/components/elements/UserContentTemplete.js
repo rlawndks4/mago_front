@@ -184,7 +184,8 @@ export const TextButton = styled.button`
 width:124px;
 height:28px;
 border-radius:12px;
-border:1px solid ${props => props.theme.color.font2};
+font-weight:bold;
+border:2px solid ${props => props.theme.color.background1};
 color:${props => props.theme.color.font2};
 background:#fff;
 font-size:${props => props.theme.size.font4};

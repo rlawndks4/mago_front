@@ -249,6 +249,7 @@ const Headers = () => {
   }, [])//hover 관련
   async function getHeaderContent() {
     const { data: response } = await axios.get('/api/getheadercontent')
+    console.log(response)
     setPopupList(response?.data?.popup ?? []);
     setTopBanner(response?.data?.top_banner);
     setThemeList(response?.data?.theme);
@@ -500,7 +501,7 @@ const Headers = () => {
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
                 {themeList && themeList.map((item, idx) => (
                   <>
-                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name}</TextButton>
+                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => {}}>{item?.name}</TextButton>
                   </>
                 ))}
               </div>
