@@ -48,6 +48,7 @@ const MShopEdit = () => {
     const [subCityObj, setSubCityObj] = useState({});
     const [themeList, setThemeList] = useState([]);
     const [optionList, setOptionList] = useState([]);
+    const [countryList, setCountryList] = useState([]);
     useEffect(() => {
 
         async function fetchPost() {
@@ -69,6 +70,8 @@ const MShopEdit = () => {
             setOptionList(z_shop_option?.data);
             const { data: z_shop_theme } = await axios.get(`/api/items?table=shop_theme`);
             setThemeList(z_shop_theme?.data)
+            const { data: z_shop_country } = await axios.get(`/api/items?table=shop_country`);
+            setCountryList(z_shop_country?.data)
             if (params.pk > 0) {
                 const { data: response } = await axios.get(`/api/item?table=shop&pk=${params.pk}`)
                 sub_city_list = sub_city_obj[response?.data?.city_pk];
@@ -84,6 +87,7 @@ const MShopEdit = () => {
                 $('.address_detail').val(response.data.address_detail)
                 $('.lng').val(response.data.lng)
                 $('.lat').val(response.data.lat)
+                $('.country_pk').val(response.data.country_pk)
                 setNote(response?.data?.note);
 
                 let price_list = JSON.parse(response?.data?.price_list);
@@ -165,7 +169,8 @@ const MShopEdit = () => {
             !$(`.address`).val() ||
             !$(`.address_detail`).val() ||
             !$(`.lng`).val() ||
-            !$(`.lat`).val()
+            !$(`.lat`).val() ||
+            !$(`.country_pk`).val() 
         ) {
             alert('필요값이 비어있습니다.');
         } else {
@@ -181,6 +186,7 @@ const MShopEdit = () => {
                 address_detail: $(`.address_detail`).val(),
                 lng: $(`.lng`).val(),
                 lat: $(`.lat`).val(),
+                country_pk: $(`.country_pk`).val(),
                 table: 'shop',
                 note: note
             }
@@ -326,6 +332,18 @@ const MShopEdit = () => {
                         <Title style={{ margintop: '32px' }}>테마</Title>
                         <Select className='theme_pk'>
                             {themeList && themeList.map((item, idx) => (
+                                <>
+                                    <option value={item?.pk}>{item?.name}</option>
+                                </>
+                            ))}
+                        </Select>
+                    </Col>
+                </Row>
+                <Row>
+                <Col>
+                        <Title style={{ margintop: '32px' }}>국가</Title>
+                        <Select className='country_pk'>
+                            {countryList && countryList.map((item, idx) => (
                                 <>
                                     <option value={item?.pk}>{item?.name}</option>
                                 </>

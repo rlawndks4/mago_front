@@ -29,6 +29,7 @@ export const zSidebar = [
         //sidebarObjListFormat('팝업관리', '/manager/list/popup', 40, ['/manager/list/popup']),//list
     ], <AiTwotoneSetting />),
     sidebarContentFormat('업체관리', [
+        sidebarObjListFormat('국가관리', '/manager/list/shop_country', 40, ['/manager/list/shop_country']),//list
         sidebarObjListFormat('테마관리', '/manager/list/shop_theme', 40, ['/manager/list/shop_theme']),//list
         sidebarObjListFormat('업체옵션관리', '/manager/list/shop_option', 40, ['/manager/list/shop_option']),//list
         sidebarObjListFormat('업체관리', '/manager/list/shop', 40, ['/manager/list/shop']),//list
@@ -105,7 +106,7 @@ export const objManagerListContent = {
         '테마 관리',
         'shop_theme',
         [
-            columnObjFormat('배너이미지', '', 'img', 'img_src'),
+            columnObjFormat('테마이미지', '', 'img', 'img_src'),
             columnObjFormat('테마명', '', 'text', 'name'),
             columnObjFormat('노출여부', '', 'status', 'status'),
             columnObjFormat('맨위로', '', 'top', 'top'),
@@ -120,8 +121,22 @@ export const objManagerListContent = {
         '업체옵션 관리',
         'shop_option',
         [
-            columnObjFormat('배너이미지', '', 'img', 'img_src'),
+            columnObjFormat('옵션이미지', '', 'img', 'img_src'),
             columnObjFormat('옵션명', '', 'text', 'name'),
+            columnObjFormat('맨위로', '', 'top', 'top'),
+            columnObjFormat('생성일', '', 'text', 'date'),
+            columnObjFormat('수정', '', 'edit', 'edit'),
+            columnObjFormat('삭제', '', 'delete', 'delete'),
+        ],
+        [],
+        true,
+        true),
+    shop_country: sidebarObjFormat(
+        '국가 관리',
+        'shop_country',
+        [
+            columnObjFormat('국기이미지', '', 'img', 'img_src'),
+            columnObjFormat('국가명', '', 'text', 'name'),
             columnObjFormat('맨위로', '', 'top', 'top'),
             columnObjFormat('생성일', '', 'text', 'date'),
             columnObjFormat('수정', '', 'edit', 'edit'),
@@ -430,7 +445,7 @@ export const objManagerEditContent = {
             [
                 editColumnObjFormat('구명', 'input', { placeholder: '구명을 입력해 주세요.' }, 'name'),
             ],
-            
+
         ],
     },
     shop_theme: {
@@ -456,6 +471,19 @@ export const objManagerEditContent = {
             ],
             [
                 editColumnObjFormat('옵션명', 'input', { placeholder: '옵션명을 입력해 주세요.' }, 'name'),
+            ],
+        ],
+    },
+    shop_country: {
+        schema: 'shop_country',
+        breadcrumb: '국가',
+        add_list: [],
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('국기이미지 (180x120)', 'img', { field_name: 'country' }, 'img_src'),
+            ],
+            [
+                editColumnObjFormat('국가명', 'input', { placeholder: '국가명을 입력해 주세요. ex)한국' }, 'name'),
             ],
         ],
     },

@@ -92,6 +92,7 @@ const zUserRoute = [
     { link: '/request/:pk', element: <Request />, title: "문의하기" },
     // { link: '/post/notice/:pk', element: <Notice />, title: "공지사항" },
     // { link: '/video/:pk', element: <Video />, title: "핵심비디오" },
+
     { link: '/policy/:pk', element: <Policy />, title: "" },
 ];
 let str = "";
