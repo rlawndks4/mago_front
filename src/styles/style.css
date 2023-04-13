@@ -24,7 +24,7 @@ body::-webkit-scrollbar-thumb {
     display: none;
 }
 .ql-editor{
-    padding: 16px 0 !important;
+    padding: 16px !important;
 }
 .ql-editor > p > img{
     width: 100% !important;
@@ -64,7 +64,7 @@ body::-webkit-scrollbar-thumb {
 }
 .scroll-table::-webkit-scrollbar-thumb {
     /* Chrome, Safari, Opera*/
-    background: #FECC2F55;
+    background: #3250d255;
 }
 .scroll-table-green::-webkit-scrollbar{
     display: none;
@@ -72,7 +72,7 @@ body::-webkit-scrollbar-thumb {
 }
 .scroll-table-green::-webkit-scrollbar-thumb {
     /* Chrome, Safari, Opera*/
-    background: rgba(103, 172, 91);
+    background: #3250d255;
     position: fixed;
     bottom: 0;
 }
@@ -83,7 +83,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .scroll-css::-webkit-scrollbar-thumb {
-    background-color: #FECC2F;
+    background-color: #3250d2;
 }
 
 .scroll-css::-webkit-scrollbar-track {

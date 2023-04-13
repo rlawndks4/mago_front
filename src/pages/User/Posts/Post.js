@@ -54,23 +54,9 @@ const Post = (props) => {
     const [loadingText, setLoadingText] = useState("");
     const viewerRef = useRef();
     const returnTitle = (ttl) => {
-        if (postTable == 'notice') {
-            return "first-academy - 공지사항 / " + ttl;
-        } else if (postTable == 'issue') {
-            return "first-academy - 핵심이슈 / " + ttl;
-        } else if (postTable == 'theme') {
-            return "first-academy - 핵심테마 / " + ttl;
-        } else if (postTable == 'feature') {
-            return "first-academy - 특징주 / " + ttl;
-        } else if (postTable == 'oneevent') {
-            return "first-academy - 하루1종목 / " + ttl;
-        } else if (postTable == 'oneword') {
-            return "first-academy - 하루1단어 / " + ttl;
-        } else if (postTable == 'strategy') {
-            return "first-academy - 전문가칼럼 / " + ttl;
-        } else {
-            return "first-academy";
-        }
+    
+        return "마고";
+        
     }
     useEffect(() => {
         async function isLogined() {

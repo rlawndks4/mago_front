@@ -95,28 +95,16 @@ const ResignCard = () => {
     
     
     const onResign = async () => {
-
+        if(!window.confirm("정말 탈퇴하시겠습니까?")){
+            return;
+        }
         let str = '/api/resign';
         let obj = { id: myId, pw: $('.pw').val() };
-
-
-        if (!randNum) {
-            alert("인증번호를 발송해 주세요.");
-            return;
-        }
-        if (fixPhoneNumber != auth.phone) {
-            alert("가입한 전화번호와 일치하지 않습니다.");
-            return;
-        }
-        if ($('.phone-check').val() != randNum) {
-            alert("인증번호가 일치하지 않습니다.");
-            return;
-        }
         const { data: response } = await axios.post(str, obj);
         if (response.result > 0) {
             alert("성공적으로 탈퇴되었습니다.");
             const { data: response } = await axios.post('/api/logout');
-            navigate('/login');
+            window.location.href = '/login';
         } else {
             alert(response.message);
         }
@@ -126,13 +114,8 @@ const ResignCard = () => {
             <WrapperForm>
                 <Title>회원탈퇴</Title>
 
-                <CategoryName>가입한 전화번호</CategoryName>
-                <Input className="phone" placeholder="전화번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? sendSms() : null} />
-                <RegularNotice></RegularNotice>
-                <Button onClick={sendSms}>인증번호 발송</Button>
-                <CategoryName>인증번호</CategoryName>
-                <Input className="phone-check" placeholder="인증번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onResign() : null} />
-
+                <CategoryName>비밀번호</CategoryName>
+                <Input className="pw" type="password" placeholder="비밀번호를 입력해 주세요." onKeyPress={(e) => e.key == 'Enter' ? onResign() : null} />
                 <Button style={{ marginTop: '36px' }} onClick={() => onResign()}>탈퇴</Button>
             </WrapperForm>
         </>

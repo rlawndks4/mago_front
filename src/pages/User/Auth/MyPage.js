@@ -13,11 +13,11 @@ import ContentTable from "../../../components/ContentTable";
 const MyCard = styled.div`
 display:flex;
 width:100%;
-height:400px;
+height:250px;
 border:1px solid ${props => props.theme.color.background3};
 @media screen and (max-width:700px) {
     flex-direction:column;
-    height:800px;
+    height:500px;
 }
 `
 const ProfileContainer = styled.div`
@@ -25,7 +25,7 @@ width:50%;
 display:flex;
 flex-direction:column;
 align-items:center;
-height:400px;
+height:250px;
 background:#f4f4f4;
 @media screen and (max-width:700px) {
     width:100%;
@@ -86,7 +86,6 @@ const MyPage = () => {
             }
         }
         isAdmin();
-        getMyContent();
         if (window && window.flutter_inappwebview) {
             setIsWebView(true)
         }
@@ -167,18 +166,6 @@ const MyPage = () => {
                             <Result>{auth?.phone ?? "---"}</Result>
                         </Content>
                         <Content>
-                            <Category>우편번호</Category>
-                            <Result>{auth?.zip_code}</Result>
-                        </Content>
-                        <Content>
-                            <Category>주소</Category>
-                            <Result>{auth?.address}</Result>
-                        </Content>
-                        <Content>
-                            <Category>상세주소</Category>
-                            <Result>{auth?.address_detail}</Result>
-                        </Content>
-                        <Content>
                             <Category>개인정보동의</Category>
                             <Result>{'동의'}</Result>
                         </Content>
@@ -186,50 +173,6 @@ const MyPage = () => {
                     </Container>
                 </MyCard>
                 <div style={{ marginTop: '36px' }} />
-                {isWebView ?
-                    <>
-
-                    </>
-                    :
-                    <>
-                        <Title>장바구니</Title>
-                        <ShadowContainer>
-                            <ContentTable columns={[
-                                { name: "수강상품", column: "title", width: 30, type: 'text' },
-                                { name: "강사", column: "master_name", width: 30, type: 'text' },
-                                { name: "수강상태", column: "", width: 30, type: "class_status" },
-                                { name: "삭제", column: "", width: 30, type: 'delete' },
-                            ]}
-                                data={bagList}
-                                schema={'subscribe'}
-                                pageSetting={pageSetting} />
-                        </ShadowContainer>
-                        <div style={{ marginTop: '36px' }} />
-                        <Title>내 강의실</Title>
-                        <ShadowContainer>
-                            <ContentTable columns={[
-                                { name: "수강상품", column: "title", width: 30, type: 'text' },
-                                { name: "강사", column: "master_name", width: 40, type: 'text' },
-                                { name: "이용기간", column: "end_date", width: 30, type: 'end_date' },
-                            ]}
-                                data={calssList}
-                                schema={'subscribe'} />
-                        </ShadowContainer>
-                        <div style={{ marginTop: '36px' }} />
-                        <Title>결제 내역</Title>
-                        <ShadowContainer>
-                            <ContentTable columns={[
-                                { name: "수강상품", column: "title", width: 30, type: 'text' },
-                                { name: "강사", column: "master_name", width: 20, type: 'text' },
-                                { name: "결제금액", column: "price", width: 20, type: 'won' },
-                                { name: "결제일시", column: "trade_date", width: 30, type: 'text' },
-                            ]}
-                                data={payList}
-                                schema={'subscribe'} />
-                        </ShadowContainer>
-                        <div style={{ marginTop: '36px' }} />
-                    </>}
-
                 <Content>
                     <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                         <TextButton onClick={onLogout} style={{ margin: '0 8px 0 auto' }}>로그아웃</TextButton>

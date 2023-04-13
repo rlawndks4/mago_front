@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import logo from '../assets/images/test/logo.svg'
+import logo from '../assets/images/test/logo.png'
 import kakao from '../assets/images/icon/kakao.png'
 import naver from '../assets/images/icon/naver.png'
 import apple from '../assets/images/icon/apple.png'
@@ -137,7 +137,7 @@ const LoginCard = () => {
                     </>
                     :
                     <>
-                        <CategoryName>가입 정보로 로그인</CategoryName>
+                        <CategoryName>로그인</CategoryName>
                         <Input placeholder='아이디를 입력해주세요.' type={'text'} className='id' onKeyPress={onKeyPressId} />
                         <Input placeholder='비밀번호를 입력해주세요.' type={'password'} className='pw' onKeyPress={onKeyPressPw} />
                         <FlexBox style={{ justifyContent: 'space-between', fontSize: '11px' }}>
@@ -177,7 +177,7 @@ const LoginCard = () => {
 
 
                         <CategoryName style={{ marginTop: '12px', fontSize: '11px' }}>
-                            아직 first academy 회원이 아니라면?<strong style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '12px' }} onClick={() => { navigate('/signup') }}>회원가입</strong>
+                            아직 마고 회원이 아니라면?<strong style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '12px' }} onClick={() => { navigate('/signup') }}>회원가입</strong>
                         </CategoryName>
                         {isWebView ?
                             <>

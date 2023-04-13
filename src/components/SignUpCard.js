@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import axios from 'axios';
-import logo from '../assets/images/test/logo.svg'
+import logo from '../assets/images/test/logo.png'
 import kakao from '../assets/images/icon/kakao.png'
 import naver from '../assets/images/icon/naver.png'
 import { RowContent, Title } from './elements/UserContentTemplete';
@@ -65,7 +65,7 @@ const SignUpCard = () => {
     }
     const onCheckNickname = async () => {
         if (!$('.nickname').val()) {
-            alert('아이디를 입력해주세요.');
+            alert('닉네임을 입력해주세요.');
         } else if ($('.nickname').val().includes(' ')) {
             alert('닉네임의 공백을 제거해 주세요.');
         } else if (!regExp('nickname', $('.nickname').val())) {
@@ -150,35 +150,23 @@ const SignUpCard = () => {
     const onSignUp = async () => {
         try {
             console.log(JSON.stringify(state))
-            if (!$('.id').val()&&!state?.id ) {
-                    alert('아이디를 입력해주세요.');
-            } else if (!$('.name').val() &&!state.name) {
-                    alert('이름을 입력해주세요.');
-            } else if (!isCheckId&&!state?.id) {
+            if (!$('.id').val() && !state?.id) {
+                alert('아이디를 입력해주세요.');
+            } else if (!$('.name').val() && !state.name) {
+                alert('이름을 입력해주세요.');
+            } else if (!isCheckId && !state?.id) {
                 alert('아이디 중복확인을 해주세요.');
-            } else if (!regExp('pw', $('.pw').val())&&!state) {
+            } else if (!regExp('pw', $('.pw').val()) && !state) {
                 alert('비밀번호 정규식을 지켜주세요.');
             } else if (!regExp('name', $('.name').val())) {
                 alert('이름 정규식을 지켜주세요.');
             } else if ($('.pw').val() !== $('.pw-check').val()) {
                 alert('비밀번호가 일치하지 않습니다.');
-            } else if (!isCheckPhoneNumber) {
-                alert('전화번호 인증을 완료해 주세요.');
             } else if (!isCheckNickname) {
                 alert('닉네임 중복확인을 해주세요.');
-            } else if (!$('.zip_code').val()) {
-                alert('우편번호를 입력해 주세요.');
-            } else if (!$('.address').val()) {
-                alert('주소를 입력해 주세요.');
-            } else if (!$('.address_detail').val()) {
-                alert('상세주소를 입력해 주세요.');
             } else if (!regExp('nickname', $('.nickname').val())) {
                 alert('닉네임 정규식을 지켜주세요.');
-            } else if (!$('input[id=term-of-use-1]:checked').val()) {
-                alert('이용약관을 동의해 주세요.');
-            } else if (!$('input[id=privacy-policy-1]:checked').val()) {
-                alert('개인정보취급방침을 동의해 주세요.');
-            } else {
+            }else {
                 if (window.confirm('회원가입 하시겠습니까?')) {
                     const { data: response } = await axios.post('/api/adduser', {
                         id: $('.id').val() || state?.id,
@@ -266,7 +254,7 @@ const SignUpCard = () => {
         <>
             <WrapperForm onSubmit={onSignUp} id='login_form'>
                 <Title>회원가입</Title>
-                <Title>이용약관</Title>
+                {/* <Title>이용약관</Title>
                 <div style={{ width: '94%', height: '150px', overflowY: 'scroll', border: `1px solid ${theme.color.font3}`, padding: '3%' }}>
                     <Policy pk={0} />
                 </div>
@@ -311,57 +299,27 @@ const SignUpCard = () => {
                             }
                         }} />
                     <label for='all-allow' style={{ fontSize: theme.size.font5 }}>이용약관, 개인정보취급방침 이용에 모두 동의합니다.</label>
-                </RowContent>
-                {location.state ?
-                    <>
-                    </>
-                    :
-                    <>
-                        <CategoryName>아이디</CategoryName>
-                        <Input placeholder='아이디를 입력해주세요.' type={'text'} className='id' disabled={isCheckId} onKeyPress={onKeyPressId} />
-                        <RegularNotice>5~20자의 영문 소문자, 숫자 조합만 가능합니다.</RegularNotice>
-                        <Button onClick={onCheckId} disabled={isCheckId}>{isCheckId ? '사용가능' : '중복확인'}</Button>
-                        <CategoryName>비밀번호</CategoryName>
-                        <Input placeholder='비밀번호를 입력해주세요.' type={'password'} className='pw' onKeyPress={onKeyPressPw} onChange={onChangePw} />
-                        <RegularNotice>{isRegPw ? '' : '8~15자 내의 영문, 숫자, 특수문자 조합만 가능합니다.'}</RegularNotice>
-                        <CategoryName>비밀번호 확인</CategoryName>
-                        <Input placeholder='비밀번호를 한번더 입력해주세요.' type={'password'} className='pw-check' onKeyPress={onKeyPressPwCheck} onChange={onChangePwCheck} />
-                        <RegularNotice>{!coinsidePW ? '비밀번호가 일치하지 않습니다.' : ''}</RegularNotice>
+                </RowContent> */}
 
-                    </>
-                }
+                <CategoryName>아이디</CategoryName>
+                <Input placeholder='아이디를 입력해주세요.' type={'text'} className='id' disabled={isCheckId} onKeyPress={onKeyPressId} />
+                <RegularNotice>5~20자의 영문 소문자, 숫자 조합만 가능합니다.</RegularNotice>
+                <Button onClick={onCheckId} disabled={isCheckId}>{isCheckId ? '사용가능' : '중복확인'}</Button>
+                <CategoryName>비밀번호</CategoryName>
+                <Input placeholder='비밀번호를 입력해주세요.' type={'password'} className='pw' onKeyPress={onKeyPressPw} onChange={onChangePw} />
+                <RegularNotice>{isRegPw ? '' : '8~15자 내의 영문, 숫자, 특수문자 조합만 가능합니다.'}</RegularNotice>
+                <CategoryName>비밀번호 확인</CategoryName>
+                <Input placeholder='비밀번호를 한번더 입력해주세요.' type={'password'} className='pw-check' onKeyPress={onKeyPressPwCheck} onChange={onChangePwCheck} />
+                <RegularNotice>{!coinsidePW ? '비밀번호가 일치하지 않습니다.' : ''}</RegularNotice>
                 <CategoryName>이름</CategoryName>
                 <Input placeholder='이름을 입력해주세요.' type={'text'} className='name' onKeyPress={onKeyPressName} />
                 <RegularNotice>실명으로 입력해주세요.</RegularNotice>
-
-
                 <CategoryName>닉네임</CategoryName>
                 <Input placeholder='닉네임을 입력해주세요.' type={'text'} disabled={isCheckNickname} className='nickname' onKeyPress={onKeyPressNickname} />
                 <RegularNotice>2~8자 내의 한글, 영문, 숫자 조합만 가능합니다.</RegularNotice>
                 <Button onClick={onCheckNickname} disabled={isCheckNickname}>{isCheckNickname ? '사용가능' : '중복확인'}</Button>
                 <CategoryName>전화번호</CategoryName>
-                <CategoryName style={{ marginTop: '8px', fontSize: '12px' }}>- 아이디 찾기 및 비밀번호 찾기에 이용됩니다.</CategoryName>
                 <Input placeholder="'-' 제외 전화번호를 입력해주세요." type={'text'} className='phone' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhone} />
-                <RegularNotice></RegularNotice>
-                <Button onClick={sendSms} disabled={isCheckPhoneNumber}>인증번호 발송</Button>
-                <Input style={{ marginTop: '36px' }} placeholder='인증번호를 입력해주세요.' type={'text'} className='phone-check' disabled={isCheckPhoneNumber} onKeyPress={onKeyPressPhoneCheck} />
-                <RegularNotice></RegularNotice>
-                <Button onClick={confirmCoincide} disabled={isCheckPhoneNumber}>{isCheckPhoneNumber ? '확인완료' : '인증번호 확인'}</Button>
-                <CategoryName style={{ display: 'flex', alignItems: 'center' }}>
-                    <div>우편번호</div>
-                    <div style={{ fontSize: theme.size.font6, color: theme.color.red, marginLeft: '6px' }}>※ 오른쪽 우편번호 검색을 클릭하세요.</div>
-                </CategoryName>
-                <RowContent style={{ maxWidth: '398px', width: '100%', alignItems: 'center', margin: '0 auto' }}>
-                    <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} style={{ width: '70%' }} className="zip_code" placeholder="예) 12345" onKeyPress={(e) => e.key == 'Enter' ? $('.address').focus() : null} />
-                    <AddButton style={{ width: '30%', margin: '16px 0 0 8px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호 검색</AddButton>
-                </RowContent>
-                <CategoryName style={{ display: 'flex', alignItems: 'center' }}>
-                    <div>주소</div>
-                    <div style={{ fontSize: theme.size.font6, color: theme.color.red, marginLeft: '6px' }}>※ 교재발송을 위한 주소입니다. 교재를 수령하실 주소를 입력해주세요.</div>
-                </CategoryName>
-                <Input onClick={() => { setIsSeePostCode(!isSeePostCode) }} disabled={true} className="address" placeholder="예) XX시 YY구 ZZ동 111-11" onKeyPress={(e) => e.key == 'Enter' ? $('.address-detail').focus() : null} />
-                <CategoryName>상세주소</CategoryName>
-                <Input className="address_detail" placeholder="예) XX동 YY호" onKeyPress={(e) => e.key == 'Enter' ? $('.account_holder').focus() : null} />
 
                 {isSeePostCode ?
                     <>

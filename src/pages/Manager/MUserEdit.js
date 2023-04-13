@@ -62,14 +62,6 @@ const MUserEdit = () => {
                 $('.nickname').val(response.data.nickname)
                 $('.phone').val(response.data.phone)
                 $('.level').val(response.data.user_level)
-                $('.address').val(response.data.address)
-                $('.address_detail').val(response.data.address_detail)
-                $('.zip_code').val(response.data.zip_code)
-                $('.account_holder').val(response.data.account_holder)
-                $('.bank_name').val(response.data.bank_name)
-                $('.account_number').val(response.data.account_number)
-                setManagerNote(response?.data?.manager_note);
-
             }
             settingJquery();
         }
@@ -131,13 +123,6 @@ const MUserEdit = () => {
                 nickname: $(`.nickname`).val(),
                 phone: $(`.phone`).val(),
                 user_level: $(`.level`).val(),
-                address: $(`.address`).val(),
-                address_detail: $(`.address_detail`).val(),
-                zip_code: $(`.zip_code`).val(),
-                account_holder: $(`.account_holder`).val(),
-                bank_name: $(`.bank_name`).val(),
-                account_number: $(`.account_number`).val(),
-                manager_note: managerNote,
             }
             if (params?.pk > 0) {
                 obj['pk'] = params.pk;
@@ -214,89 +199,6 @@ const MUserEdit = () => {
                         </Select>
                     </Col>
                 </Row>
-                <Col>
-                    <Title>우편번호</Title>
-                    <div style={{ display: 'flex' }}>
-                        <Input style={{ margin: '12px 0 6px 24px' }} className='zip_code'  placeholder="예) 12345" />
-                        <AddButton style={{ margin: '12px auto 6px 12px', width: '104px' }} onClick={() => { setIsSeePostCode(!isSeePostCode) }}>우편번호검색</AddButton>
-                    </div>
-                </Col>
-                <Row>
-                    <Col>
-                        <Title>주소</Title>
-                        <Input className='address'/>
-                    </Col>
-                    <Col>
-                        <Title>상세주소</Title>
-                        <Input className='address_detail' />
-                    </Col>
-
-                </Row>
-                <Row>
-                    <Col>
-                        {isSeePostCode ?
-                            <>
-                                <Modal onClickXbutton={onClickXbutton}>
-                                    <DaumPostcode style={postCodeStyle} onComplete={onSelectAddress} />
-                                </Modal>
-                            </>
-                            :
-                            <>
-                            </>}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Title>예금주</Title>
-                        <Input className='account_holder' />
-                    </Col>
-                    <Col>
-                        <Title>은행명</Title>
-                        <Input className='bank_name' />
-                    </Col>
-                    <Col>
-                        <Title>계좌번호</Title>
-                        <Input className='account_number' />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Title>상담내용</Title>
-                        <div id='editor'>
-                            <ReactQuill
-                                modules={modules}
-                                theme="snow"
-                                defaultValue={managerNote}
-                                value={managerNote}
-                                onChange={async (e) => {
-                                    try {
-                                        let note = e;
-                                        console.log(e)
-                                        if (e.includes('<img src="') && e.includes('base64,')) {
-                                            let base64_list = e.split('<img src="');
-                                            for (var i = 0; i < base64_list.length; i++) {
-                                                if (base64_list[i].includes('base64,')) {
-                                                    let img_src = base64_list[i];
-                                                    img_src = await img_src.split(`"></p>`);
-                                                    let base64 = img_src[0];
-                                                    img_src = await base64toFile(img_src[0], 'note.png');
-                                                    let formData = new FormData();
-                                                    await formData.append('note', img_src);
-                                                    const { data: response } = await axios.post('/api/addimageitems', formData);
-                                                    note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
-                                                }
-                                            }
-                                        }
-                                        setManagerNote(note);
-                                    } catch (err) {
-                                        console.log(err);
-                                    }
-                                }}
-                            />
-                        </div>
-                    </Col>
-                </Row>
-
             </Card>
             <ButtonContainer>
                 <CancelButton onClick={() => navigate(-1)}>x 취소</CancelButton>

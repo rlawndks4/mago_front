@@ -280,10 +280,10 @@ const DataTr = ({ id, data, index, moveCard, column, schema, list, sort, obj, op
                             :
                             <>
                             </>}
-                        {col.type == 'academy_list' ?
+                        {col.type == 'sub_city_list' ?
                             <>
                                 <Td style={{ width: `${col.width}%`, fontSize: '20px' }}>
-                                    <AiOutlineUnorderedList style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/academy/${data.pk}`, { state: { breadcrumb: data.title + ' 강의 컨텐츠' } })} />
+                                    <AiOutlineUnorderedList style={{ cursor: 'pointer', color: '#546de5' }} onClick={() => navigate(`/manager/list/sub_city/${data.pk}`, { state: { breadcrumb: data.name + ' 구 리스트' } })} />
                                 </Td>
                             </>
                             :

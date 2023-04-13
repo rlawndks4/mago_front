@@ -50,6 +50,7 @@ import MPayEdit from '../pages/Manager/MPayEdit';
 import MPayCancelEdit from '../pages/Manager/MPayCancelEdit';
 import AuthPayV2 from '../pages/User/Pay/AuthPay-v2';
 import MPayExcelEdit from '../pages/Manager/MPayExcelEdit';
+import MShopEdit from '../pages/Manager/MShopEdit';
 
 const zManagerRoute = [
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
@@ -65,6 +66,7 @@ const zManagerRoute = [
     { link: '/manager/edit/feature_category/:pk', element: <MFeatureCategoryEdit />, title: "특징주카테고리관리" },
     { link: '/manager/edit/setting', element: <MSettingEdit />, title: "환경설정" },
     { link: '/manager/edit/pay_excel', element: <MPayExcelEdit />, title: "" },
+    { link: '/manager/edit/shop/:pk', element: <MShopEdit />, title: "" },
     
     { link: '/manager/edit/:table/:pk', element: <MItemEdit />, title: "" },
     { link: '/manager/list/:table/:pk', element: <MItemList />, title: "" },

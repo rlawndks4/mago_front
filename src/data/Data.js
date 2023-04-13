@@ -26,7 +26,7 @@ import axios from 'axios';
 const test = true;
 
 //export const frontUrl = "http://localhost:3000";
-export const backUrl = "https://purplevery13.cafe24.com:8443";
+export const backUrl = "http://localhost:8001";
 export const frontUrl = "https://1st-academy.kr";
 //export const backUrl = "https://1st-academy.kr:8443";
 
@@ -44,12 +44,11 @@ export const localization = {
     locale: 'ko',
 }
 export const zBottomMenu = [
-    { name: `퍼스트강사${window.innerWidth>=1000?' ▼':''}`, link: '/masterlist', icon: <img src={localStorage.getItem('dark_mode') ? bulbWhiteImg : bulbImg} className='menu-icon' alt="#" />, activeIcon: <img src={bulbActiveImg} className='menu-icon' alt="#" />, className: 'master-dropdown-btn', allowList: ['/masterlist'] },
-    { name: '강의실', link: '/academylist', icon: <img src={localStorage.getItem('dark_mode') ? featureWhiteImg : featureImg} className='menu-icon' alt="#" />, activeIcon: <img src={featureActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/academylist'] },
-    { name: '수강신청', link: '/enrolmentlist', icon: <img src={localStorage.getItem('dark_mode') ? albumWhiteImg : albumImg} className='menu-icon' alt="#" />, activeIcon: <img src={albumActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/enrolmentlist'] },
-    { name: '수강후기', link: '/reviewlist', icon: <img src={localStorage.getItem('dark_mode') ? thumbWhiteImg : thumbImg} className='menu-icon' alt="#" />, activeIcon: <img src={thumbActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/reviewlist'] },
+    { name: `마사지GO!${window.innerWidth>=1000?' ▼':''}`, link: '/masterlist', icon: <img src={localStorage.getItem('dark_mode') ? bulbWhiteImg : bulbImg} className='menu-icon' alt="#" />, activeIcon: <img src={bulbActiveImg} className='menu-icon' alt="#" />, className: 'master-dropdown-btn', allowList: ['/masterlist'] },
+    { name: '내주변', link: '/academylist', icon: <img src={localStorage.getItem('dark_mode') ? featureWhiteImg : featureImg} className='menu-icon' alt="#" />, activeIcon: <img src={featureActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/academylist'] },
+    { name: '커뮤니티', link: '/enrolmentlist', icon: <img src={localStorage.getItem('dark_mode') ? albumWhiteImg : albumImg} className='menu-icon' alt="#" />, activeIcon: <img src={albumActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/enrolmentlist'] },
+    { name: '제휴문의', link: '/reviewlist', icon: <img src={localStorage.getItem('dark_mode') ? thumbWhiteImg : thumbImg} className='menu-icon' alt="#" />, activeIcon: <img src={thumbActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/reviewlist'] },
     { name: '고객센터', link: '/servicecenter', icon: <img src={localStorage.getItem('dark_mode') ? talkWhiteImg : talkImg} className='menu-icon' alt="#" />, activeIcon: <img src={talkActiveImg} className='menu-icon' alt="#" />, className: 'service-dropdown-btn', allowList: ['/servicecenter'] },
-    { name: '이벤트', link: '/eventlist', icon: <img src={localStorage.getItem('dark_mode') ? menu5IconWhite : menu5Icon} className='menu-icon' alt="#" />, activeIcon: <img src={menu5IconActive} className='menu-icon' alt="#" />, className: '', allowList: ['/eventlist'] }
 ];
 
 export const axiosInstance = axios.create({

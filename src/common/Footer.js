@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from '../assets/images/test/f_logo.png';
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
 import { onClickWindowOpen } from "../functions/utils";
-import kakaoFotterIcon from '../assets/images/test/kakao-footer.png'
+import { logoSrc } from "../data/Data";
 
 const Button = styled.div`
 
@@ -109,19 +108,17 @@ const Footer = () => {
                     </div>
                     <Wrappers className="footer" style={{ background: `#23242f`, fontSize: theme.size.font5 }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                            <Img src={logo} alt="footer" />
-                            <KakaoImg src={kakaoFotterIcon} style={{ display: `flex` }} onClick={() => window.open('http://pf.kakao.com/_xgKMUb/chat')} />
+                            <Img src={logoSrc} alt="footer" />
                         </div>
                         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
                             <Post onClick={() => navigate('/policy/1')}>개인정보처리방침</Post>
                             <Post style={{ borderRight: 'none' }} onClick={() => navigate('/policy/2')}>저작권정책</Post>
                         </div> */}
-                        <div style={{ marginTop: '8px' }}>서울시 마포구 양화로 127 7층(첨단빌딩)</div>
+                        <div style={{ marginTop: '8px' }}></div>
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
                             <Flex style={{margin:'0 auto 0 0'}}>
-                                <div style={{ marginRight: '16px' }}>Email&nbsp;&nbsp;First_partner@naver.com</div>
-                                <div>FAX&nbsp;&nbsp;02-332-3593</div>
+                                
                             </Flex>
                             
                         </Flex>

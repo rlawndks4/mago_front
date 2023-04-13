@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Title, Wrappers, Card, Img } from "../../components/elements/UserContentTemplete";
 import SelectSubType from "../../components/elements/SelectSubType";
 import SubType from "../../components/elements/SubType";
-import logo from '../../assets/images/test/logo.svg'
+import logo from '../../assets/images/test/logo.png'
 import { getIframeLinkByLink, shuffleArray } from '../../functions/utils';
 import theme from "../../styles/theme";
 import { backUrl } from "../../data/Data";

@@ -54,6 +54,7 @@ const MItemList = () => {
         'comment'
     ]
     const use_user_pk_list = ['subscribe'];
+    const use_city_pk_list = ['sub_city'];
     useEffect(() => {
         setZColumn(objManagerListContent[`${params.table}`].zColumn ?? {})
         async function fetchPost() {
@@ -96,6 +97,9 @@ const MItemList = () => {
         }
         if (use_user_pk_list.includes(params?.table) && params?.pk) {
             obj['user_pk'] = params?.pk;
+        }
+        if (use_city_pk_list.includes(params?.table) && params?.pk) {
+            obj['city_pk'] = params?.pk;
         }
         for (var i = 0; i < objManagerListContent[`${params.table}`].queries.length; i++) {
             if (objManagerListContent[`${params.table}`].queries[i].split("=")[1]) {

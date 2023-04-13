@@ -1,9 +1,9 @@
-import { Circles } from 'react-loader-spinner';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import loadingGif from '../assets/images/test/loading.gif'
 import useNetwork from './useNetwork';
 import { useEffect } from 'react';
+import { Circles } from 'react-loader-spinner'
 const LoadingContainer = styled.div`
 margin: 15vw auto;
 display:flex;
@@ -30,7 +30,10 @@ const Loading = (props) => {
             <LoadingContainer>
                 {onLine ?
                     <>
-                        <img src={loadingGif} style={{ width: '100px' }} />
+                        <Circles 
+                        color={theme.color.background1} 
+                        width={50}
+                        />
                         <div style={{ marginTop: '16px' }}>{text}</div>
                     </>
                     :

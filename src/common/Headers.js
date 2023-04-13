@@ -24,7 +24,7 @@ const Header = styled.header`
 position:fixed;
 height:6rem;
 width:100%;
-top:4rem;
+top:0rem;
 z-index:10;
 background:#fff;
 box-shadow: 5px 10px 10px rgb(0 0 0 / 3%);
@@ -287,7 +287,7 @@ const Headers = () => {
         }
       }
     }
-    getNoticeAndAlarmCount();
+   // getNoticeAndAlarmCount();
 
   }, [])
   const onClosePopup = async (pk, is_not_see) => {
@@ -388,11 +388,6 @@ const Headers = () => {
     <>
 
       <Header style={{ display: `${display}` }} className='header'>
-        <TopBannerContainer onClick={() => { onClickExternalLink(topBanner?.top_banner_link) }}>
-          <img src={redSpeakerIcon} style={{ height: '1.5rem', margin: '0 4px 0 auto' }} />
-          <div style={{ margin: '0 4px', color: theme.color.red }}>{topBanner?.top_banner_manager_name}</div>
-          <div style={{ margin: '0 auto 0 4px' }}>{topBanner?.top_banner_note}</div>
-        </TopBannerContainer>
         {popupList.length > 0 && (location.pathname == '/' || location.pathname == '/home') ?
           <>
             <PopupContainer>
@@ -503,7 +498,7 @@ const Headers = () => {
             ))}
             <div className="master-dropdown-content">
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
-                {masterList.map((item, idx) => (
+                {masterList && masterList.map((item, idx) => (
                   <>
                     <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => navigate(`/master/${item?.pk}`)}>{item?.name} 전문가</TextButton>
                   </>

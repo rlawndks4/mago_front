@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi'
-import logo from '../../assets/images/test/logo.svg'
+import logo from '../../assets/images/test/logo.png'
 import { BsPerson, BsCameraVideo, BsAlarm, BsGraphUp } from 'react-icons/bs'
 import { MdOutlineAccessTime, MdNotificationImportant, MdOutlineFeaturedPlayList, MdOutlineStickyNote2 } from 'react-icons/md'
 import { IoStatsChartSharp, IoLogoReact } from 'react-icons/io5'
@@ -159,7 +159,7 @@ const SideBar = () => {
                     <GiHamburgerMenu />
                 </HambergurContainer>
                 <LogoWrappers>
-                    <img src={logo} alt="first-academy" style={{ height: '40px', width: 'auto' }} />
+                    <img src={logo} alt="마고" style={{ height: '40px', width: 'auto' }} />
                 </LogoWrappers>
                 <div style={{ maxHeight: '80vh', paddingBottom: '32px' }}>
                     {zSidebar.map((list, index) => (
