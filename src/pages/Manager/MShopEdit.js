@@ -85,6 +85,7 @@ const MShopEdit = () => {
                 $('.zip_code').val(response.data.zip_code)
                 $('.address').val(response.data.address)
                 $('.address_detail').val(response.data.address_detail)
+                $('.show_address').val(response.data.show_address)
                 $('.lng').val(response.data.lng)
                 $('.lat').val(response.data.lat)
                 $('.country_pk').val(response.data.country_pk)
@@ -168,9 +169,10 @@ const MShopEdit = () => {
             !$(`.zip_code`).val() ||
             !$(`.address`).val() ||
             !$(`.address_detail`).val() ||
+            !$(`.show_address`).val() ||
             !$(`.lng`).val() ||
             !$(`.lat`).val() ||
-            !$(`.country_pk`).val() 
+            !$(`.country_pk`).val()
         ) {
             alert('필요값이 비어있습니다.');
         } else {
@@ -184,6 +186,7 @@ const MShopEdit = () => {
                 zip_code: $(`.zip_code`).val(),
                 address: $(`.address`).val(),
                 address_detail: $(`.address_detail`).val(),
+                show_address: $(`.show_address`).val(),
                 lng: $(`.lng`).val(),
                 lat: $(`.lat`).val(),
                 country_pk: $(`.country_pk`).val(),
@@ -340,7 +343,7 @@ const MShopEdit = () => {
                     </Col>
                 </Row>
                 <Row>
-                <Col>
+                    <Col>
                         <Title style={{ margintop: '32px' }}>국가</Title>
                         <Select className='country_pk'>
                             {countryList && countryList.map((item, idx) => (
@@ -362,6 +365,10 @@ const MShopEdit = () => {
                     <Col>
                         <Title>주소</Title>
                         <Input className='address' />
+                    </Col>
+                    <Col>
+                        <Title>표시용주소</Title>
+                        <Input className='show_address' />
                     </Col>
                     <Col>
                         <Title>상세주소</Title>
