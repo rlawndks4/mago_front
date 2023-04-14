@@ -25,10 +25,11 @@ import axios from 'axios';
 
 const test = true;
 
+//export const backUrl = "http://localhost:8001";
+export const backUrl = "https://mago1004.com:8443";
+
+export const frontUrl = "https://mago1004.com";
 //export const frontUrl = "http://localhost:3000";
-export const backUrl = "http://localhost:8001";
-export const frontUrl = "https://1st-academy.kr";
-//export const backUrl = "https://1st-academy.kr:8443";
 
 export const logoSrc = logo;
 export const defaultImageSrc = defaultImage;
