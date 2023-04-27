@@ -22,6 +22,7 @@ import defaultImage from '../assets/images/test/default-image.png'
 import { EditorState } from "draft-js"
 import theme from '../styles/theme';
 import axios from 'axios';
+import { Icon } from '@iconify/react';
 
 const test = true;
 
@@ -45,11 +46,11 @@ export const localization = {
     locale: 'ko',
 }
 export const zBottomMenu = [
-    { name: `마사지GO!${window.innerWidth>=1000?' ▼':''}`, link: '/masterlist', icon: <img src={localStorage.getItem('dark_mode') ? bulbWhiteImg : bulbImg} className='menu-icon' alt="#" />, activeIcon: <img src={bulbActiveImg} className='menu-icon' alt="#" />, className: 'master-dropdown-btn', allowList: ['/masterlist'] },
-    { name: '내주변', link: '/shop-list?is_around=1', icon: <img src={localStorage.getItem('dark_mode') ? featureWhiteImg : featureImg} className='menu-icon' alt="#" />, activeIcon: <img src={featureActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/academylist'] },
-    { name: '커뮤니티', link: '/community-list', icon: <img src={localStorage.getItem('dark_mode') ? albumWhiteImg : albumImg} className='menu-icon' alt="#" />, activeIcon: <img src={albumActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/enrolmentlist'] },
-    { name: '제휴문의', link: '/add-shop', icon: <img src={localStorage.getItem('dark_mode') ? thumbWhiteImg : thumbImg} className='menu-icon' alt="#" />, activeIcon: <img src={thumbActiveImg} className='menu-icon' alt="#" />, className: '', allowList: ['/reviewlist'] },
-    { name: '고객센터', link: '/community-list', icon: <img src={localStorage.getItem('dark_mode') ? talkWhiteImg : talkImg} className='menu-icon' alt="#" />, activeIcon: <img src={talkActiveImg} className='menu-icon' alt="#" />, className: 'service-dropdown-btn', allowList: ['/servicecenter'] },
+    { name: `마사지GO!${window.innerWidth >= 1000 ? ' ▼' : ''}`, link: '/', icon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, activeIcon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, className: 'master-dropdown-btn', allowList: ['/'] },
+    { name: '내주변', link: '/shop-list?is_around=1', icon: <Icon icon='mdi:map-marker-check-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:map-marker-check-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/shop-list?is_around=1'] },
+    { name: '커뮤니티', link: '/community-list', icon: <Icon icon='clarity:chat-bubble-line' className='menu-icon' />, activeIcon: <Icon icon='clarity:chat-bubble-line' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/community-list'] },
+    { name: '제휴문의', link: '/add-shop', icon: <Icon icon='mdi:comment-question-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:comment-question-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/add-shop'] },
+    { name: '고객센터', link: '/request', icon: <Icon icon='ph:siren' className='menu-icon' />, activeIcon: <Icon icon='ph:siren' color={theme.color.background1} className='menu-icon' />, className: 'service-dropdown-btn', allowList: ['/request'] },
 ];
 
 export const axiosInstance = axios.create({
@@ -68,28 +69,28 @@ export const getManagerListApi = (table, num) => {
     let str = "";
     return str;
 }
-export const getCommunityCategoryFormat = (en, ko) =>{
+export const getCommunityCategoryFormat = (en, ko) => {
     return {
         en: en,
         ko: ko
     }
 }
 export const objCommunityCategory = {
-    manager:[
-        getCommunityCategoryFormat('request','문의'),
-        getCommunityCategoryFormat('faq','FAQ'),
-        getCommunityCategoryFormat('notice','공지사항'),
+    manager: [
+        getCommunityCategoryFormat('request', '문의'),
+        getCommunityCategoryFormat('faq', 'FAQ'),
+        getCommunityCategoryFormat('notice', '공지사항'),
     ],
-    user:[
-        getCommunityCategoryFormat('freeboard','자유게시판'),
-        getCommunityCategoryFormat('question','질문게시판'),
-        getCommunityCategoryFormat('humor','유머게시판'),
-        getCommunityCategoryFormat('news','마사지소식'),
-        getCommunityCategoryFormat('party','파티모집'),
+    user: [
+        getCommunityCategoryFormat('freeboard', '자유게시판'),
+        getCommunityCategoryFormat('question', '질문게시판'),
+        getCommunityCategoryFormat('humor', '유머게시판'),
+        getCommunityCategoryFormat('news', '마사지소식'),
+        getCommunityCategoryFormat('party', '파티모집'),
     ],
-    shop:[
-        getCommunityCategoryFormat('shop_review','업체후기'),
-        getCommunityCategoryFormat('shop_event','업체이벤트'),
+    shop: [
+        getCommunityCategoryFormat('shop_review', '업체후기'),
+        getCommunityCategoryFormat('shop_event', '업체이벤트'),
     ]
 }
 export const slideSetting = (num) => {

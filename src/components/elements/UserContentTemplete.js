@@ -12,7 +12,7 @@ position:relative;
 display:flex;
 flex-direction:column;
 width:90%;
-max-width:1000px;
+max-width:1200px;
 margin-top:12rem;
 margin-left:auto;
 margin-right:auto;
@@ -43,68 +43,24 @@ export const Wrappers = (props) => {
     )
 }
 export const TitleContainer = styled.div`
-display:flex;
 align-items:center;
 margin-top:36px;
 margin-bottom:24px;
-justify-content:space-between;
 position:relative;
+font-size:${props => props.theme.size.font2};
+width:100%;
+text-align:center;
 `
 export const TitleStyle = styled.div`
-font-size:${props => props.theme.size.font2};
 font-weight:bold;
-margin-right:16px;
 display:flex;
 align-items:center;
 `
 export const Title = (props) => {
-    let { not_line, line, text, text_link, is_thumb, onPrevious, onNext, id, is_more_small, is_center} = props;
-    const navigate = useNavigate();
-    const [containerStyle, setContainerStyle] = useState({});
-    const [titleStyle, setTitleStyle] = useState({});
-    const [content, setContent] = useState(undefined);
-    useEffect(() => {
-        if (not_line) {
-            setContainerStyle();
-            setContent();
-        }
-        if (line) {
-            setContainerStyle({ justifyContent: 'unset' });
-            setTitleStyle({ position: 'absolute', background: '#fff', paddingRight: `${is_thumb?'8px':'24px'}` });
-            setContent(<div style={{ background: '#203864', height: '4px', width: '100%' }} />);
-        }
-        if (text) {
-            setContent(<div style={{ fontSize: theme.size.font5, color: theme.color.blue, fontWeight: 'bold', cursor: 'pointer' }} onClick={() => navigate(text_link)}>{text}</div>);
-        }
-    }, [props]);
     return (
         <>
-            <TitleContainer className="title" style={containerStyle} id={id}>
-                <TitleStyle style={{...titleStyle,['textAlign']:`${is_center?'center':''}`}}>
-                    <div style={{fontSize:`${is_more_small?theme.size.font2_5:''}`}}>{props?.children ?? ""}</div>
-                    {is_thumb ?
-                        <>
-                            <img src={umziIcon} style={{ height: '32px', width: 'auto', paddingLeft: '8px' }} />
-                        </>
-                        :
-                        <></>}
-                </TitleStyle>
-                {content}
-                {onPrevious?
-                <>
-                <div style={{display:'flex'}}>
-                    <div style={{padding:'8px 9px 7px 8px',background:theme.color.font6,borderRadius:'50%',cursor:'pointer',marginRight:'6px',marginLeft:'6px'}}>
-                    <GrFormPrevious onClick={onPrevious}/>
-                    </div>
-                    <div style={{padding:'8px 8px 7px 9px',background:theme.color.font6,borderRadius:'50%',cursor:'pointer'}}>
-                    <GrFormNext onClick={onNext}/>
-                    </div>
-                </div>
-                </>
-                :
-                <></>}
-                {/* <hr className="bar"/> */}
-
+            <TitleContainer>
+                {props?.children ?? ""}
             </TitleContainer>
 
         </>

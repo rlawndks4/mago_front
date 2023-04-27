@@ -14,6 +14,17 @@ import Loading from '../../../components/Loading'
 
 const Shop = () => {
     const [loading, setLoading] = useState(false);
+
+    useEffect(()=>{
+        getShops();
+    },[])
+
+    const getShops = async () =>{
+        const {data:response} = await axios.post('/api/items',{
+            table:'shop'
+        })
+        console.log(response)
+    }
     return (
         <>
             <Wrappers className="post-container">
@@ -24,10 +35,8 @@ const Shop = () => {
                     :
                     <>
 
-
                     </>
                 }
-
                 {/* <Logo src={logo} style={{left:`${percent-1}.7%`}}/> */}
             </Wrappers>
         </>

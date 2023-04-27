@@ -42,7 +42,7 @@ outline:none;
 }
 `
 export const Textarea = styled.textarea`
-margin:12px auto 6px 24px !important;
+margin:12px auto 6px 24px;
 width:400px !important;
 padding:8px;
 border:1px solid #dadde6;
