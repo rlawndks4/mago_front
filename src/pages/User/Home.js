@@ -129,7 +129,7 @@ const Home = () => {
                         </Slider>
                     </>}
             </WrappersStyle>
-            <Wrappers className='wrappers' style={{ marginTop: '16px' }}>
+            <Wrappers className='wrappers' style={{ marginTop: '1rem' }}>
                 {loading ?
                     <>
                     </>
@@ -145,7 +145,7 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
-                        <RowContent style={{ margin: '1rem 0', justifyContent: 'space-between' }}>
+                        <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
                                 <div style={{ margin: 'auto auto 0.5rem auto' }}>
                                     마사지고 어플 출시!!

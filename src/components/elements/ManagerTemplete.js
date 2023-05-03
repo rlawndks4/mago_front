@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../styles/theme";
 
 export const Col = styled.div`
 display:flex;
@@ -113,5 +114,39 @@ font-weight:bold;
 margin-top:32px;
 @media screen and (max-width:650px) {
     overflow-x:auto;
+}
+`
+export const Font1 = styled.div`
+font-size:${theme.size.font1};
+@media screen and (max-width:650px) {
+    font-size:${theme.size.font2};
+}
+`
+export const Font2 = styled.div`
+font-size:${theme.size.font2};
+@media screen and (max-width:650px) {
+    font-size:${theme.size.font3};
+
+}
+`
+export const Font3 = styled.div`
+font-size:${theme.size.font3};
+@media screen and (max-width:650px) {
+    font-size:${theme.size.font4};
+
+}
+`
+export const Font4 = styled.div`
+font-size:${theme.size.font4};
+@media screen and (max-width:650px) {
+font-size:${theme.size.font5};
+    
+}
+`
+export const Font5 = styled.div`
+font-size:${theme.size.font5};
+
+@media screen and (max-width:650px) {
+    font-size:${theme.size.font6};
 }
 `

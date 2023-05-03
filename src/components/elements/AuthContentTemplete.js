@@ -17,7 +17,7 @@ color:${(props) => props.theme.color.manager.font1};
 font-weight:500;
 margin-top: 36px;
 @media (max-width: 600px) {
-    width:85%;
+    width:80%;
 }
 `
 export const Input = styled.input`

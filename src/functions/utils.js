@@ -54,23 +54,37 @@ export const deleteItem = async (type, obj) => {
 
 }
 export const commarNumber = (num) => {
-    let str = "";
-    if (typeof num == "number") {
-        str = num.toString();
-    } else {
-        str = num;
+    if(num > 0 && num < 0.000001){
+        return "0.00";
     }
-    if (!str) {
-        return "---";
+    if (!num && num != 0) {
+        return undefined;
+    }
+    let str = "";
+    if (typeof num == "string") {
+        str = num;
+    } else {
+        str = num.toString();
+    }
+
+    let decimal = "";
+    if (str.includes(".")) {
+        decimal = "." + str.split(".")[1].substring(0, 2);
+        str = str.split(".")[0];
+    } else {
+        decimal = "";
+    }
+    if (str?.length <= 3) {
+        return str + decimal;
     }
     let result = "";
     let count = 0;
-    for (var i = str.length - 1; i >= 0; i--) {
-        if (count % 3 == 0 && count != 0) result = "," + result;
+    for (var i = str?.length - 1; i >= 0; i--) {
+        if (count % 3 == 0 && count != 0 && !isNaN(parseInt(str[i]))) result = "," + result;
         result = str[i] + result;
         count++;
     }
-    return result;
+    return result + decimal;
 }
 export const formatPhoneNumber = (input) => {
     const cleanInput = String(input).replaceAll(/[^0-9]/g, "");
@@ -337,3 +351,38 @@ export const dateFormat = (date, is_minus) => {//두날짜의 시간차
         }
     }
 }
+export function getLocation() {
+    if (navigator.geolocation) {
+      
+      // GPS를 지원하면
+      return new Promise(resolve => {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+          },
+          function (error) {
+            console.error(error);
+            resolve({
+              latitude: 36.48509,
+              longitude: 127.30035,
+            });
+          },
+          {
+            enableHighAccuracy: false,
+            maximumAge: 0,
+            timeout: Infinity,
+          },
+        );
+      }).then(async coords => {
+        return coords;
+      });
+    }
+    console.info('GPS를 지원하지 않습니다');
+    return {
+      latitude: 36.48509,
+      longitude: 127.30035,
+    };
+  }

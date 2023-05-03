@@ -13,14 +13,14 @@ display:flex;
 flex-direction:column;
 width:90%;
 max-width:1200px;
-margin-top:12rem;
+margin-top:7rem;
 margin-left:auto;
 margin-right:auto;
 margin-bottom:6rem;
 min-height:58vh;
 font-family:${props=>props.theme.font.normal};
 @media screen and (max-width:1050px) { 
-    margin-top:7rem;
+    margin-top:5rem;
 }
 
 `
