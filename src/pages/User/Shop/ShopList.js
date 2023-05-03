@@ -150,6 +150,9 @@ const ShopList = () => {
                 let d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
                 shops[i]['distance'] = d
             }
+            shops = shops.sort(function (a, b) {
+                return a.distance - b.distance;
+            });
         }
         console.log(shops)
         setShops(shops)
