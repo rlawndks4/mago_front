@@ -88,7 +88,6 @@ const MShopEdit = () => {
                 $('.show_address').val(response.data.show_address)
                 $('.lng').val(response.data.lng)
                 $('.lat').val(response.data.lat)
-                $('.country_pk').val(response.data.country_pk)
                 setNote(response?.data?.note);
 
                 let price_list = JSON.parse(response?.data?.price_list);
@@ -97,9 +96,12 @@ const MShopEdit = () => {
                 $('.sub_city_pk').val(response.data.sub_city_pk)
 
                 let option_list = JSON.parse(response?.data?.option_list);
-                console.log(option_list)
                 for (var i = 0; i < option_list.length; i++) {
                     $(`#option-${option_list[i]}`).prop('checked', true);
+                }
+                let country_list = JSON.parse(response?.data?.country_list);
+                for (var i = 0; i < country_list.length; i++) {
+                    $(`#country-${country_list[i]}`).prop('checked', true);
                 }
                 for (var i = 0; i < price_list.length; i++) {
                     $(`.course-td-1-${i}`).val(price_list[i]?.course)
@@ -171,8 +173,7 @@ const MShopEdit = () => {
             !$(`.address_detail`).val() ||
             !$(`.show_address`).val() ||
             !$(`.lng`).val() ||
-            !$(`.lat`).val() ||
-            !$(`.country_pk`).val()
+            !$(`.lat`).val() 
         ) {
             alert('필요값이 비어있습니다.');
         } else {
@@ -189,7 +190,6 @@ const MShopEdit = () => {
                 show_address: $(`.show_address`).val(),
                 lng: $(`.lng`).val(),
                 lat: $(`.lat`).val(),
-                country_pk: $(`.country_pk`).val(),
                 table: 'shop',
                 note: note
             }
@@ -220,6 +220,15 @@ const MShopEdit = () => {
                 }
             }
             obj['option_list'] = JSON.stringify(option_list);
+
+            let country_list = [];
+            for (var i = 0; i < countryList.length; i++) {
+                if ($(`#country-${countryList[i]?.pk}`).is(':checked')) {
+                    country_list.push(countryList[i]?.pk)
+                }
+            }
+            obj['country_list'] = JSON.stringify(country_list);
+
             if (params?.pk > 0) {
                 obj['pk'] = params.pk;
             }
@@ -342,18 +351,7 @@ const MShopEdit = () => {
                         </Select>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <Title style={{ margintop: '32px' }}>국가</Title>
-                        <Select className='country_pk'>
-                            {countryList && countryList.map((item, idx) => (
-                                <>
-                                    <option value={item?.pk}>{item?.name}</option>
-                                </>
-                            ))}
-                        </Select>
-                    </Col>
-                </Row>
+                
                 <Col>
                     <Title>우편번호</Title>
                     <div style={{ display: 'flex' }}>
@@ -441,6 +439,18 @@ const MShopEdit = () => {
                         </div>
                     ))}
                 </Row>
+                <Title>국가</Title>
+                <Row style={{ margin: '1rem auto 1rem 24px' }}>
+                    {countryList?.map((item, idx) => (
+                        <div>
+                            <input id={`country-${item?.pk}`} type={'checkbox'} />
+                            <label for={`country-${item?.pk}`}>
+                                {item?.name}
+                            </label>
+                        </div>
+                    ))}
+                </Row>
+               
                 <Row>
                     <Col>
                         <Title>업체설명</Title>

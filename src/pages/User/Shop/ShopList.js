@@ -65,7 +65,7 @@ flex-direction:column;
 `
 const Merchandise = (props) => {
 
-    const { item } = props;
+    const { item, navigate } = props;
 
     return (
         <>
@@ -77,6 +77,7 @@ const Merchandise = (props) => {
                     background: '#fff'
                 }}
                 className='merchandise-content'
+                onClick={() => { navigate(`/shop?name=${item?.name}`) }}
             >
                 <MerchandiseExplain>
                     <Font3 style={{ margin: '0 auto auto 0' }}>{item?.name}</Font3>
@@ -106,8 +107,12 @@ const Merchandise = (props) => {
                         <>
                         </>}
                     <Font4 style={{ height: '10%', display: 'flex', alignItems: 'center', margin: 'auto 0 0.5rem auto' }}>
-                        <img src={backUrl + item?.country_img} style={{ height: '100%' }} />
-                        <div style={{ marginLeft: '0.5rem' }}>{item?.country_name}</div>
+                        {item?.country_list && item?.country_list.map((item, idx) => (
+                            <>
+                                <img src={backUrl + item?.img_src} style={{ height: '100%', marginLeft: '0.5rem' }} />
+
+                            </>
+                        ))}
                     </Font4>
                 </MerchandiseExplain>
                 <MerchandiseImg src={backUrl + item?.img_src} />
@@ -118,6 +123,7 @@ const Merchandise = (props) => {
 const ShopList = () => {
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [shops, setShops] = useState([])
@@ -172,6 +178,7 @@ const ShopList = () => {
                             {shops && shops.map((item, idx) => (
                                 <>
                                     <Merchandise
+                                        navigate={navigate}
                                         item={item}
                                     />
                                 </>
