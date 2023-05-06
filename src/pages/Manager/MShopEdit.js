@@ -80,6 +80,7 @@ const MShopEdit = () => {
                 $('.name').val(response.data.name)
                 $('.sub_name').val(response.data.sub_name)
                 $('.hash').val(response.data.hash)
+                $('.phone').val(response.data.phone)
                 $('.city_pk').val(response.data.city_pk)
                 $('.theme_pk').val(response.data.theme_pk)
                 $('.zip_code').val(response.data.zip_code)
@@ -167,6 +168,7 @@ const MShopEdit = () => {
             !$(`.hash`).val() ||
             !$(`.city_pk`).val() ||
             !$(`.sub_city_pk`).val() ||
+            !$(`.phone`).val() ||
             !$(`.theme_pk`).val() ||
             !$(`.zip_code`).val() ||
             !$(`.address`).val() ||
@@ -181,6 +183,7 @@ const MShopEdit = () => {
                 name: $(`.name`).val(),
                 sub_name: $(`.sub_name`).val(),
                 hash: $(`.hash`).val(),
+                phone: $(`.phone`).val(),
                 city_pk: $(`.city_pk`).val(),
                 sub_city_pk: $(`.sub_city_pk`).val(),
                 theme_pk: $(`.theme_pk`).val(),
@@ -317,6 +320,12 @@ const MShopEdit = () => {
                     <Col>
                         <Title style={{ margintop: '32px' }}>해시태그</Title>
                         <Input className='hash' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>업체 전화번호</Title>
+                        <Input className='phone' />
                     </Col>
                 </Row>
                 <Row>
