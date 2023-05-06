@@ -51,7 +51,6 @@ const CommunityList = () => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [pageList, setPageList] = useState([]);
-
     useEffect(() => {
         let category_idx = 0;
         for (var i = 0; i < communityCategoryList.length; i++) {
@@ -128,7 +127,9 @@ const CommunityList = () => {
                             </PageContainer>
                             {communityCategoryList[categoryIdx]?.is_write ?
                                 <>
-                                    <AddButton style={{ width: '92px' }}>+ 작성하기</AddButton>
+                                    <AddButton style={{ width: '92px' }} onClick={()=>{
+                                        navigate(`/add-community/${category}`)
+                                    }}>+ 작성하기</AddButton>
                                 </>
                                 :
                                 <>

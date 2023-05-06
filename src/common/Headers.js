@@ -484,9 +484,9 @@ const Headers = () => {
                     <>
                       <div className="service-dropdown-content">
                         <div style={{ display: 'flex', flexDirection: 'column', margin: '0 auto', alignItems: 'flex-start', textAlign: 'left' }}>
-                          <div onClick={() => onClickServiceCenter(0)}>공지사항</div>
-                          <div onClick={() => onClickServiceCenter(1)}>문의하기</div>
-                          <div onClick={() => onClickServiceCenter(2)}>FAQ</div>
+                          <div onClick={() => navigate('/community-list/notice')}>공지사항</div>
+                          <div onClick={() => navigate('/community-list/faq')}>자주묻는질문</div>
+                          <div onClick={() => navigate('/community-list/request')}>문의하기</div>
                         </div>
                       </div>
                     </>

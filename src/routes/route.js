@@ -81,7 +81,7 @@ const zUserRoute = [
 
     { link: '/policy/:pk', element: <Policy />, title: "" },
 
-    { link: '/add-community', element: <AddCommunity />, title: "" },
+    { link: '/add-community/:table', element: <AddCommunity />, title: "" },
     { link: '/community/:table/:pk', element: <Community />, title: "" },
     { link: '/community-list/:table', element: <CommunityList />, title: "" },
     { link: '/add-shop', element: <AddShop />, title: "" },

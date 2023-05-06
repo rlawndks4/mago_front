@@ -197,6 +197,14 @@ const ContentTable = (props) => {
                                                     </IconButton>
                                                     :
                                                     null}
+                                                    {column.type == 'detail' ?
+                                                    <IconButton onClick={() => {
+                                                        navigate(`/post/${table}/${item?.pk}`)
+                                                    }}>
+                                                        <Icon icon="ph:eye" />
+                                                    </IconButton>
+                                                    :
+                                                    null}
                                                 {column.type == 'check' ?
                                                     <input type={'checkbox'} id={`${schema}-${item?.pk}`} name={`${schema}-check`} onChange={(e) => checkOnlyOne(e.target)} />
                                                     :

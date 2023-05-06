@@ -50,7 +50,7 @@ export const zBottomMenu = [
     { name: '내주변', link: '/shop-list?is_around=1', icon: <Icon icon='mdi:map-marker-check-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:map-marker-check-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/shop-list?is_around=1'] },
     { name: '커뮤니티', link: '/community-list/freeboard', icon: <Icon icon='clarity:chat-bubble-line' className='menu-icon' />, activeIcon: <Icon icon='clarity:chat-bubble-line' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/community-list'] },
     { name: '제휴문의', link: '/add-shop', icon: <Icon icon='mdi:comment-question-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:comment-question-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/add-shop'] },
-    { name: '고객센터', link: '/request', icon: <Icon icon='ph:siren' className='menu-icon' />, activeIcon: <Icon icon='ph:siren' color={theme.color.background1} className='menu-icon' />, className: 'service-dropdown-btn', allowList: ['/request'] },
+    { name: '고객센터', link: '/add-community/request', icon: <Icon icon='ph:siren' className='menu-icon' />, activeIcon: <Icon icon='ph:siren' color={theme.color.background1} className='menu-icon' />, className: 'service-dropdown-btn', allowList: ['/add-community/request'] },
 ];
 
 export const axiosInstance = axios.create({
@@ -118,64 +118,83 @@ export const objHistoryListContent = {
         title: "자유게시판",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     question: {
-        title: "자유게시판",
+        title: "질문게시판",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     humor: {
-        title: "자유게시판",
+        title: "유머게시판",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     news: {
-        title: "자유게시판",
+        title: "마사지소식",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     party: {
-        title: "자유게시판",
+        title: "파티모집",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     shop_review: {
-        title: "자유게시판",
+        title: "업체후기",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('업체명', '', 'text', 'shop_name'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     shop_event: {
-        title: "자유게시판",
+        title: "업체이벤트",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('업체명', '', 'text', 'shop_name'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
     notice: {
         title: "공지사항",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
-            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('자세히보기', '', 'detail', ''),
+        ]
+    },
+    faq: {
+        title: "자주묻는질문",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
 };
