@@ -44,7 +44,7 @@ margin:0 0 0.5rem 0;
 const Shop = () => {
     const location = useLocation();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
     const [myAddress, setMyAddress] = useState("");
     const [typeNum, setTypeNum] = useState(0);

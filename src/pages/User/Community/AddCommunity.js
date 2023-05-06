@@ -24,11 +24,8 @@ const AddCommunity = () => {
                     :
                     <>
 
-
                     </>
                 }
-
-                {/* <Logo src={logo} style={{left:`${percent-1}.7%`}}/> */}
             </Wrappers>
         </>
     )

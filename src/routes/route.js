@@ -84,7 +84,6 @@ const zUserRoute = [
     { link: '/add-community', element: <AddCommunity />, title: "" },
     { link: '/community/:table/:pk', element: <Community />, title: "" },
     { link: '/community-list/:table', element: <CommunityList />, title: "" },
-    { link: '/community-list', element: <CommunityList />, title: "" },
     { link: '/add-shop', element: <AddShop />, title: "" },
     { link: '/shop', element: <Shop />, title: "" },
     { link: '/shop-list', element: <ShopList />, title: "" },

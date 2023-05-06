@@ -14,6 +14,16 @@ body::-webkit-scrollbar-thumb {
     /* Chrome, Safari, Opera*/
     background: #eef1fd;
 }
+.none-scroll {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+.none-scroll::-webkit-scrollbar {
+    /* Chrome, Safari, Opera*/
+    display: none;
+}
 .ql-editor{
     -ms-overflow-style: none;
     /* IE and Edge */

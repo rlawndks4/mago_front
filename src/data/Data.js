@@ -48,7 +48,7 @@ export const localization = {
 export const zBottomMenu = [
     { name: `마사지GO!${window.innerWidth >= 1000 ? ' ▼' : ''}`, link: '/', icon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, activeIcon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, className: 'master-dropdown-btn', allowList: ['/'] },
     { name: '내주변', link: '/shop-list?is_around=1', icon: <Icon icon='mdi:map-marker-check-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:map-marker-check-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/shop-list?is_around=1'] },
-    { name: '커뮤니티', link: '/community-list', icon: <Icon icon='clarity:chat-bubble-line' className='menu-icon' />, activeIcon: <Icon icon='clarity:chat-bubble-line' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/community-list'] },
+    { name: '커뮤니티', link: '/community-list/freeboard', icon: <Icon icon='clarity:chat-bubble-line' className='menu-icon' />, activeIcon: <Icon icon='clarity:chat-bubble-line' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/community-list'] },
     { name: '제휴문의', link: '/add-shop', icon: <Icon icon='mdi:comment-question-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:comment-question-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/add-shop'] },
     { name: '고객센터', link: '/request', icon: <Icon icon='ph:siren' className='menu-icon' />, activeIcon: <Icon icon='ph:siren' color={theme.color.background1} className='menu-icon' />, className: 'service-dropdown-btn', allowList: ['/request'] },
 ];
@@ -93,6 +93,92 @@ export const objCommunityCategory = {
         getCommunityCategoryFormat('shop_event', '업체이벤트'),
     ]
 }
+export const communityCategoryList = [
+    { table: 'freeboard', name: '자유게시판', is_write: true },
+    { table: 'question', name: '질문게시판', is_write: true },
+    { table: 'humor', name: '유머게시판', is_write: true },
+    { table: 'news', name: '마사지소식', is_write: true },
+    { table: 'party', name: '파티모집', is_write: true },
+    { table: 'shop_review', name: '업체후기', },
+    { table: 'shop_event', name: '업체이벤트', },
+    { table: 'notice', name: '공지사항', },
+    { table: 'faq', name: '자주묻는질문', },
+    { table: 'request', name: '문의하기', },
+]
+export const columnObjFormat = (name, width, type, column) => {
+    return {
+        name: name,
+        width: width,
+        type: type,
+        column: column,
+    }
+}
+export const objHistoryListContent = {
+    freeboard: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    question: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    humor: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    news: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    party: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    shop_review: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    shop_event: {
+        title: "자유게시판",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+    notice: {
+        title: "공지사항",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+        ]
+    },
+};
 export const slideSetting = (num) => {
     return {
         infinite: false,
