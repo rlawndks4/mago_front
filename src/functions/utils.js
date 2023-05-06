@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import { returnColumn } from '../common/manager/ColumnType';
+import { communityCategoryList } from '../data/Data';
 
 // 웹뷰에서 RN으로 데이터를 보낼때 사용합니다.
 export function sendToRN(num) {
@@ -141,31 +142,15 @@ export const getIframeLinkByLink = (str) => {
     return ans;
 }
 export const categoryToNumber = (str) => {
-    if (str == 'event') {
-        return 0;
-    } else if (str == 'academy') {
-        return 1;
-    } else if (str == 'notice') {
-        return 2;
-    } else if (str == 'review') {
-        return 3;
-    } else {
-        return -1;
+    for(var i = 0;i<communityCategoryList.length;i++){
+        if(str == communityCategoryList[i].table){
+            break;
+        }
     }
+    return i;
 }
 export const numberToCategory = (num) => {
-    if (num == 0) {
-        return { schema: 'event', name: '이벤트' };
-    } else if (num == 1) {
-        return { schema: 'academy', name: '강의' };
-    } else if (num == 2) {
-        return { schema: 'notice', name: '공지사항' };
-    } else if (num == 3) {
-        return { schema: 'review', name: '이용후기' };
-    } else {
-        return { schema: '---', name: '---' };
-    }
-
+    return communityCategoryList[num];
 }
 
 export const regExp = (type, str) => {//id,pw,nickname,name
