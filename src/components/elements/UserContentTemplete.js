@@ -57,9 +57,10 @@ display:flex;
 align-items:center;
 `
 export const Title = (props) => {
+    const {style} = props;
     return (
         <>
-            <TitleContainer>
+            <TitleContainer style={style}>
                 {props?.children ?? ""}
             </TitleContainer>
 

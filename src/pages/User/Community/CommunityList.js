@@ -110,24 +110,32 @@ const CommunityList = () => {
                                 <>
                                     <div />
                                 </>}
-                            <PageContainer>
-                                <PageButton onClick={() => getCommunityList(1)}>
-                                    처음
-                                </PageButton>
-                                {pageList.map((item, index) => (
-                                    <>
-                                        <PageButton onClick={() => getCommunityList(item)} style={{ color: `${page == item ? '#fff' : ''}`, background: `${page == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - page) > 4 ? 'none' : ''}` }}>
-                                            {item}
+                            {pageList.length > 0 ?
+                                <>
+                                    <PageContainer>
+                                        <PageButton onClick={() => getCommunityList(1)}>
+                                            처음
                                         </PageButton>
-                                    </>
-                                ))}
-                                <PageButton onClick={() => getCommunityList(pageList.length ?? 1)}>
-                                    마지막
-                                </PageButton>
-                            </PageContainer>
+                                        {pageList.map((item, index) => (
+                                            <>
+                                                <PageButton onClick={() => getCommunityList(item)} style={{ color: `${page == item ? '#fff' : ''}`, background: `${page == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - page) > 4 ? 'none' : ''}` }}>
+                                                    {item}
+                                                </PageButton>
+                                            </>
+                                        ))}
+                                        <PageButton onClick={() => getCommunityList(pageList.length ?? 1)}>
+                                            마지막
+                                        </PageButton>
+                                    </PageContainer>
+                                </>
+                                :
+                                <>
+                                    <div />
+                                </>}
+
                             {communityCategoryList[categoryIdx]?.is_write ?
                                 <>
-                                    <AddButton style={{ width: '92px' }} onClick={()=>{
+                                    <AddButton style={{ width: '92px' }} onClick={() => {
                                         navigate(`/add-community/${category}`)
                                     }}>+ 작성하기</AddButton>
                                 </>

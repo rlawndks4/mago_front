@@ -169,11 +169,29 @@ export const objHistoryListContent = {
             columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
+    s_review: {
+        title: "업체후기",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'detail', ''),
+        ]
+    },
     shop_event: {
         title: "업체이벤트",
         columns: [
             columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('업체명', '', 'text', 'shop_name'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'detail', ''),
+        ]
+    },
+    s_event: {
+        title: "업체이벤트",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
             columnObjFormat('작성인', '', 'text', 'nickname'),
             columnObjFormat('등록일', '', 'date', 'date'),
             columnObjFormat('자세히보기', '', 'detail', ''),

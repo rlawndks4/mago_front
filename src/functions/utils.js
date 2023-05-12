@@ -152,7 +152,13 @@ export const categoryToNumber = (str) => {
 export const numberToCategory = (num) => {
     return communityCategoryList[num];
 }
-
+export const makeMaxPage = (num, page_cut) => {
+    if (num % page_cut == 0) {
+        return num / page_cut;
+    } else {
+        return parseInt(num / page_cut) + 1;
+    }
+}
 export const regExp = (type, str) => {//id,pw,nickname,name
     let reg = undefined;
     if (type == 'id') {

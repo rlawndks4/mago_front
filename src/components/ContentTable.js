@@ -199,7 +199,11 @@ const ContentTable = (props) => {
                                                     null}
                                                     {column.type == 'detail' ?
                                                     <IconButton onClick={() => {
-                                                        navigate(`/post/${table}/${item?.pk}`)
+                                                        if(table.includes('s_')){
+                                                            navigate(`/post/${table.replace('s_','shop_')}/${item?.pk}`)
+                                                        }else{
+                                                            navigate(`/post/${table}/${item?.pk}`)
+                                                        }
                                                     }}>
                                                         <Icon icon="ph:eye" />
                                                     </IconButton>

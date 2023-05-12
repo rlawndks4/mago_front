@@ -504,20 +504,6 @@ export const objManagerEditContent = {
             ],
         ],
     },
-    pay_edit: {
-        schema: 'subscribe',
-        breadcrumb: '결제 내역',
-        add_list: [],
-        columns: [//img, select, input, 
-        ],
-    },
-    pay_cancel: {
-        schema: 'subscribe',
-        breadcrumb: '결제 내역 취소',
-        add_list: [],
-        columns: [//img, select, input, 
-        ],
-    },
     home_setting: {
         schema: 'setting',
         breadcrumb: '메인배너',
@@ -583,7 +569,81 @@ export const objManagerEditContent = {
             ],
         ],
     },
-
+    freeboard: {
+        schema: 'freeboard',
+        breadcrumb: '자유게시판',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    question: {
+        schema: 'question',
+        breadcrumb: '질문게시판',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    humor: {
+        schema: 'humor',
+        breadcrumb: '유머게시판',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    news: {
+        schema: 'news',
+        breadcrumb: '마사지소식',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    party: {
+        schema: 'party',
+        breadcrumb: '파티모집',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
     popup: {
         schema: 'popup',
         breadcrumb: '팝업',

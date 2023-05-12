@@ -28,6 +28,7 @@ const AddCommunity = () => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
     const [note, setNote] = useState('')
+    const [shop, setShop] = useState({});
     const modules = useMemo(() => ({
         toolbar: {
             container: [
@@ -82,19 +83,33 @@ const AddCommunity = () => {
                 alert('로그인 후 이용 가능합니다.');
                 navigate(-1);
             }
+            if(params?.table.includes('shop_')){
+                console.log(location.state)
+                if(!location.state?.shop_pk){
+                    alert("잘못된 접근입니다.");
+                    navigate('/home');
+                }else{
+                    setShop(location.state);
+                }
+            }
         }
         isUser();
+        
     }, [])
     const onSave = async () => {
         if (window.confirm("정말로 저장 하시겠습니까?")) {
-            const { data: response } = await axios.post('/api/additembyuser', {
+            let obj = {
                 title: $('.title').val(),
                 note: note,
                 table:params?.table
-            })
+            }
+            if(shop?.shop_pk){
+                obj['shop_pk'] = shop?.shop_pk;
+            }
+            const { data: response } = await axios.post('/api/additembyuser', obj)
             if(response?.result>0){
                 alert('성공적으로 저장 되었습니다.');
-                navigate(`/community-list/${params?.table}`);
+                navigate(-1);
             }else{
                 alert(response?.message);
             }
@@ -104,9 +119,16 @@ const AddCommunity = () => {
     return (
         <>
             <Wrappers className="post-container">
+                {shop?.shop_name?
+                <>
+                <Title style={{marginBottom:'0'}}>{shop?.shop_name}</Title>
+                </>
+                :
+                <>
+                </>}
                 <Title>{communityCategoryList[categoryToNumber(params?.table)].name} 작성</Title>
-                <Input style={{ width: '100%', margin: '1rem auto' }} placeholder="제목을 입력해 주세요." className="title" />
-                <div id='editor' style={{ width: '100%', margin: '1rem auto', padding: '0' }}>
+                <Input style={{ width: '98%', margin: '1rem auto 1rem 0', padding: '0.75rem 1%', maxWidth:'1157px'  }} placeholder="제목을 입력해 주세요." className="title" />
+                <div id='editor' style={{ width: '100%', margin: '1rem auto'}}>
                     <ReactQuill
                         modules={modules}
                         theme="snow"
