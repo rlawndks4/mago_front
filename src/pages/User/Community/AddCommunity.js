@@ -81,7 +81,7 @@ const AddCommunity = () => {
                 setUser(response);
             } else {
                 alert('로그인 후 이용 가능합니다.');
-                navigate(-1);
+                navigate('/login');
             }
             if(params?.table.includes('shop_')){
                 console.log(location.state)
