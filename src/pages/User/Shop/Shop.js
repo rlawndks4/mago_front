@@ -19,7 +19,6 @@ import AddButton from "../../../components/elements/button/AddButton";
 import PageContainer from "../../../components/elements/pagination/PageContainer";
 import PageButton from "../../../components/elements/pagination/PageButton";
 import { getLocalStorage } from "../../../functions/LocalStorage";
-import { Row } from "../../../components/elements/ManagerTemplete";
 
 const Type = styled.div`
 width:50%;
@@ -52,11 +51,21 @@ const RowContent = styled.div`
 display:flex;
 width:100%;
 justify-content:space-between;
+@media screen and (max-width:750px) { 
+    flex-direction:column;
+}
 `
 const Content = styled.div`
 display:flex;
 flex-direction:column;
 width:45%;
+@media screen and (max-width:750px) { 
+    width:100%;
+    margin-bottom:1rem;
+}
+`
+const Row = styled.div`
+display:flex;
 `
 const Shop = () => {
     const location = useLocation();
@@ -158,9 +167,9 @@ const Shop = () => {
                                                         <Row style={{ flexWrap: 'wrap', marginTop: '0.5rem' }}>
                                                             {data?.shop?.option_list && (data?.shop?.option_list ?? []).map((item, idx) => (
                                                                 <>
-                                                                    <Row style={{ width: '50%',marginTop:'0.5rem',alignItems:'center' }}>
-                                                                        <img src={backUrl + item?.img_src} style={{width:'16px',height:'16px'}} />
-                                                                        <div style={{marginLeft:'0.5rem'}}>{item?.name}</div>
+                                                                    <Row style={{ width: '50%', marginTop: '0.5rem', alignItems: 'center' }}>
+                                                                        <img src={backUrl + item?.img_src} style={{ width: '16px', height: '16px' }} />
+                                                                        <div style={{ marginLeft: '0.5rem' }}>{item?.name}</div>
                                                                     </Row>
                                                                 </>
                                                             ))}
