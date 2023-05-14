@@ -69,7 +69,7 @@ padding:1rem;
 display:flex;
 flex-direction:column;
 `
-const Merchandise = (props) => {
+export const Merchandise = (props) => {
 
     const { item, navigate } = props;
 

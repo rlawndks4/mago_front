@@ -18,6 +18,7 @@ import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
 import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import playStoreSrc from '../../assets/images/test/google-play.jpg'
+import { Merchandise } from './Shop/ShopList';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -31,7 +32,24 @@ font-family:${props => props.theme.font.normal};
     margin-top:4rem;
 }
 `
-
+const MerchandiseContainer = styled.div`
+width: 100%;
+display: flex;
+flex-wrap:wrap;
+column-gap: 60px;
+grid-row-gap: 10px;
+row-gap: 30px;
+margin:2rem auto;
+@media (max-width: 1350px) {
+  column-gap: 4.2vw;
+}
+@media (max-width: 650px) {
+    
+}
+@media (max-width: 550px) {
+  column-gap: 4.2vw;
+}
+`
 const CityCard = styled.img`
 width: 10.5%;
 height:50px;
@@ -46,18 +64,12 @@ cursor:pointer;
 const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [bestContents, setBestContents] = useState([]);
-    const [bestReviews, setBestReviews] = useState([]);
-    const [notices, setNotices] = useState([]);
-    const [apps, setApps] = useState({});
+
     const [banners, setBanners] = useState([]);
     const [bannerLinks, setBannerLinks] = useState({});
     const [cityList, setCityList] = useState([])
-    const [mainContent, setMainContent] = useState([]);
-    const [mainVideos, setMainVideos] = useState([])
+    const [shopList, setShopList] = useState([])
 
-    const reviewRef = useRef();
-    const videoRef = useRef();
     const settings = {
         infinite: true,
         speed: 500,
@@ -66,24 +78,7 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
     };
-    const videoSettings = {
-        infinite: true,
-        speed: 500,
-        autoplay: false,
-        autoplaySpeed: 2500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
 
-        dots: true
-    };
-    const reviewSettings = {
-        infinite: true,
-        speed: 500,
-        autoplay: false,
-        autoplaySpeed: 2500,
-        slidesToShow: (window.innerWidth >= 1000 ? 3 : (window.innerWidth >= 550 ? 2 : 1)),
-        slidesToScroll: 1,
-    };
     useEffect(() => {
         async function fetchPost() {
             setLoading(true)
@@ -98,7 +93,7 @@ const Home = () => {
             }
             setCityList(response?.data?.city ?? []);
             setBanners(banner_list);
-
+            setShopList(response?.data?.shop ?? []);
             setLoading(false);
         }
         fetchPost();
@@ -107,7 +102,7 @@ const Home = () => {
 
     return (
         <>
-            <WrappersStyle style={{maxWidth:'1150px'}}>
+            <WrappersStyle style={{ maxWidth: '1150px' }}>
                 {loading ?
                     <>
                         <Loading />
@@ -158,6 +153,16 @@ const Home = () => {
                             <img src={playStoreSrc} style={{ width: '50%', }} />
                         </RowContent>
                     </>}
+                <MerchandiseContainer>
+                    {shopList && shopList.map((item, idx) => (
+                        <>
+                            <Merchandise
+                                navigate={navigate}
+                                item={item}
+                            />
+                        </>
+                    ))}
+                </MerchandiseContainer>
             </Wrappers>
         </>
     )
