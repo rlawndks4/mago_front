@@ -219,9 +219,7 @@ const ShopList = () => {
     }, [subCity])
     const getShops = async () => {
         setLoading(true);
-        let obj = {
-
-        }
+        let obj = {}
         let add_obj = {};
         let query = location.search;
         query = query.split('?')[1];
@@ -230,6 +228,12 @@ const ShopList = () => {
             add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
         }
         obj = Object.assign(obj, add_obj);
+        if(obj?.city>0){
+            setCity(obj?.city);
+        }
+        if(obj?.theme>0){
+            setTheme(obj?.theme);
+        }
         const { data: response } = await axios.post('/api/shops', obj)
         let shops = response?.data;
         if (obj?.is_around) {
