@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Wrappers, ViewerContainer, SelectType } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl } from "../../../data/Data";
@@ -19,6 +19,8 @@ import AddButton from "../../../components/elements/button/AddButton";
 import PageContainer from "../../../components/elements/pagination/PageContainer";
 import PageButton from "../../../components/elements/pagination/PageButton";
 import { getLocalStorage } from "../../../functions/LocalStorage";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const Type = styled.div`
 width:50%;
@@ -70,7 +72,7 @@ display:flex;
 const Shop = () => {
     const location = useLocation();
     const navigate = useNavigate();
-
+    const viewerRef = useRef();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
     const [myAddress, setMyAddress] = useState("");
@@ -182,7 +184,13 @@ const Shop = () => {
                                     <Grid item xs={12} md={6}>
                                         <Card>
                                             <CardContent>
-
+                                            <ReactQuill
+                                value={data?.shop?.note ?? `<body></body>`}
+                                readOnly={true}
+                                theme={"bubble"}
+                                bounds={'.app'}
+                                ref={viewerRef}
+                            />
                                             </CardContent>
                                         </Card>
                                     </Grid>

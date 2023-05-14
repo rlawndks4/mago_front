@@ -151,6 +151,7 @@ export const objManagerListContent = {
         [
             columnObjFormat('배너이미지', '', 'img', 'img_src'),
             columnObjFormat('업체명', '', 'text', 'name'),
+            columnObjFormat('문의자닉네임', '', 'text', 'nickname'),
             columnObjFormat('노출여부', '', 'status', 'status'),
             columnObjFormat('생성일', '', 'text', 'date'),
             columnObjFormat('수정', '', 'edit', 'edit'),

@@ -33,14 +33,14 @@ font-family:${props => props.theme.font.normal};
 `
 
 const CityCard = styled.img`
-width: 22%;
-height:100px;
+width: 10.5%;
+height:50px;
 margin:0.5rem 1%;
 cursor:pointer;
 @media screen and (max-width:1050px) { 
-    width: 40vw;
-    height: 20vw;
-    margin:0.5rem 2%;
+    width: 20vw;
+    height: 10vw;
+    margin:0.5rem 1.35%;
 }
 `
 const Home = () => {
@@ -107,7 +107,7 @@ const Home = () => {
 
     return (
         <>
-            <WrappersStyle>
+            <WrappersStyle style={{maxWidth:'1150px'}}>
                 {loading ?
                     <>
                         <Loading />

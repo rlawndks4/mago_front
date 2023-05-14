@@ -41,6 +41,7 @@ const MShopEdit = () => {
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
     const [note, setNote] = useState("");
+    const [requestNote, setRequestNote] = useState("");
     const [isSeePostCode, setIsSeePostCode] = useState(false);
     const [priceList, setPriceList] = useState([]);
     const [cityList, setCityList] = useState([]);
@@ -90,6 +91,7 @@ const MShopEdit = () => {
                 $('.lng').val(response.data.lng)
                 $('.lat').val(response.data.lat)
                 setNote(response?.data?.note);
+                setRequestNote(response?.data?.request_note);
 
                 let price_list = JSON.parse(response?.data?.price_list);
                 setPriceList(price_list);
@@ -497,7 +499,43 @@ const MShopEdit = () => {
                         </div>
                     </Col>
                 </Row>
-
+                <Row>
+                    <Col>
+                        <Title>문의업체설명명</Title>
+                        <div id='editor'>
+                            <ReactQuill
+                                modules={modules}
+                                theme="snow"
+                                defaultValue={requestNote}
+                                value={requestNote}
+                                onChange={async (e) => {
+                                    try {
+                                        let note = e;
+                                        console.log(e)
+                                        if (e.includes('<img src="') && e.includes('base64,')) {
+                                            let base64_list = e.split('<img src="');
+                                            for (var i = 0; i < base64_list.length; i++) {
+                                                if (base64_list[i].includes('base64,')) {
+                                                    let img_src = base64_list[i];
+                                                    img_src = await img_src.split(`"></p>`);
+                                                    let base64 = img_src[0];
+                                                    img_src = await base64toFile(img_src[0], 'note.png');
+                                                    let formData = new FormData();
+                                                    await formData.append('note', img_src);
+                                                    const { data: response } = await axios.post('/api/addimageitems', formData);
+                                                    note = await note.replace(base64, `${backUrl + response?.data[0]?.filename}`)
+                                                }
+                                            }
+                                        }
+                                        setRequestNote(note);
+                                    } catch (err) {
+                                        console.log(err);
+                                    }
+                                }}
+                            />
+                        </div>
+                    </Col>
+                </Row>
             </Card>
             <ButtonContainer>
                 <CancelButton onClick={() => navigate(-1)}>x 취소</CancelButton>

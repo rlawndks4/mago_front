@@ -114,7 +114,6 @@ const AddCommunity = () => {
                 alert(response?.message);
             }
         }
-
     }
     return (
         <>

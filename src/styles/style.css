@@ -103,8 +103,8 @@ body::-webkit-scrollbar-thumb {
     height: 100vh !important;
 }
 .banner-img{
-    width: 100vw;
-    height: 30vw;
+    width: 1150px;
+    height: 500px;
 }
 .enrolment-banner-img{
     width: 1000px;
@@ -287,7 +287,13 @@ margin: 18px auto;
         height: 25vw;
     }
 }
-@media screen and (max-width:1150px) {}
+@media screen and (max-width:1150px) {
+    .banner-img{
+        width: 100vw;
+        height: 45vw;
+    }
+}
+
 
 @media screen and (max-width:1000px) {
     #editor {
