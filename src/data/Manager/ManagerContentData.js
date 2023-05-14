@@ -630,6 +630,36 @@ export const objManagerEditContent = {
             ],
         ],
     },
+    shop_review: {
+        schema: 'shop_review',
+        breadcrumb: '업체후기',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
+    shop_event: {
+        schema: 'shop_event',
+        breadcrumb: '업체이벤트',
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인이미지 (150x100)', 'img', { field_name: 'content' }, 'main_img'),
+            ],
+            [
+                editColumnObjFormat('제목', 'input', { placeholder: '제목을 입력해 주세요.' }, 'title'),
+            ],
+            [
+                editColumnObjFormat('내용', 'editor', {}, 'note'),
+            ],
+        ],
+    },
     party: {
         schema: 'party',
         breadcrumb: '파티모집',

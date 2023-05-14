@@ -99,20 +99,16 @@ const Footer = () => {
                 :
                 <>
                     <Wrappers className="footer" style={{ background: `#23242f`, fontSize: theme.size.font5 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                            <Img src={logoSrc} alt="footer" />
-                        </div>
-                        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Post onClick={() => navigate('/policy/0')}>이용약관</Post>
-                            <Post onClick={() => navigate('/policy/1')}>개인정보처리방침</Post>
-                            <Post style={{ borderRight: 'none' }} onClick={() => navigate('/policy/2')}>저작권정책</Post>
-                        </div> */}
-                        <div style={{ marginTop: '8px' }}></div>
+                    <div style={{ marginTop: '8px' }}>마사지GO</div>
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Flex style={{margin:'0 auto 0 0'}}>
-                                
+                            <Flex style={{ margin: '0 auto 0 0' }}>
+                            <div>주소&nbsp;&nbsp;경기도 오산시 법원로 15번길 9, 408호</div>
+                            <div>사업자등록번호&nbsp;&nbsp;235-29-01265</div>
                             </Flex>
-                            
+                            <Flex>
+                                마사지GO는 정보제공자로서 제휴회원의 컨텐츠 및 이와 관련된 거래에 대하여 어떠한 책임도 지지 않습니다.
+                                본 사이트의 컨텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포 등을 금합니다.
+                            </Flex>
                         </Flex>
                     </Wrappers>
                 </>

@@ -13,8 +13,8 @@ import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import { Icon } from "@iconify/react"
 import { motion } from "framer-motion"
-import { Font2, Font3, Font4, Font5 } from "../../../components/elements/ManagerTemplete";
-
+import { Font2, Font3, Font4, Font5, Row } from "../../../components/elements/ManagerTemplete";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const MerchandiseContainer = styled.div`
 width: 100%;
 display: flex;
@@ -62,6 +62,12 @@ flex-direction:column;
     margin:auto auto auto 0.5rem;
     padding:2vw;
 }
+`
+const OptionContainer = styled.div`
+box-shadow: 4px 12px 30px 6px rgba(0, 0, 0, 0.09);
+padding:1rem;
+display:flex;
+flex-direction:column;
 `
 const Merchandise = (props) => {
 
@@ -120,6 +126,28 @@ const Merchandise = (props) => {
         </>
     )
 }
+const getObjByQuery = (query) => {
+    let obj = {};
+    query = query.split('?')[1];
+    query = query.split('&');
+    for (var i = 0; i < query.length; i++) {
+        obj[query[i].split('=')[0]] = query[i].split('=')[1];
+    }
+    return obj;
+}
+const getQueryByObj = (obj) => {
+    let keys = Object.keys(obj);
+    let query = ""
+    for (var i = 0; i < keys.length; i++) {
+        if (i == 0) {
+            query += '?'
+        } else {
+            query += '&'
+        }
+        query += `${keys[i]}=${obj[keys[i]]}`
+    }
+    return query;
+}
 const ShopList = () => {
 
     const location = useLocation();
@@ -127,11 +155,68 @@ const ShopList = () => {
 
     const [loading, setLoading] = useState(false);
     const [shops, setShops] = useState([])
-
+    const [themeList, setThemeList] = useState([]);
+    const [theme, setTheme] = useState(0)
+    const [cityList, setCityList] = useState([]);
+    const [city, setCity] = useState(0);
+    const [subCityList, setSubCityList] = useState([]);
+    const [subCity, setSubCity] = useState(0);
+    useEffect(() => {
+        setLoading(true);
+        getThemeList();
+        getCityList();
+    }, []);
     useEffect(() => {
         getShops();
     }, [location])
+    const getThemeList = async () => {
+        const { data: response } = await axios.get(`/api/items?table=shop_theme&order=sort`);
+        setThemeList(response?.data);
+    }
+    const getCityList = async () => {
+        const { data: response } = await axios.get(`/api/items?table=city&order=sort`);
+        setCityList(response?.data);
+    }
+    const getSubCityList = async (city_pk) => {
+        const { data: response } = await axios.get(`/api/items?table=sub_city&order=sort&city_pk=${city_pk}`);
+        setSubCityList(response?.data);
+    }
+    useEffect(() => {
+        let obj = getObjByQuery(location.search);
+        if (city == 0 || !city) {
+            delete obj['city'];
+            delete obj['sub_city'];
+            setSubCity(0);
+            setSubCityList([])
+        } else {
+            obj['city'] = city;
+            getSubCityList(city)
+        }
+        let query = getQueryByObj(obj);
+        navigate(`/shop-list${query}`)
 
+    }, [city])
+    useEffect(() => {
+        let obj = getObjByQuery(location.search);
+        if (theme == 0 || !theme) {
+            delete obj['theme'];
+        } else {
+            obj['theme'] = theme;
+        }
+        let query = getQueryByObj(obj);
+        navigate(`/shop-list${query}`)
+
+    }, [theme])
+    useEffect(() => {
+        let obj = getObjByQuery(location.search);
+        if (subCity == 0 || !subCity) {
+            delete obj['sub_city'];
+        } else {
+            obj['sub_city'] = subCity;
+        }
+        let query = getQueryByObj(obj);
+        navigate(`/shop-list${query}`)
+    }, [subCity])
     const getShops = async () => {
         setLoading(true);
         let obj = {
@@ -164,7 +249,6 @@ const ShopList = () => {
         setShops(shops)
         setLoading(false);
     }
-
     return (
         <>
             <Wrappers className="post-container">
@@ -174,6 +258,52 @@ const ShopList = () => {
                     </>
                     :
                     <>
+                        <OptionContainer>
+                            <FormControl>
+                                <InputLabel>테마선택</InputLabel>
+                                <Select
+                                    label='테마선택'
+                                    value={theme}
+                                    onChange={e => setTheme(e.target.value)}
+                                >
+                                    <MenuItem value={0}>전체</MenuItem>
+                                    {themeList.map((item, idx) => {
+                                        return <MenuItem value={item.pk}>{item.name}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+                            <div style={{ display: 'flex', width: '100%', marginTop: '1rem', justifyContent: 'space-between' }}>
+                                <FormControl sx={{ width: '48%', maxWidth: '600px' }}>
+                                    <InputLabel>도시선택</InputLabel>
+                                    <Select
+                                        label='도시선택'
+                                        value={city}
+                                        onChange={e => {
+                                            setCity(e.target.value)
+                                        }}
+                                    >
+                                        <MenuItem value={0}>전체</MenuItem>
+                                        {cityList.map((item, idx) => {
+                                            return <MenuItem value={item.pk}>{item.name}</MenuItem>
+                                        })}
+                                    </Select>
+                                </FormControl>
+                                <FormControl sx={{ width: '48%', maxWidth: '600px' }}>
+                                    <InputLabel>구선택</InputLabel>
+                                    <Select
+                                        label='구선택'
+                                        value={subCity}
+                                        onChange={e => setSubCity(e.target.value)}
+                                    >
+                                        <MenuItem value={0}>전체</MenuItem>
+                                        {subCityList.map((item, idx) => {
+                                            return <MenuItem value={item.pk}>{item.name}</MenuItem>
+                                        })}
+                                    </Select>
+                                </FormControl>
+                            </div>
+
+                        </OptionContainer>
                         <MerchandiseContainer>
                             {shops && shops.map((item, idx) => (
                                 <>
