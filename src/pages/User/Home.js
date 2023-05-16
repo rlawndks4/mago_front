@@ -83,7 +83,6 @@ const Home = () => {
         async function fetchPost() {
             setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
-            console.log(response)
             let banner_list = [];
             let banner_link_obj = {};
             for (var i = 1; i <= 5; i++) {

@@ -249,7 +249,6 @@ const Headers = () => {
   }, [])//hover 관련
   async function getHeaderContent() {
     const { data: response } = await axios.get('/api/getheadercontent')
-    console.log(response)
     setPopupList(response?.data?.popup ?? []);
     setTopBanner(response?.data?.top_banner);
     setThemeList(response?.data?.theme);

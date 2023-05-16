@@ -54,9 +54,7 @@ const ReviewList = () => {
     }, [masterList, location.search])
     const checkQuery = async () => {
         if (location.search) {
-            console.log(location.search)
             let search = await makeQueryObj(location.search);
-            console.log(search)
             selectTypeNum(search?.type, search?.page);
         } else {
             selectTypeNum(0, 1);

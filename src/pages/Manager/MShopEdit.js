@@ -279,7 +279,6 @@ const MShopEdit = () => {
         }
     };
     const onChangeCity = (e) => {
-        console.log(subCityObj)
         setSubCityList(subCityObj[e.target.value]);
     }
     return (
