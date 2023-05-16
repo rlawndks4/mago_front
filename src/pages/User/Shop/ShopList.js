@@ -129,6 +129,9 @@ export const Merchandise = (props) => {
 const getObjByQuery = (query) => {
     let obj = {};
     query = query.split('?')[1];
+    if(!query){
+        return {};
+    }
     query = query.split('&');
     for (var i = 0; i < query.length; i++) {
         obj[query[i].split('=')[0]] = query[i].split('=')[1];
