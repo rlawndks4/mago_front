@@ -243,7 +243,6 @@ const ShopList = () => {
         let shops = response?.data;
         if (obj?.is_around) {
             let locate = await getLocation();
-            console.log(locate)
             for (var i = 0; i < shops.length; i++) {
                 let x = (Math.cos(locate?.latitude) * 6400 * 2 * 3.14 / 360) * Math.abs(locate?.longitude - shops[i].lng)
                 let y = 111 * Math.abs(locate?.latitude - shops[i].lat)
@@ -254,7 +253,6 @@ const ShopList = () => {
                 return a.distance - b.distance;
             });
         }
-        console.log(shops)
         setShops(shops)
         setLoading(false);
     }
