@@ -221,19 +221,17 @@ const ShopList = () => {
         setLoading(true);
         let obj = {}
         let add_obj = {};
-        let query = location.search;
-        if(query){
-            query = query.split('?')[1];
-            query = query.split('&');
-            for (var i = 0; i < query.length; i++) {
-                add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
-            }
+        let query = location.search ?? "";
+        query = query.split('?')[1];
+        query = query.split('&');
+        for (var i = 0; i < query.length; i++) {
+            add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
         }
         obj = Object.assign(obj, add_obj);
-        if(obj?.city>0){
+        if (obj?.city > 0) {
             setCity(obj?.city);
         }
-        if(obj?.theme>0){
+        if (obj?.theme > 0) {
             setTheme(obj?.theme);
         }
         const { data: response } = await axios.post('/api/shops', obj)
