@@ -222,10 +222,12 @@ const ShopList = () => {
         let obj = {}
         let add_obj = {};
         let query = location.search;
-        query = query.split('?')[1];
-        query = query.split('&');
-        for (var i = 0; i < query.length; i++) {
-            add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
+        if(query){
+            query = query.split('?')[1];
+            query = query.split('&');
+            for (var i = 0; i < query.length; i++) {
+                add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
+            }
         }
         obj = Object.assign(obj, add_obj);
         if(obj?.city>0){
