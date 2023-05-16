@@ -143,7 +143,7 @@ const Home = () => {
                         <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
                                 <div style={{ margin: 'auto auto 0.5rem auto' }}>
-                                    마사지고 어플 출시!!
+                                    마고 어플 출시!!
 
                                 </div>
                                 <div style={{ margin: '0.5rem auto auto auto' }}>
