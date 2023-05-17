@@ -197,7 +197,7 @@ const Shop = () => {
                                     <Grid item xs={12} md={6}>
                                         <Card>
                                             <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
-                                                <Title>코스소개</Title>
+                                                <Title>코스 및 가격 안내</Title>
                                                 {data?.shop?.price_list && data?.shop?.price_list.map((item, idx) => {
                                                     if (!item?.price && !item?.sale_price) {
                                                         return <MenuHeader>{item?.course}</MenuHeader>

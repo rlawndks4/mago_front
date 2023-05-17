@@ -500,7 +500,7 @@ const MShopEdit = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Title>문의업체설명명</Title>
+                        <Title>문의업체설명</Title>
                         <div id='editor'>
                             <ReactQuill
                                 modules={modules}
