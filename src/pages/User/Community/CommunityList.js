@@ -2,14 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Title, Wrappers, ViewerContainer } from "../../../components/elements/UserContentTemplete";
-import { axiosInstance, backUrl, communityCategoryList, objCommunityCategory } from "../../../data/Data";
+import { axiosInstance, backUrl, communityCategoryList } from "../../../data/Data";
 import theme from "../../../styles/theme";
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import $ from 'jquery'
 import styled from "styled-components";
-import { categoryToNumber, commarNumber, getViewerMarginByNumber, range } from "../../../functions/utils";
-import CommentComponent from "../../../components/CommentComponent";
-import { Viewer } from '@toast-ui/react-editor';
+import {  range } from "../../../functions/utils";
 import Loading from '../../../components/Loading'
 import SideSelectTypeComponent from "../../../components/SideSelectTypeComponent";
 import ContentTable from "../../../components/ContentTable";

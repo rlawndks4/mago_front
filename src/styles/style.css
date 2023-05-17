@@ -51,11 +51,11 @@ body::-webkit-scrollbar-thumb {
     background: transparent;
 }
 .slick-dots {
-    bottom: -28px !important;
+    bottom: 16px !important;
 }
 
 .slick-dots li.slick-active button:before {
-    color: #FECC2F !important;
+    color: #3250d2 !important;
 }
 
 #editor {
@@ -104,7 +104,7 @@ body::-webkit-scrollbar-thumb {
 }
 .banner-img{
     width: 1150px;
-    height: 500px;
+    height: 575px;
 }
 .enrolment-banner-img{
     width: 1000px;
@@ -244,6 +244,32 @@ margin: 18px auto;
 .service-dropdown-content  div{
     padding: 8px !important;
 }
+.prevArrow {
+    position: absolute;
+    top: 260px;
+    left: 12px;
+    z-index: 2;
+    cursor: pointer;
+    font-size: 28px;
+    padding: 5px 5px 0px 5px;
+    border-radius: 50%;
+    background: #aaaaaa55;
+    color: #fff !important;
+}
+
+.nextArrow {
+    position: absolute;
+    top: 260px;
+    right: 12px;
+    z-index: 2;
+    cursor: pointer;
+    font-size: 28px;
+    padding:5px 5px 0px 5px;
+    border-radius: 50%;
+    background: #aaaaaa55;
+    color: #fff !important;
+
+}
 .merchandise-content {
     width: 20.83%;
     display: flex;
@@ -290,7 +316,16 @@ margin: 18px auto;
 @media screen and (max-width:1150px) {
     .banner-img{
         width: 100vw;
-        height: 45vw;
+        height: 50vw;
+    }
+    .slick-dots {
+        bottom: 1vw !important;
+    }
+    .prevArrow {
+        top: 22vw;
+    }
+    .nextArrow {
+        top: 22vw;
     }
 }
 
@@ -332,33 +367,7 @@ margin: 18px auto;
         height: 52.2222222222vw;
     }
 
-    .prevArrow {
-        position: absolute;
-        top: 30vw;
-        left: 6px;
-        z-index: 2;
-        cursor: pointer;
-        font-size: 28px;
-        padding: 4px 6px 0px 3px;
-        border-radius: 50%;
-        background: #aaaaaa55;
-        color: #fff !important;
-
-    }
-
-    .nextArrow {
-        position: absolute;
-        top: 30vw;
-        right: 6px;
-        z-index: 2;
-        cursor: pointer;
-        font-size: 28px;
-        padding: 4px 4px 0px 5px;
-        border-radius: 50%;
-        background: #aaaaaa55;
-        color: #fff !important;
-
-    }
+    
 
     .progress-bar {
         appearance: none;

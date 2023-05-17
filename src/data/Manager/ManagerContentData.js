@@ -498,10 +498,10 @@ export const objManagerEditContent = {
                 editColumnObjFormat('제목', 'input', { disabled: true }, 'title'),
             ],
             [
-                editColumnObjFormat('내용', 'textarea', { disabled: true }, 'note'),
+                editColumnObjFormat('문의사항', 'editor', {}, 'note'),
             ],
             [
-                editColumnObjFormat('답변', 'textarea', {}, 'reply_note'),
+                editColumnObjFormat('답변', 'editor', {}, 'reply_note'),
             ],
         ],
     },

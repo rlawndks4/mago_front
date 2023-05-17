@@ -19,6 +19,7 @@ import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import playStoreSrc from '../../assets/images/test/google-play.jpg'
 import { Merchandise } from './Shop/ShopList';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -61,6 +62,21 @@ cursor:pointer;
     margin:0.5rem 1.35%;
 }
 `
+const NextArrow = ({ onClick }) => {
+    return (
+        <div className="nextArrow" onClick={onClick}>
+            <MdNavigateNext style={{ color: '#fff' }} />
+        </div>
+    );
+};
+
+const PrevArrow = ({ onClick }) => {
+    return (
+        <div className="prevArrow" onClick={onClick}>
+            <MdNavigateBefore style={{ color: '#fff' }} />
+        </div>
+    );
+};
 const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -77,6 +93,9 @@ const Home = () => {
         autoplaySpeed: 2500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        dots: true,
+        nextArrow: <NextArrow onClick />,
+        prevArrow: <PrevArrow onClick />,
     };
 
     useEffect(() => {

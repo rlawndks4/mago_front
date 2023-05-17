@@ -215,6 +215,16 @@ export const objHistoryListContent = {
             columnObjFormat('자세히보기', '', 'detail', ''),
         ]
     },
+    request: {
+        title: "문의하기",
+        columns: [
+            columnObjFormat('제목', '', 'text', 'title'),
+            columnObjFormat('작성인', '', 'text', 'nickname'),
+            columnObjFormat('등록일', '', 'date', 'date'),
+            columnObjFormat('자세히보기', '', 'link', ''),
+            columnObjFormat('비고', '', 'is_request_com', ''),
+        ]
+    },
 };
 export const slideSetting = (num) => {
     return {

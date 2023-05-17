@@ -4,11 +4,16 @@ import { Input, Textarea } from "../../../components/elements/ManagerTemplete";
 import { Content, TextButton, TextFillButton, Title, Wrappers } from "../../../components/elements/UserContentTemplete"
 import theme from "../../../styles/theme";
 import $ from 'jquery';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 const Request = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [post, setPost] = useState({});
+
+    const noteRef = useRef();
+    const replyRef = useRef();
     useEffect(() => {
         async function myAuth() {
             const { data: response } = await axios.get(`/api/auth`);
@@ -27,7 +32,7 @@ const Request = () => {
             })
             setPost(response?.data);
             await new Promise((r) => setTimeout(r, 400));
-            $('.title').val(response?.data?.title);
+            $('.title_').val(response?.data?.title);
             $('.note').val(response?.data?.note);
             $('.reply').val(response?.data?.reply_note);
         }
@@ -36,7 +41,7 @@ const Request = () => {
         }
     }, [])
     const onRequest = async () => {
-        if(!$('.title_').val() || !$('.note').val()){
+        if (!$('.title_').val() || !$('.note').val()) {
             alert("필수 값이 비어있습니다.");
             return;
         }
@@ -60,17 +65,29 @@ const Request = () => {
                 <Title>문의하기</Title>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{ maxWidth: '48px', fontSize: theme.size.font4, fontWeight: 'bold', width: '10%' }}>제목</div>
-                    <Input style={{ margin: '0 0 0 8px', width: '80%',padding:'14px 8px' }} className='title_' disabled={params?.pk > 0 ? true : false} />
+                    <Input style={{ margin: '0 0 0 8px', width: '80%', padding: '14px 8px' }} className='title_' disabled={params?.pk > 0 ? true : false} />
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-start', marginTop: '16px' }}>
                     <div style={{ maxWidth: '48px', fontSize: theme.size.font4, fontWeight: 'bold', width: '10%' }}>내용</div>
-                    <Textarea style={{ margin: '0 0 0 8px', width: '80%', height: '360px' }} className='note' disabled={params?.pk > 0 ? true : false} />
+                    <ReactQuill
+                        value={post?.note ?? `<body></body>`}
+                        readOnly={true}
+                        theme={"bubble"}
+                        bounds={'.app'}
+                        ref={noteRef}
+                    />
                 </div>
                 {post?.status == 1 ?
                     <>
                         <div style={{ display: 'flex', alignItems: 'flex-start', marginTop: '16px' }}>
                             <div style={{ width: '48px', fontSize: theme.size.font4, fontWeight: 'bold' }}>답변</div>
-                            <Textarea style={{ margin: '0 0 0 8px', width: '80%', maxWidth: '400px', height: '360px' }} className='reply' disabled={params?.pk > 0 ? true : false} />
+                            <ReactQuill
+                                value={post?.reply_note ?? `<body></body>`}
+                                readOnly={true}
+                                theme={"bubble"}
+                                bounds={'.app'}
+                                ref={replyRef}
+                            />
                         </div>
                         <div style={{ display: "flex", marginTop: '16px', marginLeft: 'auto' }}>
                             <TextButton style={{ margin: '0 4px 0 0' }} onClick={() => navigate(-1)}>뒤로가기</TextButton>
@@ -80,13 +97,13 @@ const Request = () => {
                     <>
                         <div style={{ display: "flex", marginTop: '16px', marginLeft: 'auto' }}>
                             <TextButton style={{ margin: '0' }} onClick={() => navigate(-1)}>취소</TextButton>
-                            {params?.pk>0?
-                            <>
-                            </>
-                            :
-                            <>
-                            <TextFillButton style={{ margin: '0 0 0 8px' }} onClick={onRequest}>완료</TextFillButton>
-                            </>}
+                            {params?.pk > 0 ?
+                                <>
+                                </>
+                                :
+                                <>
+                                    <TextFillButton style={{ margin: '0 0 0 8px' }} onClick={onRequest}>완료</TextFillButton>
+                                </>}
                         </div>
                     </>}
 

@@ -102,8 +102,6 @@ const Video = () => {
         autoplaySpeed: 2500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <NextArrow onClick />,
-        prevArrow: <PrevArrow onClick />,
     };
     useEffect(() => {
         window.addEventListener('scroll', function (el) {
