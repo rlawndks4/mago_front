@@ -184,13 +184,13 @@ const Shop = () => {
                                     <Grid item xs={12} md={6}>
                                         <Card>
                                             <CardContent>
-                                            <ReactQuill
-                                value={data?.shop?.note ?? `<body></body>`}
-                                readOnly={true}
-                                theme={"bubble"}
-                                bounds={'.app'}
-                                ref={viewerRef}
-                            />
+                                                <ReactQuill
+                                                    value={data?.shop?.note ?? `<body></body>`}
+                                                    readOnly={true}
+                                                    theme={"bubble"}
+                                                    bounds={'.app'}
+                                                    ref={viewerRef}
+                                                />
                                             </CardContent>
                                         </Card>
                                     </Grid>
@@ -231,18 +231,19 @@ const Shop = () => {
                                     schema={'s_event'}
                                     table={'s_event'}
                                 />
-                                {eventPageList.length > 0 ?
-                                    <>
-                                        <MBottomContent>
-                                            {user?.pk == data?.shop?.user_pk ?
-                                                <>
-                                                    <div style={{ width: '92px' }} />
 
-                                                </>
-                                                :
-                                                <>
-                                                    <div />
-                                                </>}
+                                <MBottomContent>
+                                    {user?.pk == data?.shop?.user_pk ?
+                                        <>
+                                            <div style={{ width: '92px' }} />
+
+                                        </>
+                                        :
+                                        <>
+                                            <div />
+                                        </>}
+                                    {eventPageList.length > 0 ?
+                                        <>
                                             <PageContainer>
                                                 <PageButton onClick={() => getShops(1, reviewPage)}>
                                                     처음
@@ -258,29 +259,30 @@ const Shop = () => {
                                                     마지막
                                                 </PageButton>
                                             </PageContainer>
-                                            {user?.pk == data?.shop?.user_pk ?
-                                                <>
-                                                    <AddButton style={{ width: '92px' }} onClick={() => {
-                                                        navigate(`/add-community/shop_event`, {
-                                                            state: {
-                                                                shop_pk: data?.shop?.pk,
-                                                                shop_name: data?.shop?.name
-                                                            }
-                                                        })
-                                                    }}>+ 작성하기</AddButton>
+                                        </>
+                                        :
+                                        <>
+                                        </>
+                                    }
+                                    {user?.pk == data?.shop?.user_pk ?
+                                        <>
+                                            <AddButton style={{ width: '92px' }} onClick={() => {
+                                                navigate(`/add-community/shop_event`, {
+                                                    state: {
+                                                        shop_pk: data?.shop?.pk,
+                                                        shop_name: data?.shop?.name
+                                                    }
+                                                })
+                                            }}>+ 작성하기</AddButton>
 
-                                                </>
-                                                :
-                                                <>
-                                                    <div />
-                                                </>
-                                            }
-                                        </MBottomContent>
-                                    </>
-                                    :
-                                    <>
-                                    </>
-                                }
+                                        </>
+                                        :
+                                        <>
+                                            <div />
+                                        </>
+                                    }
+                                </MBottomContent>
+
 
                             </>
                             :
@@ -293,10 +295,11 @@ const Shop = () => {
                                     schema={'s_review'}
                                     table={'s_review'}
                                 />
-                                {reviewPageList.length > 0 ?
-                                    <>
-                                        <MBottomContent>
-                                            <div style={{ width: '92px' }} />
+
+                                <MBottomContent>
+                                    <div style={{ width: '92px' }} />
+                                    {reviewPageList.length > 0 ?
+                                        <>
                                             <PageContainer>
                                                 <PageButton onClick={() => getShops(eventPage, 1)}>
                                                     처음
@@ -312,22 +315,22 @@ const Shop = () => {
                                                     마지막
                                                 </PageButton>
                                             </PageContainer>
+                                        </>
+                                        :
+                                        <>
+                                        </>}
 
-                                            <AddButton style={{ width: '92px' }} onClick={() => {
-                                                navigate(`/add-community/shop_review`, {
-                                                    state: {
-                                                        shop_pk: data?.shop?.pk,
-                                                        shop_name: data?.shop?.name
-                                                    }
-                                                })
-                                            }}>+ 작성하기</AddButton>
 
-                                        </MBottomContent>
-                                    </>
-                                    :
-                                    <>
-                                    </>
-                                }
+                                    <AddButton style={{ width: '92px' }} onClick={() => {
+                                        navigate(`/add-community/shop_review`, {
+                                            state: {
+                                                shop_pk: data?.shop?.pk,
+                                                shop_name: data?.shop?.name
+                                            }
+                                        })
+                                    }}>+ 작성하기</AddButton>
+
+                                </MBottomContent>
 
                             </>
                             :
