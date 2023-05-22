@@ -116,6 +116,13 @@ const Shop = () => {
 
         setTypeNum(num)
     }
+    const shareCopy = () => {
+        let copyText = document.getElementById("share-link");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(copyText.value);
+        alert("주소가 복사 되었습니다.");
+      }
     return (
         <>
             <Wrappers className="post-container">
@@ -160,7 +167,11 @@ const Shop = () => {
                                                         <div style={{ fontSize: theme.size.font2_5 }}>{data?.shop?.name}</div>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.address}</div>
-                                                            <AddButton style={{ width: '92px' }}>주소복사</AddButton>
+                                                           
+                                                                    <IconButton onClick={shareCopy}>
+                                                                        <Icon icon="fluent:copy-16-regular" />
+                                                                    </IconButton>
+                                                                    <input type="text" style={{ display: 'none' }} id='share-link' value={data?.shop?.address??""} />
                                                         </Row>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.phone}</div>
