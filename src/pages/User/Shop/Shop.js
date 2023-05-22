@@ -11,7 +11,7 @@ import { commarNumber, getLocation, makeMaxPage, range } from "../../../function
 import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import { makeQueryObj } from "../../../functions/utils";
-import { Card, CardContent, Grid } from "@mui/material";
+import { Card, CardContent, Grid, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import ContentTable from "../../../components/ContentTable";
 import MBottomContent from "../../../components/elements/MBottomContent";
@@ -164,7 +164,18 @@ const Shop = () => {
                                                         </Row>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.phone}</div>
-                                                            <AddButton style={{ width: '92px' }}>전화걸기</AddButton>
+                                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                                <a href={`tel:${data?.shop?.phone}`}>
+                                                                    <IconButton>
+                                                                        <Icon icon="fluent:call-32-regular" />
+                                                                    </IconButton>
+                                                                </a>
+                                                                <a href={`sms:${data?.shop?.phone}${navigator.userAgent.includes('Android') ? '?' : '&'}body=마고에서 보고 연락 드립니다.`}>
+                                                                    <IconButton>
+                                                                        <Icon icon="ep:message" />
+                                                                    </IconButton>
+                                                                </a>
+                                                            </div>
                                                         </Row>
                                                         <Row style={{ flexWrap: 'wrap', marginTop: '0.5rem' }}>
                                                             {data?.shop?.option_list && (data?.shop?.option_list ?? []).map((item, idx) => (
