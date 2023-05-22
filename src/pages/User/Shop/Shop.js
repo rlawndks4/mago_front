@@ -73,6 +73,7 @@ const Shop = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const viewerRef = useRef();
+    const priceViewerRef = useRef();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
     const [myAddress, setMyAddress] = useState("");
@@ -122,7 +123,7 @@ const Shop = () => {
         copyText.setSelectionRange(0, 99999); // For mobile devices
         navigator.clipboard.writeText(copyText.value);
         alert("주소가 복사 되었습니다.");
-      }
+    }
     return (
         <>
             <Wrappers className="post-container">
@@ -165,15 +166,16 @@ const Shop = () => {
                                                     </Content>
                                                     <Content>
                                                         <div style={{ fontSize: theme.size.font2_5 }}>{data?.shop?.name}</div>
+                                                        <div style={{ fontSize: theme.size.font4, marginTop: '1rem', color: theme.color.font3 }}>{data?.shop?.sub_name}</div>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.address}</div>
-                                                           
-                                                                    <IconButton onClick={shareCopy}>
-                                                                        <Icon icon="fluent:copy-16-regular" />
-                                                                    </IconButton>
-                                                                    <input type="text" style={{ display: 'none' }} id='share-link' value={data?.shop?.address??""} />
+
+                                                            <IconButton onClick={shareCopy}>
+                                                                <Icon icon="fluent:copy-16-regular" />
+                                                            </IconButton>
+                                                            <input type="text" style={{ display: 'none' }} id='share-link' value={data?.shop?.address ?? ""} />
                                                         </Row>
-                                                        <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
+                                                        <Row style={{ alignItems: 'center', justifyContent: 'space-between' }}>
                                                             <div>{data?.shop?.phone}</div>
                                                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                                                 <a href={`tel:${data?.shop?.phone}`}>
@@ -198,6 +200,9 @@ const Shop = () => {
                                                                 </>
                                                             ))}
                                                         </Row>
+                                                        <Row style={{ fontSize: theme.size.font4, marginTop: '1rem', color: theme.color.font3 }}>
+                                                            {data?.shop?.hash}
+                                                        </Row>
                                                     </Content>
                                                 </RowContent>
                                             </CardContent>
@@ -205,15 +210,13 @@ const Shop = () => {
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <Card>
-                                            <CardContent>
-                                                <ReactQuill
-                                                    value={data?.shop?.note ?? `<body></body>`}
-                                                    readOnly={true}
-                                                    theme={"bubble"}
-                                                    bounds={'.app'}
-                                                    ref={viewerRef}
-                                                />
-                                            </CardContent>
+                                            <ReactQuill
+                                                value={data?.shop?.note ?? `<body></body>`}
+                                                readOnly={true}
+                                                theme={"bubble"}
+                                                bounds={'.app'}
+                                                ref={viewerRef}
+                                            />
                                         </Card>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
@@ -238,7 +241,15 @@ const Shop = () => {
                                                         </MenuContent>
                                                     }
                                                 })}
+
                                             </CardContent>
+                                            <ReactQuill
+                                                value={data?.shop?.price_note ?? `<body></body>`}
+                                                readOnly={true}
+                                                theme={"bubble"}
+                                                bounds={'.app'}
+                                                ref={priceViewerRef}
+                                            />
                                         </Card>
                                     </Grid>
                                 </Grid>
