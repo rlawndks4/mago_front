@@ -115,7 +115,7 @@ export const Merchandise = (props) => {
                     <Font4 style={{ height: '10%', display: 'flex', alignItems: 'center', margin: 'auto 0 0.5rem auto' }}>
                         {item?.country_list && item?.country_list.map((item, idx) => (
                             <>
-                                <img src={backUrl + item?.img_src} style={{ height: '100%', marginLeft: '0.5rem' }} />
+                                <img src={backUrl + item?.img_src} style={{ height: '100%', marginLeft: '0.5rem' }} alt="#" />
 
                             </>
                         ))}

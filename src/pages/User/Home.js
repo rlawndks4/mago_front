@@ -168,7 +168,7 @@ const Home = () => {
                                     지금 바로 다운 받으세요!!
                                 </div>
                             </div>
-                            <img src={playStoreSrc} style={{ width: '50%', }} />
+                            <img src={playStoreSrc} style={{ width: '50%', }} alt="#" />
                         </RowContent>
                     </>}
                 <MerchandiseContainer>

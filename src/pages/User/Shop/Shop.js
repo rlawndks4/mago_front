@@ -162,7 +162,7 @@ const Shop = () => {
                                             <CardContent>
                                                 <RowContent>
                                                     <Content>
-                                                        <img src={backUrl + data?.shop?.img_src} style={{ width: '100%', borderRadius: '16px' }} />
+                                                        <img src={backUrl + data?.shop?.img_src} style={{ width: '100%', borderRadius: '16px' }} alt="#" />
                                                     </Content>
                                                     <Content>
                                                         <div style={{ fontSize: theme.size.font2_5 }}>{data?.shop?.name}</div>
