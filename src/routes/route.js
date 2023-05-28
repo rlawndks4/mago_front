@@ -60,6 +60,7 @@ const zUserRoute = [
     { link: '/community-list/:table', element: <CommunityList />, title: "" },
     { link: '/add-shop', element: <AddShop />, title: "" },
     { link: '/shop', element: <Shop />, title: "" },
+    { link: '/_shop', element: <Shop />, title: "" },
     { link: '/shop-list', element: <ShopList />, title: "" },
 
 ];
