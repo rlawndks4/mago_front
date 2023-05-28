@@ -4,12 +4,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Title, Wrappers, ViewerContainer } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl, communityCategoryList } from "../../../data/Data";
 import theme from "../../../styles/theme";
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import $ from 'jquery'
 import styled from "styled-components";
 import { base64toFile, categoryToNumber, commarNumber, getViewerMarginByNumber } from "../../../functions/utils";
-import CommentComponent from "../../../components/CommentComponent";
-import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import { Input } from "../../../components/elements/ManagerTemplete";
 import ReactQuill, { Quill } from "react-quill";

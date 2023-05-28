@@ -4,11 +4,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Wrappers, ViewerContainer, SelectType } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl } from "../../../data/Data";
 import theme from "../../../styles/theme";
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import $ from 'jquery'
 import styled from "styled-components";
 import { commarNumber, getLocation, makeMaxPage, range } from "../../../functions/utils";
-import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import { makeQueryObj } from "../../../functions/utils";
 import { Card, CardContent, Grid, IconButton } from "@mui/material";

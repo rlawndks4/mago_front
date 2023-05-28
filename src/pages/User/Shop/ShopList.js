@@ -4,12 +4,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Title, Wrappers, ViewerContainer } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl } from "../../../data/Data";
 import theme from "../../../styles/theme";
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import $ from 'jquery'
 import styled from "styled-components";
 import { categoryToNumber, commarNumber, getLocation, getViewerMarginByNumber } from "../../../functions/utils";
 import CommentComponent from "../../../components/CommentComponent";
-import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import { Icon } from "@iconify/react"
 import { motion } from "framer-motion"
@@ -83,7 +80,7 @@ export const Merchandise = (props) => {
                     background: '#fff'
                 }}
                 className='merchandise-content'
-                onClick={() => { navigate(`/shop?name=${item?.name}`) }}
+                onClick={() => { window.location.href = `/shop?name=${item?.name}` }}
             >
                 <MerchandiseExplain>
                     <Font3 style={{ margin: '0 auto auto 0' }}>{item?.name}</Font3>
@@ -309,7 +306,6 @@ const ShopList = () => {
                                     </Select>
                                 </FormControl>
                             </div>
-
                         </OptionContainer>
                         <MerchandiseContainer>
                             {shops && shops.map((item, idx) => (

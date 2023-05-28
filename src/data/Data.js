@@ -1,22 +1,4 @@
 import $ from 'jquery';
-import albumImg from '../assets/images/icon/albums.svg';
-import albumWhiteImg from '../assets/images/icon/albums-white.svg';
-import albumActiveImg from '../assets/images/icon/albums-active.svg';
-import bulbImg from '../assets/images/icon/bulb.svg';
-import bulbWhiteImg from '../assets/images/icon/bulb-white.svg';
-import bulbActiveImg from '../assets/images/icon/bulb-active.svg';
-import featureImg from '../assets/images/icon/features.svg';
-import featureWhiteImg from '../assets/images/icon/features-white.svg';
-import featureActiveImg from '../assets/images/icon/features-active.svg';
-import talkImg from '../assets/images/icon/talk.svg';
-import talkWhiteImg from '../assets/images/icon/talk-white.svg';
-import talkActiveImg from '../assets/images/icon/talk-active.svg';
-import thumbImg from '../assets/images/icon/thumb.svg';
-import thumbWhiteImg from '../assets/images/icon/thumb-white.svg';
-import thumbActiveImg from '../assets/images/icon/thumb-active.svg';
-import menu5Icon from '../assets/images/icon/speaker.svg';
-import menu5IconWhite from '../assets/images/icon/speaker-white.svg';
-import menu5IconActive from '../assets/images/icon/speaker-active.svg';
 import logo from '../assets/images/test/logo.png'
 import defaultImage from '../assets/images/test/default-image.png'
 import { EditorState } from "draft-js"
@@ -46,7 +28,7 @@ export const localization = {
     locale: 'ko',
 }
 export const zBottomMenu = [
-    { name: `마고${window.innerWidth >= 1000 ? ' ▼' : ''}`, link: '/', icon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, activeIcon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, className: 'master-dropdown-btn', allowList: ['/'] },
+    { name: `마고 ▼`, link: '/', icon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, activeIcon: <img src={logoSrc} className='menu-icon' alt="#" style={{ width: 'auto' }} />, className: 'master-dropdown-btn', allowList: ['/'] },
     { name: '내주변', link: '/shop-list?is_around=1', icon: <Icon icon='mdi:map-marker-check-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:map-marker-check-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/shop-list?is_around=1'] },
     { name: '커뮤니티', link: '/community-list/freeboard', icon: <Icon icon='clarity:chat-bubble-line' className='menu-icon' />, activeIcon: <Icon icon='clarity:chat-bubble-line' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/community-list'] },
     { name: '제휴문의', link: '/add-shop', icon: <Icon icon='mdi:comment-question-outline' className='menu-icon' />, activeIcon: <Icon icon='mdi:comment-question-outline' color={theme.color.background1} className='menu-icon' />, className: '', allowList: ['/add-shop'] },

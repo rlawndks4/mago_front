@@ -9,7 +9,6 @@ import MetaTag from '../components/MetaTag';
 import { useState } from 'react';
 import { zManagerRoute, zUserRoute } from '../routes/route';
 import ManagerLayout from '../components/layouts/ManagerLayout';
-import Page404 from './User/Page404';
 const App = () => {
     return (
         <>

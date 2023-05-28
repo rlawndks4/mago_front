@@ -4,13 +4,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Title, ViewerContainer, Wrappers } from "../../../components/elements/UserContentTemplete";
 import { axiosInstance, backUrl } from "../../../data/Data";
 import theme from "../../../styles/theme";
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import $ from 'jquery'
 import styled from "styled-components";
 import { BsFillShareFill } from 'react-icons/bs';
 import { commarNumber, categoryToNumber, getViewerAlignByNumber, getViewerMarginByNumber } from "../../../functions/utils";
 import CommentComponent from "../../../components/CommentComponent";
-import { Viewer } from '@toast-ui/react-editor';
 import Loading from '../../../components/Loading'
 import MetaTag from "../../../components/MetaTag";
 import ScrollToTopButton from "../../../components/ScrollToTopButton";

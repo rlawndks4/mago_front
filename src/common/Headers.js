@@ -14,7 +14,6 @@ import { IoMdArrowBack } from 'react-icons/io';
 import $ from 'jquery';
 import reactReferer from 'react-referer';
 import { onClickExternalLink, returnMoment } from '../functions/utils';
-import { Viewer } from '@toast-ui/react-editor';
 import { IoMdClose } from 'react-icons/io'
 import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
 import redSpeakerIcon from '../assets/images/icon/red-speaket.png'
