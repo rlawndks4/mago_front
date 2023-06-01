@@ -150,3 +150,10 @@ font-size:${theme.size.font5};
     font-size:${theme.size.font6};
 }
 `
+export const Font6 = styled.div`
+font-size:${theme.size.font6};
+
+@media screen and (max-width:650px) {
+    font-size:${theme.size.font7};
+}
+`

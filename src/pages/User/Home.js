@@ -5,21 +5,21 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import theme from '../../styles/theme';
 import axios from 'axios';
 import { backUrl, defaultImageSrc, slideSetting } from '../../data/Data';
 import { Wrappers, Title, Content, Card, Img, WrapDiv, SliderDiv, ShadowContainer, RowContent } from '../../components/elements/UserContentTemplete';
 import Loading from '../../components/Loading';
 import $ from 'jquery';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import AcademyCard from '../../components/AcademyCard';
 import { getIframeLinkByLink, onClickExternalLink, onClickWindowOpen, overString } from '../../functions/utils';
-import sec3TitIcon from '../../assets/images/icon/sec3_tit.png'
-import youtubeRowIcon from '../../assets/images/icon/yotube-row.png'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import playStoreSrc from '../../assets/images/test/google-play.jpg'
 import { Merchandise } from './Shop/ShopList';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import twoForurImg from '../../assets/images/banner/detail.jpg'
+import detailImg from '../../assets/images/banner/24hour.jpg'
+import homeTaiImg from '../../assets/images/banner/hometai.jpg'
+import koreanImg from '../../assets/images/banner/korean.jpg'
+import taiImg from '../../assets/images/banner/tai.jpg'
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
@@ -52,14 +52,14 @@ margin:2rem auto;
 }
 `
 const CityCard = styled.img`
-width: 10.5%;
-height:50px;
+width: 23%;
+height:66px;
 margin:0.5rem 1%;
 cursor:pointer;
 @media screen and (max-width:1050px) { 
-    width: 20vw;
+    width: 40vw;
     height: 10vw;
-    margin:0.5rem 1.35%;
+    margin:0.5rem 2.5%;
 }
 `
 const NextArrow = ({ onClick }) => {

@@ -10,7 +10,7 @@ import CommentComponent from "../../../components/CommentComponent";
 import Loading from '../../../components/Loading'
 import { Icon } from "@iconify/react"
 import { motion } from "framer-motion"
-import { Font2, Font3, Font4, Font5, Row } from "../../../components/elements/ManagerTemplete";
+import { Font2, Font3, Font4, Font5, Font6, Row } from "../../../components/elements/ManagerTemplete";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const MerchandiseContainer = styled.div`
 width: 100%;
@@ -69,7 +69,10 @@ flex-direction:column;
 export const Merchandise = (props) => {
 
     const { item, navigate } = props;
-
+    const [shop, setShop] = useState({});
+    useEffect(() => {
+        setShop(item)
+    }, [])
     return (
         <>
             <motion.div
@@ -80,23 +83,22 @@ export const Merchandise = (props) => {
                     background: '#fff'
                 }}
                 className='merchandise-content'
-                onClick={() => { window.location.href = `/shop?name=${item?.name}` }}
+                onClick={() => { navigate(`/shop?name=${item?.name}`) }}
             >
                 <MerchandiseExplain>
                     <Font3 style={{ margin: '0 auto auto 0' }}>{item?.name}</Font3>
-
-                    <Font4 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
+                    <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
                         <Icon icon='mdi:theme-outline' />
                         <div style={{ marginLeft: '0.5rem' }}>{item?.theme_name}</div>
-                    </Font4>
-                    <Font4 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
+                    </Font5>
+                    <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
                         <Icon icon='mdi:home-city-outline' />
                         <div style={{ marginLeft: '0.5rem' }}>{item?.city_name}</div>
-                    </Font4>
-                    <Font4 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
+                    </Font5>
+                    <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
                         <Icon icon='material-symbols:location-on-outline' />
                         <div style={{ marginLeft: '0.5rem' }}>{item?.address}</div>
-                    </Font4>
+                    </Font5>
                     {item?.distance ?
                         <>
                             <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
@@ -109,11 +111,24 @@ export const Merchandise = (props) => {
                         :
                         <>
                         </>}
-                    <Font4 style={{ height: '10%', display: 'flex', alignItems: 'center', margin: 'auto 0 0.5rem auto' }}>
+                    <Font4 style={{ height: '10%', display: 'flex', alignItems: 'center', margin: 'auto 0 0.5rem auto', width: '100%' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', marginRight: 'auto', marginTop: 'auto' }}>
+                            {item?.option_list && item?.option_list.splice(0, 3).map((itm, idx) => (
+                                <>
+                                    <Font6 style={{ background: theme.color.background1, color: '#fff', borderRadius: '4px', padding: '2px', marginRight: '2px' }}>{itm?.name}</Font6>
+                                </>
+                            ))}
+                            {shop?.option_list && shop?.option_list.length > 3 ?
+                                <>
+                                    <div>외 {shop?.option_list.length - 3}</div>
+                                </>
+                                :
+                                <>
+                                </>}
+                        </div>
                         {item?.country_list && item?.country_list.map((item, idx) => (
                             <>
-                                <img src={backUrl + item?.img_src} style={{ height: '100%', marginLeft: '0.5rem' }} alt="#" />
-
+                                <img src={backUrl + item?.img_src} style={{ height: '1rem', marginLeft: '0.5rem' }} alt="#" />
                             </>
                         ))}
                     </Font4>
@@ -126,7 +141,7 @@ export const Merchandise = (props) => {
 const getObjByQuery = (query) => {
     let obj = {};
     query = query.split('?')[1];
-    if(!query){
+    if (!query) {
         return {};
     }
     query = query.split('&');
@@ -223,7 +238,7 @@ const ShopList = () => {
         let add_obj = {};
         let query = location.search ?? "?";
         query = query.split('?')[1];
-        if(query){
+        if (query) {
             query = query.split('&');
             for (var i = 0; i < query.length; i++) {
                 add_obj[query[i].split('=')[0]] = query[i].split('=')[1];
