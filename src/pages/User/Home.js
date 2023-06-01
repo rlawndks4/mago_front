@@ -62,6 +62,16 @@ cursor:pointer;
     margin:0.5rem 2.5%;
 }
 `
+const HalfImg = styled.img`
+width: 47.5%;
+border-radius:${props => props.theme.borderRadius};
+box-shadow:${props => props.theme.boxShadow};
+`
+const ThreeHalfImg = styled.img`
+width: 30%;
+border-radius:${props => props.theme.borderRadius};
+box-shadow:${props => props.theme.boxShadow};
+`
 const NextArrow = ({ onClick }) => {
     return (
         <div className="nextArrow" onClick={onClick}>
@@ -148,6 +158,16 @@ const Home = () => {
                     </>
                     :
                     <>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <HalfImg src={homeTaiImg} />
+                            <HalfImg src={taiImg} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%',marginTop:'2rem' }}>
+                            <ThreeHalfImg src={detailImg} />
+                            <ThreeHalfImg src={koreanImg} />
+                            <ThreeHalfImg src={twoForurImg} />
+                        </div>
+
                         <Title>지역별 마사지 바로가기</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {cityList && cityList.map((item, idx) => (
