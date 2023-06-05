@@ -81,6 +81,7 @@ const MShopEdit = () => {
                 sub_city_list = sub_city_obj[response?.data?.city_pk];
                 setSubCityList(sub_city_list);
                 setUrl(backUrl + response?.data?.img_src)
+                setPriceUrl(backUrl + response?.data?.price_img)
                 $('.name').val(response.data.name)
                 $('.sub_name').val(response.data.sub_name)
                 $('.hash').val(response.data.hash)
