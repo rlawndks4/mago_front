@@ -19,6 +19,7 @@ import PageButton from "../../../components/elements/pagination/PageButton";
 import { getLocalStorage } from "../../../functions/LocalStorage";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
 
 const Type = styled.div`
 width:50%;
@@ -248,6 +249,39 @@ const Shop = () => {
                                                 bounds={'.app'}
                                                 ref={priceViewerRef}
                                             />
+                                            <CardContent>
+                                                <RenderAfterNavermapsLoaded
+                                                    ncpClientId={'3fbdbua1qd'} // 자신의 네이버 계정에서 발급받은 Client ID
+                                                    error={<p>Maps Load Error</p>}
+                                                    loading={<p>Maps Loading...</p>}
+                                                >
+                                                    <NaverMap
+                                                        mapDivId={"map"}
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '20rem',
+                                                            outline: 'none',
+                                                            marginBottom: '1rem'
+                                                        }}
+                                                        center={{ lat: data?.shop?.lat, lng: data?.shop?.lng }} // 지도 초기 위치
+                                                        disabled
+                                                        zoom={15}
+                                                        minZoom={10}
+                                                        maxZoom={19}
+                                                        mapTypeControl={true}
+                                                        zoomControl={true}
+                                                    >
+                                                        <Marker
+                                                            // icon={""}
+                                                            //key={idx}
+                                                            color={"red"}
+                                                            position={{ lat: data?.shop?.lat, lng: data?.shop?.lng }}
+                                                            animation={2}
+                                                        />
+                                                    </NaverMap>
+                                                </RenderAfterNavermapsLoaded>
+                                                <img src={backUrl + data?.shop?.price_img} style={{ width: '100%', height: 'auto', marginTop: '1rem' }} />
+                                            </CardContent>
                                         </Card>
                                     </Grid>
                                 </Grid>

@@ -37,6 +37,8 @@ const MShopEdit = () => {
     const [myNick, setMyNick] = useState("")
     const [url, setUrl] = useState('')
     const [content, setContent] = useState(undefined)
+    const [priceUrl, setPriceUrl] = useState('')
+    const [priceContent, setPriceContent] = useState(undefined)
     const [formData] = useState(new FormData())
     const [addressList, setAddressList] = useState([])
     const [isSelectAddress, setIsSelectAddress] = useState(false);
@@ -206,9 +208,13 @@ const MShopEdit = () => {
                 formData.append('content', content);
                 const { data: add_image } = await axios.post('/api/addimageitems', formData);
                 obj['img_src'] = add_image?.data[0]?.filename;
-            } else {
-
-            }
+            } 
+            if (priceContent) {
+                let formData = new FormData();
+                formData.append('content', priceContent);
+                const { data: add_image } = await axios.post('/api/addimageitems', formData);
+                obj['price_img'] = add_image?.data[0]?.filename;
+            } 
             let price_list = [];
             for (var i = 0; i < priceList.length; i++) {
                 if ($(`.course-tr-${i}`).css('display') != 'none') {
@@ -281,6 +287,13 @@ const MShopEdit = () => {
             setUrl(URL.createObjectURL(e.target.files[0]))
         }
     };
+
+    const addPriceFile = (e) => {
+        if (e.target.files[0]) {
+            setPriceContent(e.target.files[0]);
+            setPriceUrl(URL.createObjectURL(e.target.files[0]))
+        }
+    };
     const onChangeCity = (e) => {
         setSubCityList(subCityObj[e.target.value]);
     }
@@ -310,7 +323,6 @@ const MShopEdit = () => {
                             <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                         </div>
                     </Col>
-
                 </Row>
                 <Row>
                     <Col>
@@ -475,6 +487,29 @@ const MShopEdit = () => {
                                     }
                                 }}
                             />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title>코스 아래 이미지</Title>
+                        <ImageContainer for="file2" style={{ display: 'flex' }}>
+
+                            {priceUrl ?
+                                <>
+                                    <img src={priceUrl} alt="#"
+                                        style={{
+                                            width: 'auto', height: '150px',
+                                            margin: 'auto'
+                                        }} />
+                                </>
+                                :
+                                <>
+                                    <AiFillFileImage style={{ margin: 'auto', fontSize: '4rem', color: `${theme.color.manager.font3}` }} />
+                                </>}
+                        </ImageContainer>
+                        <div>
+                            <input type="file" id="file2" onChange={addPriceFile} style={{ display: 'none' }} />
                         </div>
                     </Col>
                 </Row>

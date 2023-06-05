@@ -20,6 +20,8 @@ import detailImg from '../../assets/images/banner/24hour.jpg'
 import homeTaiImg from '../../assets/images/banner/hometai.jpg'
 import koreanImg from '../../assets/images/banner/korean.jpg'
 import taiImg from '../../assets/images/banner/tai.jpg'
+import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
+
 const WrappersStyle = styled.div`
 position:relative;
 display:flex;
