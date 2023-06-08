@@ -9,19 +9,24 @@ const MetaTag = props => {
     const [title, setTitle] = useState("");
     const { pathname } = useLocation();
     useEffect(() => {
-        for (var i = 0; i < zUserRoute.length; i++) {
-            if (pathname.includes(zUserRoute[i].link.replace(":pk", "")) && zUserRoute[i].link != "/") {
-                setTitle("마고 - " + zUserRoute[i].title)
+        if (pathname.split('/')[1] != 'shop') {
+            const htmlTitle = document.querySelector("title");
+            for (var i = 0; i < zUserRoute.length; i++) {
+                if (pathname.includes(zUserRoute[i].link.replace(":pk", "")) && zUserRoute[i].link != "/") {
+                    htmlTitle.innerText = "마고 - " + zUserRoute[i].title;
+                    setTitle("마고 - " + zUserRoute[i].title)
+                }
             }
-        }
-        if(pathname=="/"){
-            setTitle("마고 - 홈")
+            if (pathname == "/") {
+                htmlTitle.innerText = "마고 - 홈";
+                setTitle("마고 - 홈")
+            }
         }
     }, [pathname])
     return (
         <Helmet>
             <title>{props.title ? props.title : title}</title>
-            <meta name={'viewport'} content={`initial-scale=1.0,maximum-scale=2,width=device-width${['/login','/signup'].includes(pathname)?',user-scalable=no':''}`} />
+            <meta name={'viewport'} content={`initial-scale=1.0,maximum-scale=2,width=device-width${['/login', '/signup'].includes(pathname) ? ',user-scalable=no' : ''}`} />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={props.title ? props.title : title} />
             <meta property="og:site_name" content={props.title ? props.title : title} />

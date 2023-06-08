@@ -12,7 +12,7 @@ import AddButton from '../../components/elements/button/AddButton';
 import CancelButton from '../../components/elements/button/CancelButton';
 import $ from 'jquery';
 import { addItem, base64toFile, updateItem } from '../../functions/utils';
-import { Table, Tr, Td, Card, Title, Input, Row, Col, ImageContainer, Select, Container, SectorInput, Explain } from '../../components/elements/ManagerTemplete';
+import { Table, Tr, Td, Card, Title, Input, Row, Col, ImageContainer, Select, Container, SectorInput, Explain, Textarea } from '../../components/elements/ManagerTemplete';
 import { backUrl } from '../../data/Data';
 import ReactQuill, { Quill } from "react-quill";
 import ImageResize from "quill-image-resize-module-react";
@@ -84,6 +84,11 @@ const MShopEdit = () => {
                 setPriceUrl(backUrl + response?.data?.price_img)
                 $('.name').val(response.data.name)
                 $('.sub_name').val(response.data.sub_name)
+                $('.description').val(response.data.description)
+                $('.city_1').val(response.data.city_1)
+                $('.city_2').val(response.data.city_2)
+                $('.img_src_alt').val(response.data.img_src_alt)
+                $('.price_img_alt').val(response.data.price_img_alt)
                 $('.hash').val(response.data.hash)
                 $('.phone').val(response.data.phone)
                 $('.city_pk').val(response.data.city_pk)
@@ -189,6 +194,11 @@ const MShopEdit = () => {
             let obj = {
                 name: $(`.name`).val(),
                 sub_name: $(`.sub_name`).val(),
+                description: $(`.description`).val(),
+                city_1: $(`.city_1`).val(),
+                city_2: $(`.city_2`).val(),
+                img_src_alt: $(`.img_src_alt`).val(),
+                price_img_alt: $(`.price_img_alt`).val(),
                 hash: $(`.hash`).val(),
                 phone: $(`.phone`).val(),
                 city_pk: $(`.city_pk`).val(),
@@ -323,6 +333,28 @@ const MShopEdit = () => {
                         <div>
                             <input type="file" id="file1" onChange={addFile} style={{ display: 'none' }} />
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>메인이미지 알트내용</Title>
+                        <Input className='img_src_alt' />
+                    </Col>
+                    </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>디스크립션</Title>
+                        <Textarea className='description' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>링크 첫번째 도시명</Title>
+                        <Input className='city_1' />
+                    </Col>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>링크 두번째 도시명</Title>
+                        <Input className='city_2' />
                     </Col>
                 </Row>
                 <Row>
@@ -514,6 +546,12 @@ const MShopEdit = () => {
                         </div>
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>코스아래이미지 알트내용</Title>
+                        <Input className='price_img_alt' />
+                    </Col>
+                    </Row>
                 <Title>옵션</Title>
                 <Row style={{ margin: '1rem auto 1rem 24px' }}>
                     {optionList?.map((item, idx) => (
