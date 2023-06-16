@@ -20,6 +20,8 @@ import detailImg from '../../assets/images/banner/24hour.jpg'
 import homeTaiImg from '../../assets/images/banner/hometai.jpg'
 import koreanImg from '../../assets/images/banner/korean.jpg'
 import taiImg from '../../assets/images/banner/tai.jpg'
+import shop1Img from '../../assets/images/banner/1shop.jpg'
+import requestGif from '../../assets/images/banner/request.gif'
 import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
 
 const WrappersStyle = styled.div`
@@ -68,6 +70,7 @@ const HalfImg = styled.img`
 width: 47.5%;
 border-radius:${props => props.theme.borderRadius};
 box-shadow:${props => props.theme.boxShadow};
+cursor:pointer;
 `
 const ThreeHalfImg = styled.img`
 width: 30%;
@@ -161,13 +164,12 @@ const Home = () => {
                     :
                     <>
                         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <HalfImg src={homeTaiImg} />
-                            <HalfImg src={taiImg} />
+                            <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
+                            <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%',marginTop:'2rem' }}>
-                            <ThreeHalfImg src={detailImg} />
-                            <ThreeHalfImg src={koreanImg} />
-                            <ThreeHalfImg src={twoForurImg} />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '2rem' }}>
+                            <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
+                            <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
                         </div>
 
                         <Title>지역별 마사지 바로가기</Title>
