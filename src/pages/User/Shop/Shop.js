@@ -70,6 +70,7 @@ display:flex;
 `
 const Shop = () => {
     const location = useLocation();
+    const params = useParams();
     const navigate = useNavigate();
     const viewerRef = useRef();
     const priceViewerRef = useRef();
@@ -84,12 +85,9 @@ const Shop = () => {
     const [reviewPageList, setReviewPageList] = useState([]);
     const [user, setUser] = useState({});
     useEffect(() => {
-        let search = location?.search;
-        search = decodeURI(search);
-        let obj = makeQueryObj(search);
         const htmlTitle = document.querySelector("title");
-        htmlTitle.innerText = obj['name'];
-        getShops(1, 1);
+        htmlTitle.innerText = params?.name;
+        getShop(1, 1);
     }, [])
     function findMetaTag() {
         var metaTags = document.getElementsByTagName('meta');
@@ -120,7 +118,7 @@ const Shop = () => {
           headTag.appendChild(newMetaTag);
         }
       }
-    const getShops = async (event_page, review_page) => {
+    const getShop = async (event_page, review_page) => {
         let page_cut = 10;
         let locate = await getLocation();
         setReviewPage(review_page);
@@ -129,9 +127,7 @@ const Shop = () => {
         setMyAddress(res_locate?.data);
         setLoading(true);
         let obj = {};
-        let search = location?.search;
-        search = decodeURI(search);
-        obj = makeQueryObj(search);
+        obj['name'] = params?.name;
         obj['review_page'] = review_page;
         obj['event_page'] = event_page;
         const { data: response } = await axios.post('/api/shop', obj)
@@ -344,17 +340,17 @@ const Shop = () => {
                                     {eventPageList.length > 0 ?
                                         <>
                                             <PageContainer>
-                                                <PageButton onClick={() => getShops(1, reviewPage)}>
+                                                <PageButton onClick={() => getShop(1, reviewPage)}>
                                                     처음
                                                 </PageButton>
                                                 {eventPageList.map((item, index) => (
                                                     <>
-                                                        <PageButton onClick={() => getShops(item, reviewPage)} style={{ color: `${eventPage == item ? '#fff' : ''}`, background: `${eventPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - eventPage) > 4 ? 'none' : ''}` }}>
+                                                        <PageButton onClick={() => getShop(item, reviewPage)} style={{ color: `${eventPage == item ? '#fff' : ''}`, background: `${eventPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - eventPage) > 4 ? 'none' : ''}` }}>
                                                             {item}
                                                         </PageButton>
                                                     </>
                                                 ))}
-                                                <PageButton onClick={() => getShops(eventPageList.length ?? 1, reviewPage)}>
+                                                <PageButton onClick={() => getShop(eventPageList.length ?? 1, reviewPage)}>
                                                     마지막
                                                 </PageButton>
                                             </PageContainer>
@@ -400,17 +396,17 @@ const Shop = () => {
                                     {reviewPageList.length > 0 ?
                                         <>
                                             <PageContainer>
-                                                <PageButton onClick={() => getShops(eventPage, 1)}>
+                                                <PageButton onClick={() => getShop(eventPage, 1)}>
                                                     처음
                                                 </PageButton>
                                                 {reviewPageList.map((item, index) => (
                                                     <>
-                                                        <PageButton onClick={() => getShops(eventPage, item)} style={{ color: `${reviewPage == item ? '#fff' : ''}`, background: `${reviewPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - reviewPage) > 4 ? 'none' : ''}` }}>
+                                                        <PageButton onClick={() => getShop(eventPage, item)} style={{ color: `${reviewPage == item ? '#fff' : ''}`, background: `${reviewPage == item ? theme.color.background1 : ''}`, display: `${Math.abs(index + 1 - reviewPage) > 4 ? 'none' : ''}` }}>
                                                             {item}
                                                         </PageButton>
                                                     </>
                                                 ))}
-                                                <PageButton onClick={() => getShops(eventPage, reviewPageList.length ?? 1)}>
+                                                <PageButton onClick={() => getShop(eventPage, reviewPageList.length ?? 1)}>
                                                     마지막
                                                 </PageButton>
                                             </PageContainer>

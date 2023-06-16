@@ -83,7 +83,7 @@ export const Merchandise = (props) => {
                     background: '#fff'
                 }}
                 className='merchandise-content'
-                onClick={() => { navigate(`/shop/${item?.city_1??"#"}/${item?.city_2??"#"}?name=${item?.name}`) }}
+                onClick={() => { navigate(`/shop/${item?.city_1 ? item?.city_1 : "_"}/${item?.city_2 ? item?.city_2 : "_"}/${item?.name}`) }}
             >
                 <MerchandiseExplain>
                     <Font3 style={{ margin: '0 auto auto 0' }}>{item?.name}</Font3>
