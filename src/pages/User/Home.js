@@ -67,15 +67,24 @@ cursor:pointer;
 }
 `
 const HalfImg = styled.img`
-width: 47.5%;
-border-radius:${props => props.theme.borderRadius};
+width: 48.5%;
+border-radius:32px;
 box-shadow:${props => props.theme.boxShadow};
 cursor:pointer;
 `
 const ThreeHalfImg = styled.img`
 width: 30%;
-border-radius:${props => props.theme.borderRadius};
+border-radius:16px;
 box-shadow:${props => props.theme.boxShadow};
+`
+const Mobile90PercentContainer = styled.div`
+display: flex;
+justify-content: space-between;
+width: 100%;
+margin: 0 auto;
+@media screen and (max-width:1050px) { 
+    width: 90%;
+}
 `
 const NextArrow = ({ onClick }) => {
     return (
@@ -155,7 +164,16 @@ const Home = () => {
                                 </>
                             ))}
                         </Slider>
+
                     </>}
+                <Mobile90PercentContainer style={{ marginTop: '1rem' }}>
+                    <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
+                    <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
+                </Mobile90PercentContainer>
+                <Mobile90PercentContainer style={{  marginTop: '2rem' }}>
+                    <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
+                    <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
+                </Mobile90PercentContainer>
             </WrappersStyle>
             <Wrappers className='wrappers' style={{ marginTop: '1rem' }}>
                 {loading ?
@@ -163,14 +181,7 @@ const Home = () => {
                     </>
                     :
                     <>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
-                            <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '2rem' }}>
-                            <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
-                            <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
-                        </div>
+
 
                         <Title>지역별 마사지 바로가기</Title>
                         <RowContent style={{ flexWrap: 'wrap' }}>

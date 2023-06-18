@@ -19,6 +19,7 @@ import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5';
 import redSpeakerIcon from '../assets/images/icon/red-speaket.png'
 import { TextButton } from '../components/elements/UserContentTemplete';
 import { getLocalStorage, LSO } from '../functions/LocalStorage';
+import logoTextColorImg from '../assets/images/test/logo_test_color.png'
 const Header = styled.header`
 position:fixed;
 height:6rem;
@@ -197,7 +198,7 @@ const Headers = () => {
 
   const [auth, setAuth] = useState({});
   useEffect(() => {
-    
+
     if (location.pathname.substring(0, 6) == '/post/' || location.pathname.substring(0, 7) == '/video/' || location.pathname == '/appsetting') {
       setIsPost(true);
     } else {
@@ -261,7 +262,10 @@ const Headers = () => {
     }
     myAuth();
     async function getNoticeAndAlarmCount() {
+
+
       const { data: response } = await axios.get('/api/getnoticeandalarmlastpk');
+
       let response_obj = response?.data ?? { alarm_last_pk: 0, notice_last_pk: 0 };
       setLastAlarmPk(response_obj.alarm_last_pk);
       setLastNoticePk(response_obj.notice_last_pk);
@@ -286,7 +290,7 @@ const Headers = () => {
         }
       }
     }
-   // getNoticeAndAlarmCount();
+    // getNoticeAndAlarmCount();
 
   }, [])
   const onClosePopup = async (pk, is_not_see) => {
@@ -361,7 +365,7 @@ const Headers = () => {
     }
   }
   const onClickNavigateBefore = () => {
-      navigate(-1);
+    navigate(-1);
   }
   const onLogout = async () => {
     if (window.confirm("정말 로그아웃 하시겠습니까?")) {
@@ -440,7 +444,10 @@ const Headers = () => {
                   </>
                   :
                   <>
-                    <img src={logoSrc} alt="홈으로" style={{ height: '2rem', marginTop: '0.25rem' }} onClick={() => { navigate('/') }} />
+                    <div style={{ display: 'flex' }}>
+                      <img src={logoSrc} alt="홈으로" style={{ height: '2rem', marginTop: '0.25rem' }} onClick={() => { navigate('/') }} />
+                      <img src={logoTextColorImg} alt="홈으로" style={{ height: '1.5rem', marginTop: '0.5rem', marginLeft: '0.2rem' }} onClick={() => { navigate('/') }} />
+                    </div>
                   </>}
               </div>
               <div style={{ display: 'flex', width: '180px', fontSize: theme.size.font5, justifyContent: 'space-between', position: 'relative' }}>
@@ -470,8 +477,9 @@ const Headers = () => {
 
         </HeaderContainer>
         <HeaderMenuContainer>{/* pc */}
-          <div>
+          <div style={{ display: 'flex' }}>
             <img src={logoSrc} alt="홈으로" style={{ height: '3rem', cursor: 'pointer' }} onClick={() => { navigate('/') }} />
+            <img src={logoTextColorImg} alt="홈으로" style={{ height: '2rem', marginTop: '0.5rem', marginLeft: '0.2rem' }} onClick={() => { navigate('/') }} />
           </div>
           <div style={{ display: 'flex', position: 'relative' }}>
             {zBottomMenu.map((item, idx) => (
@@ -499,7 +507,7 @@ const Headers = () => {
               <div style={{ display: 'flex', maxWidth: '1000px', width: '100%', margin: '0 auto' }}>
                 {themeList && themeList.map((item, idx) => (
                   <>
-                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`,height:'36px' }} onClick={() => {
+                    <TextButton style={{ marginLeft: `${idx != 0 ? '8px' : '0'}`, height: '36px' }} onClick={() => {
                       navigate(`/shop-list?theme=${item?.pk}`)
                     }}>{item?.name}</TextButton>
                   </>

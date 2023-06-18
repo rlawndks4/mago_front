@@ -4,8 +4,7 @@ import styled from "styled-components";
 import kakao from '../assets/images/icon/kakao.png'
 import theme from "../styles/theme";
 import { onClickWindowOpen } from "../functions/utils";
-import { logoSrc } from "../data/Data";
-
+import logoTextFooterImg from '../assets/images/test/logo_text_footer.png'
 const Button = styled.div`
 
 background:${props => props.theme.color.background1};
@@ -103,6 +102,9 @@ const Footer = () => {
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
                             <Flex style={{ margin: '0 auto 0 0'}}>
                                 <div>상호&nbsp;&nbsp;쿠비스</div>
+                                <div>
+                                    <img src={logoTextFooterImg} style={{height:'48px',margin:'0.5rem 0',transform:'translateX(-6px)'}} />
+                                </div>
                                 <div>사업자등록번호&nbsp;&nbsp;831-32-01272</div>
                                 <div>사업장소재지&nbsp;&nbsp;인천광역시 부평구 부일로9번길5</div>
                                 <div style={{marginTop:'1rem',maxWidth:'700px'}}>

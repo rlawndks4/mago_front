@@ -56,6 +56,7 @@ const MShopEdit = () => {
     useEffect(() => {
 
         async function fetchPost() {
+            
             const { data: z_city } = await axios.get(`/api/items?table=city`);
             setCityList(z_city?.data);
             let city_list = [...z_city?.data];
@@ -64,10 +65,12 @@ const MShopEdit = () => {
                 sub_city_obj[city_list[i]?.pk] = [];
             }
             const { data: z_sub_city } = await axios.get(`/api/items?table=sub_city`);
+            console.log(z_sub_city)
             let sub_city_list = [...z_sub_city.data];
             for (var i = 0; i < sub_city_list.length; i++) {
                 sub_city_obj[sub_city_list[i]?.city_pk].push(sub_city_list[i]);
             }
+            console.log(sub_city_obj)
             setSubCityObj(sub_city_obj)
             sub_city_list = sub_city_obj[city_list[0]?.pk]
             const { data: z_shop_option } = await axios.get(`/api/items?table=shop_option`);
