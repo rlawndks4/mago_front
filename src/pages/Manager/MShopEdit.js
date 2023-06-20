@@ -56,79 +56,84 @@ const MShopEdit = () => {
     useEffect(() => {
 
         async function fetchPost() {
-            
-            const { data: z_city } = await axios.get(`/api/items?table=city`);
-            setCityList(z_city?.data);
-            let city_list = [...z_city?.data];
-            let sub_city_obj = {};
-            for (var i = 0; i < city_list.length; i++) {
-                sub_city_obj[city_list[i]?.pk] = [];
-            }
-            const { data: z_sub_city } = await axios.get(`/api/items?table=sub_city`);
-            console.log(z_sub_city)
-            let sub_city_list = [...z_sub_city.data];
-            for (var i = 0; i < sub_city_list.length; i++) {
-                sub_city_obj[sub_city_list[i]?.city_pk].push(sub_city_list[i]);
-            }
-            console.log(sub_city_obj)
-            setSubCityObj(sub_city_obj)
-            sub_city_list = sub_city_obj[city_list[0]?.pk]
-            const { data: z_shop_option } = await axios.get(`/api/items?table=shop_option`);
-            setOptionList(z_shop_option?.data);
-            const { data: z_shop_theme } = await axios.get(`/api/items?table=shop_theme`);
-            setThemeList(z_shop_theme?.data)
-            const { data: z_shop_country } = await axios.get(`/api/items?table=shop_country`);
-            setCountryList(z_shop_country?.data)
-            if (params.pk > 0) {
-                const { data: response } = await axios.get(`/api/item?table=shop&pk=${params.pk}`)
-                sub_city_list = sub_city_obj[response?.data?.city_pk];
-                setSubCityList(sub_city_list);
-                setUrl(backUrl + response?.data?.img_src)
-                setPriceUrl(backUrl + response?.data?.price_img)
-                $('.name').val(response.data.name)
-                $('.sub_name').val(response.data.sub_name)
-                $('.description').val(response.data.description)
-                $('.city_1').val(response.data.city_1)
-                $('.city_2').val(response.data.city_2)
-                $('.img_src_alt').val(response.data.img_src_alt)
-                $('.price_img_alt').val(response.data.price_img_alt)
-                $('.hash').val(response.data.hash)
-                $('.phone').val(response.data.phone)
-                $('.city_pk').val(response.data.city_pk)
-                $('.theme_pk').val(response.data.theme_pk)
-                $('.zip_code').val(response.data.zip_code)
-                $('.address').val(response.data.address)
-                $('.address_detail').val(response.data.address_detail)
-                $('.show_address').val(response.data.show_address)
-                $('.lng').val(response.data.lng)
-                $('.lat').val(response.data.lat)
-                setNote(response?.data?.note);
-                setPriceNote(response?.data?.price_note);
-                setRequestNote(response?.data?.request_note);
+            try {
 
-                let price_list = JSON.parse(response?.data?.price_list);
-                setPriceList(price_list);
-                await new Promise((r) => setTimeout(r, 500));
-                $('.sub_city_pk').val(response.data.sub_city_pk)
 
-                let option_list = JSON.parse(response?.data?.option_list);
-                for (var i = 0; i < option_list.length; i++) {
-                    $(`#option-${option_list[i]}`).prop('checked', true);
+                const { data: z_city } = await axios.get(`/api/items?table=city`);
+                setCityList(z_city?.data);
+                let city_list = [...z_city?.data];
+                let sub_city_obj = {};
+                for (var i = 0; i < city_list.length; i++) {
+                    sub_city_obj[city_list[i]?.pk] = [];
                 }
-                let country_list = JSON.parse(response?.data?.country_list);
-                for (var i = 0; i < country_list.length; i++) {
-                    $(`#country-${country_list[i]}`).prop('checked', true);
+                const { data: z_sub_city } = await axios.get(`/api/items?table=sub_city`);
+                let sub_city_list = [...z_sub_city.data];
+                for (var i = 0; i < sub_city_list.length; i++) {
+                    if(sub_city_obj[sub_city_list[i]?.city_pk]){
+                        sub_city_obj[sub_city_list[i]?.city_pk].push(sub_city_list[i]);
+                    }
                 }
-                for (var i = 0; i < price_list.length; i++) {
-                    $(`.course-td-1-${i}`).val(price_list[i]?.course)
-                    $(`.course-td-2-${i}`).val(price_list[i]?.price)
-                    $(`.course-td-3-${i}`).val(price_list[i]?.sale_price)
-                }
+                setSubCityObj(sub_city_obj)
+                sub_city_list = sub_city_obj[city_list[0]?.pk]
+                const { data: z_shop_option } = await axios.get(`/api/items?table=shop_option`);
+                setOptionList(z_shop_option?.data);
+                const { data: z_shop_theme } = await axios.get(`/api/items?table=shop_theme`);
+                setThemeList(z_shop_theme?.data)
+                const { data: z_shop_country } = await axios.get(`/api/items?table=shop_country`);
+                setCountryList(z_shop_country?.data)
+                if (params.pk > 0) {
+                    const { data: response } = await axios.get(`/api/item?table=shop&pk=${params.pk}`)
+                    sub_city_list = sub_city_obj[response?.data?.city_pk];
+                    setSubCityList(sub_city_list);
+                    setUrl(backUrl + response?.data?.img_src)
+                    setPriceUrl(backUrl + response?.data?.price_img)
+                    $('.name').val(response.data.name)
+                    $('.sub_name').val(response.data.sub_name)
+                    $('.description').val(response.data.description)
+                    $('.city_1').val(response.data.city_1)
+                    $('.city_2').val(response.data.city_2)
+                    $('.img_src_alt').val(response.data.img_src_alt)
+                    $('.price_img_alt').val(response.data.price_img_alt)
+                    $('.hash').val(response.data.hash)
+                    $('.phone').val(response.data.phone)
+                    $('.city_pk').val(response.data.city_pk)
+                    $('.theme_pk').val(response.data.theme_pk)
+                    $('.zip_code').val(response.data.zip_code)
+                    $('.address').val(response.data.address)
+                    $('.address_detail').val(response.data.address_detail)
+                    $('.show_address').val(response.data.show_address)
+                    $('.lng').val(response.data.lng)
+                    $('.lat').val(response.data.lat)
+                    setNote(response?.data?.note);
+                    setPriceNote(response?.data?.price_note);
+                    setRequestNote(response?.data?.request_note);
 
-            } else {
-                setSubCityList(sub_city_list);
+                    let price_list = JSON.parse(response?.data?.price_list);
+                    setPriceList(price_list);
+                    await new Promise((r) => setTimeout(r, 500));
+                    $('.sub_city_pk').val(response.data.sub_city_pk)
+
+                    let option_list = JSON.parse(response?.data?.option_list);
+                    for (var i = 0; i < option_list.length; i++) {
+                        $(`#option-${option_list[i]}`).prop('checked', true);
+                    }
+                    let country_list = JSON.parse(response?.data?.country_list);
+                    for (var i = 0; i < country_list.length; i++) {
+                        $(`#country-${country_list[i]}`).prop('checked', true);
+                    }
+                    for (var i = 0; i < price_list.length; i++) {
+                        $(`.course-td-1-${i}`).val(price_list[i]?.course)
+                        $(`.course-td-2-${i}`).val(price_list[i]?.price)
+                        $(`.course-td-3-${i}`).val(price_list[i]?.sale_price)
+                    }
+
+                } else {
+                    setSubCityList(sub_city_list);
+                }
+                settingJquery();
+            } catch (err) {
+                console.log(err)
             }
-            settingJquery();
         }
         fetchPost();
     }, [])
@@ -190,7 +195,7 @@ const MShopEdit = () => {
             !$(`.address_detail`).val() ||
             !$(`.show_address`).val() ||
             !$(`.lng`).val() ||
-            !$(`.lat`).val() 
+            !$(`.lat`).val()
         ) {
             alert('필요값이 비어있습니다.');
         } else {
@@ -222,13 +227,13 @@ const MShopEdit = () => {
                 formData.append('content', content);
                 const { data: add_image } = await axios.post('/api/addimageitems', formData);
                 obj['img_src'] = add_image?.data[0]?.filename;
-            } 
+            }
             if (priceContent) {
                 let formData = new FormData();
                 formData.append('content', priceContent);
                 const { data: add_image } = await axios.post('/api/addimageitems', formData);
                 obj['price_img'] = add_image?.data[0]?.filename;
-            } 
+            }
             let price_list = [];
             for (var i = 0; i < priceList.length; i++) {
                 if ($(`.course-tr-${i}`).css('display') != 'none') {
@@ -343,7 +348,7 @@ const MShopEdit = () => {
                         <Title style={{ margintop: '32px' }}>메인이미지 알트내용</Title>
                         <Input className='img_src_alt' />
                     </Col>
-                    </Row>
+                </Row>
                 <Row>
                     <Col>
                         <Title style={{ margintop: '32px' }}>디스크립션</Title>
@@ -412,7 +417,7 @@ const MShopEdit = () => {
                         </Select>
                     </Col>
                 </Row>
-                
+
                 <Col>
                     <Title>우편번호</Title>
                     <div style={{ display: 'flex' }}>
@@ -554,7 +559,7 @@ const MShopEdit = () => {
                         <Title style={{ margintop: '32px' }}>코스아래이미지 알트내용</Title>
                         <Input className='price_img_alt' />
                     </Col>
-                    </Row>
+                </Row>
                 <Title>옵션</Title>
                 <Row style={{ margin: '1rem auto 1rem 24px' }}>
                     {optionList?.map((item, idx) => (
@@ -577,7 +582,7 @@ const MShopEdit = () => {
                         </div>
                     ))}
                 </Row>
-               
+
                 <Row>
                     <Col>
                         <Title>업체설명</Title>
