@@ -86,6 +86,16 @@ flex-direction:column;
 @media screen and (max-width:650px) {
 }
 `
+const TextImg = styled.img`
+width: 200px; 
+height:auto;
+margin: 0.5rem 0; 
+transform: translateX(-6px);
+@media screen and (max-width:650px) {
+    margin: 0.5rem auto; 
+    transform: translateX(0px);
+}
+`
 const Footer = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -98,18 +108,15 @@ const Footer = () => {
                 :
                 <>
                     <Wrappers className="footer" style={{ background: `#23242f`, fontSize: theme.size.font5 }}>
-                        <div style={{ marginTop: '8px' }}>마고</div>
                         <Flex style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Flex style={{ margin: '0 auto 0 0'}}>
+                            <Flex style={{ margin: '0 auto 0 0' }}>
+                                <TextImg src={logoTextFooterImg} />
                                 <div>상호&nbsp;&nbsp;쿠비스</div>
-                                <div>
-                                    <img src={logoTextFooterImg} style={{height:'48px',margin:'0.5rem 0',transform:'translateX(-6px)'}} />
-                                </div>
                                 <div>사업자등록번호&nbsp;&nbsp;831-32-01272</div>
                                 <div>사업장소재지&nbsp;&nbsp;인천광역시 부평구 부일로9번길5</div>
-                                <div style={{marginTop:'1rem',maxWidth:'700px'}}>
-                                마고는 정보제공자로서 제휴회원의 컨텐츠 및 이와 관련된 거래에 대하여 어떠한 책임도 지지 않습니다.
-                                본 사이트의 컨텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포 등을 금합니다.
+                                <div style={{ marginTop: '1rem', maxWidth: '700px' }}>
+                                    마고는 정보제공자로서 제휴회원의 컨텐츠 및 이와 관련된 거래에 대하여 어떠한 책임도 지지 않습니다.
+                                    본 사이트의 컨텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포 등을 금합니다.
                                 </div>
                             </Flex>
                         </Flex>

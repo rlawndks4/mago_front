@@ -21,6 +21,7 @@ import homeTaiImg from '../../assets/images/banner/hometai.jpg'
 import koreanImg from '../../assets/images/banner/korean.jpg'
 import taiImg from '../../assets/images/banner/tai.jpg'
 import shop1Img from '../../assets/images/banner/1shop.jpg'
+import locationGoToImg from '../../assets/images/test/loacation_go_to.png'
 import requestGif from '../../assets/images/banner/request.gif'
 import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
 
@@ -170,12 +171,12 @@ const Home = () => {
                     <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
                     <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
                 </Mobile90PercentContainer>
-                <Mobile90PercentContainer style={{  marginTop: '2rem' }}>
+                <Mobile90PercentContainer style={{ marginTop: '1rem' }}>
                     <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
                     <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
                 </Mobile90PercentContainer>
             </WrappersStyle>
-            <Wrappers className='wrappers' style={{ marginTop: '1rem' }}>
+            <Wrappers className='wrappers' style={{ marginTop: '0.5rem' }}>
                 {loading ?
                     <>
                     </>
@@ -183,7 +184,7 @@ const Home = () => {
                     <>
 
 
-                        <Title>지역별 마사지 바로가기</Title>
+                        <img src={locationGoToImg} style={{ width: '90%', margin: '0 auto',maxWidth:'700px' }} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {cityList && cityList.map((item, idx) => (
                                 <>
