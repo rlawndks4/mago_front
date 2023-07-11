@@ -113,18 +113,11 @@ export const Merchandise = (props) => {
                         </>}
                     <Font4 style={{ height: '10%', display: 'flex', alignItems: 'center', margin: 'auto 0 0.5rem auto', width: '100%' }}>
                         <div style={{ display: 'flex', alignItems: 'center', marginRight: 'auto', marginTop: 'auto' }}>
-                            {item?.option_list && item?.option_list.splice(0, 3).map((itm, idx) => (
+                            {item?.option_list && item?.option_list.map((itm, idx) => (
                                 <>
                                     <Font6 style={{ background: theme.color.background1, color: '#fff', borderRadius: '4px', padding: '2px', marginRight: '2px' }}>{itm?.name}</Font6>
                                 </>
                             ))}
-                            {shop?.option_list && shop?.option_list.length > 3 ?
-                                <>
-                                    <div>외 {shop?.option_list.length - 3}</div>
-                                </>
-                                :
-                                <>
-                                </>}
                         </div>
                         {item?.country_list && item?.country_list.map((item, idx) => (
                             <>
