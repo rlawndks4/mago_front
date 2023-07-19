@@ -184,7 +184,7 @@ const Home = () => {
                     <>
 
 
-                        <img src={locationGoToImg} style={{ width: '90%', margin: '0 auto',maxWidth:'700px' }} />
+                        <img src={locationGoToImg} style={{ width: '90%', margin: '0 auto', maxWidth: '700px' }} />
                         <RowContent style={{ flexWrap: 'wrap' }}>
                             {cityList && cityList.map((item, idx) => (
                                 <>
@@ -194,18 +194,24 @@ const Home = () => {
                                 </>
                             ))}
                         </RowContent>
-                        <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
-                                <div style={{ margin: 'auto auto 0.5rem auto' }}>
-                                    마고 어플 출시!!
+                        {!window?.ReactNativeWebView &&
+                            <>
+                                <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between', cursor:'pointer' }} onClick={() => {
+                                    window.location.href = 'https://play.google.com/store/apps/details?id=com.dooseob25.mago';
+                                }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+                                        <div style={{ margin: 'auto auto 0.5rem auto' }}>
+                                            마고 어플 출시!!
 
-                                </div>
-                                <div style={{ margin: '0.5rem auto auto auto' }}>
-                                    지금 바로 다운 받으세요!!
-                                </div>
-                            </div>
-                            <img src={playStoreSrc} style={{ width: '50%', }} alt="#" />
-                        </RowContent>
+                                        </div>
+                                        <div style={{ margin: '0.5rem auto auto auto' }}>
+                                            지금 바로 다운 받으세요!!
+                                        </div>
+                                    </div>
+                                    <img src={playStoreSrc} style={{ width: '50%', }} alt="#" />
+                                </RowContent>
+                            </>}
+
                     </>}
                 <MerchandiseContainer>
                     {shopList && shopList.map((item, idx) => (
