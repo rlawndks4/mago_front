@@ -9,19 +9,7 @@ const MetaTag = props => {
     const [title, setTitle] = useState("");
     const { pathname } = useLocation();
     useEffect(() => {
-        if (pathname.split('/')[1] != 'shop') {
-            const htmlTitle = document.querySelector("title");
-            for (var i = 0; i < zUserRoute.length; i++) {
-                if (pathname.includes(zUserRoute[i].link.replace(":pk", "")) && zUserRoute[i].link != "/") {
-                    htmlTitle.innerText = "마고 - " + zUserRoute[i].title;
-                    setTitle("마고 - " + zUserRoute[i].title)
-                }
-            }
-            if (pathname == "/") {
-                htmlTitle.innerText = "마고 - 홈";
-                setTitle("마고 - 홈")
-            }
-        }
+        
     }, [pathname])
     return (
         <Helmet>

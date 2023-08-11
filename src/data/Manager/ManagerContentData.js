@@ -560,6 +560,9 @@ export const objManagerEditContent = {
         add_list: [],
         columns: [//img, select, input, 
             [
+                editColumnObjFormat('메타 title', 'input', { placeholder: '' }, 'meta_title'),
+            ],
+            [
                 editColumnObjFormat('메타 description', 'input', { placeholder: '' }, 'meta_description'),
             ],
             [

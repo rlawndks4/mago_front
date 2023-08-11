@@ -252,6 +252,10 @@ const Headers = () => {
     setPopupList(response?.data?.popup ?? []);
     setTopBanner(response?.data?.top_banner);
     setThemeList(response?.data?.theme);
+    if (location.pathname.split('/')[1] != 'shop') {
+      const htmlTitle = document.querySelector("title");
+      htmlTitle.innerText = response?.data?.top_banner?.meta_title ?? "마고";
+    }
     document
       .querySelector('meta[name="keywords"]')
       .setAttribute("content", response?.data?.top_banner?.meta_keywords ?? "마고");
