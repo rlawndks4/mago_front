@@ -29,6 +29,7 @@ const Td = styled.td`
 border-bottom:1px solid ${props => props.theme.color.font4};
 font-size:${props => props.theme.size.font5};
 white-space:pre;
+padding: 1rem 0;
 `
 const ContentTable = (props) => {
     const navigate = useNavigate();
@@ -128,14 +129,12 @@ const ContentTable = (props) => {
         }
     }
     const goToLink = (data) => {
-        let user_data = getLocalStorage('auth');
-        if (table == 'request')
-            navigate(`/request/${data?.pk}`);
-        if (table == 'notice')
-            navigate(`/post/notice/${data?.pk}`);
-        if (table == 'faq')
-            navigate(`/post/faq/${data?.pk}`);
-
+        if(table.includes('s_')){
+            return `/post/${table.replace('s_','shop_')}/${data?.pk}`
+        }else{
+            return `/post/${table}/${data?.pk}`
+        }
+      
     }
 
     const getPayMonth = (data) => {
@@ -167,6 +166,7 @@ const ContentTable = (props) => {
                                     {columns && columns.map((column, idx) => (
                                         <>
                                             <Td style={{ width: column.width, color: `${column.color ? column.color : ''}`, cursor: `${isPointer ? 'pointer' : ''}`, fontWeight: `${column.bold ? 'bold' : ''}` }}>
+                                                <a href={`${goToLink(item)}`} style={{color:'#000',textDecoration:'none',padding:'1rem 0'}}>
                                                 {column.type == 'img' ?
                                                     <img src={backUrl + item[column.column]} alt="#" style={{ height: '36px' }} /> ?? "---"
                                                     :
@@ -321,6 +321,7 @@ const ContentTable = (props) => {
                                                     </IconButton>
                                                     :
                                                     null}
+                                                </a>
                                             </Td>
                                         </>
                                     ))}

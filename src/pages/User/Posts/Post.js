@@ -93,7 +93,10 @@ const Post = (props) => {
                         navigate(-1);
                     }
                 }
+                
                 let obj = response.data ?? {};
+                const htmlTitle = document.querySelector("title");
+                htmlTitle.innerText = obj?.title;
                 if (obj?.note && (typeof obj?.note == 'string')) {
                     obj.note = obj?.note.replaceAll('youtube.com/embed', 'youtube-nocookie.com/embed');
                     obj.note = obj?.note.replaceAll('<p><br></p>', '<br>');
