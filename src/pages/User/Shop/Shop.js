@@ -85,8 +85,7 @@ const Shop = () => {
     const [reviewPageList, setReviewPageList] = useState([]);
     const [user, setUser] = useState({});
     useEffect(() => {
-        const htmlTitle = document.querySelector("title");
-        htmlTitle.innerText = params?.name;
+        
         getShop(1, 1);
     }, [])
     function findMetaTag() {
@@ -127,10 +126,12 @@ const Shop = () => {
         setMyAddress(res_locate?.data);
         setLoading(true);
         let obj = {};
-        obj['name'] = params?.name;
+        obj['pk'] = params?.pk;
         obj['review_page'] = review_page;
         obj['event_page'] = event_page;
         const { data: response } = await axios.post('/api/shop', obj)
+        const htmlTitle = document.querySelector("title");
+        htmlTitle.innerText = response?.data?.shop?.sub_name;
         modifyDescription(response?.data?.shop?.description);
         setData(response?.data);
         setEventPageList(range(1, makeMaxPage(response?.data?.event_size['size'], page_cut)));
@@ -195,7 +196,7 @@ const Shop = () => {
                                                     </Content>
                                                     <Content>
                                                         <div style={{ fontSize: theme.size.font2_5 }}>{data?.shop?.name}</div>
-                                                        <div style={{ fontSize: theme.size.font4, marginTop: '1rem', color: theme.color.font3 }}>{data?.shop?.sub_name}</div>
+                                                        <h1 style={{ fontSize: theme.size.font4, marginTop: '1rem', color: theme.color.font3 }}>{data?.shop?.sub_name}</h1>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.address}</div>
 
