@@ -252,6 +252,12 @@ const Headers = () => {
     setPopupList(response?.data?.popup ?? []);
     setTopBanner(response?.data?.top_banner);
     setThemeList(response?.data?.theme);
+    document
+      .querySelector('meta[name="keywords"]')
+      .setAttribute("content", response?.data?.top_banner?.meta_keywords ?? "마고");
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", response?.data?.top_banner?.meta_description ?? "마고");
   }
 
   useEffect(() => {
