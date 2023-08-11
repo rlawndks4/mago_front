@@ -21,7 +21,8 @@ export const zSidebar = [
     sidebarContentFormat('기본설정', [
         //sidebarObjListFormat('상단띠배너', '/manager/edit/common_setting/1', 40, ['/manager/edit/common_setting/1']),//list
         sidebarObjListFormat('메인배너', '/manager/edit/home_setting/1', 40, ['/manager/edit/home_setting/1']),//list
-        sidebarObjListFormat('메타세팅', '/manager/edit/meta_setting/1', 40, ['/manager/edit/meta_setting/1']),//list
+        sidebarObjListFormat('메인페이지세팅', '/manager/edit/main_setting/1', 40, ['/manager/edit/main_setting/1']),//list
+        sidebarObjListFormat('메타세팅', '/manager/edit/meta_setting/1', 40, ['/manager/edit/meta_setting/1']),//
         sidebarObjListFormat('팝업관리', '/manager/list/popup', 40, ['/manager/list/popup']),//list
     ], <AiTwotoneSetting />),
     sidebarContentFormat('지역관리', [
@@ -543,14 +544,21 @@ export const objManagerEditContent = {
             ],
         ],
     },
+    main_setting: {
+        schema: 'setting',
+        breadcrumb: '메인페이지세팅',
+        add_list: [],
+        columns: [//img, select, input, 
+            [
+                editColumnObjFormat('메인 title', 'input', { placeholder: '' }, 'main_home_title'),
+            ],
+        ],
+    },
     meta_setting: {
         schema: 'setting',
         breadcrumb: '메타태그',
         add_list: [],
         columns: [//img, select, input, 
-            [
-                editColumnObjFormat('메타 title', 'input', { placeholder: '' }, 'meta_title'),
-            ],
             [
                 editColumnObjFormat('메타 description', 'input', { placeholder: '' }, 'meta_description'),
             ],

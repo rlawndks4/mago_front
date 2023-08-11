@@ -24,6 +24,8 @@ import shop1Img from '../../assets/images/banner/1shop.jpg'
 import locationGoToImg from '../../assets/images/test/loacation_go_to.png'
 import requestGif from '../../assets/images/banner/request.gif'
 import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
+import { Row } from '../../components/elements/ManagerTemplete';
+import theme from '../../styles/theme';
 
 const WrappersStyle = styled.div`
 position:relative;
@@ -68,7 +70,7 @@ cursor:pointer;
 }
 `
 const HalfImg = styled.img`
-width: 48.5%;
+width: 100%;
 border-radius:32px;
 box-shadow:${props => props.theme.boxShadow};
 cursor:pointer;
@@ -110,7 +112,7 @@ const Home = () => {
     const [bannerLinks, setBannerLinks] = useState({});
     const [cityList, setCityList] = useState([])
     const [shopList, setShopList] = useState([])
-
+    const [setting, setSetting] = useState({});
     const settings = {
         infinite: true,
         speed: 500,
@@ -127,6 +129,7 @@ const Home = () => {
         async function fetchPost() {
             setLoading(true)
             const { data: response } = await axios.get('/api/gethomecontent')
+            setSetting(response?.data?.banner ?? {})
             let banner_list = [];
             let banner_link_obj = {};
             for (var i = 1; i <= 5; i++) {
@@ -167,13 +170,34 @@ const Home = () => {
                         </Slider>
 
                     </>}
+                <h1 style={{ margin: '1rem auto', fontSize: theme.size.font2 }}>{setting?.main_home_title}</h1>
                 <Mobile90PercentContainer style={{ marginTop: '1rem' }}>
-                    <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
-                    <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
+                    <Row style={{ flexDirection: 'column', width: '48.5%' }}>
+                        <HalfImg src={koreanImg} onClick={() => navigate('/shop-list?is_around=1&theme=6')} />
+                        <a style={{ margin: '0 auto', textDecoration: 'none', color: '#000' }} href={`/shop-list?is_around=1&theme=6`}>
+                            <h2>한국인출장</h2>
+                        </a>
+                    </Row>
+                    <Row style={{ flexDirection: 'column', width: '48.5%' }}>
+                        <HalfImg src={homeTaiImg} onClick={() => navigate('/shop-list?is_around=1&theme=4')} />
+                        <a style={{ margin: '0 auto', textDecoration: 'none', color: '#000' }} href={`/shop-list?is_around=1&theme=4`}>
+                            <h2>홈타이</h2>
+                        </a>
+                    </Row>
                 </Mobile90PercentContainer>
                 <Mobile90PercentContainer style={{ marginTop: '1rem' }}>
-                    <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
-                    <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
+                    <Row style={{ flexDirection: 'column', width: '48.5%' }}>
+                        <HalfImg src={shop1Img} onClick={() => navigate('/shop-list?is_around=1&theme=9')} />
+                        <a style={{ margin: '0 auto', textDecoration: 'none', color: '#000' }} href={`/shop-list?is_around=1&theme=9`}>
+                            <h2>1인샵</h2>
+                        </a>
+                    </Row>
+                    <Row style={{ flexDirection: 'column', width: '48.5%' }}>
+                        <HalfImg src={requestGif} onClick={() => navigate('/add-shop')} />
+                        <a style={{ margin: '0 auto', textDecoration: 'none', color: '#000' }} href={`/add-shop`}>
+                            <h2>제휴문의</h2>
+                        </a>
+                    </Row>
                 </Mobile90PercentContainer>
             </WrappersStyle>
             <Wrappers className='wrappers' style={{ marginTop: '0.5rem' }}>
@@ -196,7 +220,7 @@ const Home = () => {
                         </RowContent>
                         {!window?.ReactNativeWebView &&
                             <>
-                                <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between', cursor:'pointer' }} onClick={() => {
+                                <RowContent style={{ margin: '4rem 0 0 0', justifyContent: 'space-between', cursor: 'pointer' }} onClick={() => {
                                     window.location.href = 'https://play.google.com/store/apps/details?id=com.dooseob25.mago';
                                 }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
