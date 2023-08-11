@@ -13,7 +13,7 @@ display:flex;
 flex-direction:column;
 width:90%;
 max-width:1200px;
-margin-top:7rem;
+margin-top:12rem;
 margin-left:auto;
 margin-right:auto;
 margin-bottom:6rem;
