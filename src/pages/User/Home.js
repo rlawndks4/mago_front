@@ -32,7 +32,7 @@ position:relative;
 display:flex;
 flex-direction:column;
 width:100%;
-margin-top:6rem;
+margin-top:10rem;
 margin-left:auto;
 margin-right:auto;
 font-family:${props => props.theme.font.normal};

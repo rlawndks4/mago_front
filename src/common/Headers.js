@@ -226,16 +226,16 @@ const Headers = () => {
 
   }, [location])
   useEffect(() => {
-    $('.master-dropdown-btn').hover(function () {
-      $('.master-dropdown-content').attr('style', 'display: flex !important');
-    }, function () {
-      $('.master-dropdown-content').attr('style', 'display: none !important');
-    })
-    $('.master-dropdown-content').hover(function () {
-      $('.master-dropdown-content').attr('style', 'display: flex !important');
-    }, function () {
-      $('.master-dropdown-content').attr('style', 'display: none !important');
-    })
+    // $('.master-dropdown-btn').hover(function () {
+    //   $('.master-dropdown-content').attr('style', 'display: flex !important');
+    // }, function () {
+    //   $('.master-dropdown-content').attr('style', 'display: none !important');
+    // })
+    // $('.master-dropdown-content').hover(function () {
+    //   $('.master-dropdown-content').attr('style', 'display: flex !important');
+    // }, function () {
+    //   $('.master-dropdown-content').attr('style', 'display: none !important');
+    // })
     $('.service-dropdown-btn').hover(function () {
       $('.service-dropdown-content').attr('style', 'display: flex !important');
     }, function () {

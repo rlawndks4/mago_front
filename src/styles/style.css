@@ -221,7 +221,7 @@ margin: 18px auto;
 
 .master-dropdown-content{
     position: fixed;
-    display: none;
+    display: flex;
     top:6rem;
     left:0;
     width:100vw;
