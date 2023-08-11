@@ -196,7 +196,7 @@ const Shop = () => {
                                                     </Content>
                                                     <Content>
                                                         <div style={{ fontSize: theme.size.font2_5 }}>{data?.shop?.name}</div>
-                                                        <h1 style={{ fontSize: theme.size.font4, marginTop: '1rem', color: theme.color.font3 }}>{data?.shop?.sub_name}</h1>
+                                                        <h1 style={{ fontSize: theme.size.font3, marginTop: '1rem', color: theme.color.font3 }}>{data?.shop?.sub_name}</h1>
                                                         <Row style={{ alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                                                             <div>{data?.shop?.address}</div>
 
