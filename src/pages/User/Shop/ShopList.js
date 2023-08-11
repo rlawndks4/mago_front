@@ -95,7 +95,7 @@ export const Merchandise = (props) => {
                     <Font3 style={{ margin: '0 auto auto 0' }}>{item?.name}</Font3>
                     <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
                         <Icon icon='mdi:theme-outline' />
-                        <div style={{ marginLeft: '0.5rem' }}>{item?.theme_name}</div>
+                        <h3 style={{ margin:'0 0 0 0.5rem' }}>{item?.theme_name}</h3>
                     </Font5>
                     <Font5 style={{ display: 'flex', alignItems: 'center', margin: 'auto 0' }}>
                         <Icon icon='mdi:home-city-outline' />
