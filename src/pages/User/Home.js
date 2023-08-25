@@ -166,7 +166,9 @@ const Home = () => {
                                         effect="blur"
                                         src={item}
                                         className="banner-img"
-                                        onClick={() => { onClickExternalLink(bannerLinks[idx]) }}
+                                        onClick={() => {
+                                            window.location.href = bannerLinks[idx]
+                                        }}
                                     />
                                 </>
                             ))}
