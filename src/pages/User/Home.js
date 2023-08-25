@@ -109,7 +109,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
 
     const [banners, setBanners] = useState([]);
-    const [bannerLinks, setBannerLinks] = useState({});
+    const [bannerLinks, setBannerLinks] = useState([]);
     const [cityList, setCityList] = useState([])
     const [shopList, setShopList] = useState([])
     const [setting, setSetting] = useState({});
@@ -131,14 +131,17 @@ const Home = () => {
             const { data: response } = await axios.get('/api/gethomecontent')
             setSetting(response?.data?.banner ?? {})
             let banner_list = [];
-            let banner_link_obj = {};
+            let banner_link_list = [];
             for (var i = 1; i <= 5; i++) {
                 if (response?.data?.banner[`home_banner_img_${i}`]) {
                     await banner_list.push(`${backUrl + response?.data?.banner[`home_banner_img_${i}`]}`);
+                    await banner_link_list.push(`${response?.data?.banner[`home_banner_link_${i}`]}`);
+
                 }
             }
             setCityList(response?.data?.city ?? []);
             setBanners(banner_list);
+            setBannerLinks(banner_link_list);
             setShopList(response?.data?.shop ?? []);
             setLoading(false);
         }
@@ -163,7 +166,7 @@ const Home = () => {
                                         effect="blur"
                                         src={item}
                                         className="banner-img"
-                                        onClick={() => { onClickExternalLink(bannerLinks[`home_banner_link_${idx + 1}`]) }}
+                                        onClick={() => { onClickExternalLink(bannerLinks[idx]) }}
                                     />
                                 </>
                             ))}
