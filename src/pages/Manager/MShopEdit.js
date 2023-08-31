@@ -94,6 +94,7 @@ const MShopEdit = () => {
                     $('.city_2').val(response.data.city_2)
                     $('.img_src_alt').val(response.data.img_src_alt)
                     $('.price_img_alt').val(response.data.price_img_alt)
+                    $('.price_img_link').val(response.data.price_img_link)
                     $('.hash').val(response.data.hash)
                     $('.phone').val(response.data.phone)
                     $('.city_pk').val(response.data.city_pk)
@@ -207,6 +208,7 @@ const MShopEdit = () => {
                 city_2: $(`.city_2`).val(),
                 img_src_alt: $(`.img_src_alt`).val(),
                 price_img_alt: $(`.price_img_alt`).val(),
+                price_img_link: $(`.price_img_link`).val(),
                 hash: $(`.hash`).val(),
                 phone: $(`.phone`).val(),
                 city_pk: $(`.city_pk`).val(),
@@ -558,6 +560,12 @@ const MShopEdit = () => {
                     <Col>
                         <Title style={{ margintop: '32px' }}>코스아래이미지 알트내용</Title>
                         <Input className='price_img_alt' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title style={{ margintop: '32px' }}>코스아래이미지 링크</Title>
+                        <Input className='price_img_link' />
                     </Col>
                 </Row>
                 <Title>옵션</Title>
