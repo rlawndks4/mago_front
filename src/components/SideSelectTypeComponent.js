@@ -8,7 +8,7 @@ width:250px;
 margin-right:16px;
 z-index:3;
 position:fixed;
-top: 7rem;
+top: 11rem;
 background:#fff;
 @media screen and (max-width:850px) {
     display:-webkit-box;
