@@ -244,6 +244,7 @@ margin: 18px auto;
     border-top:1px solid #ccc;
     animation: fadein 0.5s;
     width: 150px;
+    z-index: 99;
 }
 .service-dropdown-content  div{
     padding: 8px !important;
