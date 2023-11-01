@@ -32,6 +32,7 @@ import CommunityList from '../pages/User/Community/CommunityList';
 import AddCommunity from '../pages/User/Community/AddCommunity';
 
 const zManagerRoute = [
+    { link: '/', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/login', element: <MLogin />, title: "관리자로그인" },
     { link: '/manager/edit/user/:pk', element: <MUserEdit />, title: "회원관리" },

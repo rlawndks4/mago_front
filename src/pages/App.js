@@ -13,23 +13,6 @@ const App = () => {
     return (
         <>
             <Router>
-                <Headers />
-                <ScrollToTop />
-                <MetaTag />
-                <>
-                    <Routes>
-                        {zUserRoute.map((route, idx) => (
-                            <>
-                                <Route exact key={idx} path={route.link} element={route.element} />
-                            </>
-                        ))}
-                    </Routes>
-                </>
-                <ScrollToTopButton />
-                <BottomMenu />
-                <Footer />
-            </Router>
-            <Router>
                 <ManagerLayout/>
             </Router>
         </>
