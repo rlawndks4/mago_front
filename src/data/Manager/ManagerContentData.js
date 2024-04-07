@@ -155,6 +155,7 @@ export const objManagerListContent = {
             columnObjFormat('업체명', '', 'text', 'name'),
             columnObjFormat('문의자닉네임', '', 'text', 'nickname'),
             columnObjFormat('노출여부', '', 'status', 'status'),
+            columnObjFormat('프리미엄여부', '', 'status', 'is_premium'),
             columnObjFormat('생성일', '', 'text', 'date'),
             columnObjFormat('수정', '', 'edit', 'edit'),
             columnObjFormat('삭제', '', 'delete', 'delete'),
